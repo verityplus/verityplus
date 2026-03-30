@@ -18,9 +18,10 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'robots.txt', 'llms.txt', 'apple-touch-icon.png'],
       manifest: {
-        name: 'VERITY+ - Aplikasi Berita Terpercaya',
+        name: 'VERITY+ - Solusi nyata dunia masa depan',
         short_name: 'VERITY+',
-        description: 'Aplikasi berita terpercaya yang menyediakan informasi terkini dan akurat.',
+        description:
+          'VERITY+ adalah media digital yang menghadirkan informasi sekaligus solusi bagi generasi muda.',
         theme_color: '#ffffff',
         background_color: '#ffffff',
         display: 'standalone',
