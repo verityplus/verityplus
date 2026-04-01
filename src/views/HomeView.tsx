@@ -64,7 +64,7 @@ export default defineComponent({
                 {/* Popular Articles Widget */}
                 <div class="rounded-[var(--radius-xl)] bg-surface border border-border p-5">
                   <div class="section-header">
-                    <span class="section-header-title">Berita Populer</span>
+                    <span class="section-header-title">Bacaan Populer</span>
                   </div>
                   <div class="space-y-5">
                     {store.popular.map((item, index) => (

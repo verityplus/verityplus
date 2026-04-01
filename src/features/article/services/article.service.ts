@@ -78,5 +78,19 @@ export const ArticleService = {
    */
   async getAllAuthors(): Promise<Author[]> {
     return AUTHORS
+  },
+
+  /**
+   * Fetches an author by their unique ID.
+   */
+  async getAuthorById(id: string): Promise<Author | undefined> {
+    return AUTHORS.find((a) => a.id === id)
+  },
+
+  /**
+   * Fetches articles written by a specific author.
+   */
+  async getArticlesByAuthorId(id: string): Promise<Article[]> {
+    return ARTICLES.filter((a) => a.author.id === id)
   }
 }

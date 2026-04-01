@@ -59,6 +59,47 @@ export const useArticleStore = defineStore('articles', () => {
     })).filter((c) => c.count > 0)
   })
 
+  // --- CMS Mutation Actions (Local Session Persistence) ---
+
+  const addArticle = (article: Article) => {
+    articles.value.unshift(article)
+  }
+
+  const updateArticle = (article: Article) => {
+    const idx = articles.value.findIndex(a => a.id === article.id)
+    if (idx !== -1) articles.value[idx] = article
+  }
+
+  const deleteArticle = (id: number) => {
+    articles.value = articles.value.filter(a => a.id !== id)
+  }
+
+  const addCategory = (category: Category) => {
+    categories.value.push(category)
+  }
+
+  const updateCategory = (category: Category) => {
+    const idx = categories.value.findIndex(c => c.id === category.id)
+    if (idx !== -1) categories.value[idx] = category
+  }
+
+  const deleteCategory = (id: string) => {
+    categories.value = categories.value.filter(c => c.id !== id)
+  }
+
+  const addAuthor = (author: Author) => {
+    authors.value.push(author)
+  }
+
+  const updateAuthor = (author: Author) => {
+    const idx = authors.value.findIndex(a => a.id === author.id)
+    if (idx !== -1) authors.value[idx] = author
+  }
+
+  const deleteAuthor = (id: string) => {
+    authors.value = authors.value.filter(a => a.id !== id)
+  }
+
   return {
     articles,
     categories,
@@ -72,5 +113,16 @@ export const useArticleStore = defineStore('articles', () => {
     findBySlug,
     search,
     getCategoryWithCount,
+    findAuthorById: (id: string) => authors.value.find((a) => a.id === id),
+    findArticlesByAuthor: (id: string) => articles.value.filter((a) => a.author.id === id),
+    addArticle,
+    updateArticle,
+    deleteArticle,
+    addCategory,
+    updateCategory,
+    deleteCategory,
+    addAuthor,
+    updateAuthor,
+    deleteAuthor,
   }
 })

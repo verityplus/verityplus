@@ -9,7 +9,7 @@ export interface Author {
   id: string
   name: string
   avatar: string
-  role?: string
+  bio?: string
 }
 
 export interface Category {

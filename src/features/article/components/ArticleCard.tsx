@@ -36,10 +36,11 @@ export const ArticleCard = defineComponent({
     const isHorizontal = props.layout === 'horizontal'
 
     return () => (
-      <article class={['group card h-full', props.class]}>
+      <article class={['group card h-full relative', props.class]}>
+        {/* Main Article Link */}
         <RouterLink 
           to={{ name: 'read', params: { slug: props.article.slug } }}
-          class={['flex h-full', isHorizontal ? 'flex-col md:flex-row' : 'flex-col']}
+          class={['flex h-full no-underline', isHorizontal ? 'flex-col md:flex-row' : 'flex-col']}
         >
           {/* Cover Image Container */}
           <div class={[
@@ -89,29 +90,38 @@ export const ArticleCard = defineComponent({
               {props.article.excerpt}
             </p>
 
-            <div class="mt-auto flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <img 
-                  src={props.article.author.avatar} 
-                  alt={props.article.author.name}
-                  class="h-7 w-7 rounded-full object-cover border border-border"
-                />
-                <div class="flex flex-col">
-                  <span class="text-xs font-bold text-text-secondary">{props.article.author.name}</span>
-                  <div class="flex items-center text-[10px] text-text-muted mt-0.5">
-                    <span>{props.article.publishedAt}</span>
-                    <span class="mx-1">•</span>
-                    <span>{props.article.readTimeMinutes} min read</span>
-                  </div>
-                </div>
-              </div>
-              
-              {!isHorizontal && (
-                <i class="bi bi-arrow-right text-primary group-hover:translate-x-1 transition-transform"></i>
-              )}
+            <div class="mt-auto flex justify-between items-center pt-4">
+               {/* Spacer for author link positioning */}
+               <div class="flex-1"></div>
+               
+               {!isHorizontal && (
+                 <i class="bi bi-arrow-right text-primary group-hover:translate-x-1 transition-transform"></i>
+               )}
             </div>
           </div>
         </RouterLink>
+
+        {/* Absolute Filter for Author Link to avoid nesting RouterLinks */}
+        <div class="absolute bottom-5 left-5 z-10 transition-transform">
+          <RouterLink 
+            to={{ name: 'author', params: { id: props.article.author.id } }}
+            class="flex items-center gap-2 hover:opacity-80 transition group/author"
+          >
+            <img 
+              src={props.article.author.avatar} 
+              alt={props.article.author.name}
+              class="h-7 w-7 rounded-full object-cover border border-border"
+            />
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-text-secondary group-hover/author:text-primary transition-colors">
+                {props.article.author.name}
+              </span>
+              <div class="flex items-center text-[10px] text-text-muted">
+                <span>{props.article.publishedAt}</span>
+              </div>
+            </div>
+          </RouterLink>
+        </div>
       </article>
     )
   },

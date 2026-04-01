@@ -1,5 +1,5 @@
 import { defineComponent, ref, computed, onMounted, onUnmounted, watchEffect } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, RouterLink } from 'vue-router'
 import { marked } from 'marked'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
@@ -137,17 +137,20 @@ export default defineComponent({
                     {article.value.title}
                   </h1>
 
-                  <div class="flex items-center justify-center gap-4 pt-4 max-w-sm mx-auto">
+                  <RouterLink 
+                    to={{ name: 'author', params: { id: article.value.author.id } }}
+                    class="flex items-center justify-center gap-4 pt-4 max-w-sm mx-auto group/author hover:opacity-80 transition"
+                  >
                     <img 
                       src={article.value.author.avatar} 
                       alt={article.value.author.name}
-                      class="w-12 h-12 rounded-full border-2 border-surface shadow-sm object-cover" 
+                      class="w-12 h-12 rounded-full border-2 border-primary/20 shadow-sm object-cover group-hover/author:border-primary transition-colors" 
                     />
                     <div class="text-left">
-                      <p class="text-text-primary font-bold leading-none mb-1">{article.value.author.name}</p>
+                      <p class="text-text-primary font-bold leading-none mb-1 group-hover/author:text-primary transition-colors">{article.value.author.name}</p>
                       <p class="text-text-muted text-sm">{article.value.publishedAt}</p>
                     </div>
-                  </div>
+                  </RouterLink>
                 </div>
               </header>
 
