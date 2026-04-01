@@ -42,26 +42,8 @@ export interface Article {
 
 export type AdSize = 'banner' | 'sidebar' | 'leaderboard' | 'inline'
 
-export interface AdSlot {
-  id: string
-  size: AdSize
-  label?: string
-}
-
 // --- Navigation ---
-
-export interface NavCategory {
-  id: string
-  name: string
-  slug: string
-  color: string
-  bgColor: string
-  borderColor: string
-}
+// (NavCategory removed as it was a duplicate of Category)
 
 // --- Newsletter ---
-
-export interface NewsletterSubscription {
-  email: string
-  subscribedAt?: string
-}
+// (NewsletterSubscription removed as it was unused)

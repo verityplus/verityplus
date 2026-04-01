@@ -65,6 +65,26 @@
 
   /* --- Typography --- */
   --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  /* --- Arbitrary replacements: spacing and sizing --- */
+  --spacing-hero-sm: 25rem; /* 400px */
+  --spacing-hero-lg: 28.125rem; /* 450px */
+  --spacing-sidebar-ad: 31.25rem; /* 500px */
+  --spacing-embed-min: 30rem; /* 480px */
+}
+
+/* --- Reusable Layout Utilities --- */
+.hero-height {
+  height: var(--spacing-hero-sm);
+}
+@media (min-width: 768px) {
+  .hero-height {
+    height: var(--spacing-hero-lg);
+  }
+}
+
+.ad-skyscraper-height {
+  height: var(--spacing-sidebar-ad);
 }
 
 /* --- Scrollbar Utility --- */

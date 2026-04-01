@@ -2,7 +2,7 @@
  * Verity+ Mock Data
  * Centralized data source — will be replaced by API calls later.
  */
-import type { Article, Author, Category } from '@/types'
+import type { Article, Author, Category } from '@/shared/types'
 
 // --- Authors ---
 export const AUTHORS: Author[] = [
@@ -113,7 +113,7 @@ export const ARTICLES: Article[] = [
     coverImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80',
     coverImageCaption: 'Ilustrasi kecerdasan buatan generasi terbaru.',
     category: cat('teknologi'),
-    author: AUTHORS[1],
+    author: AUTHORS[1]!,
     tags: ['AI', 'MachineLearning', 'TechTrends'],
     publishedAt: '1 Apr 2026',
     readTimeMinutes: 8,
@@ -128,7 +128,7 @@ export const ARTICLES: Article[] = [
       'Misi terbaru ke Mars dijadwalkan akan meluncur pada akhir kuartal ini untuk mencari tanda kehidupan purba.',
     coverImage: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80',
     category: cat('sains'),
-    author: AUTHORS[3],
+    author: AUTHORS[3]!,
     tags: ['Space', 'Mars', 'Science'],
     publishedAt: '31 Mar 2026',
     readTimeMinutes: 6,
@@ -142,7 +142,7 @@ export const ARTICLES: Article[] = [
       'Masyarakat mulai beralih ke produk ramah lingkungan secara masif untuk mengurangi jejak karbon global.',
     coverImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80',
     category: cat('gaya-hidup'),
-    author: AUTHORS[2],
+    author: AUTHORS[2]!,
     tags: ['Sustainability', 'EcoFriendly', 'Lifestyle'],
     publishedAt: '30 Mar 2026',
     readTimeMinutes: 5,
@@ -157,7 +157,7 @@ export const ARTICLES: Article[] = [
       'Analisis mendalam mengenai perkembangan terkini di sektor ekonomi yang berdampak pada pasar nasional.',
     coverImage: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80',
     category: cat('ekonomi'),
-    author: AUTHORS[0],
+    author: AUTHORS[0]!,
     tags: ['IHSG', 'Saham', 'Ekonomi'],
     publishedAt: '15 Menit yang lalu',
     readTimeMinutes: 4,
@@ -170,7 +170,7 @@ export const ARTICLES: Article[] = [
       'Analisis mendalam mengenai perkembangan terkini di sektor teknologi yang berdampak pada industri otomotif.',
     coverImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=800&q=80',
     category: cat('teknologi'),
-    author: AUTHORS[1],
+    author: AUTHORS[1]!,
     tags: ['Battery', 'EV', 'Innovation'],
     publishedAt: '1 Jam yang lalu',
     readTimeMinutes: 7,
@@ -183,7 +183,7 @@ export const ARTICLES: Article[] = [
       'Analisis mendalam mengenai perkembangan terkini di sektor gaya hidup yang mengubah industri pariwisata.',
     coverImage: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=80',
     category: cat('gaya-hidup'),
-    author: AUTHORS[2],
+    author: AUTHORS[2]!,
     tags: ['Travel', 'GenZ', 'Lifestyle'],
     publishedAt: '3 Jam yang lalu',
     readTimeMinutes: 5,
@@ -196,7 +196,7 @@ export const ARTICLES: Article[] = [
       'Analisis mendalam mengenai pertandingan terkini dan prediksi tim yang akan menjadi juara.',
     coverImage: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80',
     category: cat('olahraga'),
-    author: AUTHORS[4],
+    author: AUTHORS[4]!,
     tags: ['WorldCup', 'Football', 'Sports'],
     publishedAt: '5 Jam yang lalu',
     readTimeMinutes: 6,
@@ -210,7 +210,7 @@ export const ARTICLES: Article[] = [
       'Pelajari bagaimana mengelola konfigurasi warna, tipografi, dan spacing agar konsisten di seluruh proyek besar.',
     coverImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80',
     category: cat('desain'),
-    author: AUTHORS[1],
+    author: AUTHORS[1]!,
     tags: ['TailwindCSS', 'DesignSystem', 'Frontend'],
     publishedAt: '12 Okt 2026',
     readTimeMinutes: 5,
@@ -223,7 +223,7 @@ export const ARTICLES: Article[] = [
       'Mempercepat proses development dengan Omit, Pick, dan Partial untuk manipulasi interface yang lebih elegan.',
     coverImage: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=600&q=80',
     category: cat('teknologi'),
-    author: AUTHORS[2],
+    author: AUTHORS[2]!,
     tags: ['TypeScript', 'WebDev', 'Tips'],
     publishedAt: '15 Okt 2026',
     readTimeMinutes: 8,
@@ -236,7 +236,7 @@ export const ARTICLES: Article[] = [
       'Vapor mode menjanjikan performa luar biasa tanpa Virtual DOM. Apakah ini masa depan framework frontend?',
     coverImage: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=600&q=80',
     category: cat('teknologi'),
-    author: AUTHORS[3],
+    author: AUTHORS[3]!,
     tags: ['Vue', 'VaporMode', 'Frontend'],
     publishedAt: '18 Okt 2026',
     readTimeMinutes: 6,
@@ -249,7 +249,7 @@ export const ARTICLES: Article[] = [
       'Menggunakan format WebP, Avif, dan teknik lazy loading untuk mendapatkan skor Core Web Vitals yang sempurna.',
     coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
     category: cat('teknologi'),
-    author: AUTHORS[4],
+    author: AUTHORS[4]!,
     tags: ['Performance', 'WebVitals', 'Images'],
     publishedAt: '20 Okt 2026',
     readTimeMinutes: 4,
@@ -262,7 +262,7 @@ export const ARTICLES: Article[] = [
       'Ketahui bagaimana teknologi kecerdasan buatan dapat membantu Anda menciptakan konten yang lebih relevan dan menarik bagi audiens Anda.',
     coverImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80',
     category: cat('bisnis'),
-    author: AUTHORS[0],
+    author: AUTHORS[0]!,
     tags: ['AI', 'Marketing', 'ContentStrategy'],
     publishedAt: '28 Mar 2026',
     readTimeMinutes: 7,
@@ -275,7 +275,7 @@ export const ARTICLES: Article[] = [
       'Panduan lengkap langkah demi langkah untuk membangun profil profesional yang kuat dan menarik peluang kerja impian Anda.',
     coverImage: 'https://images.unsplash.com/photo-1611926653458-09294b3142bf?auto=format&fit=crop&w=800&q=80',
     category: cat('bisnis'),
-    author: AUTHORS[2],
+    author: AUTHORS[2]!,
     tags: ['LinkedIn', 'PersonalBranding', 'Career'],
     publishedAt: '25 Mar 2026',
     readTimeMinutes: 6,
@@ -288,7 +288,7 @@ export const ARTICLES: Article[] = [
       'Eksplorasi tren desain grafis tahun ini yang kembali mengusung kesederhanaan namun tetap memberikan dampak visual yang maksimal.',
     coverImage: 'https://images.unsplash.com/photo-1550745165-9bc0b252729f?auto=format&fit=crop&w=800&q=80',
     category: cat('desain'),
-    author: AUTHORS[1],
+    author: AUTHORS[1]!,
     tags: ['Minimalism', 'GraphicDesign', 'Trends'],
     publishedAt: '20 Mar 2026',
     readTimeMinutes: 5,
@@ -303,7 +303,7 @@ export const ARTICLES: Article[] = [
     coverImage: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=1200&q=80',
     coverImageCaption: 'Ilustrasi proses desain interface modern.',
     category: cat('desain'),
-    author: AUTHORS[0],
+    author: AUTHORS[0]!,
     tags: ['WebDesign', 'UIUX', 'History', 'TechTrends'],
     publishedAt: '15 Apr 2026',
     readTimeMinutes: 10,
@@ -326,23 +326,4 @@ Evolusi ini membuktikan bahwa adaptasi adalah kunci utama dalam dunia teknologi.
 ]
 
 // --- Computed Helpers ---
-
-export const getFeaturedArticles = () => ARTICLES.filter((a) => a.isFeatured)
-
-export const getLatestArticles = (count = 4) =>
-  ARTICLES.filter((a) => !a.isFeatured).slice(0, count)
-
-export const getPopularArticles = (count = 3) =>
-  ARTICLES.filter((a) => a.isPopular || a.isFeatured).slice(0, count)
-
-export const getArticlesByCategory = (categorySlug: string) =>
-  ARTICLES.filter((a) => a.category.slug === categorySlug)
-
-export const getArticleBySlug = (slug: string) =>
-  ARTICLES.find((a) => a.slug === slug)
-
-export const getGridArticles = (count = 4) =>
-  ARTICLES.filter((a) => !a.isFeatured).slice(0, count)
-
-export const getCategoryArticleCount = (categorySlug: string) =>
-  ARTICLES.filter((a) => a.category.slug === categorySlug).length
+// Removed redundant functions here as they are moved to ArticleService.
