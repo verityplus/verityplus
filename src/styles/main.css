@@ -1,10 +1,274 @@
 @import 'tailwindcss';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
+/*
+ * Verity+ Design System
+ * Consistent color tokens, typography, and component styles.
+ *
+ * Color naming: primary, secondary, background, surface
+ * as requested by the design spec.
+ */
+
+@theme {
+  /* --- Primary: brand blue used for CTAs, links, accents --- */
+  --color-primary-50: oklch(0.97 0.02 250);
+  --color-primary-100: oklch(0.93 0.04 250);
+  --color-primary-200: oklch(0.86 0.08 250);
+  --color-primary-300: oklch(0.76 0.12 250);
+  --color-primary-400: oklch(0.65 0.17 250);
+  --color-primary: oklch(0.55 0.2 250);
+  --color-primary-600: oklch(0.48 0.2 250);
+  --color-primary-700: oklch(0.4 0.18 250);
+
+  /* --- Secondary: warm accent for badges, highlights --- */
+  --color-secondary-50: oklch(0.97 0.02 80);
+  --color-secondary-100: oklch(0.94 0.05 80);
+  --color-secondary-200: oklch(0.88 0.1 80);
+  --color-secondary: oklch(0.78 0.15 80);
+  --color-secondary-600: oklch(0.65 0.15 80);
+  --color-secondary-700: oklch(0.55 0.13 80);
+
+  /* --- Background: page-level backgrounds --- */
+  --color-background: oklch(0.985 0.002 260);
+  --color-background-alt: oklch(0.97 0.004 260);
+
+  /* --- Surface: card/component backgrounds --- */
+  --color-surface: oklch(1 0 0);
+  --color-surface-hover: oklch(0.975 0.004 260);
+  --color-surface-active: oklch(0.96 0.006 260);
+  --color-surface-muted: oklch(0.95 0.005 260);
+
+  /* --- Text: readable contrast hierarchy --- */
+  --color-text-primary: oklch(0.15 0.01 260);
+  --color-text-secondary: oklch(0.4 0.01 260);
+  --color-text-muted: oklch(0.55 0.01 260);
+  --color-text-inverse: oklch(0.98 0 0);
+
+  /* --- Border --- */
+  --color-border: oklch(0.91 0.005 260);
+  --color-border-hover: oklch(0.85 0.01 260);
+
+  /* --- Container max widths --- */
+  --container-content: 80rem;
+
+  /* --- Shadows --- */
+  --shadow-card: 0 1px 3px oklch(0 0 0 / 0.04), 0 1px 2px oklch(0 0 0 / 0.06);
+  --shadow-card-hover: 0 10px 25px oklch(0 0 0 / 0.08), 0 4px 10px oklch(0 0 0 / 0.04);
+  --shadow-elevated: 0 20px 40px oklch(0 0 0 / 0.1), 0 8px 16px oklch(0 0 0 / 0.06);
+
+  /* --- Border Radius Scale --- */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+
+  /* --- Typography --- */
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* --- Scrollbar Utility --- */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* --- Page Container --- */
+.container-page {
+  width: 100%;
+  max-width: var(--container-content);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-page {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-page {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* --- Category Badge --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 9999px;
+  line-height: 1.5;
+}
+
+/* --- Section Header --- */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-header::before {
+  content: '';
+  display: block;
+  width: 0.25rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.section-header-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+/* --- Article Card Shared --- */
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+/* --- Button Variants --- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1.5rem;
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--radius-lg);
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-600);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1.5rem;
+  background-color: transparent;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--color-primary);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background-color: var(--color-primary-50);
+}
+
+/* --- Markdown Body for ReadView --- */
+.markdown-body :deep(h1) {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.markdown-body :deep(h2) {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body :deep(h3) {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdown-body :deep(p) {
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+.markdown-body :deep(ul) {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.markdown-body :deep(ul) :deep(li) {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-body :deep(ol) {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.markdown-body :deep(ol) :deep(li) {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-body :deep(blockquote) {
+  border-left: 4px solid var(--color-primary);
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  background-color: var(--color-surface-muted);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.markdown-body :deep(strong) {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.markdown-body :deep(code) {
+  background-color: var(--color-surface-muted);
+  color: var(--color-secondary-700);
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.markdown-body :deep(hr) {
+  border-color: var(--color-border);
+  margin: 2.5rem 0;
 }

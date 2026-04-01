@@ -2,45 +2,48 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(_to, _from, savedPosition) {
+    return savedPosition || { top: 0 }
+  },
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'home',
       component: () => import('../views/HomeView.vue'),
     },
     {
       path: '/about-us',
-      name: 'About Us',
+      name: 'about-us',
       component: () => import('../views/AboutUsView.vue'),
     },
     {
       path: '/contact',
-      name: 'Contact',
+      name: 'contact',
       component: () => import('../views/ContactView.vue'),
     },
     {
       path: '/advertise',
-      name: 'Advertise',
+      name: 'advertise',
       component: () => import('../views/AdvertiseView.vue'),
     },
     {
       path: '/privacy-policy',
-      name: 'Privacy Policy',
+      name: 'privacy-policy',
       component: () => import('../views/PrivacyPolicyView.vue'),
     },
     {
       path: '/terms-and-conditions',
-      name: 'Terms and Conditions',
+      name: 'terms-and-conditions',
       component: () => import('../views/TermsAndConditionsView.vue'),
     },
     {
       path: '/search',
-      name: 'Search',
+      name: 'search',
       component: () => import('../views/SearchView.vue'),
     },
     {
-      path: '/read',
-      name: 'Read',
+      path: '/read/:slug',
+      name: 'read',
       component: () => import('../views/ReadView.vue'),
     },
   ],

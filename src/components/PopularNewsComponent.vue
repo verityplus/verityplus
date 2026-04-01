@@ -1,24 +1,32 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { useArticleStore } from '@/stores/articleStore'
 
-const popularNews = ref([
-  { id: '01', title: 'Langkah Strategis BI Menghadapi Volatilitas Pasar Global' },
-  { id: '02', title: 'Review Laptop Terbaru 2026: Performa AI yang Menakjubkan' },
-  { id: '03', title: '5 Destinasi Hidden Gem di Indonesia untuk Liburan' }
-]);
+const store = useArticleStore()
+const popularNews = store.popular
 </script>
+
 <template>
-  <div class="rounded-md bg-white outline-1 p-4">
-    <div class="flex items-center gap-2 mb-4">
-      <div class="w-1 h-6 bg-primary rounded-full"></div>
-      <span class="text-lg font-black uppercase italic">Populer</span>
+  <div class="rounded-[var(--radius-xl)] bg-surface border border-border p-5">
+    <div class="section-header">
+      <span class="section-header-title">Populer</span>
     </div>
-    <div class="space-y-6">
-      <div v-for="item in popularNews" :key="item.id" class="flex gap-4 group cursor-pointer">
-        <span class="text-3xl font-black text-surface-200 group-hover:text-primary transition italic leading-none">{{
-          item.id }}</span>
-        <h4 class="text-sm font-bold leading-snug group-hover:underline">{{ item.title }}</h4>
-      </div>
+    <div class="space-y-5">
+      <RouterLink
+        v-for="(item, index) in popularNews"
+        :key="item.id"
+        :to="{ name: 'read', params: { slug: item.slug } }"
+        class="flex gap-4 group cursor-pointer"
+      >
+        <span class="text-3xl font-black text-surface-muted group-hover:text-primary transition leading-none tabular-nums">
+          {{ String(index + 1).padStart(2, '0') }}
+        </span>
+        <div class="flex-1 min-w-0">
+          <h4 class="text-sm font-bold leading-snug text-text-primary group-hover:text-primary transition line-clamp-2">
+            {{ item.title }}
+          </h4>
+          <span class="text-xs text-text-muted mt-1 block">{{ item.readTimeMinutes }} min</span>
+        </div>
+      </RouterLink>
     </div>
   </div>
 </template>

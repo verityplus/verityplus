@@ -1,89 +1,107 @@
 <template>
-  <section class="bg-white py-12 px-6 sm:py-20 font-sans">
-    <div class="max-w-7xl mx-auto">
+  <section class="bg-background min-h-screen py-12">
+    <div class="container-page">
 
-      <div class="mb-12 border-b border-gray-100 pb-10">
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
+      <!-- Search Header -->
+      <div class="mb-12 border-b border-border pb-10">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-text-primary mb-4">
           Hasil Pencarian
         </h1>
-        <p class="text-lg text-gray-600 mb-6">
-          Menampilkan hasil untuk: <span class="font-bold text-blue-600">"{{ searchQuery }}"</span>
+        <p class="text-lg text-text-secondary mb-6">
+          Menampilkan hasil untuk: <span class="font-bold text-primary">"{{ searchQuery }}"</span>
         </p>
 
         <div class="max-w-2xl relative">
-          <input v-model="searchQuery" type="text" placeholder="Cari artikel lainnya..."
-            class="w-full pl-12 pr-4 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition duration-300" />
-          <svg class="w-6 h-6 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+          <input
+            v-model="searchQuery"
+            type="text"
+            placeholder="Cari artikel lainnya..."
+            class="w-full pl-12 pr-4 py-4 rounded-[var(--radius-xl)] bg-surface border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition duration-300 text-text-primary"
+          />
+          <i class="bi bi-search text-text-muted absolute left-4 top-1/2 -translate-y-1/2 text-lg"></i>
         </div>
       </div>
 
       <div class="flex flex-col lg:flex-row gap-12">
-        <div class="flex-grow space-y-8">
-
-          <article v-for="article in articles" :key="article.id"
-            class="group flex flex-col md:flex-row gap-6 p-4 rounded-3xl hover:bg-gray-50 transition duration-300 border border-transparent hover:border-gray-100">
-            <div class="w-full md:w-64 h-44 flex-shrink-0 overflow-hidden rounded-2xl shadow-sm bg-gray-200">
-              <img :src="article.image" :alt="article.title"
-                class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-            </div>
-
-            <div class="flex flex-col justify-center">
-              <div class="flex items-center gap-3 mb-2 text-sm">
-                <span
-                  class="px-3 py-1 bg-blue-100 text-blue-600 font-bold rounded-full uppercase text-[10px] tracking-widest">
-                  {{ article.category }}
-                </span>
-                <span class="text-gray-400">{{ article.date }}</span>
+        <!-- Results -->
+        <div class="flex-grow space-y-6">
+          <article
+            v-for="article in results"
+            :key="article.id"
+            class="group"
+          >
+            <RouterLink
+              :to="{ name: 'read', params: { slug: article.slug } }"
+              class="flex flex-col md:flex-row gap-6 p-4 rounded-[var(--radius-xl)] hover:bg-surface-hover transition duration-300 border border-transparent hover:border-border"
+            >
+              <div class="w-full md:w-64 h-44 flex-shrink-0 overflow-hidden rounded-[var(--radius-lg)] bg-surface-muted">
+                <img
+                  :src="article.coverImage"
+                  :alt="article.title"
+                  class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                />
               </div>
-              <h2 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
-                <a href="#">{{ article.title }}</a>
-              </h2>
-              <p class="text-gray-600 line-clamp-2 mb-4 text-sm leading-relaxed">
-                {{ article.excerpt }}
-              </p>
-              <div
-                class="flex items-center gap-2 text-xs font-bold text-gray-900 uppercase tracking-tighter cursor-pointer group/link">
-                Baca Selengkapnya
-                <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none"
-                  stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3">
-                  </path>
-                </svg>
+
+              <div class="flex flex-col justify-center">
+                <div class="flex items-center gap-3 mb-2 text-sm">
+                  <span :class="['badge', article.category.bgColor, article.category.color]">
+                    {{ article.category.name }}
+                  </span>
+                  <span class="text-text-muted">{{ article.publishedAt }}</span>
+                </div>
+                <h2 class="text-xl font-bold text-text-primary mb-2 group-hover:text-primary transition">
+                  {{ article.title }}
+                </h2>
+                <p class="text-text-secondary line-clamp-2 mb-4 text-sm leading-relaxed">
+                  {{ article.excerpt }}
+                </p>
+                <div class="flex items-center gap-2 text-xs font-bold text-text-primary uppercase tracking-wide group/link">
+                  Baca Selengkapnya
+                  <i class="bi bi-arrow-right group-hover/link:translate-x-1 transition-transform"></i>
+                </div>
               </div>
-            </div>
+            </RouterLink>
           </article>
 
-          <div v-if="articles.length === 0" class="text-center py-20">
-            <p class="text-gray-500">Tidak ada artikel yang ditemukan.</p>
+          <div v-if="results.length === 0" class="text-center py-20">
+            <i class="bi bi-search text-4xl text-text-muted mb-4 block"></i>
+            <p class="text-text-muted text-lg">Tidak ada artikel yang ditemukan.</p>
+            <p class="text-text-muted text-sm mt-2">Coba kata kunci lain.</p>
           </div>
         </div>
 
-        <aside class="w-full lg:w-80 space-y-10">
+        <!-- Sidebar -->
+        <aside class="w-full lg:w-80 space-y-8">
+          <!-- Categories -->
           <div>
-            <h3 class="text-lg font-bold text-gray-900 mb-6 border-l-4 border-blue-600 pl-4">Kategori</h3>
-            <ul class="space-y-2">
-              <li v-for="cat in categories" :key="cat.name"
-                class="flex justify-between items-center p-3 rounded-xl hover:bg-blue-50 transition cursor-pointer group">
-                <span class="text-gray-700 font-medium group-hover:text-blue-600">{{ cat.name }}</span>
-                <span class="text-xs font-bold bg-gray-100 px-2 py-1 rounded-lg text-gray-500">{{ cat.count }}</span>
+            <div class="section-header">
+              <span class="section-header-title">Kategori</span>
+            </div>
+            <ul class="space-y-1">
+              <li
+                v-for="cat in categoriesWithCount"
+                :key="cat.category.id"
+                class="flex justify-between items-center p-3 rounded-[var(--radius-lg)] hover:bg-surface-hover transition cursor-pointer group"
+              >
+                <span class="text-text-secondary font-medium group-hover:text-primary transition">{{ cat.category.name }}</span>
+                <span class="text-xs font-bold bg-surface-muted px-2.5 py-1 rounded-[var(--radius-md)] text-text-muted">{{ cat.count }}</span>
               </li>
             </ul>
           </div>
 
-          <div class="bg-gray-900 p-8 rounded-3xl text-white relative overflow-hidden">
+          <!-- Newsletter CTA -->
+          <div class="bg-text-primary p-8 rounded-[var(--radius-xl)] text-text-inverse relative overflow-hidden">
             <div class="relative z-10">
               <h3 class="text-xl font-bold mb-3">Newsletter</h3>
-              <p class="text-gray-400 text-sm mb-6">Dapatkan update mingguan langsung di inbox Anda.</p>
-              <input type="email" placeholder="Email Anda"
-                class="w-full px-4 py-3 rounded-xl bg-gray-800 border-none text-white focus:ring-2 focus:ring-blue-500 mb-3 outline-none transition" />
-              <button
-                class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition">Gabung</button>
+              <p class="text-white/50 text-sm mb-6">Dapatkan update mingguan langsung di inbox Anda.</p>
+              <input
+                type="email"
+                placeholder="Email Anda"
+                class="w-full px-4 py-3 rounded-[var(--radius-lg)] bg-white/10 border-none text-white focus:ring-2 focus:ring-primary mb-3 outline-none transition placeholder-white/40 text-sm"
+              />
+              <button class="btn-primary w-full">Gabung</button>
             </div>
-            <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-600/20 rounded-full blur-3xl"></div>
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
           </div>
         </aside>
       </div>
@@ -92,42 +110,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { useArticleStore } from '@/stores/articleStore'
 
-// Variabel Reaktif
-const searchQuery = ref('Strategi Digital Marketing 2026');
+const route = useRoute()
+const store = useArticleStore()
 
-const articles = ref([
-  {
-    id: 1,
-    title: 'Cara Menggunakan AI untuk Konten Marketing',
-    excerpt: 'Ketahui bagaimana teknologi kecerdasan buatan dapat membantu Anda menciptakan konten yang lebih relevan dan menarik bagi audiens Anda.',
-    category: 'Teknologi',
-    date: '28 Mar 2026',
-    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 2,
-    title: 'Membangun Branding Personal di LinkedIn',
-    excerpt: 'Panduan lengkap langkah demi langkah untuk membangun profil profesional yang kuat dan menarik peluang kerja impian Anda.',
-    category: 'Bisnis',
-    date: '25 Mar 2026',
-    image: 'https://images.unsplash.com/photo-1611926653458-09294b3142bf?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 3,
-    title: 'Desain Minimalis: Mengapa Less is More?',
-    excerpt: 'Eksplorasi tren desain grafis tahun ini yang kembali mengusung kesederhanaan namun tetap memberikan dampak visual yang maksimal.',
-    category: 'Desain',
-    date: '20 Mar 2026',
-    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252729f?auto=format&fit=crop&w=800&q=80'
+const searchQuery = ref((route.query.q as string) || '')
+
+// Reactive search results from store
+const results = computed(() => {
+  if (!searchQuery.value.trim()) return store.articles
+  return store.search(searchQuery.value)
+})
+
+const categoriesWithCount = computed(() => store.getCategoryWithCount())
+
+// Sync query param to search
+watch(() => route.query.q, (newQ) => {
+  if (newQ && typeof newQ === 'string') {
+    searchQuery.value = newQ
   }
-]);
-
-const categories = ref([
-  { name: 'Teknologi', count: 12 },
-  { name: 'Bisnis', count: 8 },
-  { name: 'Desain', count: 5 },
-  { name: 'Lifestyle', count: 15 }
-]);
+})
 </script>
