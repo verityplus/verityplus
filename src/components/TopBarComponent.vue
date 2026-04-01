@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseInput from './BaseInputComponent.vue';
+import SearchInputComponent from './SearchInputComponent.vue';
 import LogoDisplayComponent from './LogoDisplayComponent.vue';
 import AdDisplayComponent from './AdDisplayComponent.vue';
 import { RouterLink } from 'vue-router';
@@ -17,11 +17,11 @@ import { RouterLink } from 'vue-router';
         </RouterLink>
       </div>
       <div class="flex gap-4 items-center">
-        <BaseInput placeholder="Cari artikel...">
+        <SearchInputComponent placeholder="Cari artikel...">
           <template #end-icon>
             <i class="bi bi-search"></i>
           </template>
-        </BaseInput>
+        </SearchInputComponent>
       </div>
     </div>
   </div>
