@@ -118,7 +118,7 @@ export default defineComponent({
             </div>
           </div>
 
-          <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col xl:flex-row gap-8 pt-8 pb-24">
+          <div class="mx-auto px-4 sm:px-6 lg:px-8 flex flex-col xl:flex-row gap-8 pt-8 pb-24">
             {/* Left Sidebar Ad (Slim Skyscraper) */}
             <aside class="w-full xl:w-48 shrink-0 order-1">
               <div class="sticky top-20">

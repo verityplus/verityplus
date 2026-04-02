@@ -96,38 +96,13 @@ export const ArticleCard = defineComponent({
               {props.article.excerpt}
             </p>
 
-            <div class="mt-auto flex justify-between items-center pt-4">
-              {/* Spacer for author link positioning */}
-              <div class="flex-1"></div>
-
+            <div class="mt-auto flex justify-end items-center pt-4">
               {!isHorizontal && (
                 <i class="bi bi-arrow-right text-primary group-hover:translate-x-1 transition-transform"></i>
               )}
             </div>
           </div>
         </RouterLink>
-
-        {/* Absolute Filter for Author Link to avoid nesting RouterLinks */}
-        <div class="absolute bottom-5 left-5 z-10 transition-transform">
-          <RouterLink
-            to={{ name: 'author', params: { id: props.article.author.id } }}
-            class="flex items-center gap-2 hover:opacity-80 transition group/author"
-          >
-            <img
-              src={props.article.author.avatar}
-              alt={props.article.author.name}
-              class="h-7 w-7 rounded-full object-cover border border-border"
-            />
-            <div class="flex flex-col">
-              <span class="text-xs font-bold text-text-secondary group-hover/author:text-primary transition-colors">
-                {props.article.author.name}
-              </span>
-              <div class="flex items-center text-[10px] text-text-muted">
-                <span>{props.article.publishedAt}</span>
-              </div>
-            </div>
-          </RouterLink>
-        </div>
       </article>
     )
   },
