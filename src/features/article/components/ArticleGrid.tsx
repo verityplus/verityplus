@@ -13,7 +13,9 @@ export const ArticleGrid = defineComponent({
     const store = useArticleStore()
     const activeCategory = ref('all')
 
-    const nonFeaturedArticles = computed(() => store.articles.filter((a: Article) => !a.isFeatured))
+    const nonFeaturedArticles = computed(() =>
+      store.articles.filter((a: Article) => a.status !== 'featured'),
+    )
 
     const filteredArticles = computed(() => {
       const articles =

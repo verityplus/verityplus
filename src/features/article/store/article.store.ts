@@ -47,10 +47,10 @@ export const useArticleStore = defineStore('articles', () => {
   // --- Computed Getters ---
 
   /** Featured articles for the headline carousel */
-  const featured = computed(() => articles.value.filter((a) => a.isFeatured))
+  const featured = computed(() => articles.value.filter((a) => a.status === 'featured'))
 
   /** Non-featured articles for pagination */
-  const nonFeaturedArticles = computed(() => articles.value.filter((a) => !a.isFeatured))
+  const nonFeaturedArticles = computed(() => articles.value.filter((a) => a.status !== 'featured'))
 
   /** Paginated latest articles excluding featured ones */
   const latest = computed(() => {
@@ -64,9 +64,7 @@ export const useArticleStore = defineStore('articles', () => {
   )
 
   /** Popular articles (featured or marked as popular) */
-  const popular = computed(() =>
-    articles.value.filter((a) => a.isPopular || a.isFeatured).slice(0, 5),
-  )
+  const popular = computed(() => articles.value.filter((a) => a.status === 'featured').slice(0, 5))
 
   /** Paginated articles for grid display, excluding featured */
   const paginatedGridArticles = computed(() => {

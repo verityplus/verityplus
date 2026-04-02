@@ -3,6 +3,8 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
+import type { ArticleStatus } from '@/shared/types'
+import { ARTICLE_STATUS_LABELS } from '@/shared/types'
 
 /**
  * CMS View: ArticleListView
@@ -27,6 +29,13 @@ export default defineComponent({
       if (confirm('Are you sure you want to delete this article? This action cannot be undone.')) {
         cmsContentStore.deleteArticle(id)
       }
+    }
+
+    const statusColors: Record<ArticleStatus, { bg: string; text: string; icon: string }> = {
+      draft: { bg: 'bg-slate-100', text: 'text-slate-600', icon: 'bi-file-earmark' },
+      published: { bg: 'bg-emerald-100', text: 'text-emerald-600', icon: 'bi-broadcast' },
+      archived: { bg: 'bg-amber-100', text: 'text-amber-600', icon: 'bi-archive' },
+      featured: { bg: 'bg-violet-100', text: 'text-violet-600', icon: 'bi-star-fill' },
     }
 
     return () => (
@@ -74,71 +83,67 @@ export default defineComponent({
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100 font-medium text-sm">
-                {filteredArticles.value.map((article) => (
-                  <tr key={article.id} class="hover:bg-slate-50/50 transition group">
-                    <td class="px-6 py-5">
-                      <div class="flex items-center gap-3">
-                        <img
-                          src={article.coverImage}
-                          class="w-10 h-10 rounded-lg object-cover shadow-sm bg-slate-100"
-                        />
-                        <div class="flex flex-col">
-                          <span class="text-slate-900 font-bold leading-tight group-hover:text-primary transition">
-                            {article.title}
-                          </span>
-                          <span class="text-[10px] text-slate-400 mt-0.5">
-                            By {article.author.name}
-                          </span>
+                {filteredArticles.value.map((article) => {
+                  const statusConfig = statusColors[article.status] || statusColors.draft
+                  return (
+                    <tr key={article.id} class="hover:bg-slate-50/50 transition group">
+                      <td class="px-6 py-5">
+                        <div class="flex items-center gap-3">
+                          <img
+                            src={article.coverImage}
+                            class="w-10 h-10 rounded-lg object-cover shadow-sm bg-slate-100"
+                          />
+                          <div class="flex flex-col">
+                            <span class="text-slate-900 font-bold leading-tight group-hover:text-primary transition">
+                              {article.title}
+                            </span>
+                            <span class="text-[10px] text-slate-400 mt-0.5">
+                              By {article.author.name}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td class="px-6 py-5">
-                      <BaseBadge
-                        bgColor={article.category.bgColor}
-                        textColor={article.category.color}
-                        class="text-[10px]"
-                      >
-                        {article.category.name}
-                      </BaseBadge>
-                    </td>
-                    <td class="px-6 py-5">
-                      {article.isFeatured ? (
-                        <span class="flex items-center gap-1.5 text-amber-600">
-                          <i class="bi bi-star-fill text-[10px]" />
+                      </td>
+                      <td class="px-6 py-5">
+                        <BaseBadge
+                          bgColor={article.category.bgColor}
+                          textColor={article.category.color}
+                          class="text-[10px]"
+                        >
+                          {article.category.name}
+                        </BaseBadge>
+                      </td>
+                      <td class="px-6 py-5">
+                        <span
+                          class={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full ${statusConfig.bg} ${statusConfig.text}`}
+                        >
+                          <i class={`bi ${statusConfig.icon} text-[10px]`} />
                           <span class="text-[10px] font-black uppercase tracking-wider">
-                            Featured
+                            {ARTICLE_STATUS_LABELS[article.status]}
                           </span>
                         </span>
-                      ) : (
-                        <span class="flex items-center gap-1.5 text-emerald-600">
-                          <i class="bi bi-broadcast text-[10px]" />
-                          <span class="text-[10px] font-black uppercase tracking-wider">
-                            Published
-                          </span>
-                        </span>
-                      )}
-                    </td>
-                    <td class="px-6 py-5 text-slate-400 text-xs uppercase tracking-tighter">
-                      {article.publishedAt}
-                    </td>
-                    <td class="px-6 py-5 text-right">
-                      <div class="flex items-center justify-end gap-2 translate-x-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition duration-300">
-                        <router-link
-                          to={`/cms/articles/${article.slug}/edit`}
-                          class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition cursor-pointer"
-                        >
-                          <i class="bi bi-pencil-square" title="Edit Article" />
-                        </router-link>
-                        <button
-                          onClick={() => deleteArticle(article.id)}
-                          class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-600 hover:text-white transition cursor-pointer border-none"
-                        >
-                          <i class="bi bi-trash" title="Delete Article" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td class="px-6 py-5 text-slate-400 text-xs uppercase tracking-tighter">
+                        {article.publishedAt}
+                      </td>
+                      <td class="px-6 py-5 text-right">
+                        <div class="flex items-center justify-end gap-2 translate-x-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition duration-300">
+                          <router-link
+                            to={`/cms/articles/${article.slug}/edit`}
+                            class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition cursor-pointer"
+                          >
+                            <i class="bi bi-pencil-square" title="Edit Article" />
+                          </router-link>
+                          <button
+                            onClick={() => deleteArticle(article.id)}
+                            class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-600 hover:text-white transition cursor-pointer border-none"
+                          >
+                            <i class="bi bi-trash" title="Delete Article" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
 

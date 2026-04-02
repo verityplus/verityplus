@@ -35,8 +35,7 @@ export interface Article {
   tags: string[]
   publishedAt: string // ISO date string for display
   readTimeMinutes: number
-  isFeatured?: boolean
-  isPopular?: boolean
+  status: ArticleStatus // Article publication status
 }
 
 // --- Ad Models ---
@@ -44,6 +43,16 @@ export interface Article {
 export type AdSize = 'banner' | 'sidebar' | 'leaderboard' | 'inline'
 
 // --- CMS Models ---
+
+/** Article publication status */
+export type ArticleStatus = 'draft' | 'published' | 'archived' | 'featured'
+
+export const ARTICLE_STATUS_LABELS: AppRecord<ArticleStatus, string> = {
+  draft: 'Draft',
+  published: 'Published',
+  archived: 'Archived',
+  featured: 'Featured',
+}
 
 export interface CMSUser {
   id: string
