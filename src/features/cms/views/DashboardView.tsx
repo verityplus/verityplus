@@ -1,4 +1,5 @@
 import { defineComponent, computed } from 'vue'
+import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSStore } from '../store/cms.store'
 
@@ -11,6 +12,10 @@ export default defineComponent({
   setup() {
     const articleStore = useArticleStore()
     const cmsStore = useCMSStore()
+
+    useHead({
+      title: 'Dashboard — CMS Verity+',
+    })
 
     const stats = computed(() => [
       {

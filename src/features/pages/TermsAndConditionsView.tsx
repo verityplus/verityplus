@@ -1,4 +1,5 @@
 import { defineComponent } from 'vue'
+import { useHead } from '@/composables/useHead'
 import { BaseButton } from '@/components/ui/Button'
 
 /**
@@ -7,6 +8,11 @@ import { BaseButton } from '@/components/ui/Button'
 export default defineComponent({
   name: 'TermsAndConditionsView',
   setup() {
+    useHead({
+      title: 'Syarat dan Ketentuan — Verity+',
+      meta: [{ name: 'description', content: 'Syarat dan ketentuan penggunaan platform Verity+.' }],
+    })
+
     const sections = [
       {
         title: 'Penerimaan Ketentuan',
@@ -14,7 +20,8 @@ export default defineComponent({
       },
       {
         title: 'Akun Pengguna',
-        intro: 'Untuk mengakses fitur tertentu, Anda mungkin diminta untuk membuat akun. Anda bertanggung jawab penuh atas:',
+        intro:
+          'Untuk mengakses fitur tertentu, Anda mungkin diminta untuk membuat akun. Anda bertanggung jawab penuh atas:',
         items: [
           'Menjaga kerahasiaan kata sandi dan informasi akun Anda.',
           'Semua aktivitas yang terjadi di bawah akun Anda.',
@@ -27,7 +34,8 @@ export default defineComponent({
       },
       {
         title: 'Batasan Tanggung Jawab',
-        quote: '"Kami menyediakan layanan ini \'sebagaimana adanya\' tanpa jaminan apa pun. Kami tidak bertanggung jawab atas kerugian langsung, tidak langsung, atau konsekuensial yang timbul dari penggunaan atau ketidakmampuan Anda dalam menggunakan layanan kami."',
+        quote:
+          '"Kami menyediakan layanan ini \'sebagaimana adanya\' tanpa jaminan apa pun. Kami tidak bertanggung jawab atas kerugian langsung, tidak langsung, atau konsekuensial yang timbul dari penggunaan atau ketidakmampuan Anda dalam menggunakan layanan kami."',
       },
       {
         title: 'Perubahan Ketentuan',
@@ -43,7 +51,8 @@ export default defineComponent({
               Syarat dan Ketentuan
             </h1>
             <p class="text-text-secondary leading-relaxed">
-              Selamat datang di platform kami. Harap baca dokumen ini dengan seksama sebelum menggunakan layanan kami.
+              Selamat datang di platform kami. Harap baca dokumen ini dengan seksama sebelum
+              menggunakan layanan kami.
             </p>
             <p class="text-xs text-text-muted mt-4 uppercase tracking-widest font-bold">
               Versi 1.2 — Pembaruan Terakhir: 30 Maret 2026
@@ -64,7 +73,9 @@ export default defineComponent({
                   <>
                     {section.intro && <p class="mb-3">{section.intro}</p>}
                     <ul class="list-disc pl-8 space-y-2 marker:text-primary">
-                      {section.items.map(item => <li key={item}>{item}</li>)}
+                      {section.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
                     </ul>
                   </>
                 )}
@@ -78,12 +89,11 @@ export default defineComponent({
 
             <div class="pt-10 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-6">
               <p class="text-sm text-text-muted text-center sm:text-left leading-relaxed">
-                Ada pertanyaan atau butuh klarifikasi mengenai dokumen ini?<br/>
+                Ada pertanyaan atau butuh klarifikasi mengenai dokumen ini?
+                <br />
                 Tim hukum kami siap membantu Anda.
               </p>
-              <BaseButton class="px-8 shadow-lg shadow-primary/20">
-                Hubungi Tim Legal
-              </BaseButton>
+              <BaseButton class="px-8 shadow-lg shadow-primary/20">Hubungi Tim Legal</BaseButton>
             </div>
           </div>
         </div>

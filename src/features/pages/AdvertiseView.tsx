@@ -1,4 +1,5 @@
 import { defineComponent } from 'vue'
+import { useHead } from '@/composables/useHead'
 import { BaseButton } from '@/components/ui/Button'
 
 /**
@@ -7,6 +8,16 @@ import { BaseButton } from '@/components/ui/Button'
 export default defineComponent({
   name: 'AdvertiseView',
   setup() {
+    useHead({
+      title: 'Iklan & Kerjasama — Verity+',
+      meta: [
+        {
+          name: 'description',
+          content: 'Tingkatkan visibilitas brand Anda dengan beriklan di platform Verity+.',
+        },
+      ],
+    })
+
     const stats = [
       { value: '500K+', label: 'Monthly Views' },
       { value: '120K+', label: 'Active Users' },
@@ -68,31 +79,33 @@ export default defineComponent({
               Jangkau Audiens yang Tepat Bersama Kami
             </h1>
             <p class="text-lg text-text-secondary">
-              Tingkatkan visibilitas brand Anda dengan menempatkan iklan di platform kami yang memiliki ribuan pengunjung
-              aktif setiap harinya.
+              Tingkatkan visibilitas brand Anda dengan menempatkan iklan di platform kami yang
+              memiliki ribuan pengunjung aktif setiap harinya.
             </p>
           </div>
 
           {/* Stats Summary */}
           <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20 py-10 border-y border-border">
-            {stats.map(stat => (
+            {stats.map((stat) => (
               <div key={stat.label} class="text-center">
                 <div class="text-4xl font-bold text-text-primary">{stat.value}</div>
-                <div class="text-sm text-text-muted mt-1 uppercase tracking-widest">{stat.label}</div>
+                <div class="text-sm text-text-muted mt-1 uppercase tracking-widest">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
 
           {/* Plan Comparison Cards */}
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {plans.map(plan => (
+            {plans.map((plan) => (
               <div
                 key={plan.name}
                 class={[
                   'rounded-2xl p-8 flex flex-col transition duration-300',
                   plan.featured
                     ? 'relative border-2 border-primary shadow-elevated bg-surface md:-translate-y-4'
-                    : 'border border-border bg-surface hover:shadow-card-hover'
+                    : 'border border-border bg-surface hover:shadow-card-hover',
                 ]}
               >
                 {plan.featured && (
@@ -110,22 +123,30 @@ export default defineComponent({
                 </div>
 
                 <ul class="space-y-4 mb-8 flex-grow">
-                  {plan.features.map(feature => (
-                    <li 
-                      key={feature.text} 
-                      class={['flex items-center', feature.included ? 'text-text-secondary' : 'text-text-muted']}
+                  {plan.features.map((feature) => (
+                    <li
+                      key={feature.text}
+                      class={[
+                        'flex items-center',
+                        feature.included ? 'text-text-secondary' : 'text-text-muted',
+                      ]}
                     >
-                      <i class={['mr-2 text-lg', feature.included ? 'bi bi-check-lg text-emerald-500' : 'bi bi-x-lg text-text-muted']} />
-                      <span class={[plan.featured && feature.included ? 'font-medium' : '']}>{feature.text}</span>
+                      <i
+                        class={[
+                          'mr-2 text-lg',
+                          feature.included
+                            ? 'bi bi-check-lg text-emerald-500'
+                            : 'bi bi-x-lg text-text-muted',
+                        ]}
+                      />
+                      <span class={[plan.featured && feature.included ? 'font-medium' : '']}>
+                        {feature.text}
+                      </span>
                     </li>
                   ))}
                 </ul>
 
-                <BaseButton 
-                  fullWidth 
-                  variant={plan.featured ? 'primary' : 'outline'}
-                  class="py-3"
-                >
+                <BaseButton fullWidth variant={plan.featured ? 'primary' : 'outline'} class="py-3">
                   {plan.cta}
                 </BaseButton>
               </div>

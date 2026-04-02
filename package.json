@@ -17,6 +17,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
     "@tanstack/vue-query": "^5.95.2",
+    "@unhead/vue": "^2.1.12",
     "bootstrap-icons": "^1.13.1",
     "marked": "^17.0.5",
     "pinia": "^3.0.4",

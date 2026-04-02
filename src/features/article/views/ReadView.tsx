@@ -1,5 +1,6 @@
 import { defineComponent, ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
+import { useHead } from '@/composables/useHead'
 import { marked } from 'marked'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
@@ -31,6 +32,17 @@ export default defineComponent({
       },
       { immediate: true },
     )
+
+    useHead({
+      title: computed(() =>
+        article.value ? `${article.value.title} — Verity+` : 'Memuat Artikel... — Verity+',
+      ),
+      meta: computed(() => [
+        { name: 'description', content: article.value?.excerpt || '' },
+        { property: 'og:title', content: article.value?.title || '' },
+        { property: 'og:image', content: article.value?.coverImage || '' },
+      ]),
+    })
 
     const outputHtml = computed(() => {
       if (!article.value) return ''

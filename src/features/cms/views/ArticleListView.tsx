@@ -1,4 +1,5 @@
 import { defineComponent, ref, computed } from 'vue'
+import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import { BaseBadge } from '@/components/ui/Badge'
@@ -16,6 +17,10 @@ export default defineComponent({
     const articleStore = useArticleStore()
     const cmsContentStore = useCMSContentStore()
     const searchQuery = ref('')
+
+    useHead({
+      title: 'Manage Articles — CMS Verity+',
+    })
 
     const filteredArticles = computed(() => {
       const q = searchQuery.value.toLowerCase().trim()

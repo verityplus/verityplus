@@ -1,4 +1,5 @@
 import { defineComponent, onMounted } from 'vue'
+import { useHead } from '@/composables/useHead'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { HeadlineCarousel } from '@/features/article/components/HeadlineCarousel'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
@@ -14,6 +15,16 @@ export default defineComponent({
   name: 'HomeView',
   setup() {
     const store = useArticleStore()
+
+    useHead({
+      title: 'Verity+ — Portal Artikel Terkini',
+      meta: [
+        {
+          name: 'description',
+          content: 'Artikel terkini seputar teknologi, bisnis, gaya hidup, dan olahraga.',
+        },
+      ],
+    })
 
     onMounted(async () => {
       if (store.articles.length === 0) {

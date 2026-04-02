@@ -1,5 +1,6 @@
 import { defineComponent, ref, computed, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import { MarkdownEditor } from '@/features/cms/components/MarkdownEditor'
@@ -20,6 +21,13 @@ export default defineComponent({
     const cmsContentStore = useCMSContentStore()
 
     const isEdit = computed(() => route.params.slug !== undefined)
+    const tagInput = ref('')
+
+    useHead({
+      title: computed(() =>
+        isEdit.value ? `Edit Article — CMS Verity+` : `New Article — CMS Verity+`,
+      ),
+    })
 
     // Form State
     const form = ref<Article>({
@@ -55,10 +63,37 @@ export default defineComponent({
       loadData()
     })
 
+    // Auto-generate slug from title
+    const generateSlug = (title: string) => {
+      return title
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim()
+    }
+
+    const addTag = () => {
+      const tag = tagInput.value.trim()
+      if (tag && !form.value.tags.includes(tag)) {
+        form.value.tags.push(tag)
+        tagInput.value = ''
+      }
+    }
+
+    const removeTag = (index: number) => {
+      form.value.tags.splice(index, 1)
+    }
+
     const save = () => {
-      if (!form.value.title || !form.value.slug) {
-        alert('Title and slug are required.')
+      if (!form.value.title) {
+        alert('Title is required.')
         return
+      }
+
+      // Auto-generate slug if empty
+      if (!form.value.slug) {
+        form.value.slug = generateSlug(form.value.title)
       }
 
       if (isEdit.value) {
@@ -103,6 +138,9 @@ export default defineComponent({
                   value={form.value.title}
                   onInput={(e) => {
                     form.value.title = (e.target as HTMLInputElement).value
+                    if (!isEdit.value) {
+                      form.value.slug = generateSlug(form.value.title)
+                    }
                   }}
                   type="text"
                   placeholder="Enter a compelling headline..."
@@ -110,23 +148,8 @@ export default defineComponent({
                 />
               </div>
 
-              {/* URL Slug & Category */}
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-slate-100">
-                <div class="space-y-2">
-                  <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                    URL Slug
-                  </label>
-                  <div class="relative">
-                    <input
-                      value={form.value.slug}
-                      onInput={(e) => {
-                        form.value.slug = (e.target as HTMLInputElement).value
-                      }}
-                      type="text"
-                      class="w-full pl-3 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/30 focus:bg-white text-sm font-bold text-slate-700 transition"
-                    />
-                  </div>
-                </div>
+              {/* Category */}
+              <div class="pt-4 border-t border-slate-100">
                 <div class="space-y-2">
                   <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Internal Category
@@ -243,6 +266,56 @@ export default defineComponent({
                     </option>
                   ))}
                 </select>
+              </div>
+
+              {/* Tags Input */}
+              <div class="pt-6 border-t border-slate-50 space-y-3">
+                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  Tags
+                </label>
+                <div class="flex gap-2">
+                  <input
+                    value={tagInput.value}
+                    onInput={(e) => {
+                      tagInput.value = (e.target as HTMLInputElement).value
+                    }}
+                    onKeydown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault()
+                        addTag()
+                      }
+                    }}
+                    type="text"
+                    placeholder="Add tag..."
+                    class="flex-1 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs font-bold text-slate-700 outline-none"
+                  />
+                  <button
+                    onClick={addTag}
+                    type="button"
+                    class="px-3 py-2 rounded-xl bg-slate-100 text-slate-600 text-xs font-bold hover:bg-slate-200 transition cursor-pointer border-none"
+                  >
+                    <i class="bi bi-plus"></i>
+                  </button>
+                </div>
+                {form.value.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    {form.value.tags.map((tag, index) => (
+                      <span
+                        key={tag}
+                        class="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-primary/10 text-primary text-xs font-bold"
+                      >
+                        {tag}
+                        <button
+                          onClick={() => removeTag(index)}
+                          type="button"
+                          class="hover:text-primary/70 transition cursor-pointer border-none bg-transparent p-0"
+                        >
+                          <i class="bi bi-x text-[10px]"></i>
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 

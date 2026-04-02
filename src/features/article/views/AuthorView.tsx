@@ -1,5 +1,6 @@
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
@@ -28,6 +29,15 @@ export default defineComponent({
       },
       { immediate: true },
     )
+
+    useHead({
+      title: computed(() =>
+        author.value ? `${author.value.name} — Verity+` : 'Penulis — Verity+',
+      ),
+      meta: computed(() => [
+        { name: 'description', content: author.value?.bio || `Artikel oleh ${author.value?.name}` },
+      ]),
+    })
 
     return () => {
       if (!author.value) {

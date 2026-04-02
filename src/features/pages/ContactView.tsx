@@ -1,4 +1,5 @@
 import { defineComponent } from 'vue'
+import { useHead } from '@/composables/useHead'
 import { BaseButton } from '@/components/ui/Button'
 
 /**
@@ -7,8 +8,22 @@ import { BaseButton } from '@/components/ui/Button'
 export default defineComponent({
   name: 'ContactView',
   setup() {
+    useHead({
+      title: 'Hubungi Kami — Verity+',
+      meta: [
+        {
+          name: 'description',
+          content: 'Hubungi tim Verity+ untuk pertanyaan, kerjasama, atau informasi lebih lanjut.',
+        },
+      ],
+    })
+
     const contactInfo = [
-      { icon: 'bi bi-geo-alt-fill', label: 'Kantor Utama', value: 'Jl. Teknologi No. 42, Jakarta Selatan, Indonesia' },
+      {
+        icon: 'bi bi-geo-alt-fill',
+        label: 'Kantor Utama',
+        value: 'Jl. Teknologi No. 42, Jakarta Selatan, Indonesia',
+      },
       { icon: 'bi bi-envelope-fill', label: 'Email', value: 'contact@verityplus.space' },
       { icon: 'bi bi-telephone-fill', label: 'Telepon', value: '+62 21 1234 5678' },
     ]
@@ -30,12 +45,12 @@ export default defineComponent({
                 Mari Mulai Sesuatu yang Luar Biasa
               </h1>
               <p class="text-lg text-text-secondary mb-10">
-                Punya ide atau pertanyaan? Tim kami siap membantu Anda mewujudkan visi digital Anda. Kirimkan pesan dan kami
-                akan membalas dalam 24 jam.
+                Punya ide atau pertanyaan? Tim kami siap membantu Anda mewujudkan visi digital Anda.
+                Kirimkan pesan dan kami akan membalas dalam 24 jam.
               </p>
 
               <div class="space-y-8">
-                {contactInfo.map(info => (
+                {contactInfo.map((info) => (
                   <div key={info.label} class="flex items-start gap-4">
                     <div class="flex-shrink-0 w-12 h-12 bg-primary-100 text-primary rounded-lg flex items-center justify-center">
                       <i class={[info.icon, 'text-xl']} />
@@ -53,19 +68,23 @@ export default defineComponent({
               <form onSubmit={handleSubmit} class="space-y-6">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label class="block text-sm font-medium text-text-secondary mb-2">Nama Depan</label>
+                    <label class="block text-sm font-medium text-text-secondary mb-2">
+                      Nama Depan
+                    </label>
                     <input
                       type="text"
                       placeholder="John"
-                    class="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition bg-background text-text-primary"
+                      class="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition bg-background text-text-primary"
                     />
                   </div>
                   <div>
-                    <label class="block text-sm font-medium text-text-secondary mb-2">Nama Belakang</label>
+                    <label class="block text-sm font-medium text-text-secondary mb-2">
+                      Nama Belakang
+                    </label>
                     <input
                       type="text"
                       placeholder="Doe"
-                    class="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition bg-background text-text-primary"
+                      class="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition bg-background text-text-primary"
                     />
                   </div>
                 </div>
@@ -88,7 +107,11 @@ export default defineComponent({
                   ></textarea>
                 </div>
 
-                <BaseButton fullWidth type="submit" class="py-4 text-base shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-0.5">
+                <BaseButton
+                  fullWidth
+                  type="submit"
+                  class="py-4 text-base shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-0.5"
+                >
                   Kirim Pesan
                 </BaseButton>
               </form>
