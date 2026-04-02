@@ -1,13 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-
-export interface CMSUser {
-  id: string
-  username: string
-  email: string
-  password?: string
-  role: 'admin'
-}
+import type { CMSUser } from '@/shared/types'
 
 /**
  * CMSStore: Specialized management for administrative actions.
@@ -19,13 +12,25 @@ export const useCMSStore = defineStore('cms', () => {
     username: 'admin_verity',
     email: 'admin@verityplus.com',
     password: 'password123',
-    role: 'admin'
+    role: 'admin',
   })
 
   // --- Mock User List ---
   const users = ref<CMSUser[]>([
-    { id: 'u-1', username: 'admin_verity', email: 'admin@verityplus.com', password: 'password123', role: 'admin' },
-    { id: 'u-2', username: 'editor_jane', email: 'jane@verityplus.com', password: 'password123', role: 'admin' }
+    {
+      id: 'u-1',
+      username: 'admin_verity',
+      email: 'admin@verityplus.com',
+      password: 'password123',
+      role: 'admin',
+    },
+    {
+      id: 'u-2',
+      username: 'editor_jane',
+      email: 'jane@verityplus.com',
+      password: 'password123',
+      role: 'admin',
+    },
   ])
 
   // --- Actions ---
@@ -34,17 +39,17 @@ export const useCMSStore = defineStore('cms', () => {
   }
 
   const updateUser = (user: CMSUser) => {
-    const idx = users.value.findIndex(u => u.id === user.id)
-    if (idx !== -1) users.value[idx] = { ...user, role: 'admin' }
+    const idx = users.value.findIndex((u) => u.id === user.id)
+    if (idx !== -1) users.value[idx] = user
   }
 
   const updatePassword = (id: string, newPassword: string) => {
-    const user = users.value.find(u => u.id === id)
+    const user = users.value.find((u) => u.id === id)
     if (user) user.password = newPassword
   }
 
   const deleteUser = (id: string) => {
-    users.value = users.value.filter(u => u.id !== id)
+    users.value = users.value.filter((u) => u.id !== id)
   }
 
   return {
@@ -53,6 +58,6 @@ export const useCMSStore = defineStore('cms', () => {
     addUser,
     updateUser,
     updatePassword,
-    deleteUser
+    deleteUser,
   }
 })

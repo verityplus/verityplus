@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed, onMounted, onUnmounted, watchEffect } from 'vue'
+import { defineComponent, ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { marked } from 'marked'
 import { useArticleStore } from '@/features/article/store/article.store'
@@ -15,22 +15,22 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const store = useArticleStore()
-    
+
     const article = ref<Article | null>(null)
     const fontSize = ref(18)
     const readingProgress = ref(0)
     const isSpeaking = ref(false)
 
-    // Load article data
-    const loadArticle = async () => {
-      const slug = route.params.slug as string
-      const found = await store.findBySlug(slug)
-      article.value = found || null
-    }
-
-    watchEffect(() => {
-      loadArticle()
-    })
+    watch(
+      () => route.params.slug,
+      async (slug) => {
+        if (slug) {
+          const found = await store.findBySlug(slug as string)
+          article.value = found || null
+        }
+      },
+      { immediate: true },
+    )
 
     const outputHtml = computed(() => {
       if (!article.value) return ''
@@ -49,7 +49,9 @@ export default defineComponent({
 
       const utterance = new SpeechSynthesisUtterance(`${article.value.title}. ${rawText}`)
       utterance.lang = 'id-ID'
-      utterance.onend = () => { isSpeaking.value = false }
+      utterance.onend = () => {
+        isSpeaking.value = false
+      }
       window.speechSynthesis.speak(utterance)
       isSpeaking.value = true
     }
@@ -75,8 +77,8 @@ export default defineComponent({
         <article class="bg-background min-h-screen">
           {/* Progress Bar */}
           <div class="fixed top-0 left-0 w-full h-1 bg-border/20 z-[60]">
-            <div 
-              class="h-full bg-primary transition-all duration-150" 
+            <div
+              class="h-full bg-primary transition-all duration-150"
               style={{ width: `${readingProgress.value}%` }}
             />
           </div>
@@ -87,22 +89,28 @@ export default defineComponent({
               onClick={toggleSpeech}
               class={[
                 'w-14 h-14 rounded-full text-text-inverse shadow-xl flex items-center justify-center hover:scale-110 transition cursor-pointer',
-                isSpeaking.value ? 'bg-red-500 shadow-red-200' : 'bg-primary shadow-primary-200'
+                isSpeaking.value ? 'bg-red-500 shadow-red-200' : 'bg-primary shadow-primary-200',
               ]}
               title={isSpeaking.value ? 'Hentikan' : 'Baca Artikel'}
             >
-              <i class={['text-xl', isSpeaking.value ? 'bi bi-stop-fill' : 'bi bi-volume-up-fill']} />
+              <i
+                class={['text-xl', isSpeaking.value ? 'bi bi-stop-fill' : 'bi bi-volume-up-fill']}
+              />
             </button>
 
             <div class="bg-surface border border-border rounded-full shadow-card p-2 flex flex-col gap-2">
-              <button 
-                onClick={() => { fontSize.value += 2 }} 
+              <button
+                onClick={() => {
+                  fontSize.value += 2
+                }}
                 class="w-10 h-10 rounded-full hover:bg-surface-hover font-bold text-text-secondary text-lg cursor-pointer transition border-none"
               >
                 A+
               </button>
-              <button 
-                onClick={() => { fontSize.value -= 2 }} 
+              <button
+                onClick={() => {
+                  fontSize.value -= 2
+                }}
                 class="w-10 h-10 rounded-full hover:bg-surface-hover font-bold text-text-secondary text-sm cursor-pointer transition border-none"
               >
                 A-
@@ -111,7 +119,6 @@ export default defineComponent({
           </div>
 
           <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col xl:flex-row gap-8 pt-8 pb-24">
-            
             {/* Left Sidebar Ad (Slim Skyscraper) */}
             <aside class="w-full xl:w-48 shrink-0 order-1">
               <div class="sticky top-20">
@@ -124,30 +131,34 @@ export default defineComponent({
               <header class="pb-10 mb-10 border-b border-border">
                 <div class="max-w-3xl mx-auto text-center">
                   <div class="flex items-center justify-center gap-3 mb-6">
-                    <BaseBadge 
-                      bgColor={article.value.category.bgColor} 
+                    <BaseBadge
+                      bgColor={article.value.category.bgColor}
                       textColor={article.value.category.color}
                     >
                       {article.value.category.name}
                     </BaseBadge>
-                    <span class="text-text-muted text-sm">{article.value.readTimeMinutes} menit baca</span>
+                    <span class="text-text-muted text-sm">
+                      {article.value.readTimeMinutes} menit baca
+                    </span>
                   </div>
 
                   <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary leading-tight mb-8">
                     {article.value.title}
                   </h1>
 
-                  <RouterLink 
+                  <RouterLink
                     to={{ name: 'author', params: { id: article.value.author.id } }}
                     class="flex items-center justify-center gap-4 pt-4 max-w-sm mx-auto group/author hover:opacity-80 transition"
                   >
-                    <img 
-                      src={article.value.author.avatar} 
+                    <img
+                      src={article.value.author.avatar}
                       alt={article.value.author.name}
-                      class="w-12 h-12 rounded-full border-2 border-primary/20 shadow-sm object-cover group-hover/author:border-primary transition-colors" 
+                      class="w-12 h-12 rounded-full border-2 border-primary/20 shadow-sm object-cover group-hover/author:border-primary transition-colors"
                     />
                     <div class="text-left">
-                      <p class="text-text-primary font-bold leading-none mb-1 group-hover/author:text-primary transition-colors">{article.value.author.name}</p>
+                      <p class="text-text-primary font-bold leading-none mb-1 group-hover/author:text-primary transition-colors">
+                        {article.value.author.name}
+                      </p>
                       <p class="text-text-muted text-sm">{article.value.publishedAt}</p>
                     </div>
                   </RouterLink>
@@ -157,7 +168,11 @@ export default defineComponent({
               {/* Cover Media */}
               <div class="mb-12">
                 <div class="aspect-video rounded-2xl overflow-hidden shadow-elevated bg-surface-muted">
-                  <img src={article.value.coverImage} alt={article.value.title} class="w-full h-full object-cover" />
+                  <img
+                    src={article.value.coverImage}
+                    alt={article.value.title}
+                    class="w-full h-full object-cover"
+                  />
                 </div>
                 {article.value.coverImageCaption && (
                   <p class="text-center text-sm text-text-muted mt-4 italic">
@@ -168,7 +183,7 @@ export default defineComponent({
 
               {/* Content Render Area */}
               <div class="max-w-3xl mx-auto relative">
-                <div 
+                <div
                   id="markdown-content"
                   class="markdown-body prose prose-blue max-w-none text-text-secondary transition-all duration-200"
                   style={{ fontSize: `${fontSize.value}px` }}
@@ -179,7 +194,7 @@ export default defineComponent({
                 <div class="mt-16 pt-8 border-t border-border">
                   <div class="flex flex-wrap gap-2">
                     {article.value.tags.map((tag: string) => (
-                      <span 
+                      <span
                         key={tag}
                         class="px-3 py-1 bg-surface-muted text-text-secondary text-sm rounded-lg hover:bg-surface-active cursor-pointer transition"
                       >

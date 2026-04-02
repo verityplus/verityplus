@@ -14,137 +14,137 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/HomeView.tsx'),
+      component: () => import('../features/pages/HomeView'),
     },
     {
       path: '/about-us',
       name: 'about-us',
-      component: () => import('../views/AboutUsView.tsx'),
+      component: () => import('../features/pages/AboutUsView'),
     },
     {
       path: '/contact',
       name: 'contact',
-      component: () => import('../views/ContactView.tsx'),
+      component: () => import('../features/pages/ContactView'),
     },
     {
       path: '/advertise',
       name: 'advertise',
-      component: () => import('../views/AdvertiseView.tsx'),
+      component: () => import('../features/pages/AdvertiseView'),
     },
     {
       path: '/privacy-policy',
       name: 'privacy-policy',
-      component: () => import('../views/PrivacyPolicyView.tsx'),
+      component: () => import('../features/pages/PrivacyPolicyView'),
     },
     {
       path: '/terms-and-conditions',
       name: 'terms-and-conditions',
-      component: () => import('../views/TermsAndConditionsView.tsx'),
+      component: () => import('../features/pages/TermsAndConditionsView'),
     },
     {
       path: '/search',
       name: 'search',
-      component: () => import('../views/SearchView.tsx'),
+      component: () => import('../features/search/views/SearchView'),
     },
     {
       path: '/read/:slug',
       name: 'read',
-      component: () => import('../views/ReadView.tsx'),
+      component: () => import('../features/article/views/ReadView'),
     },
     {
       path: '/author/:id',
       name: 'author',
-      component: () => import('../views/AuthorView.tsx'),
+      component: () => import('../features/article/views/AuthorView'),
     },
     // --- Content Management System (CMS) Routes ---
     {
       path: '/cms',
-      component: () => import('../features/cms/views/CMSLayout.tsx'),
+      component: () => import('../features/cms/views/CMSLayout'),
       children: [
         {
           path: '',
           name: 'cms-dashboard',
-          component: () => import('../features/cms/views/DashboardView.tsx'),
-          meta: { title: 'Dashboard | CMS' }
+          component: () => import('../features/cms/views/DashboardView'),
+          meta: { title: 'Dashboard | CMS' },
         },
         // Article CRUD
         {
           path: 'articles',
           name: 'cms-articles',
-          component: () => import('../features/cms/views/ArticleListView.tsx'),
-          meta: { title: 'Manage Articles | CMS' }
+          component: () => import('../features/cms/views/ArticleListView'),
+          meta: { title: 'Manage Articles | CMS' },
         },
         {
           path: 'articles/new',
           name: 'cms-articles-new',
-          component: () => import('../features/cms/views/ArticleEditorView.tsx'),
-          meta: { title: 'New Article | CMS' }
+          component: () => import('../features/cms/views/ArticleEditorView'),
+          meta: { title: 'New Article | CMS' },
         },
         {
           path: 'articles/:slug/edit',
           name: 'cms-articles-edit',
-          component: () => import('../features/cms/views/ArticleEditorView.tsx'),
-          meta: { title: 'Edit Article | CMS' }
+          component: () => import('../features/cms/views/ArticleEditorView'),
+          meta: { title: 'Edit Article | CMS' },
         },
         // Character CRUD
         {
           path: 'characters',
           name: 'cms-characters',
-          component: () => import('../features/cms/views/CharacterListView.tsx'),
-          meta: { title: 'Manage Characters | CMS' }
+          component: () => import('../features/cms/views/CharacterListView'),
+          meta: { title: 'Manage Characters | CMS' },
         },
         {
           path: 'characters/new',
           name: 'cms-characters-new',
-          component: () => import('../features/cms/views/CharacterEditorView.tsx'),
-          meta: { title: 'New Character | CMS' }
+          component: () => import('../features/cms/views/CharacterEditorView'),
+          meta: { title: 'New Character | CMS' },
         },
         {
           path: 'characters/:id/edit',
           name: 'cms-characters-edit',
-          component: () => import('../features/cms/views/CharacterEditorView.tsx'),
-          meta: { title: 'Edit Character | CMS' }
+          component: () => import('../features/cms/views/CharacterEditorView'),
+          meta: { title: 'Edit Character | CMS' },
         },
         // Category CRUD
         {
           path: 'categories',
           name: 'cms-categories',
-          component: () => import('../features/cms/views/CategoryListView.tsx'),
-          meta: { title: 'Manage Categories | CMS' }
+          component: () => import('../features/cms/views/CategoryListView'),
+          meta: { title: 'Manage Categories | CMS' },
         },
         {
           path: 'categories/new',
           name: 'cms-categories-new',
-          component: () => import('../features/cms/views/CategoryEditorView.tsx'),
-          meta: { title: 'New Category | CMS' }
+          component: () => import('../features/cms/views/CategoryEditorView'),
+          meta: { title: 'New Category | CMS' },
         },
         {
           path: 'categories/:id/edit',
           name: 'cms-categories-edit',
-          component: () => import('../features/cms/views/CategoryEditorView.tsx'),
-          meta: { title: 'Edit Category | CMS' }
+          component: () => import('../features/cms/views/CategoryEditorView'),
+          meta: { title: 'Edit Category | CMS' },
         },
         // User CRUD
         {
           path: 'users',
           name: 'cms-users',
-          component: () => import('../features/cms/views/UserListView.tsx'),
-          meta: { title: 'Manage Users | CMS' }
+          component: () => import('../features/cms/views/UserListView'),
+          meta: { title: 'Manage Users | CMS' },
         },
         {
           path: 'users/new',
           name: 'cms-users-new',
-          component: () => import('../features/cms/views/UserEditorView.tsx'),
-          meta: { title: 'New User | CMS' }
+          component: () => import('../features/cms/views/UserEditorView'),
+          meta: { title: 'New User | CMS' },
         },
         {
           path: 'users/:id/edit',
           name: 'cms-users-edit',
-          component: () => import('../features/cms/views/UserEditorView.tsx'),
-          meta: { title: 'Edit User | CMS' }
+          component: () => import('../features/cms/views/UserEditorView'),
+          meta: { title: 'Edit User | CMS' },
         },
-      ]
-    }
+      ],
+    },
   ],
 })
 
@@ -154,7 +154,7 @@ const router = createRouter({
  */
 router.beforeEach((to, _from, next) => {
   // Update document title
-  document.title = (to.meta.title as string) || 'Verity+ | Premium Modern News'
+  document.title = (to.meta.title as string) || 'VERITY+'
 
   // Basic CMS Auth Simulation
   if (to.path.startsWith('/cms')) {

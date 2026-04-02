@@ -1,5 +1,6 @@
 import { defineComponent, ref, computed } from 'vue'
 import { useArticleStore } from '@/features/article/store/article.store'
+import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
 
@@ -10,21 +11,21 @@ import { BaseButton } from '@/components/ui/Button'
 export default defineComponent({
   name: 'ArticleListView',
   setup() {
-    const store = useArticleStore()
+    const articleStore = useArticleStore()
+    const cmsContentStore = useCMSContentStore()
     const searchQuery = ref('')
 
     const filteredArticles = computed(() => {
       const q = searchQuery.value.toLowerCase().trim()
-      if (!q) return store.articles
-      return store.articles.filter(a => 
-        a.title.toLowerCase().includes(q) || 
-        a.author.name.toLowerCase().includes(q)
+      if (!q) return articleStore.articles
+      return articleStore.articles.filter(
+        (a) => a.title.toLowerCase().includes(q) || a.author.name.toLowerCase().includes(q),
       )
     })
 
     const deleteArticle = (id: number) => {
       if (confirm('Are you sure you want to delete this article? This action cannot be undone.')) {
-        store.deleteArticle(id)
+        cmsContentStore.deleteArticle(id)
       }
     }
 
@@ -33,103 +34,132 @@ export default defineComponent({
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div class="flex flex-col">
             <h1 class="text-3xl font-black text-slate-900 tracking-tight">Article Management</h1>
-            <p class="text-slate-400 font-medium">Create, update, or remove articles across the Verity+ network.</p>
+            <p class="text-slate-400 font-medium">
+              Create, update, or remove articles across the Verity+ network.
+            </p>
           </div>
           <router-link to="/cms/articles/new">
-             <BaseButton variant="primary" class="shadow-lg shadow-primary/20 px-8 py-4 uppercase font-black tracking-widest text-xs">
-                <i class="bi bi-plus-lg mr-2"></i> Create Article
-             </BaseButton>
+            <BaseButton
+              variant="primary"
+              class="shadow-lg shadow-primary/20 px-8 py-4 uppercase font-black tracking-widest text-xs"
+            >
+              <i class="bi bi-plus-lg mr-2"></i> Create Article
+            </BaseButton>
           </router-link>
         </header>
 
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
           <div class="p-4 border-b border-slate-100 bg-slate-50/50">
             <div class="relative max-w-md w-full">
-               <input 
-                 value={searchQuery.value}
-                 onInput={(e) => searchQuery.value = (e.target as HTMLInputElement).value}
-                 type="text" 
-                 placeholder="Search articles by title or author..."
-                 class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition text-sm font-medium"
-               />
-               <i class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+              <input
+                value={searchQuery.value}
+                onInput={(e) => (searchQuery.value = (e.target as HTMLInputElement).value)}
+                type="text"
+                placeholder="Search articles by title or author..."
+                class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition text-sm font-medium"
+              />
+              <i class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
             </div>
           </div>
 
           <div class="overflow-x-auto min-h-[400px]">
-             <table class="w-full text-left border-collapse">
-                <thead>
-                   <tr class="bg-slate-50 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                      <th class="px-6 py-4">Article Details</th>
-                      <th class="px-6 py-4">Category</th>
-                      <th class="px-6 py-4">Status</th>
-                      <th class="px-6 py-4">Published Date</th>
-                      <th class="px-6 py-4 text-right">Actions</th>
-                   </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100 font-medium text-sm">
-                   {filteredArticles.value.map(article => (
-                     <tr key={article.id} class="hover:bg-slate-50/50 transition group">
-                        <td class="px-6 py-5">
-                           <div class="flex items-center gap-3">
-                              <img src={article.coverImage} class="w-10 h-10 rounded-lg object-cover shadow-sm bg-slate-100" />
-                              <div class="flex flex-col">
-                                 <span class="text-slate-900 font-bold leading-tight group-hover:text-primary transition">{article.title}</span>
-                                 <span class="text-[10px] text-slate-400 mt-0.5">By {article.author.name}</span>
-                              </div>
-                           </div>
-                        </td>
-                        <td class="px-6 py-5">
-                           <BaseBadge bgColor={article.category.bgColor} textColor={article.category.color} class="text-[10px]">
-                              {article.category.name}
-                           </BaseBadge>
-                        </td>
-                        <td class="px-6 py-5">
-                           {article.isFeatured ? (
-                             <span class="flex items-center gap-1.5 text-amber-600">
-                               <i class="bi bi-star-fill text-[10px]" />
-                               <span class="text-[10px] font-black uppercase tracking-wider">Featured</span>
-                             </span>
-                           ) : (
-                             <span class="flex items-center gap-1.5 text-emerald-600">
-                               <i class="bi bi-broadcast text-[10px]" />
-                               <span class="text-[10px] font-black uppercase tracking-wider">Published</span>
-                             </span>
-                           )}
-                        </td>
-                        <td class="px-6 py-5 text-slate-400 text-xs uppercase tracking-tighter">{article.publishedAt}</td>
-                        <td class="px-6 py-5 text-right">
-                           <div class="flex items-center justify-end gap-2 translate-x-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition duration-300">
-                              <router-link to={`/cms/articles/${article.slug}/edit`} class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition cursor-pointer">
-                                 <i class="bi bi-pencil-square" title="Edit Article" />
-                              </router-link>
-                              <button 
-                                onClick={() => deleteArticle(article.id)}
-                                class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-600 hover:text-white transition cursor-pointer border-none"
-                              >
-                                 <i class="bi bi-trash" title="Delete Article" />
-                              </button>
-                           </div>
-                        </td>
-                     </tr>
-                   ))}
-                </tbody>
-             </table>
-             
-             {filteredArticles.value.length === 0 && (
-               <div class="py-24 flex flex-col items-center justify-center text-center">
-                  <i class="bi bi-journal-x text-5xl text-slate-200 mb-4" />
-                  <p class="text-slate-400 font-bold italic">No articles found matching your criteria.</p>
-               </div>
-             )}
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-50 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  <th class="px-6 py-4">Article Details</th>
+                  <th class="px-6 py-4">Category</th>
+                  <th class="px-6 py-4">Status</th>
+                  <th class="px-6 py-4">Published Date</th>
+                  <th class="px-6 py-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 font-medium text-sm">
+                {filteredArticles.value.map((article) => (
+                  <tr key={article.id} class="hover:bg-slate-50/50 transition group">
+                    <td class="px-6 py-5">
+                      <div class="flex items-center gap-3">
+                        <img
+                          src={article.coverImage}
+                          class="w-10 h-10 rounded-lg object-cover shadow-sm bg-slate-100"
+                        />
+                        <div class="flex flex-col">
+                          <span class="text-slate-900 font-bold leading-tight group-hover:text-primary transition">
+                            {article.title}
+                          </span>
+                          <span class="text-[10px] text-slate-400 mt-0.5">
+                            By {article.author.name}
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-6 py-5">
+                      <BaseBadge
+                        bgColor={article.category.bgColor}
+                        textColor={article.category.color}
+                        class="text-[10px]"
+                      >
+                        {article.category.name}
+                      </BaseBadge>
+                    </td>
+                    <td class="px-6 py-5">
+                      {article.isFeatured ? (
+                        <span class="flex items-center gap-1.5 text-amber-600">
+                          <i class="bi bi-star-fill text-[10px]" />
+                          <span class="text-[10px] font-black uppercase tracking-wider">
+                            Featured
+                          </span>
+                        </span>
+                      ) : (
+                        <span class="flex items-center gap-1.5 text-emerald-600">
+                          <i class="bi bi-broadcast text-[10px]" />
+                          <span class="text-[10px] font-black uppercase tracking-wider">
+                            Published
+                          </span>
+                        </span>
+                      )}
+                    </td>
+                    <td class="px-6 py-5 text-slate-400 text-xs uppercase tracking-tighter">
+                      {article.publishedAt}
+                    </td>
+                    <td class="px-6 py-5 text-right">
+                      <div class="flex items-center justify-end gap-2 translate-x-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition duration-300">
+                        <router-link
+                          to={`/cms/articles/${article.slug}/edit`}
+                          class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition cursor-pointer"
+                        >
+                          <i class="bi bi-pencil-square" title="Edit Article" />
+                        </router-link>
+                        <button
+                          onClick={() => deleteArticle(article.id)}
+                          class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-600 hover:text-white transition cursor-pointer border-none"
+                        >
+                          <i class="bi bi-trash" title="Delete Article" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {filteredArticles.value.length === 0 && (
+              <div class="py-24 flex flex-col items-center justify-center text-center">
+                <i class="bi bi-journal-x text-5xl text-slate-200 mb-4" />
+                <p class="text-slate-400 font-bold italic">
+                  No articles found matching your criteria.
+                </p>
+              </div>
+            )}
           </div>
-          
+
           <footer class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[10px] font-black text-slate-400 px-6">
-             <p>Showing {filteredArticles.value.length} of {store.articles.length} articles</p>
-             <p>Verity+ Cloud Database System</p>
+            <p>
+              Showing {filteredArticles.value.length} of {articleStore.articles.length} articles
+            </p>
+            <p>Verity+ Cloud Database System</p>
           </footer>
         </div>
       </div>
     )
-  }
+  },
 })

@@ -26,7 +26,6 @@ export default defineComponent({
         {/* Top Hero Section */}
         <div class="container-page py-6">
           <div class="flex flex-col xl:flex-row gap-8">
-
             {/* Main Area */}
             <section class="xl:w-2/3 w-full flex flex-col gap-6">
               <div class="hero-height">
@@ -37,22 +36,42 @@ export default defineComponent({
                 <div class="section-header border-b border-border pb-3 mb-6">
                   <span class="section-header-title">Artikel Terbaru</span>
                 </div>
-                
+
                 <div class="space-y-8">
-                  {store.latest.map(item => (
-                    <ArticleCard 
-                      key={item.id} 
-                      article={item} 
-                      layout="horizontal" 
-                    />
+                  {store.latest.map((item) => (
+                    <ArticleCard key={item.id} article={item} layout="horizontal" />
                   ))}
                 </div>
 
-                <div class="w-full flex justify-end mt-8">
-                  <button class="btn-primary">
-                    Lihat Semua <i class="bi bi-arrow-right ml-2 text-sm"></i>
-                  </button>
-                </div>
+                {/* Pagination Controls */}
+                {store.latestTotalPages > 1 && (
+                  <div class="flex items-center justify-end mt-8 pt-6 border-t border-border">
+                    <button
+                      onClick={() => store.latestPrevPage()}
+                      disabled={store.latestPage === 1}
+                      class={[
+                        'px-4 py-2 rounded-lg text-sm font-bold transition cursor-pointer border border-border',
+                        store.latestPage === 1
+                          ? 'opacity-50 cursor-not-allowed text-text-muted bg-surface-muted'
+                          : 'text-text-primary bg-surface hover:bg-surface-hover',
+                      ]}
+                    >
+                      <i class="bi bi-chevron-left mr-1"></i> Sebelumnya
+                    </button>
+                    <button
+                      onClick={() => store.latestNextPage()}
+                      disabled={store.latestPage === store.latestTotalPages}
+                      class={[
+                        'px-4 py-2 rounded-lg text-sm font-bold transition cursor-pointer border border-border',
+                        store.latestPage === store.latestTotalPages
+                          ? 'opacity-50 cursor-not-allowed text-text-muted bg-surface-muted'
+                          : 'text-text-primary bg-surface hover:bg-surface-hover',
+                      ]}
+                    >
+                      Selanjutnya <i class="bi bi-chevron-right ml-1"></i>
+                    </button>
+                  </div>
+                )}
               </div>
             </section>
 
@@ -60,7 +79,7 @@ export default defineComponent({
             <aside class="xl:w-1/3 w-full">
               <div class="flex flex-col gap-4 sticky top-20">
                 <AdDisplay size="banner" label="Iklan Header" />
-                
+
                 {/* Popular Articles Widget */}
                 <div class="rounded-[var(--radius-xl)] bg-surface border border-border p-5">
                   <div class="section-header">
@@ -68,8 +87,8 @@ export default defineComponent({
                   </div>
                   <div class="space-y-5">
                     {store.popular.map((item, index) => (
-                      <router-link 
-                        to={{ name: 'read', params: { slug: item.slug } }} 
+                      <router-link
+                        to={{ name: 'read', params: { slug: item.slug } }}
                         key={item.id}
                         class="flex gap-4 group"
                       >
@@ -80,7 +99,9 @@ export default defineComponent({
                           <h4 class="text-sm font-bold leading-snug text-text-primary group-hover:text-primary transition line-clamp-2">
                             {item.title}
                           </h4>
-                          <span class="text-xs text-text-muted mt-1 block">{item.readTimeMinutes} min baca</span>
+                          <span class="text-xs text-text-muted mt-1 block">
+                            {item.readTimeMinutes} min baca
+                          </span>
                         </div>
                       </router-link>
                     ))}
