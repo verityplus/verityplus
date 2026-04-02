@@ -121,8 +121,8 @@ export default defineComponent({
           <div class="mx-auto px-4 sm:px-6 lg:px-8 flex flex-col xl:flex-row gap-8 pt-8 pb-24">
             {/* Left Sidebar Ad (Slim Skyscraper) */}
             <aside class="w-full xl:w-48 shrink-0 order-1">
-              <div class="sticky top-20">
-                <AdDisplay size="inline" label="Premium Placement" class="xl:h-screen h-40" />
+              <div class="sticky top-24">
+                <AdDisplay size="inline" label="Promo Utama" class="xl:h-[calc(100vh-8rem)] h-40" />
               </div>
             </aside>
 
@@ -208,8 +208,8 @@ export default defineComponent({
 
             {/* Right Sidebar Area (Slim) */}
             <aside class="w-full xl:w-48 shrink-0 order-3">
-              <div class="sticky top-20 flex flex-col gap-6">
-                <AdDisplay size="inline" label="Promo Utama" class="h-40 xl:h-screen" />
+              <div class="sticky top-24 flex flex-col gap-6">
+                <AdDisplay size="inline" label="Promo Utama" class="h-40 xl:h-[calc(100vh-8rem)]" />
               </div>
             </aside>
           </div>
