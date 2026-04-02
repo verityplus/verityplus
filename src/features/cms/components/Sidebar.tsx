@@ -31,7 +31,7 @@ export const CMSSidebar = defineComponent({
           </RouterLink>
         </div>
 
-        <nav class="flex-grow p-4 space-y-1">
+        <nav class="grow p-4 space-y-1">
           {navItems.map((item) => (
             <RouterLink
               to={item.path}
