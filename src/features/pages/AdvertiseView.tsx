@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useHead } from '@/composables/useHead'
 import { useI18n } from 'vue-i18n'
 import { BaseButton } from '@/components/ui/Button'
@@ -11,24 +11,27 @@ export default defineComponent({
   setup() {
     const { t } = useI18n()
 
+    const headTitle = computed(() => t('common.advertiseTitle'))
+    const headDesc = computed(() => t('common.advertiseDesc'))
+
     useHead({
-      title: t('common.advertiseTitle'),
+      title: headTitle,
       meta: [
         {
           name: 'description',
-          content: t('common.advertiseDesc'),
+          content: headDesc,
         },
       ],
     })
 
-    const stats = [
+    const stats = computed(() => [
       { value: '500K+', label: t('advertise.stats.monthlyViews') },
       { value: '120K+', label: t('advertise.stats.activeUsers') },
       { value: '4.8%', label: t('advertise.stats.avgCTR') },
       { value: '25K+', label: t('advertise.stats.subscribers') },
-    ]
+    ])
 
-    const plans = [
+    const plans = computed(() => [
       {
         name: t('advertise.plans.starter.name'),
         subtitle: t('advertise.plans.starter.subtitle'),
@@ -69,7 +72,7 @@ export default defineComponent({
           { text: t('advertise.features.videoReview'), included: true },
         ],
       },
-    ]
+    ])
 
     return () => (
       <section class="bg-background py-16 px-6 sm:py-24">
@@ -86,7 +89,7 @@ export default defineComponent({
 
           {/* Stats Summary */}
           <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20 py-10 border-y border-border">
-            {stats.map((stat) => (
+            {stats.value.map((stat) => (
               <div key={stat.label} class="text-center">
                 <div class="text-4xl font-bold text-text-primary">{stat.value}</div>
                 <div class="text-sm text-text-muted mt-1 uppercase tracking-widest">
@@ -98,7 +101,7 @@ export default defineComponent({
 
           {/* Plan Comparison Cards */}
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {plans.map((plan) => (
+            {plans.value.map((plan) => (
               <div
                 key={plan.name}
                 class={[

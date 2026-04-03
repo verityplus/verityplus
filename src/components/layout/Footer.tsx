@@ -58,7 +58,7 @@ export const AppFooter = defineComponent({
                     to={{ name: 'advertise' }}
                     class="text-white/60 hover:text-primary transition-colors text-sm"
                   >
-                    {t('footer.advertising')}
+                    {t('footer.advertise')}
                   </RouterLink>
                 </li>
               </ul>

@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useHead } from '@/composables/useHead'
 import { useI18n } from 'vue-i18n'
 import { BaseButton } from '@/components/ui/Button'
@@ -11,17 +11,20 @@ export default defineComponent({
   setup() {
     const { t } = useI18n()
 
+    const headTitle = computed(() => t('common.contactTitle'))
+    const headDesc = computed(() => t('common.contactDesc'))
+
     useHead({
-      title: t('common.contactTitle'),
+      title: headTitle,
       meta: [
         {
           name: 'description',
-          content: t('common.contactDesc'),
+          content: headDesc,
         },
       ],
     })
 
-    const contactInfo = [
+    const contactInfo = computed(() => [
       {
         icon: 'bi bi-geo-alt-fill',
         label: t('contact.mainOffice'),
@@ -30,10 +33,10 @@ export default defineComponent({
       { icon: 'bi bi-envelope-fill', label: t('common.email'), value: 'contact@verityplus.space' },
       {
         icon: 'bi bi-telephone-fill',
-        label: t('common.phone') ?? 'Telepon',
+        label: t('common.phone'),
         value: t('contact.phone'),
       },
-    ]
+    ])
 
     const handleSubmit = (e: Event) => {
       e.preventDefault()
@@ -52,7 +55,7 @@ export default defineComponent({
               <p class="text-lg text-text-secondary mb-10">{t('contact.description')}</p>
 
               <div class="space-y-8">
-                {contactInfo.map((info) => (
+                {contactInfo.value.map((info) => (
                   <div key={info.label} class="flex items-start gap-4">
                     <div class="flex-shrink-0 w-12 h-12 bg-primary-100 text-primary rounded-lg flex items-center justify-center">
                       <i class={[info.icon, 'text-xl']} />

@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useHead } from '@/composables/useHead'
 import { useI18n } from 'vue-i18n'
 
@@ -10,17 +10,20 @@ export default defineComponent({
   setup() {
     const { t } = useI18n()
 
+    const headTitle = computed(() => t('common.aboutTitle'))
+    const headDesc = computed(() => t('common.aboutDesc'))
+
     useHead({
-      title: t('common.aboutTitle'),
+      title: headTitle,
       meta: [
         {
           name: 'description',
-          content: t('common.aboutDesc'),
+          content: headDesc,
         },
       ],
     })
 
-    const coreValues = [
+    const coreValues = computed(() => [
       {
         icon: 'bi bi-lightning-fill',
         title: t('about.innovationTitle'),
@@ -36,7 +39,7 @@ export default defineComponent({
         title: t('about.integrityTitle'),
         description: t('about.integrityDesc'),
       },
-    ]
+    ])
 
     return () => (
       <section class="bg-background py-16 px-6 sm:py-24">
@@ -89,7 +92,7 @@ export default defineComponent({
               <h3 class="text-3xl font-bold text-text-primary">{t('about.coreValues')}</h3>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {coreValues.map((value) => (
+              {coreValues.value.map((value) => (
                 <div
                   key={value.title}
                   class="p-8 bg-surface rounded-xl border border-border hover:border-primary/30 hover:shadow-card-hover transition duration-300"

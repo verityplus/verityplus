@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useHead } from '@/composables/useHead'
 import { useI18n } from 'vue-i18n'
 import { BaseButton } from '@/components/ui/Button'
@@ -9,14 +9,17 @@ import { BaseButton } from '@/components/ui/Button'
 export default defineComponent({
   name: 'TermsAndConditionsView',
   setup() {
-    const { t } = useI18n()
+    const { t, tm } = useI18n()
+
+    const headTitle = computed(() => t('common.termsTitle'))
+    const headDesc = computed(() => t('common.termsDesc'))
 
     useHead({
-      title: t('common.termsTitle'),
-      meta: [{ name: 'description', content: t('common.termsDesc') }],
+      title: headTitle,
+      meta: [{ name: 'description', content: headDesc }],
     })
 
-    const sections = [
+    const sections = computed(() => [
       {
         title: t('terms.sections.acceptance.title'),
         text: t('terms.sections.acceptance.content'),
@@ -24,11 +27,7 @@ export default defineComponent({
       {
         title: t('terms.sections.userAccount.title'),
         intro: t('terms.sections.userAccount.content'),
-        items: [
-          t('terms.sections.userAccount.items[0]'),
-          t('terms.sections.userAccount.items[1]'),
-          t('terms.sections.userAccount.items[2]'),
-        ],
+        items: tm('terms.sections.userAccount.items') as string[],
       },
       {
         title: t('terms.sections.intellectualProperty.title'),
@@ -42,7 +41,7 @@ export default defineComponent({
         title: t('terms.sections.changes.title'),
         text: t('terms.sections.changes.content'),
       },
-    ]
+    ])
 
     return () => (
       <section class="bg-background-alt py-16 px-6 sm:py-24">
@@ -58,7 +57,7 @@ export default defineComponent({
           </div>
 
           <div class="text-text-secondary leading-relaxed space-y-10">
-            {sections.map((section, index) => (
+            {sections.value.map((section, index) => (
               <section key={section.title}>
                 <h2 class="text-xl font-bold text-text-primary mb-4 flex items-baseline border-b border-border/10 pb-2">
                   <span class="text-primary mr-3 tabular-nums font-black text-2xl">

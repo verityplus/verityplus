@@ -10,12 +10,15 @@ export default defineComponent({
   setup() {
     const { t, tm } = useI18n()
 
+    const headTitle = computed(() => t('common.privacyTitle'))
+    const headDesc = computed(() => t('common.privacyDesc'))
+
     useHead({
-      title: t('common.privacyTitle'),
+      title: headTitle,
       meta: [
         {
           name: 'description',
-          content: t('common.privacyDesc'),
+          content: headDesc,
         },
       ],
     })

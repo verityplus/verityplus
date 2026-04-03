@@ -14,7 +14,7 @@ export interface MessageSchema {
     company: string
     about: string
     contact: string
-    advertising: string
+    advertise: string
     help: string
     privacy: string
     terms: string
@@ -81,6 +81,7 @@ export interface MessageSchema {
     searchPlaceholder: string
     searchPlaceholderExtended: string
     emailYour: string
+    phone: string
     homeTitle: string
     homeDesc: string
     aboutTitle: string

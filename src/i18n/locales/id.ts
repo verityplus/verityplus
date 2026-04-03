@@ -13,7 +13,7 @@ const id: MessageSchema = {
     company: 'Perusahaan',
     about: 'Tentang Kami',
     contact: 'Kontak',
-    advertising: 'Periklanan',
+    advertise: 'Periklanan',
     help: 'Bantuan',
     privacy: 'Kebijakan Privasi',
     terms: 'Syarat & Ketentuan',
@@ -78,6 +78,7 @@ const id: MessageSchema = {
     searchPlaceholder: 'Cari artikel...',
     searchPlaceholderExtended: 'Cari artikel lainnya...',
     emailYour: 'Email Anda',
+    phone: 'Telepon',
     homeTitle: 'Verity+ — Portal Artikel Terkini',
     homeDesc: 'Artikel terkini seputar teknologi, bisnis, gaya hidup, dan olahraga.',
     aboutTitle: 'Tentang Kami — Verity+',
@@ -144,7 +145,7 @@ const id: MessageSchema = {
     sendMessage: 'Kirim Pesan',
   },
   advertise: {
-    heading: 'Advertising',
+    heading: 'Advertise',
     title: 'Jangkau Audiens yang Tepat Bersama Kami',
     description:
       'Tingkatkan visibilitas brand Anda dengan menempatkan iklan di platform kami yang memiliki ribuan pengunjung aktif setiap harinya.',
