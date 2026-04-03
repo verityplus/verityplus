@@ -55,13 +55,19 @@ export const ArticleCard = defineComponent({
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             {!isHorizontal && (
-              <div class="absolute top-3 left-3 pointer-events-none">
-                <BaseBadge
-                  bgColor={props.article.category.bgColor}
-                  textColor={props.article.category.color}
+              <div class="absolute top-3 left-3">
+                <RouterLink
+                  to={{ name: 'category', params: { slug: props.article.category.slug } }}
+                  class="pointer-events-auto no-underline"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  {props.article.category.name}
-                </BaseBadge>
+                  <BaseBadge
+                    bgColor={props.article.category.bgColor}
+                    textColor={props.article.category.color}
+                  >
+                    {props.article.category.name}
+                  </BaseBadge>
+                </RouterLink>
               </div>
             )}
           </div>
@@ -69,13 +75,19 @@ export const ArticleCard = defineComponent({
           {/* Content Container */}
           <div class={['flex flex-col flex-1 p-5', isHorizontal ? 'md:w-1/2 justify-center' : '']}>
             {isHorizontal && (
-              <BaseBadge
-                bgColor={props.article.category.bgColor}
-                textColor={props.article.category.color}
-                class="mb-3 w-fit"
+              <RouterLink
+                to={{ name: 'category', params: { slug: props.article.category.slug } }}
+                class="no-underline"
+                onClick={(e) => e.stopPropagation()}
               >
-                {props.article.category.name}
-              </BaseBadge>
+                <BaseBadge
+                  bgColor={props.article.category.bgColor}
+                  textColor={props.article.category.color}
+                  class="mb-3 w-fit"
+                >
+                  {props.article.category.name}
+                </BaseBadge>
+              </RouterLink>
             )}
 
             <h3
@@ -98,7 +110,20 @@ export const ArticleCard = defineComponent({
 
             <div class="mt-auto flex justify-end items-center pt-4">
               {!isHorizontal && (
-                <i class="bi bi-arrow-right text-primary group-hover:translate-x-1 transition-transform"></i>
+                <div class="absolute top-3 left-3">
+                  <RouterLink
+                    to={{ name: 'category', params: { slug: props.article.category.slug } }}
+                    class="pointer-events-auto no-underline"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <BaseBadge
+                      bgColor={props.article.category.bgColor}
+                      textColor={props.article.category.color}
+                    >
+                      {props.article.category.name}
+                    </BaseBadge>
+                  </RouterLink>
+                </div>
               )}
             </div>
           </div>

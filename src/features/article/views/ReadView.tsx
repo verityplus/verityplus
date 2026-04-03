@@ -5,6 +5,7 @@ import { marked } from 'marked'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { BaseBadge } from '@/components/ui/Badge'
+import { ArticleCard } from '@/features/article/components/ArticleCard'
 import type { Article } from '@/shared/types'
 
 /**
@@ -21,6 +22,7 @@ export default defineComponent({
     const fontSize = ref(18)
     const readingProgress = ref(0)
     const isSpeaking = ref(false)
+    const recommendedArticles = ref<Article[]>([])
 
     watch(
       () => route.params.slug,
@@ -28,6 +30,12 @@ export default defineComponent({
         if (slug) {
           const found = await store.findBySlug(slug as string)
           article.value = found || null
+          if (article.value) {
+            const sameCategory = store.findArticlesByCategory(article.value.category.slug)
+            recommendedArticles.value = sameCategory
+              .filter((a) => a.id !== article.value!.id)
+              .slice(0, 3)
+          }
         }
       },
       { immediate: true },
@@ -143,12 +151,22 @@ export default defineComponent({
               <header class="pb-10 mb-10 border-b border-border">
                 <div class="max-w-3xl mx-auto text-center">
                   <div class="flex items-center justify-center gap-3 mb-6">
-                    <BaseBadge
-                      bgColor={article.value.category.bgColor}
-                      textColor={article.value.category.color}
+                    <RouterLink
+                      to={{ name: 'category', params: { slug: article.value.category.slug } }}
+                      class="no-underline"
                     >
-                      {article.value.category.name}
-                    </BaseBadge>
+                      <RouterLink
+                        to={{ name: 'category', params: { slug: article.value.category.slug } }}
+                        class="no-underline"
+                      >
+                        <BaseBadge
+                          bgColor={article.value.category.bgColor}
+                          textColor={article.value.category.color}
+                        >
+                          {article.value.category.name}
+                        </BaseBadge>
+                      </RouterLink>
+                    </RouterLink>
                     <span class="text-text-muted text-sm">
                       {article.value.readTimeMinutes} menit baca
                     </span>
@@ -216,6 +234,18 @@ export default defineComponent({
                   </div>
                 </div>
               </div>
+
+              {/* Recommended Articles */}
+              {recommendedArticles.value.length > 0 && (
+                <div class="mt-16 pt-12 border-t border-border">
+                  <h2 class="text-2xl font-bold text-text-primary mb-8">Artikel Rekomendasi</h2>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {recommendedArticles.value.map((recArticle) => (
+                      <ArticleCard key={recArticle.id} article={recArticle} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </main>
 
             {/* Right Sidebar Area (Slim) */}

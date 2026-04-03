@@ -1,4 +1,5 @@
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useHead } from '@/composables/useHead'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { HeadlineCarousel } from '@/features/article/components/HeadlineCarousel'
@@ -6,6 +7,7 @@ import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { ArticleGrid } from '@/features/article/components/ArticleGrid'
 import { InstagramEmbed } from '@/features/social/components/InstagramEmbed'
 import { useArticleStore } from '@/features/article/store/article.store'
+import type { Article } from '@/shared/types'
 
 /**
  * Page View: HomeView
@@ -14,6 +16,7 @@ import { useArticleStore } from '@/features/article/store/article.store'
 export default defineComponent({
   name: 'HomeView',
   setup() {
+    const router = useRouter()
     const store = useArticleStore()
 
     useHead({
@@ -54,35 +57,15 @@ export default defineComponent({
                   ))}
                 </div>
 
-                {/* Pagination Controls */}
-                {store.latestTotalPages > 1 && (
-                  <div class="flex items-center justify-end mt-8 pt-6 border-t border-border">
-                    <button
-                      onClick={() => store.latestPrevPage()}
-                      disabled={store.latestPage === 1}
-                      class={[
-                        'px-4 py-2 rounded-lg text-sm font-bold transition cursor-pointer border border-border',
-                        store.latestPage === 1
-                          ? 'opacity-50 cursor-not-allowed text-text-muted bg-surface-muted'
-                          : 'text-text-primary bg-surface hover:bg-surface-hover',
-                      ]}
-                    >
-                      <i class="bi bi-chevron-left mr-1"></i> Sebelumnya
-                    </button>
-                    <button
-                      onClick={() => store.latestNextPage()}
-                      disabled={store.latestPage === store.latestTotalPages}
-                      class={[
-                        'px-4 py-2 rounded-lg text-sm font-bold transition cursor-pointer border border-border',
-                        store.latestPage === store.latestTotalPages
-                          ? 'opacity-50 cursor-not-allowed text-text-muted bg-surface-muted'
-                          : 'text-text-primary bg-surface hover:bg-surface-hover',
-                      ]}
-                    >
-                      Selanjutnya <i class="bi bi-chevron-right ml-1"></i>
-                    </button>
-                  </div>
-                )}
+                {/* Lihat Semua Button */}
+                <div class="flex items-center justify-center mt-8 pt-6 border-t border-border">
+                  <button
+                    onClick={() => router.push('/articles')}
+                    class="px-8 py-3 rounded-xl text-base font-bold text-text-inverse bg-primary hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer"
+                  >
+                    Lihat Semua <i class="bi bi-arrow-right ml-2"></i>
+                  </button>
+                </div>
               </div>
             </section>
 

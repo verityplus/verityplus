@@ -110,6 +110,16 @@ export const useArticleStore = defineStore('articles', () => {
     return articles.value.filter((a) => a.author.id === id)
   }
 
+  /** Find a category by its slug */
+  const findCategoryBySlug = (slug: string): Category | undefined => {
+    return categories.value.find((c) => c.slug === slug)
+  }
+
+  /** Find all articles in a specific category */
+  const findArticlesByCategory = (slug: string): Article[] => {
+    return articles.value.filter((a) => a.category.slug === slug)
+  }
+
   // --- Pagination Methods ---
 
   /** Go to next page of latest articles */
@@ -172,5 +182,7 @@ export const useArticleStore = defineStore('articles', () => {
     getCategoryWithCount,
     findAuthorById,
     findArticlesByAuthor,
+    findCategoryBySlug,
+    findArticlesByCategory,
   }
 })

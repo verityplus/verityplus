@@ -133,6 +133,7 @@ export type RouteName =
   | 'search'
   | 'read'
   | 'author'
+  | 'category'
   | 'cms-dashboard'
   | 'cms-articles'
   | 'cms-articles-new'

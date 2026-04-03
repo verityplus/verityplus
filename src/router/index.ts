@@ -56,6 +56,21 @@ const router = createRouter({
       name: 'author',
       component: () => import('../features/article/views/AuthorView'),
     },
+    {
+      path: '/categories/:slug',
+      name: 'category',
+      component: () => import('../features/article/views/CategoryView'),
+    },
+    {
+      path: '/articles',
+      name: 'all-articles',
+      component: () => import('../features/article/views/AllArticlesView'),
+    },
+    {
+      path: '/articles',
+      name: 'all-articles',
+      component: () => import('../features/article/views/AllArticlesView'),
+    },
     // --- Content Management System (CMS) Routes ---
     {
       path: '/cms',

@@ -22,7 +22,8 @@ export const HeadlineCarousel = defineComponent({
     }
 
     const prevSlide = () => {
-      currentIndex.value = (currentIndex.value - 1 + featuredArticles.value.length) % featuredArticles.value.length
+      currentIndex.value =
+        (currentIndex.value - 1 + featuredArticles.value.length) % featuredArticles.value.length
     }
 
     const goToSlide = (index: number) => {
@@ -41,48 +42,60 @@ export const HeadlineCarousel = defineComponent({
     onUnmounted(() => stopAutoplay())
 
     return () => (
-      <div 
-        class="w-full h-full relative group" 
-        onMouseenter={stopAutoplay} 
+      <div
+        class="w-full h-full relative group"
+        onMouseenter={stopAutoplay}
         onMouseleave={startAutoplay}
       >
         <div class="overflow-hidden rounded-xl bg-surface shadow-card h-full">
-          <div 
-            class="flex h-full transition-transform duration-700 ease-in-out" 
+          <div
+            class="flex h-full transition-transform duration-700 ease-in-out"
             style={{ transform: `translateX(-${currentIndex.value * 100}%)` }}
           >
             {featuredArticles.value.map((item: Article) => (
-              <div 
-                key={item.id} 
+              <div
+                key={item.id}
                 class="w-full h-full flex-shrink-0 relative overflow-hidden hero-height"
               >
-                <RouterLink 
-                  to={{ name: 'read', params: { slug: item.slug } }} 
+                <RouterLink
+                  to={{ name: 'read', params: { slug: item.slug } }}
                   class="block w-full h-full relative focus:outline-none focus:ring-4 focus:ring-primary/40 focus:ring-inset"
                 >
-                  <img 
-                    src={item.coverImage} 
-                    alt={item.title} 
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                  <img
+                    src={item.coverImage}
+                    alt={item.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  
+
                   {/* Gradient Overlay */}
                   <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 
                   {/* Content Overlay */}
                   <div class="absolute bottom-0 left-0 right-0 p-6 md:p-10 text-white">
-                    <BaseBadge 
-                      bgColor={item.category.bgColor} 
-                      textColor={item.category.color}
-                      class="mb-3"
+                    <RouterLink
+                      to={{ name: 'category', params: { slug: item.category.slug } }}
+                      class="no-underline inline-block mb-3"
+                      onClick={(e) => e.stopPropagation()}
                     >
-                      {item.category.name}
-                    </BaseBadge>
-                    
+                      <RouterLink
+                        to={{ name: 'category', params: { slug: item.category.slug } }}
+                        class="no-underline inline-block mb-3"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <BaseBadge
+                          bgColor={item.category.bgColor}
+                          textColor={item.category.color}
+                          class="mb-3"
+                        >
+                          {item.category.name}
+                        </BaseBadge>
+                      </RouterLink>
+                    </RouterLink>
+
                     <h2 class="text-3xl md:text-4xl font-extrabold mb-3 leading-tight max-w-2xl">
                       {item.title}
                     </h2>
-                    
+
                     <p class="text-white/70 text-sm md:text-base line-clamp-2 max-w-xl">
                       {item.excerpt}
                     </p>
@@ -101,7 +114,7 @@ export const HeadlineCarousel = defineComponent({
               onClick={() => goToSlide(index)}
               class={[
                 'w-8 h-1 transition-all duration-300 rounded-full focus:outline-none',
-                currentIndex.value === index ? 'bg-primary w-12' : 'bg-white/40 hover:bg-white/60'
+                currentIndex.value === index ? 'bg-primary w-12' : 'bg-white/40 hover:bg-white/60',
               ]}
               aria-label={`Slide ${index + 1}`}
             />

@@ -89,12 +89,18 @@ export default defineComponent({
 
                     <div class="flex flex-col justify-center flex-1">
                       <div class="flex items-center gap-3 mb-2 text-sm">
-                        <BaseBadge
-                          bgColor={article.category.bgColor}
-                          textColor={article.category.color}
+                        <RouterLink
+                          to={{ name: 'category', params: { slug: article.category.slug } }}
+                          class="no-underline"
+                          onClick={(e) => e.stopPropagation()}
                         >
-                          {article.category.name}
-                        </BaseBadge>
+                          <BaseBadge
+                            bgColor={article.category.bgColor}
+                            textColor={article.category.color}
+                          >
+                            {article.category.name}
+                          </BaseBadge>
+                        </RouterLink>
                         <span class="text-text-muted">{article.publishedAt}</span>
                       </div>
                       <h2 class="text-xl font-bold text-text-primary mb-2 group-hover:text-primary transition leading-tight">
@@ -134,14 +140,19 @@ export default defineComponent({
                   {categoriesWithCount.value.map((catInfo) => (
                     <li
                       key={catInfo.category.id}
-                      class="flex justify-between items-center p-3 rounded-lg hover:bg-surface-hover transition cursor-pointer group"
+                      class="flex justify-between items-center p-3 rounded-lg hover:bg-surface-hover transition group"
                     >
-                      <span class="text-text-secondary font-medium group-hover:text-primary transition">
-                        {catInfo.category.name}
-                      </span>
-                      <span class="text-xs font-bold bg-surface-muted px-2.5 py-1 rounded-md text-text-muted">
-                        {catInfo.count}
-                      </span>
+                      <RouterLink
+                        to={{ name: 'category', params: { slug: catInfo.category.slug } }}
+                        class="no-underline w-full flex justify-between items-center"
+                      >
+                        <span class="text-text-secondary font-medium group-hover:text-primary transition">
+                          {catInfo.category.name}
+                        </span>
+                        <span class="text-xs font-bold bg-surface-muted px-2.5 py-1 rounded-md text-text-muted">
+                          {catInfo.count}
+                        </span>
+                      </RouterLink>
                     </li>
                   ))}
                 </ul>
