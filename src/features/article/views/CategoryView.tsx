@@ -104,7 +104,7 @@ export default defineComponent({
                 </div>
 
                 {totalPages.value > 1 && (
-                  <div class="flex items-center justify-between mt-12 pt-8 border-t border-border/50">
+                  <div class="flex items-center justify-between py-4 border-t border-border/50">
                     <button
                       onClick={() => navigateToPage(currentPage.value - 1)}
                       disabled={currentPage.value === 1}
