@@ -238,4 +238,12 @@ export interface MessageSchema {
     mainPromo: string
     sponsor: string
   }
+  topbar: {
+    browse: string
+    featured: string
+    latest: string
+    popular: string
+    categories: string
+    articlesCount: string
+  }
 }

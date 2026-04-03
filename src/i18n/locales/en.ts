@@ -297,6 +297,14 @@ const en: MessageSchema = {
     mainPromo: 'Main Promo',
     sponsor: 'Sponsor',
   },
+  topbar: {
+    browse: 'Browse',
+    featured: 'Featured',
+    latest: 'Latest',
+    popular: 'Popular',
+    categories: 'Categories',
+    articlesCount: '{count} articles',
+  },
 }
 
 export default en

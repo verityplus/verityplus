@@ -1,9 +1,10 @@
-import { defineComponent } from 'vue'
-import { RouterLink } from 'vue-router'
+import { defineComponent, computed } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { AppLogo } from '../ui/Logo'
 import { SearchInput } from '@/features/search/components/SearchInput'
 import { LanguageSwitcher } from '../ui/LanguageSwitcher'
+import { BrowseTopBar } from '../ui/BrowseTopBar'
 
 /**
  * Layout Component: Header
@@ -13,6 +14,10 @@ export const AppHeader = defineComponent({
   name: 'AppHeader',
   setup() {
     const { t } = useI18n()
+    const route = useRoute()
+    const shouldShowTopBar = computed(() => {
+      return route.name !== 'home'
+    })
 
     return () => (
       <header class="sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-border">
@@ -27,6 +32,7 @@ export const AppHeader = defineComponent({
             </div>
           </div>
         </div>
+        {shouldShowTopBar.value && <BrowseTopBar />}
       </header>
     )
   },

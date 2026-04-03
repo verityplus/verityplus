@@ -300,6 +300,14 @@ const id: MessageSchema = {
     mainPromo: 'Promo Utama',
     sponsor: 'Sponsor',
   },
+  topbar: {
+    browse: 'Jelajahi',
+    featured: 'Unggulan',
+    latest: 'Terbaru',
+    popular: 'Populer',
+    categories: 'Kategori',
+    articlesCount: '{count} artikel',
+  },
 }
 
 export default id

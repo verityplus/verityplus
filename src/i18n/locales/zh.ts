@@ -291,6 +291,14 @@ const zh: MessageSchema = {
     mainPromo: '主要促销',
     sponsor: '赞助',
   },
+  topbar: {
+    browse: '浏览',
+    featured: '精选',
+    latest: '最新',
+    popular: '热门',
+    categories: '分类',
+    articlesCount: '{count} 篇文章',
+  },
 }
 
 export default zh
