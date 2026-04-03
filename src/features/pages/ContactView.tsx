@@ -1,5 +1,6 @@
 import { defineComponent } from 'vue'
 import { useHead } from '@/composables/useHead'
+import { useI18n } from 'vue-i18n'
 import { BaseButton } from '@/components/ui/Button'
 
 /**
@@ -8,12 +9,14 @@ import { BaseButton } from '@/components/ui/Button'
 export default defineComponent({
   name: 'ContactView',
   setup() {
+    const { t } = useI18n()
+
     useHead({
-      title: 'Hubungi Kami — Verity+',
+      title: t('common.contactTitle'),
       meta: [
         {
           name: 'description',
-          content: 'Hubungi tim Verity+ untuk pertanyaan, kerjasama, atau informasi lebih lanjut.',
+          content: t('common.contactDesc'),
         },
       ],
     })
@@ -21,16 +24,20 @@ export default defineComponent({
     const contactInfo = [
       {
         icon: 'bi bi-geo-alt-fill',
-        label: 'Kantor Utama',
-        value: 'Jl. Teknologi No. 42, Jakarta Selatan, Indonesia',
+        label: t('contact.mainOffice'),
+        value: t('contact.address'),
       },
-      { icon: 'bi bi-envelope-fill', label: 'Email', value: 'contact@verityplus.space' },
-      { icon: 'bi bi-telephone-fill', label: 'Telepon', value: '+62 21 1234 5678' },
+      { icon: 'bi bi-envelope-fill', label: t('common.email'), value: 'contact@verityplus.space' },
+      {
+        icon: 'bi bi-telephone-fill',
+        label: t('common.phone') ?? 'Telepon',
+        value: t('contact.phone'),
+      },
     ]
 
     const handleSubmit = (e: Event) => {
       e.preventDefault()
-      alert('Pesan Anda telah terkirim (Ini hanya demo)')
+      alert(t('contact.messageSent'))
     }
 
     return () => (
@@ -39,15 +46,10 @@ export default defineComponent({
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div>
               <h2 class="text-primary font-semibold tracking-wide uppercase text-sm mb-2">
-                Hubungi Kami
+                {t('contact.heading')}
               </h2>
-              <h1 class="text-4xl font-extrabold text-text-primary mb-6">
-                Mari Mulai Sesuatu yang Luar Biasa
-              </h1>
-              <p class="text-lg text-text-secondary mb-10">
-                Punya ide atau pertanyaan? Tim kami siap membantu Anda mewujudkan visi digital Anda.
-                Kirimkan pesan dan kami akan membalas dalam 24 jam.
-              </p>
+              <h1 class="text-4xl font-extrabold text-text-primary mb-6">{t('contact.title')}</h1>
+              <p class="text-lg text-text-secondary mb-10">{t('contact.description')}</p>
 
               <div class="space-y-8">
                 {contactInfo.map((info) => (
@@ -69,28 +71,30 @@ export default defineComponent({
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label class="block text-sm font-medium text-text-secondary mb-2">
-                      Nama Depan
+                      {t('contact.firstName')}
                     </label>
                     <input
                       type="text"
-                      placeholder="John"
+                      placeholder={t('contact.firstNamePlaceholder')}
                       class="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition bg-background text-text-primary"
                     />
                   </div>
                   <div>
                     <label class="block text-sm font-medium text-text-secondary mb-2">
-                      Nama Belakang
+                      {t('contact.lastName')}
                     </label>
                     <input
                       type="text"
-                      placeholder="Doe"
+                      placeholder={t('contact.lastNamePlaceholder')}
                       class="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition bg-background text-text-primary"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-secondary mb-2">Email</label>
+                  <label class="block text-sm font-medium text-text-secondary mb-2">
+                    {t('common.email')}
+                  </label>
                   <input
                     type="email"
                     placeholder="john@example.com"
@@ -99,10 +103,12 @@ export default defineComponent({
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-secondary mb-2">Pesan</label>
+                  <label class="block text-sm font-medium text-text-secondary mb-2">
+                    {t('contact.message')}
+                  </label>
                   <textarea
                     rows={4}
-                    placeholder="Apa yang bisa kami bantu?"
+                    placeholder={t('contact.messagePlaceholder')}
                     class="w-full px-4 py-3 rounded-[var(--radius-lg)] border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition bg-background text-text-primary resize-none"
                   ></textarea>
                 </div>
@@ -112,7 +118,7 @@ export default defineComponent({
                   type="submit"
                   class="py-4 text-base shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-0.5"
                 >
-                  Kirim Pesan
+                  {t('contact.sendMessage')}
                 </BaseButton>
               </form>
             </div>

@@ -1,5 +1,6 @@
 import { defineComponent, ref, onMounted, onUnmounted, computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useArticleStore } from '../store/article.store'
 import { BaseBadge } from '@/components/ui/Badge'
 import type { Article } from '@/shared/types'
@@ -12,6 +13,7 @@ export const HeadlineCarousel = defineComponent({
   name: 'HeadlineCarousel',
   setup() {
     const store = useArticleStore()
+    const { t } = useI18n()
     const currentIndex = ref(0)
     let timer: ReturnType<typeof setInterval> | null = null
 
@@ -125,7 +127,7 @@ export const HeadlineCarousel = defineComponent({
         <button
           onClick={prevSlide}
           class="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 transition-all opacity-0 group-hover:opacity-100 duration-300 cursor-pointer"
-          aria-label="Sebelumnya"
+          aria-label={t('common.previous')}
         >
           <i class="bi bi-chevron-left text-xl"></i>
         </button>
@@ -133,7 +135,7 @@ export const HeadlineCarousel = defineComponent({
         <button
           onClick={nextSlide}
           class="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 transition-all opacity-0 group-hover:opacity-100 duration-300 cursor-pointer"
-          aria-label="Selanjutnya"
+          aria-label={t('common.next')}
         >
           <i class="bi bi-chevron-right text-xl"></i>
         </button>

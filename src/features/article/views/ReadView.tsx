@@ -1,5 +1,6 @@
 import { defineComponent, ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
 import { marked } from 'marked'
 import { useArticleStore } from '@/features/article/store/article.store'
@@ -17,6 +18,7 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const store = useArticleStore()
+    const { t } = useI18n()
 
     const article = ref<Article | null>(null)
     const fontSize = ref(18)
@@ -43,7 +45,7 @@ export default defineComponent({
 
     useHead({
       title: computed(() =>
-        article.value ? `${article.value.title} — Verity+` : 'Memuat Artikel... — Verity+',
+        article.value ? `${article.value.title} — Verity+` : t('common.articleLoading'),
       ),
       meta: computed(() => [
         { name: 'description', content: article.value?.excerpt || '' },
@@ -111,7 +113,7 @@ export default defineComponent({
                 'w-14 h-14 rounded-full text-text-inverse shadow-xl flex items-center justify-center hover:scale-110 transition cursor-pointer',
                 isSpeaking.value ? 'bg-red-500 shadow-red-200' : 'bg-primary shadow-primary-200',
               ]}
-              title={isSpeaking.value ? 'Hentikan' : 'Baca Artikel'}
+              title={isSpeaking.value ? t('common.stop') : t('common.readArticle')}
             >
               <i
                 class={['text-xl', isSpeaking.value ? 'bi bi-stop-fill' : 'bi bi-volume-up-fill']}
@@ -124,6 +126,7 @@ export default defineComponent({
                   fontSize.value += 2
                 }}
                 class="w-10 h-10 rounded-full hover:bg-surface-hover font-bold text-text-secondary text-lg cursor-pointer transition border-none"
+                title={t('common.fontSizeIncrease')}
               >
                 A+
               </button>
@@ -132,6 +135,7 @@ export default defineComponent({
                   fontSize.value -= 2
                 }}
                 class="w-10 h-10 rounded-full hover:bg-surface-hover font-bold text-text-secondary text-sm cursor-pointer transition border-none"
+                title={t('common.fontSizeDecrease')}
               >
                 A-
               </button>
@@ -142,7 +146,11 @@ export default defineComponent({
             {/* Left Sidebar Ad (Slim Skyscraper) */}
             <aside class="w-full xl:w-48 shrink-0 order-1">
               <div class="sticky top-24">
-                <AdDisplay size="inline" label="Promo Utama" class="xl:h-[calc(100vh-8rem)] h-40" />
+                <AdDisplay
+                  size="inline"
+                  label={t('article.mainPromo')}
+                  class="xl:h-[calc(100vh-8rem)] h-40"
+                />
               </div>
             </aside>
 
@@ -168,7 +176,7 @@ export default defineComponent({
                       </RouterLink>
                     </RouterLink>
                     <span class="text-text-muted text-sm">
-                      {article.value.readTimeMinutes} menit baca
+                      {article.value.readTimeMinutes} {t('article.minutesRead')}
                     </span>
                   </div>
 
@@ -238,7 +246,9 @@ export default defineComponent({
               {/* Recommended Articles */}
               {recommendedArticles.value.length > 0 && (
                 <div class="mt-16 pt-12 border-t border-border">
-                  <h2 class="text-2xl font-bold text-text-primary mb-8">Artikel Rekomendasi</h2>
+                  <h2 class="text-2xl font-bold text-text-primary mb-8">
+                    {t('article.recommended')}
+                  </h2>
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {recommendedArticles.value.map((recArticle) => (
                       <ArticleCard key={recArticle.id} article={recArticle} />
@@ -251,7 +261,11 @@ export default defineComponent({
             {/* Right Sidebar Area (Slim) */}
             <aside class="w-full xl:w-48 shrink-0 order-3">
               <div class="sticky top-24 flex flex-col gap-6">
-                <AdDisplay size="inline" label="Promo Utama" class="h-40 xl:h-[calc(100vh-8rem)]" />
+                <AdDisplay
+                  size="inline"
+                  label={t('article.mainPromo')}
+                  class="h-40 xl:h-[calc(100vh-8rem)]"
+                />
               </div>
             </aside>
           </div>

@@ -1,7 +1,9 @@
 import { defineComponent } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { AppLogo } from '../ui/Logo'
 import { SearchInput } from '@/features/search/components/SearchInput'
+import { LanguageSwitcher } from '../ui/LanguageSwitcher'
 
 /**
  * Layout Component: Header
@@ -10,15 +12,18 @@ import { SearchInput } from '@/features/search/components/SearchInput'
 export const AppHeader = defineComponent({
   name: 'AppHeader',
   setup() {
+    const { t } = useI18n()
+
     return () => (
       <header class="sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-border">
         <div class="container-page">
           <div class="flex justify-between items-center h-16">
-            <RouterLink to={{ name: 'home' }} class="flex items-center" aria-label="Ke beranda">
+            <RouterLink to={{ name: 'home' }} class="flex items-center" aria-label={t('nav.home')}>
               <AppLogo />
             </RouterLink>
             <div class="flex gap-4 items-center">
               <SearchInput />
+              <LanguageSwitcher />
             </div>
           </div>
         </div>

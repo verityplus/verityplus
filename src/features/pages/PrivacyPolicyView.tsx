@@ -1,5 +1,6 @@
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useHead } from '@/composables/useHead'
+import { useI18n } from 'vue-i18n'
 
 /**
  * Static View: PrivacyPolicyView
@@ -7,63 +8,55 @@ import { useHead } from '@/composables/useHead'
 export default defineComponent({
   name: 'PrivacyPolicyView',
   setup() {
+    const { t, tm } = useI18n()
+
     useHead({
-      title: 'Kebijakan Privasi — Verity+',
+      title: t('common.privacyTitle'),
       meta: [
         {
           name: 'description',
-          content: 'Kebijakan privasi Verity+ — bagaimana kami melindungi data pribadi Anda.',
+          content: t('common.privacyDesc'),
         },
       ],
     })
 
-    const sections = [
+    const sections = computed(() => [
       {
-        title: '1. Pendahuluan',
-        text: 'Privasi Anda sangat penting bagi kami. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda saat Anda menggunakan layanan kami. Dengan menggunakan platform kami, Anda menyetujui praktik yang dijelaskan dalam kebijakan ini.',
+        title: t('privacy.sections.intro.title'),
+        text: t('privacy.sections.intro.content'),
       },
       {
-        title: '2. Informasi yang Kami Kumpulkan',
-        intro:
-          'Kami mengumpulkan informasi yang Anda berikan secara langsung kepada kami, termasuk namun tidak terbatas pada:',
-        items: [
-          'Nama lengkap dan informasi kontak (email, nomor telepon).',
-          'Data demografis jika diperlukan untuk layanan tertentu.',
-          'Informasi teknis seperti alamat IP, jenis perangkat, dan log aktivitas browser melalui Cookies.',
-        ],
+        title: t('privacy.sections.infoCollected.title'),
+        intro: t('privacy.sections.infoCollected.content'),
+        items: tm('privacy.sections.infoCollected.items') as string[],
       },
       {
-        title: '3. Penggunaan Informasi',
-        intro: 'Informasi yang kami kumpulkan digunakan untuk:',
-        items: [
-          'Menyediakan, memelihara, dan meningkatkan layanan kami.',
-          'Memproses transaksi dan mengirimkan pemberitahuan terkait.',
-          'Mengirimkan komunikasi pemasaran (Anda dapat berhenti berlangganan kapan saja).',
-          'Mendeteksi dan mencegah aktivitas penipuan atau teknis yang mencurigakan.',
-        ],
+        title: t('privacy.sections.infoUsage.title'),
+        intro: t('privacy.sections.infoUsage.content'),
+        items: tm('privacy.sections.infoUsage.items') as string[],
       },
       {
-        title: '4. Keamanan Data',
-        text: 'Kami menerapkan langkah-langkah keamanan teknis dan organisasional yang standar di industri untuk melindungi data pribadi Anda dari akses tidak sah, pengungkapan, atau modifikasi. Namun, harap diingat bahwa tidak ada metode transmisi data melalui internet yang 100% aman.',
+        title: t('privacy.sections.dataSecurity.title'),
+        text: t('privacy.sections.dataSecurity.content'),
       },
       {
-        title: '5. Hak Anda',
-        text: 'Anda memiliki hak untuk mengakses, memperbarui, atau meminta penghapusan informasi pribadi yang kami simpan. Jika Anda ingin menggunakan hak ini, silakan hubungi kami melalui informasi kontak yang tersedia di halaman Kontak kami.',
+        title: t('privacy.sections.yourRights.title'),
+        text: t('privacy.sections.yourRights.content'),
       },
-    ]
+    ])
 
     return () => (
       <section class="bg-background-alt py-16 px-6 sm:py-24">
         <div class="max-w-4xl mx-auto bg-surface p-8 sm:p-12 rounded-2xl shadow-card border border-border text-left">
           <div class="border-b border-border pb-8 mb-8">
             <h1 class="text-3xl sm:text-4xl font-extrabold text-text-primary mb-4">
-              Kebijakan Privasi
+              {t('privacy.heading')}
             </h1>
-            <p class="text-text-muted italic">Terakhir diperbarui: 20 Mei 2024</p>
+            <p class="text-text-muted italic">{t('privacy.lastUpdated')}</p>
           </div>
 
           <div class="prose prose-blue max-w-none text-text-secondary leading-relaxed space-y-8">
-            {sections.map((section) => (
+            {sections.value.map((section) => (
               <section key={section.title}>
                 <h2 class="text-xl font-bold text-text-primary mb-3 flex items-center border-b border-border/10 pb-2">
                   {section.title}
@@ -83,10 +76,9 @@ export default defineComponent({
             ))}
 
             <div class="bg-primary-50 border-l-4 border-primary p-6 rounded-r-lg mt-10">
-              <p class="text-primary-700 font-bold mb-1">Pertanyaan tentang kebijakan ini?</p>
+              <p class="text-primary-700 font-bold mb-1">{t('privacy.question')}</p>
               <p class="text-primary-600 text-sm">
-                Jika Anda memiliki pertanyaan tambahan mengenai penggunaan data Anda, jangan ragu
-                untuk menghubungi tim kepatuhan kami melalui email di{' '}
+                {t('privacy.questionDesc')}{' '}
                 <span class="font-bold underline">privacy@verityplus.space</span>.
               </p>
             </div>

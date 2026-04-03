@@ -1,5 +1,6 @@
 import { defineComponent, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
@@ -14,6 +15,7 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const store = useArticleStore()
+    const { t } = useI18n()
 
     const currentPage = computed(() => {
       const page = parseInt(route.query.page as string, 10)
@@ -38,11 +40,11 @@ export default defineComponent({
     }
 
     useHead({
-      title: 'Semua Artikel — Verity+',
+      title: t('common.allArticlesTitle'),
       meta: [
         {
           name: 'description',
-          content: 'Semua artikel terbaru dari Verity+',
+          content: t('common.allArticlesDesc'),
         },
       ],
     })
@@ -52,15 +54,15 @@ export default defineComponent({
         <div class="container-page">
           <div class="bg-surface rounded-2xl border border-border p-8 sm:p-12 mb-12 shadow-card">
             <div>
-              <h1 class="text-3xl sm:text-4xl font-extrabold text-text-primary">Semua Artikel</h1>
-              <p class="mt-3 text-lg text-text-muted">
-                Wawasan terbaru seputar teknologi, bisnis, dan gaya hidup.
-              </p>
+              <h1 class="text-3xl sm:text-4xl font-extrabold text-text-primary">
+                {t('common.allArticles')}
+              </h1>
+              <p class="mt-3 text-lg text-text-muted">{t('common.allArticlesDesc')}</p>
             </div>
           </div>
 
           <div class="mb-12">
-            <AdDisplay size="leaderboard" label="Sponsor" />
+            <AdDisplay size="leaderboard" label={t('ads.sponsor')} />
           </div>
 
           {paginatedArticles.value.length > 0 ? (
@@ -83,7 +85,7 @@ export default defineComponent({
                         : 'text-text-primary bg-surface hover:bg-surface-hover hover:border-primary/30 cursor-pointer',
                     ]}
                   >
-                    <i class="bi bi-chevron-left mr-1"></i> Sebelumnya
+                    <i class="bi bi-chevron-left mr-1"></i> {t('common.previous')}
                   </button>
 
                   <button
@@ -96,7 +98,7 @@ export default defineComponent({
                         : 'text-text-primary bg-surface hover:bg-surface-hover hover:border-primary/30 cursor-pointer',
                     ]}
                   >
-                    Selanjutnya <i class="bi bi-chevron-right ml-1"></i>
+                    {t('common.next')} <i class="bi bi-chevron-right ml-1"></i>
                   </button>
                 </div>
               )}
@@ -104,13 +106,13 @@ export default defineComponent({
           ) : (
             <div class="text-center py-16 mb-16">
               <i class="bi bi-journal-x text-5xl text-text-muted mb-4 block"></i>
-              <h3 class="text-xl font-bold text-text-primary mb-2">Belum Ada Artikel</h3>
-              <p class="text-text-muted">Belum ada artikel yang diterbitkan.</p>
+              <h3 class="text-xl font-bold text-text-primary mb-2">{t('common.noArticles')}</h3>
+              <p class="text-text-muted">{t('common.noArticlesDesc')}</p>
             </div>
           )}
 
           <div class="pt-8 border-t border-border">
-            <AdDisplay size="leaderboard" label="Promo Eksklusif" />
+            <AdDisplay size="leaderboard" label={t('ads.exclusivePromo')} />
           </div>
         </div>
       </main>

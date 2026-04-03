@@ -1,8 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { i18n, DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/i18n'
+import type { Locale } from '@/i18n/types'
 
 /**
  * Global Routing Configuration
- * All routes point to TSX-based view components.
+ * All public routes are prefixed with /:locale(id|en|zh).
+ * CMS routes stay at /cms without locale prefix.
  */
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,67 +14,82 @@ const router = createRouter({
     return { top: 0, behavior: 'smooth' }
   },
   routes: [
+    // Root redirect — detect and redirect to /:locale
     {
       path: '/',
-      name: 'home',
-      component: () => import('../features/pages/HomeView'),
+      redirect: () => {
+        const path = window.location.pathname
+        const segments = path.split('/').filter(Boolean)
+        const firstSegment = segments[0]
+        if (firstSegment && SUPPORTED_LOCALES.includes(firstSegment as Locale)) {
+          return `/${firstSegment}`
+        }
+        const browserLang = navigator.language.split('-')[0]
+        const detected = SUPPORTED_LOCALES.includes(browserLang as Locale)
+          ? browserLang
+          : DEFAULT_LOCALE
+        return `/${detected}`
+      },
     },
+    // Locale-prefixed public routes
     {
-      path: '/about-us',
-      name: 'about-us',
-      component: () => import('../features/pages/AboutUsView'),
+      path: '/:locale(id|en|zh)',
+      component: () => import('../features/pages/LocaleLayout'),
+      children: [
+        { path: '', name: 'home', component: () => import('../features/pages/HomeView') },
+        {
+          path: 'about-us',
+          name: 'about-us',
+          component: () => import('../features/pages/AboutUsView'),
+        },
+        {
+          path: 'contact',
+          name: 'contact',
+          component: () => import('../features/pages/ContactView'),
+        },
+        {
+          path: 'advertise',
+          name: 'advertise',
+          component: () => import('../features/pages/AdvertiseView'),
+        },
+        {
+          path: 'privacy-policy',
+          name: 'privacy-policy',
+          component: () => import('../features/pages/PrivacyPolicyView'),
+        },
+        {
+          path: 'terms-and-conditions',
+          name: 'terms-and-conditions',
+          component: () => import('../features/pages/TermsAndConditionsView'),
+        },
+        {
+          path: 'search',
+          name: 'search',
+          component: () => import('../features/search/views/SearchView'),
+        },
+        {
+          path: 'read/:slug',
+          name: 'read',
+          component: () => import('../features/article/views/ReadView'),
+        },
+        {
+          path: 'author/:id',
+          name: 'author',
+          component: () => import('../features/article/views/AuthorView'),
+        },
+        {
+          path: 'categories/:slug',
+          name: 'category',
+          component: () => import('../features/article/views/CategoryView'),
+        },
+        {
+          path: 'articles',
+          name: 'all-articles',
+          component: () => import('../features/article/views/AllArticlesView'),
+        },
+      ],
     },
-    {
-      path: '/contact',
-      name: 'contact',
-      component: () => import('../features/pages/ContactView'),
-    },
-    {
-      path: '/advertise',
-      name: 'advertise',
-      component: () => import('../features/pages/AdvertiseView'),
-    },
-    {
-      path: '/privacy-policy',
-      name: 'privacy-policy',
-      component: () => import('../features/pages/PrivacyPolicyView'),
-    },
-    {
-      path: '/terms-and-conditions',
-      name: 'terms-and-conditions',
-      component: () => import('../features/pages/TermsAndConditionsView'),
-    },
-    {
-      path: '/search',
-      name: 'search',
-      component: () => import('../features/search/views/SearchView'),
-    },
-    {
-      path: '/read/:slug',
-      name: 'read',
-      component: () => import('../features/article/views/ReadView'),
-    },
-    {
-      path: '/author/:id',
-      name: 'author',
-      component: () => import('../features/article/views/AuthorView'),
-    },
-    {
-      path: '/categories/:slug',
-      name: 'category',
-      component: () => import('../features/article/views/CategoryView'),
-    },
-    {
-      path: '/articles',
-      name: 'all-articles',
-      component: () => import('../features/article/views/AllArticlesView'),
-    },
-    {
-      path: '/articles',
-      name: 'all-articles',
-      component: () => import('../features/article/views/AllArticlesView'),
-    },
-    // --- Content Management System (CMS) Routes ---
+    // CMS routes (unchanged, no locale prefix)
     {
       path: '/cms',
       component: () => import('../features/cms/views/CMSLayout'),
@@ -82,7 +100,6 @@ const router = createRouter({
           component: () => import('../features/cms/views/DashboardView'),
           meta: { title: 'Dashboard | CMS' },
         },
-        // Article CRUD
         {
           path: 'articles',
           name: 'cms-articles',
@@ -101,7 +118,6 @@ const router = createRouter({
           component: () => import('../features/cms/views/ArticleEditorView'),
           meta: { title: 'Edit Article | CMS' },
         },
-        // Character CRUD
         {
           path: 'characters',
           name: 'cms-characters',
@@ -120,7 +136,6 @@ const router = createRouter({
           component: () => import('../features/cms/views/CharacterEditorView'),
           meta: { title: 'Edit Character | CMS' },
         },
-        // Category CRUD
         {
           path: 'categories',
           name: 'cms-categories',
@@ -139,7 +154,6 @@ const router = createRouter({
           component: () => import('../features/cms/views/CategoryEditorView'),
           meta: { title: 'Edit Category | CMS' },
         },
-        // User CRUD
         {
           path: 'users',
           name: 'cms-users',
@@ -160,20 +174,30 @@ const router = createRouter({
         },
       ],
     },
+    // Catch-all 404 — redirect to root (which then redirects to /:locale)
+    { path: '/:pathMatch(.*)*', redirect: '/' },
   ],
 })
 
 /**
  * Universal Navigation Guard
- * Handles document titles and auth simulations.
+ * Syncs i18n locale from route param, handles CMS auth, redirects invalid locales.
  */
 router.beforeEach((to, _from, next) => {
-  // Update document title
-  document.title = (to.meta.title as string) || 'VERITY+'
+  // Sync i18n locale from route param
+  if (to.params.locale && typeof to.params.locale === 'string') {
+    const locale = to.params.locale as Locale
+    if (SUPPORTED_LOCALES.includes(locale)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ;(i18n.global.locale as any).value = locale
+    } else {
+      // Invalid locale — redirect to default
+      return next(`/${DEFAULT_LOCALE}`)
+    }
+  }
 
   // Basic CMS Auth Simulation
   if (to.path.startsWith('/cms')) {
-    // In a real app, check for valid token/session here
     console.info('[CMS Guard] Admin authorization assumed for development.')
   }
 

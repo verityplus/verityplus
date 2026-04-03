@@ -1,5 +1,6 @@
 import { defineComponent, ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { AppLogo } from '../ui/Logo'
 import { BaseButton } from '../ui/Button'
 
@@ -10,12 +11,13 @@ import { BaseButton } from '../ui/Button'
 export const AppFooter = defineComponent({
   name: 'AppFooter',
   setup() {
+    const { t } = useI18n()
     const email = ref('')
     const currentYear = computed(() => new Date().getFullYear())
 
     const handleSubscribe = (e: Event) => {
       e.preventDefault()
-      alert(`Terima kasih telah mendaftar dengan email: ${email.value}`)
+      alert(t('footer.subscribeSuccess', { email: email.value }))
       email.value = ''
     }
 
@@ -27,15 +29,12 @@ export const AppFooter = defineComponent({
               <div class="w-fit">
                 <AppLogo inverted />
               </div>
-              <p class="text-sm mt-4 leading-relaxed text-white/60">
-                VERITY+ adalah media digital yang menghadirkan informasi sekaligus solusi bagi
-                generasi muda.
-              </p>
+              <p class="text-sm mt-4 leading-relaxed text-white/60">{t('footer.description')}</p>
             </div>
 
             <div>
               <h3 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">
-                Perusahaan
+                {t('footer.company')}
               </h3>
               <ul class="space-y-2">
                 <li>
@@ -43,7 +42,7 @@ export const AppFooter = defineComponent({
                     to={{ name: 'about-us' }}
                     class="text-white/60 hover:text-primary transition-colors text-sm"
                   >
-                    Tentang Kami
+                    {t('footer.about')}
                   </RouterLink>
                 </li>
                 <li>
@@ -51,7 +50,7 @@ export const AppFooter = defineComponent({
                     to={{ name: 'contact' }}
                     class="text-white/60 hover:text-primary transition-colors text-sm"
                   >
-                    Kontak
+                    {t('footer.contact')}
                   </RouterLink>
                 </li>
                 <li>
@@ -59,7 +58,7 @@ export const AppFooter = defineComponent({
                     to={{ name: 'advertise' }}
                     class="text-white/60 hover:text-primary transition-colors text-sm"
                   >
-                    Periklanan
+                    {t('footer.advertising')}
                   </RouterLink>
                 </li>
               </ul>
@@ -67,7 +66,7 @@ export const AppFooter = defineComponent({
 
             <div>
               <h3 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">
-                Bantuan
+                {t('footer.help')}
               </h3>
               <ul class="space-y-2">
                 <li>
@@ -75,7 +74,7 @@ export const AppFooter = defineComponent({
                     to={{ name: 'privacy-policy' }}
                     class="text-white/60 hover:text-primary transition-colors text-sm"
                   >
-                    Kebijakan Privasi
+                    {t('footer.privacy')}
                   </RouterLink>
                 </li>
                 <li>
@@ -83,7 +82,7 @@ export const AppFooter = defineComponent({
                     to={{ name: 'terms-and-conditions' }}
                     class="text-white/60 hover:text-primary transition-colors text-sm"
                   >
-                    Syarat & Ketentuan
+                    {t('footer.terms')}
                   </RouterLink>
                 </li>
               </ul>
@@ -91,11 +90,9 @@ export const AppFooter = defineComponent({
 
             <div>
               <h3 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">
-                Newsletter
+                {t('footer.newsletter')}
               </h3>
-              <p class="text-sm mb-4 text-white/60">
-                Dapatkan update terbaru dari kami langsung di inbox Anda.
-              </p>
+              <p class="text-sm mb-4 text-white/60">{t('footer.newsletterDesc')}</p>
               <form onSubmit={handleSubscribe} class="flex flex-col gap-2">
                 <input
                   value={email.value}
@@ -103,12 +100,12 @@ export const AppFooter = defineComponent({
                     email.value = (e.target as HTMLInputElement).value
                   }}
                   type="email"
-                  placeholder="Email Anda"
+                  placeholder={t('footer.emailPlaceholder')}
                   class="bg-white/10 border border-white/15 text-white px-4 py-2.5 rounded-lg focus:outline-none focus:border-primary text-sm placeholder-white/40 transition-colors"
                   required
                 />
                 <BaseButton fullWidth type="submit">
-                  Langganan
+                  {t('footer.subscribe')}
                 </BaseButton>
               </form>
             </div>
@@ -118,7 +115,7 @@ export const AppFooter = defineComponent({
 
           <div class="flex flex-col md:flex-row justify-between items-center gap-4">
             <p class="text-sm text-white/40">
-              &copy; {currentYear.value} VERITY+. Hak cipta dilindungi undang-undang.
+              {t('footer.copyright', { year: currentYear.value })}
             </p>
 
             <div class="flex space-x-6">
@@ -126,19 +123,19 @@ export const AppFooter = defineComponent({
                 href="https://instagram.com/verityplus"
                 class="text-white/40 hover:text-white transition-colors text-sm"
               >
-                Instagram
+                {t('footer.instagram')}
               </a>
               <a
                 href="https://tiktok.com/@verityplus"
                 class="text-white/40 hover:text-white transition-colors text-sm"
               >
-                TikTok
+                {t('footer.tiktok')}
               </a>
               <a
                 href="mailto:contact@verityplus.space"
                 class="text-white/40 hover:text-white transition-colors text-sm"
               >
-                Email
+                {t('footer.email')}
               </a>
             </div>
           </div>

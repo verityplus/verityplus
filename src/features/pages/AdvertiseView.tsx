@@ -1,5 +1,6 @@
 import { defineComponent } from 'vue'
 import { useHead } from '@/composables/useHead'
+import { useI18n } from 'vue-i18n'
 import { BaseButton } from '@/components/ui/Button'
 
 /**
@@ -8,62 +9,64 @@ import { BaseButton } from '@/components/ui/Button'
 export default defineComponent({
   name: 'AdvertiseView',
   setup() {
+    const { t } = useI18n()
+
     useHead({
-      title: 'Iklan & Kerjasama — Verity+',
+      title: t('common.advertiseTitle'),
       meta: [
         {
           name: 'description',
-          content: 'Tingkatkan visibilitas brand Anda dengan beriklan di platform Verity+.',
+          content: t('common.advertiseDesc'),
         },
       ],
     })
 
     const stats = [
-      { value: '500K+', label: 'Monthly Views' },
-      { value: '120K+', label: 'Active Users' },
-      { value: '4.8%', label: 'Avg. CTR' },
-      { value: '25K+', label: 'Subscribers' },
+      { value: '500K+', label: t('advertise.stats.monthlyViews') },
+      { value: '120K+', label: t('advertise.stats.activeUsers') },
+      { value: '4.8%', label: t('advertise.stats.avgCTR') },
+      { value: '25K+', label: t('advertise.stats.subscribers') },
     ]
 
     const plans = [
       {
-        name: 'Starter',
-        subtitle: 'Cocok untuk UMKM atau kampanye uji coba.',
+        name: t('advertise.plans.starter.name'),
+        subtitle: t('advertise.plans.starter.subtitle'),
         price: 'Rp 1.5jt',
-        period: '/bulan',
+        period: t('common.monthly'),
         featured: false,
-        cta: 'Pilih Paket',
+        cta: t('advertise.plans.starter.cta'),
         features: [
-          { text: 'Banner Sidebar (300x250)', included: true },
-          { text: '1 Dedicated Post', included: true },
-          { text: 'Social Media Shoutout', included: false },
+          { text: t('advertise.features.bannerSidebar'), included: true },
+          { text: t('advertise.features.dedicatedPost'), included: true },
+          { text: t('advertise.features.socialMediaShoutout'), included: false },
         ],
       },
       {
-        name: 'Professional',
-        subtitle: 'Maksimalkan eksposur brand Anda.',
+        name: t('advertise.plans.professional.name'),
+        subtitle: t('advertise.plans.professional.subtitle'),
         price: 'Rp 4.5jt',
-        period: '/bulan',
+        period: t('common.monthly'),
         featured: true,
-        cta: 'Mulai Sekarang',
+        cta: t('advertise.plans.professional.cta'),
         features: [
-          { text: 'Banner Header Utama', included: true },
-          { text: '3 Sponsored Articles', included: true },
-          { text: 'Social Media Post (IG/FB)', included: true },
-          { text: 'Weekly Newsletter', included: true },
+          { text: t('advertise.features.headerBanner'), included: true },
+          { text: t('advertise.features.sponsoredArticles'), included: true },
+          { text: t('advertise.features.socialMediaPost'), included: true },
+          { text: t('advertise.features.weeklyNewsletter'), included: true },
         ],
       },
       {
-        name: 'Custom',
-        subtitle: 'Solusi skala besar sesuai kebutuhan Anda.',
-        price: 'Hubungi Kami',
+        name: t('advertise.plans.custom.name'),
+        subtitle: t('advertise.plans.custom.subtitle'),
+        price: t('common.contactUs'),
         period: '',
         featured: false,
-        cta: 'Konsultasi Gratis',
+        cta: t('advertise.plans.custom.cta'),
         features: [
-          { text: 'Semua Fitur Professional', included: true },
-          { text: 'Full Page Branding', included: true },
-          { text: 'Video Review / Unboxing', included: true },
+          { text: t('advertise.features.allProfessionalFeatures'), included: true },
+          { text: t('advertise.features.fullPageBranding'), included: true },
+          { text: t('advertise.features.videoReview'), included: true },
         ],
       },
     ]
@@ -73,15 +76,12 @@ export default defineComponent({
         <div class="container-page">
           <div class="text-center max-w-3xl mx-auto mb-16">
             <h2 class="text-primary font-semibold tracking-wide uppercase text-sm mb-2">
-              Advertising
+              {t('advertise.heading')}
             </h2>
             <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary mb-6">
-              Jangkau Audiens yang Tepat Bersama Kami
+              {t('advertise.title')}
             </h1>
-            <p class="text-lg text-text-secondary">
-              Tingkatkan visibilitas brand Anda dengan menempatkan iklan di platform kami yang
-              memiliki ribuan pengunjung aktif setiap harinya.
-            </p>
+            <p class="text-lg text-text-secondary">{t('advertise.description')}</p>
           </div>
 
           {/* Stats Summary */}
@@ -110,7 +110,7 @@ export default defineComponent({
               >
                 {plan.featured && (
                   <div class="absolute top-0 right-8 -translate-y-1/2 bg-primary text-text-inverse px-4 py-1 rounded-full text-sm font-bold">
-                    TERPOPULER
+                    {t('common.mostPopular')}
                   </div>
                 )}
 

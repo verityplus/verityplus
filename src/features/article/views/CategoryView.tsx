@@ -1,5 +1,6 @@
 import { defineComponent, ref, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
@@ -14,6 +15,7 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const store = useArticleStore()
+    const { t } = useI18n()
 
     const category = ref<Category | null>(null)
     const categoryArticles = ref<Article[]>([])
@@ -49,14 +51,16 @@ export default defineComponent({
 
     useHead({
       title: computed(() =>
-        category.value ? `${category.value.name} — Verity+` : 'Kategori — Verity+',
+        category.value
+          ? t('common.categoryTitle', { name: category.value.name })
+          : t('common.categoryTitle', { name: '' }),
       ),
       meta: computed(() => [
         {
           name: 'description',
           content: category.value
-            ? `Artikel kategori ${category.value.name}`
-            : 'Artikel berdasarkan kategori',
+            ? t('common.categoryDesc', { name: category.value.name })
+            : t('common.categoryDescFallback'),
         },
       ]),
     })
@@ -67,9 +71,9 @@ export default defineComponent({
           <div class="min-h-screen flex items-center justify-center bg-background">
             <div class="text-center">
               <i class="bi bi-folder-x text-6xl text-text-muted mb-4 block"></i>
-              <h2 class="text-2xl font-bold text-text-primary">Kategori Tidak Ditemukan</h2>
+              <h2 class="text-2xl font-bold text-text-primary">{t('common.categoryNotFound')}</h2>
               <router-link to="/" class="btn-primary mt-6 inline-block">
-                Kembali ke Beranda
+                {t('common.backToHome')}
               </router-link>
             </div>
           </div>
@@ -82,13 +86,13 @@ export default defineComponent({
             <div class="bg-surface rounded-2xl border border-border p-8 sm:p-12 mb-12 shadow-card">
               <div>
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-text-primary">
-                  Kategori: {category.value.name}
+                  {t('common.category')}: {category.value.name}
                 </h1>
               </div>
             </div>
 
             <div class="mb-12">
-              <AdDisplay size="leaderboard" label="Sponsor Kategori" />
+              <AdDisplay size="leaderboard" label={t('ads.categorySponsor')} />
             </div>
 
             {paginatedArticles.value.length > 0 ? (
@@ -111,7 +115,7 @@ export default defineComponent({
                           : 'text-text-primary bg-surface hover:bg-surface-hover hover:border-primary/30 cursor-pointer',
                       ]}
                     >
-                      <i class="bi bi-chevron-left mr-1"></i> Sebelumnya
+                      <i class="bi bi-chevron-left mr-1"></i> {t('common.previous')}
                     </button>
 
                     <button
@@ -124,7 +128,7 @@ export default defineComponent({
                           : 'text-text-primary bg-surface hover:bg-surface-hover hover:border-primary/30 cursor-pointer',
                       ]}
                     >
-                      Selanjutnya <i class="bi bi-chevron-right ml-1"></i>
+                      {t('common.next')} <i class="bi bi-chevron-right ml-1"></i>
                     </button>
                   </div>
                 )}
@@ -132,13 +136,13 @@ export default defineComponent({
             ) : (
               <div class="text-center py-16 mb-16">
                 <i class="bi bi-journal-x text-5xl text-text-muted mb-4 block"></i>
-                <h3 class="text-xl font-bold text-text-primary mb-2">Belum Ada Artikel</h3>
-                <p class="text-text-muted">Belum ada artikel yang diterbitkan di kategori ini.</p>
+                <h3 class="text-xl font-bold text-text-primary mb-2">{t('common.noArticles')}</h3>
+                <p class="text-text-muted">{t('common.noArticlesDesc')}</p>
               </div>
             )}
 
             <div class="pt-8 border-t border-border">
-              <AdDisplay size="leaderboard" label="Promo Eksklusif" />
+              <AdDisplay size="leaderboard" label={t('ads.exclusivePromo')} />
             </div>
           </div>
         </main>

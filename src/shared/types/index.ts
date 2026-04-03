@@ -16,6 +16,8 @@ export interface Author {
 export interface Category {
   id: string
   name: string
+  nameEn?: string
+  nameZh?: string
   slug: string
   color: string // Tailwind text color class e.g. 'text-blue-600'
   bgColor: string // Tailwind bg color class e.g. 'bg-blue-100'
@@ -26,10 +28,16 @@ export interface Article {
   id: number
   slug: string
   title: string
+  titleEn?: string
+  titleZh?: string
   excerpt: string
+  excerptEn?: string
+  excerptZh?: string
   content?: string // Markdown body (only loaded on read page)
   coverImage: string
   coverImageCaption?: string
+  coverImageCaptionEn?: string
+  coverImageCaptionZh?: string
   category: Category
   author: Author
   tags: string[]

@@ -1,5 +1,6 @@
 import { defineComponent } from 'vue'
 import { useHead } from '@/composables/useHead'
+import { useI18n } from 'vue-i18n'
 
 /**
  * Static View: AboutUsView
@@ -7,12 +8,14 @@ import { useHead } from '@/composables/useHead'
 export default defineComponent({
   name: 'AboutUsView',
   setup() {
+    const { t } = useI18n()
+
     useHead({
-      title: 'Tentang Kami — Verity+',
+      title: t('common.aboutTitle'),
       meta: [
         {
           name: 'description',
-          content: 'Kenali tim di balik Verity+ dan misi kami membangun masa depan digital.',
+          content: t('common.aboutDesc'),
         },
       ],
     })
@@ -20,21 +23,18 @@ export default defineComponent({
     const coreValues = [
       {
         icon: 'bi bi-lightning-fill',
-        title: 'Inovasi Cepat',
-        description:
-          'Kami selalu mencari cara baru untuk menyelesaikan masalah lama dengan teknologi terkini.',
+        title: t('about.innovationTitle'),
+        description: t('about.innovationDesc'),
       },
       {
         icon: 'bi bi-people-fill',
-        title: 'Kolaborasi Tim',
-        description:
-          'Bekerja bersama klien sebagai partner untuk memastikan visi menjadi kenyataan.',
+        title: t('about.collaborationTitle'),
+        description: t('about.collaborationDesc'),
       },
       {
         icon: 'bi bi-shield-check',
-        title: 'Integritas',
-        description:
-          'Kepercayaan adalah fondasi kami. Kami menjunjung tinggi transparansi dan kejujuran.',
+        title: t('about.integrityTitle'),
+        description: t('about.integrityDesc'),
       },
     ]
 
@@ -44,28 +44,26 @@ export default defineComponent({
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 class="text-primary font-semibold tracking-wide uppercase text-sm mb-2">
-                Siapa Kami
+                {t('about.whoWeAre')}
               </h2>
               <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary leading-tight mb-6">
-                Membangun Masa Depan Digital yang Lebih Baik
+                {t('about.heading')}
               </h1>
               <p class="text-lg text-text-secondary mb-8 leading-relaxed">
-                Kami adalah tim kreatif dan pengembang yang berdedikasi untuk memberikan solusi
-                teknologi inovatif. Fokus kami adalah membantu bisnis bertransformasi di era digital
-                dengan desain yang berpusat pada pengguna dan performa yang optimal.
+                {t('about.description')}
               </p>
 
               <div class="grid grid-cols-2 gap-6 border-t border-border pt-8">
                 <div>
                   <span class="block text-3xl font-bold text-text-primary">150+</span>
                   <span class="text-sm text-text-muted uppercase tracking-wider">
-                    Proyek Selesai
+                    {t('about.projectsCompleted')}
                   </span>
                 </div>
                 <div>
                   <span class="block text-3xl font-bold text-text-primary">10+</span>
                   <span class="text-sm text-text-muted uppercase tracking-wider">
-                    Tahun Pengalaman
+                    {t('about.yearsExperience')}
                   </span>
                 </div>
               </div>
@@ -75,12 +73,12 @@ export default defineComponent({
               <div class="aspect-square overflow-hidden rounded-2xl shadow-elevated">
                 <img
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
-                  alt="Tim Kami Sedang Bekerja"
+                  alt={t('about.teamAlt')}
                   class="w-full h-full object-cover"
                 />
               </div>
               <div class="absolute -bottom-6 -left-6 bg-primary text-text-inverse p-6 rounded-xl hidden md:block shadow-elevated">
-                <p class="text-xl font-medium">"Kreativitas tanpa batas, hasil tanpa kompromi."</p>
+                <p class="text-xl font-medium">{t('about.quote')}</p>
               </div>
             </div>
           </div>
@@ -88,7 +86,7 @@ export default defineComponent({
           {/* Core Values Section */}
           <div class="mt-24">
             <div class="text-center mb-16">
-              <h3 class="text-3xl font-bold text-text-primary">Nilai Inti Kami</h3>
+              <h3 class="text-3xl font-bold text-text-primary">{t('about.coreValues')}</h3>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
               {coreValues.map((value) => (

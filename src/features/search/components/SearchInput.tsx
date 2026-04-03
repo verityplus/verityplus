@@ -1,5 +1,6 @@
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 /**
  * Feature Component: SearchInput
@@ -8,6 +9,7 @@ import { useRouter } from 'vue-router'
 export const SearchInput = defineComponent({
   name: 'SearchInput',
   setup() {
+    const { t } = useI18n()
     const searchQuery = ref('')
     const router = useRouter()
 
@@ -43,7 +45,7 @@ export const SearchInput = defineComponent({
           }}
           type="text"
           class="block w-full py-2 pl-10 pr-10 text-sm text-text-primary bg-surface-muted border border-transparent rounded-lg outline-none transition-all duration-300 placeholder-text-muted focus:bg-surface focus:border-primary focus:ring-4 focus:ring-primary/15"
-          placeholder="Cari artikel..."
+          placeholder={t('common.searchPlaceholder')}
         />
 
         {searchQuery.value.length > 0 && (
@@ -51,7 +53,7 @@ export const SearchInput = defineComponent({
             type="button"
             onClick={clearSearch}
             class="absolute inset-y-0 right-0 flex items-center pr-3 text-text-muted hover:text-text-primary focus:outline-none transition-colors cursor-pointer"
-            aria-label="Hapus pencarian"
+            aria-label={t('common.clearSearch')}
           >
             <i class="bi bi-x-lg text-sm"></i>
           </button>

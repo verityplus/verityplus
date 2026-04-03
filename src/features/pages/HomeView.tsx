@@ -1,5 +1,6 @@
 import { defineComponent, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { HeadlineCarousel } from '@/features/article/components/HeadlineCarousel'
@@ -15,15 +16,16 @@ import { useArticleStore } from '@/features/article/store/article.store'
 export default defineComponent({
   name: 'HomeView',
   setup() {
+    const { t } = useI18n()
     const router = useRouter()
     const store = useArticleStore()
 
     useHead({
-      title: 'Verity+ — Portal Artikel Terkini',
+      title: t('common.homeTitle'),
       meta: [
         {
           name: 'description',
-          content: 'Artikel terkini seputar teknologi, bisnis, gaya hidup, dan olahraga.',
+          content: t('common.homeDesc'),
         },
       ],
     })
@@ -47,7 +49,7 @@ export default defineComponent({
 
               <div class="border border-border rounded-[var(--radius-xl)] p-6 bg-surface">
                 <div class="section-header border-b border-border pb-3 mb-6">
-                  <span class="section-header-title">Artikel Terbaru</span>
+                  <span class="section-header-title">{t('home.latestArticles')}</span>
                 </div>
 
                 <div class="space-y-8">
@@ -62,7 +64,7 @@ export default defineComponent({
                     onClick={() => router.push('/articles')}
                     class="px-8 py-3 rounded-xl text-base font-bold text-text-inverse bg-primary hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer"
                   >
-                    Lihat Semua <i class="bi bi-arrow-right ml-2"></i>
+                    {t('common.seeAll')} <i class="bi bi-arrow-right ml-2"></i>
                   </button>
                 </div>
               </div>
@@ -71,12 +73,12 @@ export default defineComponent({
             {/* Sidebar View Area */}
             <aside class="xl:w-1/3 w-full">
               <div class="flex flex-col gap-4 sticky top-20">
-                <AdDisplay size="banner" label="Iklan Header" />
+                <AdDisplay size="banner" label={t('ads.header')} />
 
                 {/* Popular Articles Widget */}
                 <div class="rounded-[var(--radius-xl)] bg-surface border border-border p-5">
                   <div class="section-header">
-                    <span class="section-header-title">Bacaan Populer</span>
+                    <span class="section-header-title">{t('home.popularArticles')}</span>
                   </div>
                   <div class="space-y-5">
                     {store.popular.map((item, index) => (
@@ -93,7 +95,7 @@ export default defineComponent({
                             {item.title}
                           </h4>
                           <span class="text-xs text-text-muted mt-1 block">
-                            {item.readTimeMinutes} min baca
+                            {item.readTimeMinutes} {t('common.minRead')}
                           </span>
                         </div>
                       </router-link>
@@ -101,7 +103,7 @@ export default defineComponent({
                   </div>
                 </div>
 
-                <AdDisplay size="sidebar" label="Iklan Tengah" />
+                <AdDisplay size="sidebar" label={t('ads.middle')} />
                 <div class="ad-skyscraper-height">
                   <InstagramEmbed />
                 </div>
@@ -115,7 +117,7 @@ export default defineComponent({
 
         {/* Footer Ad Placement */}
         <div class="container-page py-10">
-          <AdDisplay size="leaderboard" label="Iklan Penutup" />
+          <AdDisplay size="leaderboard" label={t('ads.footer')} />
         </div>
       </main>
     )

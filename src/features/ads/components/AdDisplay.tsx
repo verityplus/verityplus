@@ -1,4 +1,5 @@
 import { defineComponent, type PropType } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { AdSize } from '@/shared/types'
 
 /**
@@ -31,6 +32,7 @@ export const AdDisplay = defineComponent({
     },
   },
   setup(props) {
+    const { t } = useI18n()
     const sizeClasses: Record<AdSize, string> = {
       leaderboard: 'h-24',
       banner: 'h-32',
@@ -48,7 +50,7 @@ export const AdDisplay = defineComponent({
       >
         <div class="flex flex-col items-center gap-1 opacity-50">
           <i class="bi bi-megaphone text-lg"></i>
-          <span>{props.label}</span>
+          <span>{props.label || t('ads.defaultLabel')}</span>
         </div>
       </div>
     )

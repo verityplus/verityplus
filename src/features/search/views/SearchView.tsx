@@ -1,5 +1,6 @@
 import { defineComponent, ref, computed, watchEffect } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
@@ -16,6 +17,7 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const store = useArticleStore()
+    const { t } = useI18n()
 
     const query = ref((route.query.q as string) || '')
     const results = ref<Article[]>([])
@@ -31,12 +33,14 @@ export default defineComponent({
 
     useHead({
       title: computed(() =>
-        query.value ? `Pencarian: "${query.value}" — Verity+` : 'Pencarian — Verity+',
+        query.value
+          ? t('common.searchTitleQuery', { query: query.value })
+          : t('common.searchTitle'),
       ),
       meta: [
         {
           name: 'description',
-          content: computed(() => `Hasil pencarian untuk "${query.value}" di Verity+.`),
+          content: computed(() => t('common.searchDesc', { query: query.value })),
         },
       ],
     })
@@ -49,10 +53,11 @@ export default defineComponent({
           {/* Search Header Area */}
           <div class="mb-12 border-b border-border pb-10">
             <h1 class="text-3xl sm:text-4xl font-extrabold text-text-primary mb-4">
-              Hasil Pencarian
+              {t('search.heading')}
             </h1>
             <p class="text-lg text-text-secondary mb-6">
-              Menampilkan hasil untuk: <span class="font-bold text-primary">"{query.value}"</span>
+              {t('search.showingResults')}{' '}
+              <span class="font-bold text-primary">"{query.value}"</span>
             </p>
 
             <div class="max-w-2xl relative">
@@ -63,7 +68,7 @@ export default defineComponent({
                   search()
                 }}
                 type="text"
-                placeholder="Cari artikel lainnya..."
+                placeholder={t('common.searchPlaceholderExtended')}
                 class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition duration-300 text-text-primary"
               />
               <i class="bi bi-search text-text-muted absolute left-4 top-1/2 -translate-y-1/2 text-lg"></i>
@@ -110,7 +115,7 @@ export default defineComponent({
                         {article.excerpt}
                       </p>
                       <div class="flex items-center gap-2 text-xs font-bold text-text-primary uppercase tracking-wide group/link">
-                        Baca Selengkapnya
+                        {t('common.readMore')}
                         <i class="bi bi-arrow-right group-hover/link:translate-x-1 transition-transform"></i>
                       </div>
                     </div>
@@ -121,10 +126,8 @@ export default defineComponent({
               {results.value.length === 0 && (
                 <div class="text-center py-24 bg-surface rounded-xl border border-border shadow-sm">
                   <i class="bi bi-search text-5xl text-text-muted mb-4 block"></i>
-                  <p class="text-text-muted text-xl font-bold">Tidak ada artikel yang ditemukan.</p>
-                  <p class="text-text-muted text-sm mt-1">
-                    Coba kata kunci lain atau periksa tipografi Anda.
-                  </p>
+                  <p class="text-text-muted text-xl font-bold">{t('search.noResults')}</p>
+                  <p class="text-text-muted text-sm mt-1">{t('search.noResultsDesc')}</p>
                 </div>
               )}
             </div>
@@ -134,7 +137,7 @@ export default defineComponent({
               {/* Category Count Overview */}
               <div>
                 <div class="section-header">
-                  <span class="section-header-title">Kategori Populer</span>
+                  <span class="section-header-title">{t('common.popularCategories')}</span>
                 </div>
                 <ul class="space-y-1">
                   {categoriesWithCount.value.map((catInfo) => (
@@ -161,23 +164,25 @@ export default defineComponent({
               {/* Newsletter Call-to-Action */}
               <div class="bg-text-primary p-8 rounded-xl text-text-inverse relative overflow-hidden">
                 <div class="relative z-10">
-                  <h3 class="text-xl font-bold mb-3 leading-tight">Berlangganan Newsletter</h3>
+                  <h3 class="text-xl font-bold mb-3 leading-tight">
+                    {t('common.subscribeNewsletter')}
+                  </h3>
                   <p class="text-white/50 text-sm mb-6 leading-relaxed">
-                    Dapatkan update mingguan eksklusif langsung di inbox Anda.
+                    {t('common.subscribeNewsletterDesc')}
                   </p>
                   <input
                     type="email"
-                    placeholder="Email Anda"
+                    placeholder={t('common.emailYour')}
                     class="w-full px-4 py-3 rounded-lg bg-white/10 border-none text-white focus:ring-2 focus:ring-primary mb-3 outline-none transition placeholder-white/40 text-sm"
                   />
                   <BaseButton fullWidth variant="primary">
-                    Gabung Sekarang
+                    {t('common.joinNow')}
                   </BaseButton>
                 </div>
                 <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
               </div>
 
-              <AdDisplay size="sidebar" label="Promo Samping" />
+              <AdDisplay size="sidebar" label={t('ads.sidePromo')} />
             </aside>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { defineComponent, computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useArticleStore } from '../store/article.store'
 import { ArticleCard } from './ArticleCard'
 import type { Article } from '@/shared/types'
@@ -13,6 +14,7 @@ export const ArticleGrid = defineComponent({
   setup() {
     const router = useRouter()
     const store = useArticleStore()
+    const { t } = useI18n()
     const activeCategory = ref('all')
 
     const nonFeaturedArticles = computed(() =>
@@ -26,7 +28,7 @@ export const ArticleGrid = defineComponent({
     })
 
     const categories = computed(() => [
-      { id: 'all', name: 'Semua', slug: 'all' },
+      { id: 'all', name: t('common.all'), slug: 'all' },
       ...store.categories,
     ])
 
@@ -35,10 +37,10 @@ export const ArticleGrid = defineComponent({
         <div class="container-page">
           {/* Section Header */}
           <div class="mb-10 text-center">
-            <h2 class="text-3xl font-extrabold text-text-primary sm:text-4xl">Jelajahi Artikel</h2>
-            <p class="mt-3 text-lg text-text-muted">
-              Wawasan terbaru seputar teknologi, bisnis, dan gaya hidup.
-            </p>
+            <h2 class="text-3xl font-extrabold text-text-primary sm:text-4xl">
+              {t('common.exploreArticles')}
+            </h2>
+            <p class="mt-3 text-lg text-text-muted">{t('common.exploreArticlesDesc')}</p>
           </div>
 
           {/* Category Filter */}
@@ -72,7 +74,7 @@ export const ArticleGrid = defineComponent({
           {displayedArticles.value.length === 0 && (
             <div class="text-center py-20 bg-surface rounded-xl border border-border">
               <i class="bi bi-journal-x text-4xl text-text-muted mb-4 block"></i>
-              <p class="text-text-muted">Tidak ada artikel dalam kategori ini.</p>
+              <p class="text-text-muted">{t('common.noArticlesInCategory')}</p>
             </div>
           )}
 
@@ -89,7 +91,7 @@ export const ArticleGrid = defineComponent({
                 }}
                 class="px-8 py-3 rounded-xl text-base font-bold text-text-inverse bg-primary hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer"
               >
-                Lihat Selengkapnya <i class="bi bi-arrow-right ml-2"></i>
+                {t('common.seeMore')} <i class="bi bi-arrow-right ml-2"></i>
               </button>
             </div>
           )}

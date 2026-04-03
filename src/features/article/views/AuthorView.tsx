@@ -1,5 +1,6 @@
 import { defineComponent, ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
@@ -15,6 +16,7 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const store = useArticleStore()
+    const { t } = useI18n()
 
     const author = ref<Author | null>(null)
     const authorArticles = ref<Article[]>([])
@@ -32,10 +34,15 @@ export default defineComponent({
 
     useHead({
       title: computed(() =>
-        author.value ? `${author.value.name} — Verity+` : 'Penulis — Verity+',
+        author.value
+          ? t('common.authorTitle', { name: author.value.name })
+          : t('common.authorTitle', { name: '' }),
       ),
       meta: computed(() => [
-        { name: 'description', content: author.value?.bio || `Artikel oleh ${author.value?.name}` },
+        {
+          name: 'description',
+          content: author.value?.bio || t('common.authorDesc', { name: author.value?.name || '' }),
+        },
       ]),
     })
 
@@ -45,9 +52,9 @@ export default defineComponent({
           <div class="min-h-screen flex items-center justify-center bg-background">
             <div class="text-center">
               <i class="bi bi-person-x text-6xl text-text-muted mb-4 block"></i>
-              <h2 class="text-2xl font-bold text-text-primary">Penulis Tidak Ditemukan</h2>
+              <h2 class="text-2xl font-bold text-text-primary">{t('common.authorNotFound')}</h2>
               <router-link to="/" class="btn-primary mt-6">
-                Kembali ke Beranda
+                {t('common.backToHome')}
               </router-link>
             </div>
           </div>
@@ -81,7 +88,7 @@ export default defineComponent({
                         {authorArticles.value.length}
                       </span>
                       <span class="text-[10px] text-text-muted uppercase font-bold tracking-tighter">
-                        Total Artikel
+                        {t('common.totalArticles')}
                       </span>
                     </div>
                   </div>
@@ -91,12 +98,14 @@ export default defineComponent({
 
             {/* Intermediate Ad Placement */}
             <div class="mb-12">
-              <AdDisplay size="leaderboard" label="Sponsor Penulis" />
+              <AdDisplay size="leaderboard" label={t('ads.authorSponsor')} />
             </div>
 
             {/* Articles by Author */}
             <div class="section-header mb-8">
-              <span class="section-header-title">Artikel Oleh {author.value.name}</span>
+              <span class="section-header-title">
+                {t('article.articlesBy')} {author.value.name}
+              </span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
@@ -107,7 +116,7 @@ export default defineComponent({
 
             {/* Bottom Ad Placement */}
             <div class="pt-8 border-t border-border">
-              <AdDisplay size="leaderboard" label="Promo Eksklusif" />
+              <AdDisplay size="leaderboard" label={t('ads.exclusivePromo')} />
             </div>
           </div>
         </main>
