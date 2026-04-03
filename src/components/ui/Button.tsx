@@ -58,11 +58,13 @@ export const BaseButton = defineComponent({
     },
   },
   setup(props, { slots, attrs }) {
-    const baseClass = 'inline-flex items-center justify-center font-bold transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-sm'
-    
+    const baseClass =
+      'inline-flex items-center justify-center font-bold transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-sm'
+
     const variantClasses = {
       primary: 'bg-primary text-text-inverse hover:bg-primary-600 rounded-lg px-6 py-2.5',
-      outline: 'bg-transparent text-primary border-2 border-primary hover:bg-primary-50 rounded-lg px-6 py-2.5',
+      outline:
+        'bg-transparent text-primary border-2 border-primary hover:bg-primary-50 rounded-lg px-6 py-2.5',
       ghost: 'bg-transparent text-text-secondary hover:bg-surface-muted rounded-md px-4 py-2',
     }
 
@@ -78,9 +80,7 @@ export const BaseButton = defineComponent({
       if (props.to) {
         return (
           <router-link to={props.to} class={classes}>
-            {props.loading ? (
-              <i class="bi bi-arrow-repeat animate-spin mr-2"></i>
-            ) : null}
+            {props.loading ? <i class="bi bi-arrow-repeat animate-spin mr-2"></i> : null}
             {slots.default?.()}
           </router-link>
         )
@@ -88,9 +88,7 @@ export const BaseButton = defineComponent({
 
       return (
         <button class={classes} type={props.type} disabled={props.loading} {...attrs}>
-          {props.loading ? (
-            <i class="bi bi-arrow-repeat animate-spin mr-3"></i>
-          ) : null}
+          {props.loading ? <i class="bi bi-arrow-repeat animate-spin mr-3"></i> : null}
           {slots.default?.()}
         </button>
       )

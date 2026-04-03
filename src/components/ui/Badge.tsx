@@ -32,12 +32,7 @@ export const BaseBadge = defineComponent({
   setup(props, { slots }) {
     return () => (
       <span
-        class={[
-          'badge backdrop-blur-sm shadow-sm',
-          props.bgColor,
-          props.textColor,
-          props.class,
-        ]}
+        class={['badge backdrop-blur-sm shadow-sm', props.bgColor, props.textColor, props.class]}
       >
         {slots.default?.()}
       </span>

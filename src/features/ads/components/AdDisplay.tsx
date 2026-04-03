@@ -39,11 +39,11 @@ export const AdDisplay = defineComponent({
     }
 
     return () => (
-      <div 
+      <div
         class={[
           'w-full flex items-center justify-center text-text-muted font-bold tracking-widest uppercase text-xs border-2 border-dashed border-border rounded-xl bg-surface-muted/50',
           sizeClasses[props.size],
-          props.class
+          props.class,
         ]}
       >
         <div class="flex flex-col items-center gap-1 opacity-50">

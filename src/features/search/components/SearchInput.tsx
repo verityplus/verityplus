@@ -13,9 +13,9 @@ export const SearchInput = defineComponent({
 
     const submitSearch = () => {
       if (searchQuery.value.trim()) {
-        router.push({ 
-          name: 'search', 
-          query: { q: searchQuery.value } 
+        router.push({
+          name: 'search',
+          query: { q: searchQuery.value },
         })
       }
     }
@@ -25,8 +25,11 @@ export const SearchInput = defineComponent({
     }
 
     return () => (
-      <form 
-        onSubmit={(e) => { e.preventDefault(); submitSearch(); }} 
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          submitSearch()
+        }}
         class="relative w-full max-w-xs sm:max-w-sm group"
       >
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -35,7 +38,9 @@ export const SearchInput = defineComponent({
 
         <input
           value={searchQuery.value}
-          onInput={(e) => { searchQuery.value = (e.target as HTMLInputElement).value }}
+          onInput={(e) => {
+            searchQuery.value = (e.target as HTMLInputElement).value
+          }}
           type="text"
           class="block w-full py-2 pl-10 pr-10 text-sm text-text-primary bg-surface-muted border border-transparent rounded-lg outline-none transition-all duration-300 placeholder-text-muted focus:bg-surface focus:border-primary focus:ring-4 focus:ring-primary/15"
           placeholder="Cari artikel..."

@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, computed } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useHead } from '@/composables/useHead'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
@@ -7,7 +7,6 @@ import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { ArticleGrid } from '@/features/article/components/ArticleGrid'
 import { InstagramEmbed } from '@/features/social/components/InstagramEmbed'
 import { useArticleStore } from '@/features/article/store/article.store'
-import type { Article } from '@/shared/types'
 
 /**
  * Page View: HomeView
@@ -58,7 +57,7 @@ export default defineComponent({
                 </div>
 
                 {/* Lihat Semua Button */}
-                <div class="flex items-center justify-center mt-8 pt-6 border-t border-border">
+                <div class="flex items-center justify-end mt-8 pt-6 border-t border-border">
                   <button
                     onClick={() => router.push('/articles')}
                     class="px-8 py-3 rounded-xl text-base font-bold text-text-inverse bg-primary hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer"
