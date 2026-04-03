@@ -1,5 +1,4 @@
 import { defineComponent, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
@@ -8,6 +7,7 @@ import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { ArticleGrid } from '@/features/article/components/ArticleGrid'
 import { InstagramEmbed } from '@/features/social/components/InstagramEmbed'
 import { useArticleStore } from '@/features/article/store/article.store'
+import { useLocaleRoute } from '@/composables/useLocaleRoute'
 
 /**
  * Page View: HomeView
@@ -17,7 +17,7 @@ export default defineComponent({
   name: 'HomeView',
   setup() {
     const { t } = useI18n()
-    const router = useRouter()
+    const { push } = useLocaleRoute()
     const store = useArticleStore()
 
     useHead({
@@ -61,7 +61,7 @@ export default defineComponent({
                 {/* Lihat Semua Button */}
                 <div class="flex items-center justify-end mt-8 pt-6 border-t border-border">
                   <button
-                    onClick={() => router.push('/articles')}
+                    onClick={() => push('/articles')}
                     class="px-8 py-3 rounded-xl text-base font-bold text-text-inverse bg-primary hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer"
                   >
                     {t('common.seeAll')} <i class="bi bi-arrow-right ml-2"></i>
