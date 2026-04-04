@@ -2,6 +2,7 @@ import { defineComponent, ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useArticleStore } from '@/features/article/store/article.store'
+import { AdDisplay } from '@/features/ads/components/AdDisplay'
 
 /**
  * BrowseTopBar: Top bar visible on all pages except Home
@@ -53,11 +54,7 @@ export const BrowseTopBar = defineComponent({
       'flex items-start gap-3 p-3 rounded-lg hover:bg-surface-muted transition cursor-pointer group'
 
     return () => (
-      <div
-        data-article-topbar
-        class="bg-surface/80 backdrop-blur-md border-t border-border"
-        ref={megamenuRef}
-      >
+      <div data-article-topbar class="border-t border-border" ref={megamenuRef}>
         <div class="container-page">
           <div class="flex items-center gap-2 h-12">
             {/* Browse Megamenu Trigger */}
@@ -82,7 +79,12 @@ export const BrowseTopBar = defineComponent({
               {/* Megamenu Panel */}
               {isOpen.value && (
                 <div class="fixed inset-x-0 top-12 md:absolute md:inset-x-auto md:top-full md:left-0 md:mt-2 w-full md:w-[min(90vw,960px)] bg-surface border border-border rounded-none md:rounded-xl shadow-elevated z-50 overflow-hidden max-h-[calc(100vh-4rem)] md:max-h-80">
-                  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 divide-y sm:divide-y-0 md:divide-x divide-border overflow-y-auto max-h-[calc(100vh-4rem)] md:max-h-80">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 divide-y sm:divide-y-0 md:divide-x divide-border overflow-y-auto max-h-[calc(100vh-4rem)] md:max-h-80">
+                    {/* Ad Slot */}
+                    <div class="p-4">
+                      <AdDisplay class="md:h-full h-32 w-full" label="Browse TopBar Ad" />
+                    </div>
+
                     {/* Featured Column */}
                     <div class="p-4">
                       <div class="flex items-center gap-2 mb-3">
