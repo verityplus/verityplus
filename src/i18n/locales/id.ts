@@ -210,9 +210,6 @@ const id: MessageSchema = {
       promotionalVideo: 'Video Promosi',
       customCampaign: 'Kampanye Khusus',
       etCetera: 'Dan Lain-Lain',
-      letsDiscuss: 'Mari Berdiskusi',
-      etCetera: 'Dan Lain-Lain',
-      letsDiscuss: 'Mari Berdiskusi',
     },
   },
   privacy: {

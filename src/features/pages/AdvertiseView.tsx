@@ -62,7 +62,6 @@ export default defineComponent({
           { text: t('advertise.features.promotionalVideo'), included: true },
           { text: t('advertise.features.customCampaign'), included: true },
           { text: t('advertise.features.etCetera'), included: true },
-          { text: t('advertise.features.letsDiscuss'), included: true },
         ],
       },
     ])

@@ -202,7 +202,6 @@ const zh: MessageSchema = {
       promotionalVideo: '宣传视频',
       customCampaign: '定制营销活动',
       etCetera: '等等',
-      letsDiscuss: '让我们讨论一下',
     },
   },
   privacy: {

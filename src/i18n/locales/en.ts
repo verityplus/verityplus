@@ -209,9 +209,6 @@ const en: MessageSchema = {
       promotionalVideo: 'Promotional Video',
       customCampaign: 'Custom Campaign',
       etCetera: 'Et Cetera',
-      letsDiscuss: "Let's Discuss",
-      etCetera: 'Et Cetera',
-      letsDiscuss: "Let's Discuss",
     },
   },
   privacy: {

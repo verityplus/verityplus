@@ -124,10 +124,6 @@ export interface MessageSchema {
     uniqueVisitors: string
     pageViews: string
     avgTimeOnSite: string
-    totalVisits: string
-    uniqueVisitors: string
-    pageViews: string
-    avgTimeOnSite: string
     missionVision: string
     purpose: string
     mission: string
@@ -192,16 +188,18 @@ export interface MessageSchema {
       subscribers: string
     }
     features: {
-      bannerSidebar: string
-      dedicatedPost: string
-      socialMediaShoutout: string
-      headerBanner: string
-      sponsoredArticles: string
-      socialMediaPost: string
-      weeklyNewsletter: string
-      allProfessionalFeatures: string
-      fullPageBranding: string
-      videoReview: string
+      bannerSidebar3Days: string
+      bannerSidebar9Days: string
+      oneAdvertorialArticle: string
+      threeAdvertorialArticles: string
+      oneInstagramPost: string
+      threeInstagramPosts: string
+      oneTikTokPost: string
+      threeTikTokPosts: string
+      allProfessionalBenefits: string
+      promotionalVideo: string
+      customCampaign: string
+      etCetera: string
     }
   }
   privacy: {
