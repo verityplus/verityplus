@@ -78,7 +78,7 @@ export const BrowseTopBar = defineComponent({
       'flex items-start gap-3 p-3 rounded-lg hover:bg-surface-muted transition cursor-pointer group'
 
     return () => (
-      <div data-article-topbar class="border-t border-border" ref={megamenuRef}>
+      <div data-article-topbar class="w-full border-t border-border" ref={megamenuRef}>
         <div class="container-page">
           <div class="flex items-center gap-2 h-12">
             {/* Browse Megamenu Trigger */}
