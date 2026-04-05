@@ -214,86 +214,165 @@ const id: MessageSchema = {
   },
   privacy: {
     heading: 'Kebijakan Privasi',
-    lastUpdated: 'Terakhir diperbarui: 20 Mei 2024',
-    question: 'Pertanyaan tentang kebijakan ini?',
-    questionDesc:
-      'Jika Anda memiliki pertanyaan tambahan mengenai penggunaan data Anda, jangan ragu untuk menghubungi tim kepatuhan kami melalui email di',
+    lastUpdated: 'Terakhir diperbarui: 6 April 2026',
+    intro:
+      'Di VERITY+, privasi Anda sangat penting. Kebijakan ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda saat membaca artikel, berlangganan newsletter, atau berinteraksi dengan platform blog kami.',
+    contactHeading: 'Pertanyaan tentang kebijakan ini?',
+    contactDesc:
+      'Jika Anda memiliki pertanyaan tambahan tentang penggunaan data Anda, jangan ragu untuk menghubungi kami.',
+    contactButton: 'Hubungi Kami',
     sections: {
-      intro: {
-        title: '1. Pendahuluan',
-        content:
-          'Privasi Anda sangat penting bagi kami. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda saat Anda menggunakan layanan kami. Dengan menggunakan platform kami, Anda menyetujui praktik yang dijelaskan dalam kebijakan ini.',
-      },
       infoCollected: {
-        title: '2. Informasi yang Kami Kumpulkan',
-        content:
-          'Kami mengumpulkan informasi yang Anda berikan secara langsung kepada kami, termasuk namun tidak terbatas pada:',
+        title: '1. Informasi yang Kami Kumpulkan',
+        content: 'Kami mengumpulkan jenis informasi berikut:',
         items: [
-          'Nama lengkap dan informasi kontak (email, nomor telepon).',
-          'Data demografis jika diperlukan untuk layanan tertentu.',
-          'Informasi teknis seperti alamat IP, jenis perangkat, dan log aktivitas browser melalui Cookies.',
+          'Informasi Akun: Nama, alamat email, dan detail profil saat Anda mendaftar atau berlangganan newsletter kami.',
+          'Aktivitas Membaca: Artikel yang Anda lihat, waktu yang dihabiskan membaca, dan preferensi konten untuk mempersonalisasi pengalaman Anda.',
+          'Data Teknis: Alamat IP, jenis browser, informasi perangkat, dan sistem operasi untuk optimasi dan keamanan situs.',
+          'Cookie & Analitik: Perilaku browsing, sumber rujukan, dan pola interaksi melalui cookie dan alat analitik.',
+          'Data Komunikasi: Pesan yang Anda kirim melalui formulir kontak atau komentar pada artikel.',
         ],
       },
       infoUsage: {
-        title: '3. Penggunaan Informasi',
-        content: 'Informasi yang kami kumpulkan digunakan untuk:',
+        title: '2. Bagaimana Kami Menggunakan Informasi Anda',
+        content: 'Informasi Anda membantu kami:',
         items: [
-          'Menyediakan, memelihara, dan meningkatkan layanan kami.',
-          'Memproses transaksi dan mengirimkan pemberitahuan terkait.',
-          'Mengirimkan komunikasi pemasaran (Anda dapat berhenti berlangganan kapan saja).',
-          'Mendeteksi dan mencegah aktivitas penipuan atau teknis yang mencurigakan.',
+          'Menyajikan rekomendasi artikel yang dipersonalisasi berdasarkan minat baca Anda.',
+          'Mengirimkan newsletter dan pembaruan konten relevan yang telah Anda setujui.',
+          'Meningkatkan performa situs, kualitas konten, dan pengalaman pengguna.',
+          'Menampilkan iklan yang relevan dan mengukur efektivitas kampanye iklan.',
+          'Mendeteksi dan mencegah spam, penipuan, dan aktivitas berbahaya di platform kami.',
         ],
       },
-      dataSecurity: {
-        title: '4. Keamanan Data',
+      cookies: {
+        title: '3. Cookie & Pelacakan',
         content:
-          'Kami menerapkan langkah-langkah keamanan teknis dan organisasional yang standar di industri untuk melindungi data pribadi Anda dari akses tidak sah, pengungkapan, atau modifikasi. Namun, harap diingat bahwa tidak ada metode transmisi data melalui internet yang 100% aman.',
+          'Kami menggunakan cookie dan teknologi pelacakan serupa untuk meningkatkan pengalaman membaca Anda:',
+        items: [
+          'Cookie Esensial: Diperlukan untuk fungsionalitas inti situs seperti manajemen sesi dan keamanan.',
+          'Cookie Analitik: Membantu kami memahami artikel mana yang paling populer dan bagaimana pembaca menavigasi situs kami.',
+          'Cookie Periklanan: Digunakan oleh kami dan mitra iklan kami untuk menampilkan iklan yang relevan dan melacak performa kampanye.',
+          'Cookie Preferensi: Mengingat pengaturan Anda seperti ukuran font, tema, dan preferensi bahasa.',
+        ],
+      },
+      thirdParty: {
+        title: '4. Layanan Pihak Ketiga',
+        content:
+          'Platform blog kami berintegrasi dengan layanan pihak ketiga yang terpercaya. Layanan-layanan ini memiliki kebijakan privasi mereka sendiri:',
+        items: [
+          'Penyedia Analitik: Alat seperti Google Analytics membantu kami mengukur lalu lintas situs dan keterlibatan pembaca.',
+          'Mitra Periklanan: Jaringan iklan dapat mengumpulkan data untuk menampilkan iklan bertarget di platform kami.',
+          'Media Sosial: Konten media sosial yang disematkan (Instagram, TikTok) dapat melacak interaksi Anda.',
+          'Penyedia Layanan Email: Mitra pengiriman newsletter kami memproses alamat email Anda untuk manajemen langganan.',
+        ],
+      },
+      dataRetention: {
+        title: '5. Retensi Data',
+        content:
+          'Kami menyimpan data pribadi Anda hanya selama diperlukan. Data pelanggan newsletter disimpan hingga Anda berhenti berlangganan. Data analitik dianonimkan setelah 14 bulan. Data akun dihapus atas permintaan atau setelah 24 bulan tidak aktif.',
       },
       yourRights: {
-        title: '5. Hak Anda',
+        title: '6. Hak Anda',
+        content: 'Anda memiliki hak berikut terkait data pribadi Anda:',
+        items: [
+          'Akses: Meminta salinan semua data pribadi yang kami simpan tentang Anda.',
+          'Koreksi: Memperbarui atau memperbaiki informasi yang tidak akurat di akun Anda.',
+          'Penghapusan: Meminta penghapusan akun dan data pribadi terkait.',
+          'Berhenti Berlangganan: Keluar dari newsletter kami kapan saja menggunakan tautan di setiap email.',
+          'Kontrol Cookie: Kelola preferensi cookie Anda melalui banner persetujuan cookie kami.',
+        ],
+      },
+      childrenPrivacy: {
+        title: '7. Privasi Anak-Anak',
         content:
-          'Anda memiliki hak untuk mengakses, memperbarui, atau meminta penghapusan informasi pribadi yang kami simpan. Jika Anda ingin menggunakan hak ini, silakan hubungi kami melalui informasi kontak yang tersedia di halaman Kontak kami.',
+          'VERITY+ tidak ditujukan untuk anak di bawah 13 tahun. Kami tidak secara sadar mengumpulkan informasi pribadi dari anak-anak. Jika kami mengetahui bahwa kami telah mengumpulkan data dari anak di bawah 13 tahun tanpa sengaja, kami akan segera mengambil langkah untuk menghapusnya.',
+      },
+      policyChanges: {
+        title: '8. Perubahan Kebijakan Ini',
+        content:
+          'Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu untuk mencerminkan perubahan dalam praktik, teknologi, atau persyaratan hukum kami. Tanggal pembaruan di bagian atas halaman ini akan menunjukkan kapan perubahan terakhir dibuat. Kami mendorong Anda untuk meninjau kebijakan ini secara berkala.',
       },
     },
   },
   terms: {
-    heading: 'Syarat dan Ketentuan',
-    welcome:
-      'Selamat datang di platform kami. Harap baca dokumen ini dengan seksama sebelum menggunakan layanan kami.',
-    version: 'Versi 1.2 — Pembaruan Terakhir: 30 Maret 2026',
-    question: 'Ada pertanyaan atau butuh klarifikasi mengenai dokumen ini?',
-    questionDesc: 'Tim hukum kami siap membantu Anda.',
-    contactLegal: 'Hubungi Tim Legal',
+    heading: 'Syarat & Ketentuan',
+    lastUpdated: 'Pembaruan terakhir: 6 April 2026',
+    intro:
+      'Syarat & Ketentuan ini mengatur akses dan penggunaan platform blog VERITY+. Dengan membaca, berkomentar, atau berinteraksi dengan konten kami, Anda setuju untuk terikat oleh ketentuan ini. Harap baca dengan saksama.',
+    tocHeading: 'Daftar Isi',
+    contactHeading: 'Ada pertanyaan tentang ketentuan ini?',
+    contactDesc:
+      'Jika Anda membutuhkan klarifikasi atau memiliki kekhawatiran tentang bagian mana pun, tim kami siap membantu.',
+    contactButton: 'Hubungi Kami',
     sections: {
       acceptance: {
-        title: 'Penerimaan Ketentuan',
+        title: '1. Penerimaan Ketentuan',
         content:
-          'Dengan mengakses atau menggunakan situs web dan layanan kami, Anda dianggap telah membaca, memahami, dan setuju untuk terikat oleh Syarat dan Ketentuan ini. Jika Anda tidak setuju dengan bagian mana pun dari ketentuan ini, Anda disarankan untuk tidak menggunakan layanan kami.',
+          'Dengan mengakses, menjelajahi, atau menggunakan platform blog VERITY+, Anda mengakui bahwa Anda telah membaca, memahami, dan setuju untuk terikat oleh Syarat & Ketentuan ini. Jika Anda tidak setuju dengan bagian mana pun dari ketentuan ini, harap segera hentikan penggunaan platform.',
       },
-      userAccount: {
-        title: 'Akun Pengguna',
+      contentUse: {
+        title: '2. Penggunaan & Lisensi Konten',
         content:
-          'Untuk mengakses fitur tertentu, Anda mungkin diminta untuk membuat akun. Anda bertanggung jawab penuh atas:',
+          'Seluruh artikel, gambar, grafik, dan media di VERITY+ disediakan untuk penggunaan pribadi dan non-komersial. Anda diperbolehkan untuk:',
         items: [
-          'Menjaga kerahasiaan kata sandi dan informasi akun Anda.',
-          'Semua aktivitas yang terjadi di bawah akun Anda.',
-          'Memberikan informasi yang akurat, lengkap, dan terbaru.',
+          'Membaca, membagikan, dan menandai artikel untuk referensi pribadi.',
+          'Mengutip kutipan singkat (hingga 150 kata) dengan atribusi yang jelas dan tautan kembali ke artikel asli.',
+          'Membagikan tautan artikel di platform media sosial dengan komentar yang menyertainya.',
         ],
       },
-      intellectualProperty: {
-        title: 'Hak Kekayaan Intelektual',
+      userAccounts: {
+        title: '3. Akun Pengguna & Pendaftaran',
         content:
-          'Seluruh konten yang tersedia di platform ini, termasuk namun tidak terbatas pada teks, grafik, logo, ikon, gambar, dan perangkat lunak, adalah properti kami atau pemberi lisensi kami dan dilindungi oleh undang-undang hak cipta internasional. Penggunaan tanpa izin tertulis merupakan pelanggaran hukum.',
+          'Fitur tertentu seperti komentar, langganan newsletter, dan penandaan mungkin memerlukan pendaftaran akun. Anda bertanggung jawab atas:',
+        items: [
+          'Memberikan informasi yang akurat dan terkini saat pendaftaran.',
+          'Menjaga kerahasiaan kredensial login Anda.',
+          'Semua aktivitas yang terjadi di bawah akun Anda.',
+          'Memberitahu kami segera jika terjadi akses akun yang tidak sah.',
+        ],
       },
-      liability: {
-        title: 'Batasan Tanggung Jawab',
-        quote:
-          "Kami menyediakan layanan ini 'sebagaimana adanya' tanpa jaminan apa pun. Kami tidak bertanggung jawab atas kerugian langsung, tidak langsung, atau konsekuensial yang timbul dari penggunaan atau ketidakmampuan Anda dalam menggunakan layanan kami.",
+      commenting: {
+        title: '4. Komentar & Pedoman Komunitas',
+        content:
+          'Kami mendorong diskusi yang konstruktif. Dengan memposting komentar, Anda setuju untuk tidak:',
+        items: [
+          'Memposting spam, iklan, atau konten promosi.',
+          'Menggunakan bahasa yang menyinggung, diskriminatif, atau melecehkan.',
+          'Membagikan informasi palsu atau menyesatkan secara sengaja.',
+          'Menyamar sebagai individu atau entitas lain.',
+          'Menyertakan tautan ke situs web yang berbahaya atau tidak pantas.',
+        ],
+      },
+      advertising: {
+        title: '5. Periklanan & Konten Bersponsor',
+        content:
+          'VERITY+ dapat menampilkan iklan, artikel bersponsor, atau tautan afiliasi di platform. Konten bersponsor diberi label dengan jelas. Kami bermitra dengan pengiklan tepercaya untuk menjaga platform tetap gratis bagi pembaca. Mengklik iklan atau tautan afiliasi dapat menghasilkan komisi untuk VERITY+ tanpa biaya tambahan bagi Anda.',
+      },
+      externalLinks: {
+        title: '6. Tautan Eksternal & Konten Pihak Ketiga',
+        content:
+          'Artikel kami mungkin berisi tautan ke situs web eksternal atau konten pihak ketiga. Kami tidak mengontrol atau mendukung situs eksternal tersebut dan tidak bertanggung jawab atas konten, praktik privasi, atau ketentuan penggunaan mereka. Kami mendorong Anda untuk meninjau ketentuan dan kebijakan situs pihak ketiga yang Anda kunjungi.',
+      },
+      copyright: {
+        title: '7. Hak Cipta & Kekayaan Intelektual',
+        content:
+          'Seluruh konten yang diterbitkan di VERITY+ dilindungi oleh hukum hak cipta. Reproduksi atau distribusi tanpa izin dilarang:',
+        items: [
+          'Artikel lengkap tidak boleh diterbitkan ulang tanpa izin tertulis yang jelas.',
+          'Gambar, grafik, dan multimedia adalah properti VERITY+ atau pemberi lisensi masing-masing.',
+          'Nama, logo, dan merek VERITY+ adalah merek dagang terdaftar.',
+          'Pelanggaran dapat mengakibatkan penghentian akun dan tindakan hukum.',
+        ],
+      },
+      limitationLiability: {
+        title: '8. Batasan Tanggung Jawab',
+        content:
+          'VERITY+ menyediakan konten "sebagaimana adanya" hanya untuk tujuan informasi. Kami tidak menjamin keakuratan, kelengkapan, atau ketepatan waktu artikel mana pun. Kami tidak bertanggung jawab atas kerusakan apa pun yang timbul dari penggunaan platform, ketergantungan pada konten kami, atau ketidakmampuan mengakses layanan kami.',
       },
       changes: {
-        title: 'Perubahan Ketentuan',
+        title: '9. Perubahan Ketentuan Ini',
         content:
-          'Kami berhak untuk mengubah atau mengganti Syarat dan Ketentuan ini kapan saja. Perubahan akan berlaku segera setelah diposting di halaman ini. Kami akan memberikan notifikasi melalui email atau pengumuman di situs jika terdapat perubahan material.',
+          'Kami dapat memperbarui Syarat & Ketentuan ini secara berkala untuk mencerminkan perubahan pada platform, persyaratan hukum, atau standar industri. Tanggal "Pembaruan terakhir" di bagian atas halaman ini akan direvisi sesuai. Penggunaan berkelanjutan VERITY+ setelah perubahan merupakan penerimaan ketentuan baru.',
       },
     },
   },

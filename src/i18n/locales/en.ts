@@ -213,85 +213,164 @@ const en: MessageSchema = {
   },
   privacy: {
     heading: 'Privacy Policy',
-    lastUpdated: 'Last updated: May 20, 2024',
-    question: 'Questions about this policy?',
-    questionDesc:
-      'If you have additional questions about how we use your data, feel free to contact our compliance team via email at',
+    lastUpdated: 'Last updated: April 6, 2026',
+    intro:
+      'At VERITY+, your privacy matters. This policy explains how we collect, use, and protect your personal information when you read articles, subscribe to our newsletter, or interact with our blog platform.',
+    contactHeading: 'Questions about this policy?',
+    contactDesc:
+      'If you have additional questions about how we use your data, feel free to contact us.',
+    contactButton: 'Contact Us',
     sections: {
-      intro: {
-        title: '1. Introduction',
-        content:
-          'Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your personal information when you use our services. By using our platform, you agree to the practices described in this policy.',
-      },
       infoCollected: {
-        title: '2. Information We Collect',
-        content: 'We collect information you provide directly to us, including but not limited to:',
+        title: '1. Information We Collect',
+        content: 'We collect the following types of information:',
         items: [
-          'Full name and contact information (email, phone number).',
-          'Demographic data when required for certain services.',
-          'Technical information such as IP address, device type, and browser activity logs through Cookies.',
+          'Account Information: Name, email address, and profile details when you register or subscribe to our newsletter.',
+          'Reading Activity: Articles you view, time spent reading, and content preferences to personalize your experience.',
+          'Technical Data: IP address, browser type, device information, and operating system for site optimization and security.',
+          'Cookies & Analytics: Browsing behavior, referral sources, and interaction patterns through cookies and analytics tools.',
+          'Communication Data: Messages you send via our contact form or comments on articles.',
         ],
       },
       infoUsage: {
-        title: '3. Use of Information',
-        content: 'The information we collect is used to:',
+        title: '2. How We Use Your Information',
+        content: 'Your information helps us:',
         items: [
-          'Provide, maintain, and improve our services.',
-          'Process transactions and send related notifications.',
-          'Send marketing communications (you can unsubscribe at any time).',
-          'Detect and prevent fraudulent or suspicious technical activity.',
+          'Deliver personalized article recommendations based on your reading interests.',
+          'Send our newsletter and relevant content updates you have opted into.',
+          'Improve site performance, content quality, and user experience.',
+          'Display relevant advertisements and measure ad campaign effectiveness.',
+          'Detect and prevent spam, fraud, and abusive activities on our platform.',
         ],
       },
-      dataSecurity: {
-        title: '4. Data Security',
+      cookies: {
+        title: '3. Cookies & Tracking',
         content:
-          'We implement industry-standard technical and organizational security measures to protect your personal data from unauthorized access, disclosure, or modification. However, please note that no method of data transmission over the internet is 100% secure.',
+          'We use cookies and similar tracking technologies to enhance your reading experience:',
+        items: [
+          'Essential Cookies: Required for core site functionality like session management and security.',
+          'Analytics Cookies: Help us understand which articles are most popular and how readers navigate our site.',
+          'Advertising Cookies: Used by us and our ad partners to show relevant ads and track campaign performance.',
+          'Preference Cookies: Remember your settings such as font size, theme, and language preferences.',
+        ],
+      },
+      thirdParty: {
+        title: '4. Third-Party Services',
+        content:
+          'Our blog platform integrates with trusted third-party services. These services have their own privacy policies:',
+        items: [
+          'Analytics Providers: Tools like Google Analytics help us measure site traffic and reader engagement.',
+          'Advertising Partners: Ad networks may collect data to serve targeted advertisements on our platform.',
+          'Social Media: Embedded social media content (Instagram, TikTok) may track your interactions.',
+          'Email Service Providers: Our newsletter delivery partners process your email address for subscription management.',
+        ],
+      },
+      dataRetention: {
+        title: '5. Data Retention',
+        content:
+          'We retain your personal data only as long as necessary. Newsletter subscriber data is kept until you unsubscribe. Analytics data is anonymized after 14 months. Account data is deleted upon request or after 24 months of inactivity.',
       },
       yourRights: {
-        title: '5. Your Rights',
+        title: '6. Your Rights',
+        content: 'You have the following rights regarding your personal data:',
+        items: [
+          'Access: Request a copy of all personal data we hold about you.',
+          'Correction: Update or correct inaccurate information in your account.',
+          'Deletion: Request deletion of your account and associated personal data.',
+          'Unsubscribe: Opt out of our newsletter at any time using the link in every email.',
+          'Cookie Control: Manage your cookie preferences through our cookie consent banner.',
+        ],
+      },
+      childrenPrivacy: {
+        title: "7. Children's Privacy",
         content:
-          'You have the right to access, update, or request deletion of your personal information we store. If you wish to exercise these rights, please contact us through the contact information available on our Contact page.',
+          'VERITY+ is not intended for children under 13 years of age. We do not knowingly collect personal information from children. If we become aware that we have inadvertently collected data from a child under 13, we will take steps to delete it promptly.',
+      },
+      policyChanges: {
+        title: '8. Changes to This Policy',
+        content:
+          'We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements. The updated date at the top of this page will indicate when changes were last made. We encourage you to review this policy periodically.',
       },
     },
   },
   terms: {
-    heading: 'Terms and Conditions',
-    welcome:
-      'Welcome to our platform. Please read this document carefully before using our services.',
-    version: 'Version 1.2 — Last Updated: March 30, 2026',
-    question: 'Have questions or need clarification about this document?',
-    questionDesc: 'Our legal team is here to help.',
-    contactLegal: 'Contact Legal Team',
+    heading: 'Terms & Conditions',
+    lastUpdated: 'Last updated: April 6, 2026',
+    intro:
+      'These Terms & Conditions govern your access to and use of the VERITY+ blog platform. By reading, commenting, or interacting with our content, you agree to be bound by these terms. Please read them carefully.',
+    tocHeading: 'Table of Contents',
+    contactHeading: 'Have questions about these terms?',
+    contactDesc:
+      'If you need clarification or have concerns about any section, our team is happy to help.',
+    contactButton: 'Contact Us',
     sections: {
       acceptance: {
-        title: 'Acceptance of Terms',
+        title: '1. Acceptance of Terms',
         content:
-          'By accessing or using our website and services, you are deemed to have read, understood, and agreed to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you are advised not to use our services.',
+          'By accessing, browsing, or using the VERITY+ blog platform, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions. If you do not agree with any part of these terms, please discontinue use of the platform immediately.',
       },
-      userAccount: {
-        title: 'User Account',
+      contentUse: {
+        title: '2. Content Use & Licensing',
         content:
-          'To access certain features, you may be required to create an account. You are fully responsible for:',
+          'All articles, images, graphics, and media on VERITY+ are provided for personal, non-commercial use. You may:',
         items: [
-          'Maintaining the confidentiality of your password and account information.',
-          'All activities that occur under your account.',
-          'Providing accurate, complete, and up-to-date information.',
+          'Read, share, and bookmark articles for personal reference.',
+          'Quote short excerpts (up to 150 words) with clear attribution and a link back to the original article.',
+          'Share article links on social media platforms with accompanying commentary.',
         ],
       },
-      intellectualProperty: {
-        title: 'Intellectual Property Rights',
+      userAccounts: {
+        title: '3. User Accounts & Registration',
         content:
-          'All content available on this platform, including but not limited to text, graphics, logos, icons, images, and software, is our property or that of our licensors and is protected by international copyright laws. Unauthorized use is a violation of law.',
+          'Certain features such as commenting, newsletter subscriptions, and bookmarking may require account registration. You are responsible for:',
+        items: [
+          'Providing accurate and current information during registration.',
+          'Maintaining the confidentiality of your login credentials.',
+          'All activities that occur under your account.',
+          'Notifying us immediately of any unauthorized account access.',
+        ],
       },
-      liability: {
-        title: 'Limitation of Liability',
-        quote:
-          "We provide these services 'as is' without any warranty. We are not responsible for any direct, indirect, or consequential damages arising from the use or inability to use our services.",
+      commenting: {
+        title: '4. Comments & Community Guidelines',
+        content: 'We encourage thoughtful discussion. By posting comments, you agree not to:',
+        items: [
+          'Post spam, advertisements, or promotional content.',
+          'Use offensive, discriminatory, or harassing language.',
+          'Share false or misleading information intentionally.',
+          'Impersonate other individuals or entities.',
+          'Include links to malicious or inappropriate websites.',
+        ],
+      },
+      advertising: {
+        title: '5. Advertising & Sponsored Content',
+        content:
+          'VERITY+ may display advertisements, sponsored articles, or affiliate links on the platform. Sponsored content is clearly labeled as such. We partner with trusted advertisers to keep the platform free for readers. Clicking on ads or affiliate links may result in a commission for VERITY+ at no additional cost to you.',
+      },
+      externalLinks: {
+        title: '6. External Links & Third-Party Content',
+        content:
+          'Our articles may contain links to external websites or third-party content. We do not control or endorse these external sites and are not responsible for their content, privacy practices, or terms of use. We encourage you to review the terms and policies of any third-party sites you visit.',
+      },
+      copyright: {
+        title: '7. Copyright & Intellectual Property',
+        content:
+          'All content published on VERITY+ is protected by copyright law. Unauthorized reproduction or distribution is prohibited:',
+        items: [
+          'Full articles may not be republished without explicit written permission.',
+          'Images, graphics, and multimedia are the property of VERITY+ or their respective licensors.',
+          'The VERITY+ name, logo, and branding are registered trademarks.',
+          'Violations may result in account termination and legal action.',
+        ],
+      },
+      limitationLiability: {
+        title: '8. Limitation of Liability',
+        content:
+          'VERITY+ provides content "as is" for informational purposes only. We do not guarantee the accuracy, completeness, or timeliness of any article. We are not liable for any damages arising from your use of the platform, reliance on our content, or inability to access our services.',
       },
       changes: {
-        title: 'Changes to Terms',
+        title: '9. Changes to These Terms',
         content:
-          'We reserve the right to modify or replace these Terms and Conditions at any time. Changes will take effect immediately upon posting on this page. We will provide notification via email or site announcement for material changes.',
+          'We may update these Terms & Conditions periodically to reflect changes in our platform, legal requirements, or industry standards. The "Last updated" date at the top of this page will be revised accordingly. Continued use of VERITY+ after changes constitutes acceptance of the new terms.',
       },
     },
   },

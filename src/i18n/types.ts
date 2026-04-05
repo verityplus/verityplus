@@ -205,28 +205,67 @@ export interface MessageSchema {
   privacy: {
     heading: string
     lastUpdated: string
-    question: string
-    questionDesc: string
+    intro: string
+    contactHeading: string
+    contactDesc: string
+    contactButton: string
     sections: {
-      intro: { title: string; content: string }
-      infoCollected: { title: string; content: string; items: string[] }
-      infoUsage: { title: string; content: string; items: string[] }
-      dataSecurity: { title: string; content: string }
-      yourRights: { title: string; content: string }
+      infoCollected: {
+        title: string
+        content: string
+        items: string[]
+      }
+      infoUsage: {
+        title: string
+        content: string
+        items: string[]
+      }
+      cookies: {
+        title: string
+        content: string
+        items: string[]
+      }
+      thirdParty: {
+        title: string
+        content: string
+        items: string[]
+      }
+      dataRetention: {
+        title: string
+        content: string
+      }
+      yourRights: {
+        title: string
+        content: string
+        items: string[]
+      }
+      childrenPrivacy: {
+        title: string
+        content: string
+      }
+      policyChanges: {
+        title: string
+        content: string
+      }
     }
   }
   terms: {
     heading: string
-    welcome: string
-    version: string
-    question: string
-    questionDesc: string
-    contactLegal: string
+    lastUpdated: string
+    intro: string
+    tocHeading: string
+    contactHeading: string
+    contactDesc: string
+    contactButton: string
     sections: {
       acceptance: { title: string; content: string }
-      userAccount: { title: string; content: string; items: string[] }
-      intellectualProperty: { title: string; content: string }
-      liability: { title: string; quote: string }
+      contentUse: { title: string; content: string; items: string[] }
+      userAccounts: { title: string; content: string; items: string[] }
+      commenting: { title: string; content: string; items: string[] }
+      advertising: { title: string; content: string }
+      externalLinks: { title: string; content: string }
+      copyright: { title: string; content: string; items: string[] }
+      limitationLiability: { title: string; content: string }
       changes: { title: string; content: string }
     }
   }
