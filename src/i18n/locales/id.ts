@@ -109,23 +109,47 @@ const id: MessageSchema = {
   },
   about: {
     whoWeAre: 'Siapa Kami',
-    heading: 'Membangun Masa Depan Digital yang Lebih Baik',
+    heading: 'Menghadirkan Informasi yang Menginspirasi Generasi Muda',
     description:
-      'Kami adalah tim kreatif dan pengembang yang berdedikasi untuk memberikan solusi teknologi inovatif. Fokus kami adalah membantu bisnis bertransformasi di era digital dengan desain yang berpusat pada pengguna dan performa yang optimal.',
-    projectsCompleted: 'Proyek Selesai',
-    yearsExperience: 'Tahun Pengalaman',
+      'VERITY+ adalah media digital yang menghadirkan informasi sekaligus solusi bagi generasi muda. Kami percaya bahwa konten yang berkualitas dapat mengubah cara pandang dan memberdayakan masyarakat.',
+    ourStory: 'Cerita Kami',
+    storyParagraph1:
+      'Didirikan dengan semangat untuk menghadirkan konten yang relevan dan mudah diakses, VERITY+ lahir dari kebutuhan akan platform media yang tidak hanya informatif, tetapi juga memberikan solusi nyata bagi pembaca muda Indonesia.',
+    storyParagraph2:
+      'Sejak hari pertama, kami berkomitmen untuk menyajikan artikel berkualitas tinggi seputar teknologi, bisnis, gaya hidup, dan olahraga. Dengan tim konten yang berdedikasi, kami terus berkembang menjadi sumber informasi terpercaya.',
+    established: 'Est. 2026',
+    projectsCompleted: 'Total Kunjungan',
+    yearsExperience: 'Pengunjung Unik',
+    monthlyReaders: 'Tayangan Halaman',
+    articlesPublished: 'Rata-rata Durasi',
+    totalVisits: 'Total Kunjungan',
+    uniqueVisitors: 'Pengunjung Unik',
+    pageViews: 'Tayangan Halaman',
+    avgTimeOnSite: 'Rata-rata Durasi',
+    missionVision: 'Misi & Visi',
+    purpose: 'Tujuan Kami',
+    mission: 'Misi',
+    missionDesc:
+      'Menyajikan informasi yang akurat, relevan, dan inspiratif untuk memberdayakan generasi muda dalam mengambil keputusan yang lebih baik.',
+    vision: 'Visi',
+    visionDesc:
+      'Menjadi platform media digital terdepan yang menghubungkan pengetahuan dengan aksi nyata bagi masyarakat Indonesia.',
     coreValues: 'Nilai Inti Kami',
-    innovationTitle: 'Inovasi Cepat',
+    whatWeBelieve: 'Keyakinan Kami',
+    communityTitle: 'Komunitas',
+    communityDesc:
+      'Kami membangun komunitas pembaca yang aktif dan saling mendukung melalui konten yang relevan dan bermakna.',
+    creativityTitle: 'Kreativitas',
+    creativityDesc:
+      'Setiap cerita disampaikan dengan sudut pandang segar dan pendekatan kreatif yang memikat pembaca.',
+    innovationTitle: 'Inovasi',
     innovationDesc:
-      'Kami selalu mencari cara baru untuk menyelesaikan masalah lama dengan teknologi terkini.',
-    collaborationTitle: 'Kolaborasi Tim',
-    collaborationDesc:
-      'Bekerja bersama klien sebagai partner untuk memastikan visi menjadi kenyataan.',
-    integrityTitle: 'Integritas',
-    integrityDesc:
-      'Kepercayaan adalah fondasi kami. Kami menjunjung tinggi transparansi dan kejujuran.',
+      'Kami terus beradaptasi dengan tren terbaru dan teknologi modern untuk menghadirkan pengalaman membaca terbaik.',
+    qualityTitle: 'Kualitas',
+    qualityDesc:
+      'Standar editorial tinggi menjadi prioritas kami dalam setiap artikel yang diterbitkan.',
     quote: '"Kreativitas tanpa batas, hasil tanpa kompromi."',
-    teamAlt: 'Tim Kami Sedang Bekerja',
+    teamAlt: 'Tim VERITY+',
   },
   contact: {
     heading: 'Hubungi Kami',

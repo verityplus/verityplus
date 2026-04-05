@@ -109,21 +109,46 @@ const en: MessageSchema = {
   },
   about: {
     whoWeAre: 'Who We Are',
-    heading: 'Building a Better Digital Future',
+    heading: 'Delivering Information That Inspires the Next Generation',
     description:
-      'We are a creative team of developers dedicated to providing innovative technology solutions. Our focus is helping businesses transform in the digital era with user-centered design and optimal performance.',
-    projectsCompleted: 'Projects Completed',
-    yearsExperience: 'Years of Experience',
+      'VERITY+ is a digital media platform delivering information and solutions to the younger generation. We believe quality content can change perspectives and empower communities.',
+    ourStory: 'Our Story',
+    storyParagraph1:
+      'Founded with a passion for relevant and accessible content, VERITY+ was born from the need for a media platform that is not only informative but also provides real solutions for young Indonesian readers.',
+    storyParagraph2:
+      'From day one, we have been committed to publishing high-quality articles on technology, business, lifestyle, and sports. With a dedicated content team, we continue to grow into a trusted source of information.',
+    established: 'Est. 2026',
+    projectsCompleted: 'Total Visits',
+    yearsExperience: 'Unique Visitors',
+    monthlyReaders: 'Page Views',
+    articlesPublished: 'Avg. Duration',
+    totalVisits: 'Total Visits',
+    uniqueVisitors: 'Unique Visitors',
+    pageViews: 'Page Views',
+    avgTimeOnSite: 'Avg. Duration',
+    missionVision: 'Mission & Vision',
+    purpose: 'Our Purpose',
+    mission: 'Mission',
+    missionDesc:
+      'To deliver accurate, relevant, and inspiring information that empowers the younger generation to make better decisions.',
+    vision: 'Vision',
+    visionDesc:
+      'To become the leading digital media platform that connects knowledge with real action for Indonesian society.',
     coreValues: 'Our Core Values',
-    innovationTitle: 'Rapid Innovation',
-    innovationDesc: 'We always look for new ways to solve old problems with the latest technology.',
-    collaborationTitle: 'Team Collaboration',
-    collaborationDesc: 'Working with clients as partners to ensure vision becomes reality.',
-    integrityTitle: 'Integrity',
-    integrityDesc:
-      'Trust is our foundation. We uphold transparency and honesty in everything we do.',
+    whatWeBelieve: 'What We Believe',
+    communityTitle: 'Community',
+    communityDesc:
+      'We build an active and supportive reader community through relevant and meaningful content.',
+    creativityTitle: 'Creativity',
+    creativityDesc:
+      'Every story is told with a fresh perspective and a creative approach that captivates readers.',
+    innovationTitle: 'Innovation',
+    innovationDesc:
+      'We continuously adapt to the latest trends and modern technology to deliver the best reading experience.',
+    qualityTitle: 'Quality',
+    qualityDesc: 'High editorial standards are our priority in every article we publish.',
     quote: '"Boundless creativity, uncompromising results."',
-    teamAlt: 'Our Team at Work',
+    teamAlt: 'The VERITY+ Team',
   },
   contact: {
     heading: 'Contact Us',

@@ -112,15 +112,38 @@ export interface MessageSchema {
     whoWeAre: string
     heading: string
     description: string
+    ourStory: string
+    storyParagraph1: string
+    storyParagraph2: string
+    established: string
     projectsCompleted: string
     yearsExperience: string
+    monthlyReaders: string
+    articlesPublished: string
+    totalVisits: string
+    uniqueVisitors: string
+    pageViews: string
+    avgTimeOnSite: string
+    totalVisits: string
+    uniqueVisitors: string
+    pageViews: string
+    avgTimeOnSite: string
+    missionVision: string
+    purpose: string
+    mission: string
+    missionDesc: string
+    vision: string
+    visionDesc: string
     coreValues: string
+    whatWeBelieve: string
+    communityTitle: string
+    communityDesc: string
+    creativityTitle: string
+    creativityDesc: string
     innovationTitle: string
     innovationDesc: string
-    collaborationTitle: string
-    collaborationDesc: string
-    integrityTitle: string
-    integrityDesc: string
+    qualityTitle: string
+    qualityDesc: string
     quote: string
     teamAlt: string
   }
