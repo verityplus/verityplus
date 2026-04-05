@@ -1,7 +1,8 @@
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { RouterView } from 'vue-router'
 import { CMSSidebar } from '../components/Sidebar'
 import { useCMSStore } from '../store/cms.store'
+import { useArticleStore } from '@/features/article/store/article.store'
 
 /**
  * CMS Layout: Main structural shell for the administrative dashboard.
@@ -10,7 +11,14 @@ export default defineComponent({
   name: 'CMSLayout',
   setup() {
     const store = useCMSStore()
+    const articleStore = useArticleStore()
     const sidebarCollapsed = ref(false)
+
+    onMounted(async () => {
+      if (articleStore.articles.length === 0) {
+        await articleStore.initStore()
+      }
+    })
 
     return () => (
       <div class="cms-layout bg-slate-50 min-h-screen text-slate-800">
