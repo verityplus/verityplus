@@ -246,4 +246,31 @@ export interface MessageSchema {
     categories: string
     articlesCount: string
   }
+  cookieConsent: {
+    message: string
+    accept: string
+    decline: string
+    learnMore: string
+  }
+  analytics: {
+    heading: string
+    totalVisits: string
+    uniqueVisitors: string
+    pageViews: string
+    avgDuration: string
+    topPages: string
+    noData: string
+    seconds: string
+    viewAnalytics: string
+    analyticsTitle: string
+    analyticsDesc: string
+    date: string
+    visits: string
+    topReferrers: string
+    referrer: string
+    count: string
+    exportData: string
+    clearData: string
+    clearDataConfirm: string
+  }
 }

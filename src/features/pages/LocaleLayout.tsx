@@ -2,6 +2,7 @@ import { defineComponent, onMounted, type VNode } from 'vue'
 import { RouterView } from 'vue-router'
 import { AppHeader } from '@/components/layout/Header'
 import { AppFooter } from '@/components/layout/Footer'
+import CookieConsentBanner from '@/features/analytics/components/CookieConsentBanner'
 import { useArticleStore } from '@/features/article/store/article.store'
 
 /**
@@ -39,6 +40,7 @@ export default defineComponent({
         </div>
 
         <AppFooter />
+        <CookieConsentBanner />
       </div>
     )
   },

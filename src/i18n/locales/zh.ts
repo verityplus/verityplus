@@ -299,6 +299,34 @@ const zh: MessageSchema = {
     categories: '分类',
     articlesCount: '{count} 篇文章',
   },
+  cookieConsent: {
+    message:
+      '我们使用 Cookie 来分析网站流量并改善您的体验。通过接受，您帮助我们了解访问者如何与我们的网站互动。',
+    accept: '接受',
+    decline: '拒绝',
+    learnMore: '了解更多',
+  },
+  analytics: {
+    heading: '分析',
+    totalVisits: '总访问量',
+    uniqueVisitors: '独立访客',
+    pageViews: '页面浏览量',
+    avgDuration: '平均停留时间',
+    topPages: '热门页面',
+    noData: '暂无分析数据',
+    seconds: '秒',
+    viewAnalytics: '查看分析',
+    analyticsTitle: '分析仪表板',
+    analyticsDesc: '访客洞察与页面表现。',
+    date: '日期',
+    visits: '访问量',
+    topReferrers: '热门来源',
+    referrer: '来源',
+    count: '数量',
+    exportData: '导出数据',
+    clearData: '清除数据',
+    clearDataConfirm: '确定要清除所有分析数据吗？',
+  },
 }
 
 export default zh

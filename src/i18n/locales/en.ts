@@ -305,6 +305,34 @@ const en: MessageSchema = {
     categories: 'Categories',
     articlesCount: '{count} articles',
   },
+  cookieConsent: {
+    message:
+      'We use cookies to analyze website traffic and improve your experience. By accepting, you help us understand how visitors interact with our site.',
+    accept: 'Accept',
+    decline: 'Decline',
+    learnMore: 'Learn more',
+  },
+  analytics: {
+    heading: 'Analytics',
+    totalVisits: 'Total Visits',
+    uniqueVisitors: 'Unique Visitors',
+    pageViews: 'Page Views',
+    avgDuration: 'Avg. Duration',
+    topPages: 'Top Pages',
+    noData: 'No analytics data yet',
+    seconds: 'sec',
+    viewAnalytics: 'View Analytics',
+    analyticsTitle: 'Analytics Dashboard',
+    analyticsDesc: 'Visitor insights and page performance.',
+    date: 'Date',
+    visits: 'Visits',
+    topReferrers: 'Top Referrers',
+    referrer: 'Referrer',
+    count: 'Count',
+    exportData: 'Export Data',
+    clearData: 'Clear Data',
+    clearDataConfirm: 'Are you sure you want to clear all analytics data?',
+  },
 }
 
 export default en

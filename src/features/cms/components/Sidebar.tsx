@@ -22,6 +22,7 @@ export const CMSSidebar = defineComponent({
       { name: 'Characters', path: '/cms/characters', icon: 'bi bi-people' },
       { name: 'Categories', path: '/cms/categories', icon: 'bi bi-tags' },
       { name: 'Users', path: '/cms/users', icon: 'bi bi-person-gear' },
+      { name: 'Analytics', path: '/cms/analytics', icon: 'bi bi-bar-chart-fill' },
     ]
 
     const isActive = (path: string, exact: boolean = false) => {

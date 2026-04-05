@@ -172,6 +172,12 @@ const router = createRouter({
           component: () => import('../features/cms/views/UserEditorView'),
           meta: { title: 'Edit User | CMS' },
         },
+        {
+          path: 'analytics',
+          name: 'cms-analytics',
+          component: () => import('../features/cms/views/AnalyticsView'),
+          meta: { title: 'Analytics | CMS' },
+        },
       ],
     },
     // Catch-all 404 — redirect to root (which then redirects to /:locale)

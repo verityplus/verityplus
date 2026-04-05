@@ -308,6 +308,34 @@ const id: MessageSchema = {
     categories: 'Kategori',
     articlesCount: '{count} artikel',
   },
+  cookieConsent: {
+    message:
+      'Kami menggunakan cookie untuk menganalisis lalu lintas situs web dan meningkatkan pengalaman Anda. Dengan menerima, Anda membantu kami memahami bagaimana pengunjung berinteraksi dengan situs kami.',
+    accept: 'Terima',
+    decline: 'Tolak',
+    learnMore: 'Pelajari lebih lanjut',
+  },
+  analytics: {
+    heading: 'Analitik',
+    totalVisits: 'Total Kunjungan',
+    uniqueVisitors: 'Pengunjung Unik',
+    pageViews: 'Tayangan Halaman',
+    avgDuration: 'Rata-rata Durasi',
+    topPages: 'Halaman Teratas',
+    noData: 'Belum ada data analitik',
+    seconds: 'dtk',
+    viewAnalytics: 'Lihat Analitik',
+    analyticsTitle: 'Dasbor Analitik',
+    analyticsDesc: 'Wawasan pengunjung dan performa halaman.',
+    date: 'Tanggal',
+    visits: 'Kunjungan',
+    topReferrers: 'Sumber Teratas',
+    referrer: 'Sumber',
+    count: 'Jumlah',
+    exportData: 'Ekspor Data',
+    clearData: 'Hapus Data',
+    clearDataConfirm: 'Apakah Anda yakin ingin menghapus semua data analitik?',
+  },
 }
 
 export default id
