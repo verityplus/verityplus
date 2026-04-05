@@ -153,7 +153,9 @@ export default defineComponent({
                       <input
                         type="color"
                         value={
-                          form.value[field.key].startsWith('#') ? form.value[field.key] : '#3b82f6'
+                          (form.value[field.key] ?? '').startsWith('#')
+                            ? form.value[field.key]
+                            : '#3b82f6'
                         }
                         onInput={(e) => {
                           ;(form.value[field.key] as string) = (e.target as HTMLInputElement).value

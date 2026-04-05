@@ -2,6 +2,7 @@ import { defineComponent, ref, onMounted, onUnmounted, Teleport } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
+import type { Article, Category } from '@/shared/types'
 
 /**
  * BrowseTopBar: Top bar visible on all pages except Home
@@ -128,7 +129,7 @@ export const BrowseTopBar = defineComponent({
                         </div>
                         <div class="space-y-1">
                           {store.featured.length > 0 ? (
-                            store.featured.slice(0, 5).map((article) => (
+                            store.featured.slice(0, 5).map((article: Article) => (
                               <router-link
                                 to={{ name: 'read', params: { slug: article.slug } }}
                                 class={articleItemClass}
@@ -161,7 +162,7 @@ export const BrowseTopBar = defineComponent({
                         </div>
                         <div class="space-y-1">
                           {store.latest.length > 0 ? (
-                            store.latest.slice(0, 3).map((article) => (
+                            store.latest.slice(0, 3).map((article: Article) => (
                               <router-link
                                 to={{ name: 'read', params: { slug: article.slug } }}
                                 class={articleItemClass}
@@ -194,7 +195,7 @@ export const BrowseTopBar = defineComponent({
                         </div>
                         <div class="space-y-1">
                           {store.popular.length > 0 ? (
-                            store.popular.slice(0, 5).map((article) => (
+                            store.popular.slice(0, 5).map((article: Article) => (
                               <router-link
                                 to={{ name: 'read', params: { slug: article.slug } }}
                                 class={articleItemClass}
@@ -227,15 +228,17 @@ export const BrowseTopBar = defineComponent({
                         </div>
                         <div class="space-y-0 flex flex-col">
                           {store.getCategoryWithCount.length > 0 ? (
-                            store.getCategoryWithCount.map(({ category }) => (
-                              <router-link
-                                to={{ name: 'category', params: { slug: category.slug } }}
-                                class="px-2 py-1.5 rounded-md hover:bg-surface-active hover:text-text-primary transition cursor-pointer text-text-secondary text-xs truncate"
-                                onClick={closeMegamenu}
-                              >
-                                {category.name}
-                              </router-link>
-                            ))
+                            store.getCategoryWithCount.map(
+                              ({ category }: { category: Category; count: number }) => (
+                                <router-link
+                                  to={{ name: 'category', params: { slug: category.slug } }}
+                                  class="px-2 py-1.5 rounded-md hover:bg-surface-active hover:text-text-primary transition cursor-pointer text-text-secondary text-xs truncate"
+                                  onClick={closeMegamenu}
+                                >
+                                  {category.name}
+                                </router-link>
+                              ),
+                            )
                           ) : (
                             <p class="text-xs text-text-muted py-1">{t('common.noResults')}</p>
                           )}
