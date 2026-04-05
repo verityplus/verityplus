@@ -1,8 +1,8 @@
 import { defineComponent, computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useArticleStore } from '../store/article.store'
 import { ArticleCard } from './ArticleCard'
+import { useLocaleRoute } from '@/composables/useLocaleRoute'
 import type { Article } from '@/shared/types'
 
 /**
@@ -12,7 +12,7 @@ import type { Article } from '@/shared/types'
 export const ArticleGrid = defineComponent({
   name: 'ArticleGrid',
   setup() {
-    const router = useRouter()
+    const localeRoute = useLocaleRoute()
     const store = useArticleStore()
     const { t } = useI18n()
     const activeCategory = ref('all')
@@ -87,7 +87,7 @@ export const ArticleGrid = defineComponent({
                     activeCategory.value === 'all'
                       ? '/articles'
                       : `/categories/${activeCategory.value}`
-                  router.push(target)
+                  localeRoute.push(target)
                 }}
                 class="px-8 py-3 rounded-xl text-base font-bold text-text-inverse bg-primary hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer"
               >

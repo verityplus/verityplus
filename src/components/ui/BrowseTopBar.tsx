@@ -1,5 +1,4 @@
 import { defineComponent, ref, onMounted, onUnmounted, Teleport } from 'vue'
-import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
@@ -12,7 +11,6 @@ export const BrowseTopBar = defineComponent({
   name: 'BrowseTopBar',
   setup() {
     const store = useArticleStore()
-    const router = useRouter()
     const { t, te } = useI18n()
     const isOpen = ref(false)
     const megamenuRef = ref<HTMLElement | null>(null)
@@ -38,16 +36,6 @@ export const BrowseTopBar = defineComponent({
 
     const closeMegamenu = () => {
       isOpen.value = false
-    }
-
-    const navigateToArticle = (slug: string) => {
-      router.push({ name: 'read', params: { slug } })
-      closeMegamenu()
-    }
-
-    const navigateToCategory = (slug: string) => {
-      router.push({ name: 'category', params: { slug } })
-      closeMegamenu()
     }
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -141,9 +129,10 @@ export const BrowseTopBar = defineComponent({
                         <div class="space-y-1">
                           {store.featured.length > 0 ? (
                             store.featured.slice(0, 5).map((article) => (
-                              <div
-                                onClick={() => navigateToArticle(article.slug)}
+                              <router-link
+                                to={{ name: 'read', params: { slug: article.slug } }}
                                 class={articleItemClass}
+                                onClick={closeMegamenu}
                               >
                                 <div class="flex-1 min-w-0">
                                   <p class="text-sm font-medium text-text-primary group-hover:text-primary truncate transition-colors">
@@ -154,7 +143,7 @@ export const BrowseTopBar = defineComponent({
                                     {te('common.minRead') ? t('common.minRead') : 'min read'}
                                   </p>
                                 </div>
-                              </div>
+                              </router-link>
                             ))
                           ) : (
                             <p class="text-sm text-text-muted py-2">{t('common.noArticles')}</p>
@@ -173,9 +162,10 @@ export const BrowseTopBar = defineComponent({
                         <div class="space-y-1">
                           {store.latest.length > 0 ? (
                             store.latest.slice(0, 3).map((article) => (
-                              <div
-                                onClick={() => navigateToArticle(article.slug)}
+                              <router-link
+                                to={{ name: 'read', params: { slug: article.slug } }}
                                 class={articleItemClass}
+                                onClick={closeMegamenu}
                               >
                                 <div class="flex-1 min-w-0">
                                   <p class="text-sm font-medium text-text-primary group-hover:text-primary truncate transition-colors">
@@ -186,7 +176,7 @@ export const BrowseTopBar = defineComponent({
                                     {te('common.minRead') ? t('common.minRead') : 'min read'}
                                   </p>
                                 </div>
-                              </div>
+                              </router-link>
                             ))
                           ) : (
                             <p class="text-sm text-text-muted py-2">{t('common.noArticles')}</p>
@@ -205,9 +195,10 @@ export const BrowseTopBar = defineComponent({
                         <div class="space-y-1">
                           {store.popular.length > 0 ? (
                             store.popular.slice(0, 5).map((article) => (
-                              <div
-                                onClick={() => navigateToArticle(article.slug)}
+                              <router-link
+                                to={{ name: 'read', params: { slug: article.slug } }}
                                 class={articleItemClass}
+                                onClick={closeMegamenu}
                               >
                                 <div class="flex-1 min-w-0">
                                   <p class="text-sm font-medium text-text-primary group-hover:text-primary truncate transition-colors">
@@ -218,7 +209,7 @@ export const BrowseTopBar = defineComponent({
                                     {te('common.minRead') ? t('common.minRead') : 'min read'}
                                   </p>
                                 </div>
-                              </div>
+                              </router-link>
                             ))
                           ) : (
                             <p class="text-sm text-text-muted py-2">{t('common.noArticles')}</p>
@@ -234,15 +225,16 @@ export const BrowseTopBar = defineComponent({
                             {t('topbar.categories')}
                           </h3>
                         </div>
-                        <div class="space-y-0">
+                        <div class="space-y-0 flex flex-col">
                           {store.getCategoryWithCount.length > 0 ? (
                             store.getCategoryWithCount.map(({ category }) => (
-                              <div
-                                onClick={() => navigateToCategory(category.slug)}
+                              <router-link
+                                to={{ name: 'category', params: { slug: category.slug } }}
                                 class="px-2 py-1.5 rounded-md hover:bg-surface-active hover:text-text-primary transition cursor-pointer text-text-secondary text-xs truncate"
+                                onClick={closeMegamenu}
                               >
                                 {category.name}
-                              </div>
+                              </router-link>
                             ))
                           ) : (
                             <p class="text-xs text-text-muted py-1">{t('common.noResults')}</p>
