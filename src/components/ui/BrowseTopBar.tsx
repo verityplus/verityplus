@@ -24,7 +24,7 @@ export const BrowseTopBar = defineComponent({
       if (triggerRef.value) {
         const rect = triggerRef.value.getBoundingClientRect()
         menuLeft.value = rect.left
-        menuTop.value = rect.bottom + 8 // mt-2 equivalent
+        menuTop.value = rect.bottom + 8
       }
     }
 

@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import 'bootstrap-icons/font/bootstrap-icons';
+@plugin '@tailwindcss/typography';
 
 /*
  * Verity+ Design System

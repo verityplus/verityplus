@@ -29,7 +29,6 @@ export default defineComponent({
       ),
     })
 
-    // Form State
     const form = ref<Article>({
       id: Date.now(),
       title: '',
@@ -63,7 +62,6 @@ export default defineComponent({
       loadData()
     })
 
-    // Auto-generate slug from title
     const generateSlug = (title: string) => {
       return title
         .toLowerCase()
@@ -91,7 +89,6 @@ export default defineComponent({
         return
       }
 
-      // Auto-generate slug if empty
       if (!form.value.slug) {
         form.value.slug = generateSlug(form.value.title)
       }

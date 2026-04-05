@@ -76,7 +76,6 @@ export const BaseButton = defineComponent({
     ]
 
     return () => {
-      // Logic for RouterLink if `to` prop is present
       if (props.to) {
         return (
           <router-link to={props.to} class={classes}>

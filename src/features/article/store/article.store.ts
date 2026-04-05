@@ -3,7 +3,6 @@ import { ref, computed } from 'vue'
 import { ArticleService } from '../services/article.service'
 import type { Article, Category, Author } from '@/shared/types'
 
-// --- Pagination Defaults ---
 const LATEST_PER_PAGE = 4
 const GRID_PER_PAGE = 8
 
@@ -13,17 +12,13 @@ const GRID_PER_PAGE = 8
  * CMS mutations are handled by CMSContentStore.
  */
 export const useArticleStore = defineStore('articles', () => {
-  // --- Reactive State ---
   const articles = ref<Article[]>([])
   const categories = ref<Category[]>([])
   const authors = ref<Author[]>([])
   const isLoading = ref(false)
 
-  // --- Pagination State ---
   const latestPage = ref(1)
   const gridPage = ref(1)
-
-  // --- Actions ---
 
   /**
    * Initializes the store by fetching all foundational data.
@@ -43,8 +38,6 @@ export const useArticleStore = defineStore('articles', () => {
       isLoading.value = false
     }
   }
-
-  // --- Computed Getters ---
 
   /** Featured articles for the headline carousel */
   const featured = computed(() => articles.value.filter((a) => a.status === 'featured'))
@@ -75,10 +68,7 @@ export const useArticleStore = defineStore('articles', () => {
   /** Total pages for grid articles */
   const gridTotalPages = computed(() => Math.ceil(nonFeaturedArticles.value.length / GRID_PER_PAGE))
 
-  // Legacy computed for backward compatibility
   const gridArticles = computed(() => nonFeaturedArticles.value.slice(0, GRID_PER_PAGE))
-
-  // --- Query Methods ---
 
   /** Find an article by its unique slug */
   const findBySlug = async (slug: string): Promise<Article | undefined> => {
@@ -119,8 +109,6 @@ export const useArticleStore = defineStore('articles', () => {
   const findArticlesByCategory = (slug: string): Article[] => {
     return articles.value.filter((a) => a.category.slug === slug)
   }
-
-  // --- Pagination Methods ---
 
   /** Go to next page of latest articles */
   const latestNextPage = () => {

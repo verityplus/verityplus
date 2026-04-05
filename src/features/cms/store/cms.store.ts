@@ -6,7 +6,6 @@ import type { CMSUser } from '@/shared/types'
  * CMSStore: Specialized management for administrative actions.
  */
 export const useCMSStore = defineStore('cms', () => {
-  // --- Admin User Management ---
   const currentUser = ref<CMSUser | null>({
     id: 'u-1',
     username: 'admin_verity',
@@ -15,7 +14,6 @@ export const useCMSStore = defineStore('cms', () => {
     role: 'admin',
   })
 
-  // --- Mock User List ---
   const users = ref<CMSUser[]>([
     {
       id: 'u-1',
@@ -33,7 +31,6 @@ export const useCMSStore = defineStore('cms', () => {
     },
   ])
 
-  // --- Actions ---
   const addUser = (user: CMSUser) => {
     users.value.push({ ...user, role: 'admin' })
   }

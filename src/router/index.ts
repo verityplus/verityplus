@@ -14,7 +14,6 @@ const router = createRouter({
     return { top: 0, behavior: 'smooth' }
   },
   routes: [
-    // Root redirect — detect and redirect to /:locale
     {
       path: '/',
       redirect: () => {
@@ -31,7 +30,7 @@ const router = createRouter({
         return `/${detected}`
       },
     },
-    // Locale-prefixed public routes
+
     {
       path: '/:locale(id|en|zh)',
       component: () => import('../features/pages/LocaleLayout'),
@@ -89,7 +88,7 @@ const router = createRouter({
         },
       ],
     },
-    // CMS routes (unchanged, no locale prefix)
+
     {
       path: '/cms',
       component: () => import('../features/cms/views/CMSLayout'),
@@ -180,7 +179,7 @@ const router = createRouter({
         },
       ],
     },
-    // Catch-all 404 — redirect to root (which then redirects to /:locale)
+
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ],
 })
@@ -190,19 +189,15 @@ const router = createRouter({
  * Syncs i18n locale from route param, handles CMS auth, redirects invalid locales.
  */
 router.beforeEach((to, _from, next) => {
-  // Sync i18n locale from route param
   if (to.params.locale && typeof to.params.locale === 'string') {
     const locale = to.params.locale as Locale
     if (SUPPORTED_LOCALES.includes(locale)) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ;(i18n.global.locale as any).value = locale
     } else {
-      // Invalid locale — redirect to default
       return next(`/${DEFAULT_LOCALE}`)
     }
   }
 
-  // Basic CMS Auth Simulation
   if (to.path.startsWith('/cms')) {
     console.info('[CMS Guard] Admin authorization assumed for development.')
   }

@@ -3,14 +3,12 @@
  * Single source of truth for all data models across the application.
  */
 
-// --- Core Models ---
-
 export interface Author {
   id: string
   name: string
   avatar: string
   bio?: string
-  role?: string // Optional role description (e.g., 'Editor', 'Tech Writer')
+  role?: string
 }
 
 export interface Category {
@@ -19,9 +17,9 @@ export interface Category {
   nameEn?: string
   nameZh?: string
   slug: string
-  color: string // Tailwind text color class e.g. 'text-blue-600'
-  bgColor: string // Tailwind bg color class e.g. 'bg-blue-100'
-  borderColor: string // Tailwind border color class e.g. 'border-blue-500'
+  color: string
+  bgColor: string
+  borderColor: string
 }
 
 export interface Article {
@@ -33,7 +31,7 @@ export interface Article {
   excerpt: string
   excerptEn?: string
   excerptZh?: string
-  content?: string // Markdown body (only loaded on read page)
+  content?: string
   coverImage: string
   coverImageCaption?: string
   coverImageCaptionEn?: string
@@ -41,16 +39,12 @@ export interface Article {
   category: Category
   author: Author
   tags: string[]
-  publishedAt: string // ISO date string for display
+  publishedAt: string
   readTimeMinutes: number
-  status: ArticleStatus // Article publication status
+  status: ArticleStatus
 }
 
-// --- Ad Models ---
-
 export type AdSize = 'banner' | 'sidebar' | 'leaderboard' | 'inline'
-
-// --- CMS Models ---
 
 /** Article publication status */
 export type ArticleStatus = 'draft' | 'published' | 'archived' | 'featured'
@@ -69,8 +63,6 @@ export interface CMSUser {
   password?: string
   role: 'admin' | 'editor'
 }
-
-// --- Utility Types ---
 
 /** Makes all properties of T optional */
 export type AppPartial<T> = {
@@ -129,8 +121,6 @@ export type AppRecord<K extends string, T> = {
   [P in K]: T
 }
 
-// --- Route Names ---
-
 export type RouteName =
   | 'home'
   | 'about-us'
@@ -156,16 +146,12 @@ export type RouteName =
   | 'cms-users-new'
   | 'cms-users-edit'
 
-// --- Ad Size Presets ---
-
 export const AD_SIZE_PRESETS: AppRecord<AdSize, { height: string; label: string }> = {
   leaderboard: { height: 'h-24', label: 'Leaderboard (728x90)' },
   banner: { height: 'h-32', label: 'Banner (468x60)' },
   sidebar: { height: 'h-64', label: 'Sidebar (300x250)' },
   inline: { height: 'h-40', label: 'Inline (Responsive)' },
 }
-
-// --- CMS Role Labels ---
 
 export const CMS_ROLE_LABELS: AppRecord<CMSUser['role'], string> = {
   admin: 'Administrator',

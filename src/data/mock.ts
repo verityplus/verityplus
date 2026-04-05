@@ -4,7 +4,6 @@
  */
 import type { Article, Author, Category, ArticleStatus } from '@/shared/types'
 
-// --- Authors ---
 export const AUTHORS: Author[] = [
   {
     id: 'author-1',
@@ -43,7 +42,6 @@ export const AUTHORS: Author[] = [
   },
 ]
 
-// --- Categories ---
 export const CATEGORIES: Category[] = [
   {
     id: 'cat-tech',
@@ -103,12 +101,9 @@ export const CATEGORIES: Category[] = [
   },
 ]
 
-// Helper to find category
 const cat = (slug: string) => CATEGORIES.find((c) => c.slug === slug)!
 
-// --- Articles ---
 export const ARTICLES: Article[] = [
-  // Featured / Headline articles
   {
     id: 1,
     slug: 'teknologi-ai-terbaru-2026',
@@ -155,7 +150,7 @@ export const ARTICLES: Article[] = [
     readTimeMinutes: 5,
     status: 'featured' as ArticleStatus,
   },
-  // Latest articles
+
   {
     id: 4,
     slug: 'ihsg-hari-ini-diprediksi-menguat',
@@ -216,7 +211,7 @@ export const ARTICLES: Article[] = [
     readTimeMinutes: 6,
     status: 'published' as ArticleStatus,
   },
-  // Grid/more articles
+
   {
     id: 8,
     slug: 'membangun-desain-sistem-skalabel',
@@ -322,7 +317,7 @@ export const ARTICLES: Article[] = [
     readTimeMinutes: 5,
     status: 'published' as ArticleStatus,
   },
-  // ReadView full article
+
   {
     id: 15,
     slug: 'evolusi-desain-web',
@@ -955,6 +950,3 @@ Evolusi ini membuktikan bahwa adaptasi adalah kunci utama dalam dunia teknologi.
     status: 'published' as ArticleStatus,
   },
 ]
-
-// --- Computed Helpers ---
-// Removed redundant functions here as they are moved to ArticleService.

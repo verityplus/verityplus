@@ -18,7 +18,6 @@ function unwrap<T>(val: MaybeRef<T>): T {
  * Watches reactive inputs and updates document head accordingly.
  */
 export function useHead(input: Record<string, MaybeRef<unknown> | MaybeRef<unknown>[]>) {
-  // Initial set
   const setTitle = () => {
     const title = input.title
     if (title !== undefined) {
@@ -53,7 +52,6 @@ export function useHead(input: Record<string, MaybeRef<unknown> | MaybeRef<unkno
     }
   }
 
-  // Collect all refs to watch
   const refsToWatch: (Ref<unknown> | ComputedRef<unknown>)[] = []
 
   if (isRef(input.title)) {
@@ -74,11 +72,9 @@ export function useHead(input: Record<string, MaybeRef<unknown> | MaybeRef<unkno
     }
   }
 
-  // Set initial values
   setTitle()
   setMeta()
 
-  // Watch for changes
   if (refsToWatch.length > 0) {
     watch(refsToWatch, () => {
       setTitle()

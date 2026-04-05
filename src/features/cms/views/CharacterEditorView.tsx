@@ -82,7 +82,6 @@ export default defineComponent({
                 onChange={(e) => {
                   const file = (e.target as HTMLInputElement).files?.[0]
                   if (file) {
-                    // Mocking upload by creating a local blob URL
                     form.value.avatar = URL.createObjectURL(file)
                   }
                 }}

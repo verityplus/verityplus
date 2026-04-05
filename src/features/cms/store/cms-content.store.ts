@@ -8,10 +8,7 @@ import type { Article, Category, Author } from '@/shared/types'
  * This prevents disconnected state between CMS operations and article display.
  */
 export const useCMSContentStore = defineStore('cms-content', () => {
-  // Delegate to ArticleStore for shared state consistency
   const articleStore = useArticleStore()
-
-  // --- Article Mutations (delegated to ArticleStore) ---
 
   const addArticle = (article: Article) => {
     articleStore.articles.unshift(article)
@@ -26,8 +23,6 @@ export const useCMSContentStore = defineStore('cms-content', () => {
     articleStore.articles = articleStore.articles.filter((a) => a.id !== id)
   }
 
-  // --- Category Mutations (delegated to ArticleStore) ---
-
   const addCategory = (category: Category) => {
     articleStore.categories.push(category)
   }
@@ -40,8 +35,6 @@ export const useCMSContentStore = defineStore('cms-content', () => {
   const deleteCategory = (id: string) => {
     articleStore.categories = articleStore.categories.filter((c) => c.id !== id)
   }
-
-  // --- Author Mutations (delegated to ArticleStore) ---
 
   const addAuthor = (author: Author) => {
     articleStore.authors.push(author)

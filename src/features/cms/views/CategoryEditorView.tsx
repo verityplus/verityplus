@@ -53,8 +53,6 @@ export default defineComponent({
       router.push('/cms/categories')
     }
 
-    // NOTE: Contrast helper utilities are reserved for future accessibility features.
-    // Kept as unused to satisfy lint rules while preserving implementation.
     const _getContrastYIQ = (_hexcolor: string) => {
       if (!_hexcolor || !_hexcolor.startsWith('#')) return 255
       _hexcolor = _hexcolor.replace('#', '')
