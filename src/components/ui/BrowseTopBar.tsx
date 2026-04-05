@@ -19,6 +19,7 @@ export const BrowseTopBar = defineComponent({
     const triggerRef = ref<HTMLElement | null>(null)
     const menuLeft = ref(0)
     const menuTop = ref(0)
+    const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024)
 
     const updateMenuPosition = () => {
       if (triggerRef.value) {
@@ -56,6 +57,13 @@ export const BrowseTopBar = defineComponent({
       }
     }
 
+    const handleResize = () => {
+      windowWidth.value = window.innerWidth
+      if (isOpen.value) {
+        updateMenuPosition()
+      }
+    }
+
     const handleScroll = () => {
       if (isOpen.value) {
         updateMenuPosition()
@@ -65,13 +73,13 @@ export const BrowseTopBar = defineComponent({
     onMounted(() => {
       document.addEventListener('click', handleClickOutside)
       window.addEventListener('scroll', handleScroll, { passive: true })
-      window.addEventListener('resize', handleScroll, { passive: true })
+      window.addEventListener('resize', handleResize, { passive: true })
     })
 
     onUnmounted(() => {
       document.removeEventListener('click', handleClickOutside)
       window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
+      window.removeEventListener('resize', handleResize)
     })
 
     const articleItemClass =
@@ -108,7 +116,7 @@ export const BrowseTopBar = defineComponent({
                     data-megamenu-panel
                     class="fixed inset-x-0 top-28 md:inset-x-auto md:top-auto w-full md:w-[min(90vw,960px)] border border-border rounded-none md:rounded-xl shadow-elevated z-9999 overflow-hidden max-h-[calc(100vh-6rem)] md:max-h-80 bg-surface/80 backdrop-blur-md"
                     style={
-                      typeof window !== 'undefined' && window.innerWidth >= 768
+                      windowWidth.value >= 768
                         ? {
                             top: `${menuTop.value}px`,
                             left: `${menuLeft.value}px`,
