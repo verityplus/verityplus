@@ -169,7 +169,7 @@ const id: MessageSchema = {
     sendMessage: 'Kirim Pesan',
   },
   advertise: {
-    heading: 'Advertise',
+    heading: 'Periklanan',
     title: 'Jangkau Audiens yang Tepat Bersama Kami',
     description:
       'Tingkatkan visibilitas brand Anda dengan menempatkan iklan di platform kami yang memiliki ribuan pengunjung aktif setiap harinya.',
