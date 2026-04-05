@@ -24,52 +24,45 @@ export default defineComponent({
       ],
     })
 
-    const stats = computed(() => [
-      { value: '500K+', label: t('advertise.stats.monthlyViews') },
-      { value: '120K+', label: t('advertise.stats.activeUsers') },
-      { value: '4.8%', label: t('advertise.stats.avgCTR') },
-      { value: '25K+', label: t('advertise.stats.subscribers') },
-    ])
-
     const plans = computed(() => [
       {
         name: t('advertise.plans.starter.name'),
         subtitle: t('advertise.plans.starter.subtitle'),
-        price: 'Rp 1.5jt',
-        period: t('common.monthly'),
+        price: 'Rp 200K',
         featured: false,
         cta: t('advertise.plans.starter.cta'),
         features: [
-          { text: t('advertise.features.bannerSidebar'), included: true },
-          { text: t('advertise.features.dedicatedPost'), included: true },
-          { text: t('advertise.features.socialMediaShoutout'), included: false },
+          { text: t('advertise.features.bannerSidebar3Days'), included: true },
+          { text: t('advertise.features.oneAdvertorialArticle'), included: true },
+          { text: t('advertise.features.oneInstagramPost'), included: true },
+          { text: t('advertise.features.oneTikTokPost'), included: true },
         ],
       },
       {
         name: t('advertise.plans.professional.name'),
         subtitle: t('advertise.plans.professional.subtitle'),
-        price: 'Rp 4.5jt',
-        period: t('common.monthly'),
+        price: 'Rp 300K',
         featured: true,
         cta: t('advertise.plans.professional.cta'),
         features: [
-          { text: t('advertise.features.headerBanner'), included: true },
-          { text: t('advertise.features.sponsoredArticles'), included: true },
-          { text: t('advertise.features.socialMediaPost'), included: true },
-          { text: t('advertise.features.weeklyNewsletter'), included: true },
+          { text: t('advertise.features.bannerSidebar9Days'), included: true },
+          { text: t('advertise.features.threeAdvertorialArticles'), included: true },
+          { text: t('advertise.features.threeInstagramPosts'), included: true },
+          { text: t('advertise.features.threeTikTokPosts'), included: true },
         ],
       },
       {
         name: t('advertise.plans.custom.name'),
         subtitle: t('advertise.plans.custom.subtitle'),
         price: t('common.contactUs'),
-        period: '',
         featured: false,
         cta: t('advertise.plans.custom.cta'),
         features: [
-          { text: t('advertise.features.allProfessionalFeatures'), included: true },
-          { text: t('advertise.features.fullPageBranding'), included: true },
-          { text: t('advertise.features.videoReview'), included: true },
+          { text: t('advertise.features.allProfessionalBenefits'), included: true },
+          { text: t('advertise.features.promotionalVideo'), included: true },
+          { text: t('advertise.features.customCampaign'), included: true },
+          { text: t('advertise.features.etCetera'), included: true },
+          { text: t('advertise.features.letsDiscuss'), included: true },
         ],
       },
     ])
@@ -87,20 +80,7 @@ export default defineComponent({
             <p class="text-lg text-text-secondary">{t('advertise.description')}</p>
           </div>
 
-          {/* Stats Summary */}
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20 py-10 border-y border-border">
-            {stats.value.map((stat) => (
-              <div key={stat.label} class="text-center">
-                <div class="text-4xl font-bold text-text-primary">{stat.value}</div>
-                <div class="text-sm text-text-muted mt-1 uppercase tracking-widest">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Plan Comparison Cards */}
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {plans.value.map((plan) => (
               <div
                 key={plan.name}
@@ -122,7 +102,6 @@ export default defineComponent({
 
                 <div class="mb-6">
                   <span class="text-4xl font-extrabold text-text-primary">{plan.price}</span>
-                  {plan.period && <span class="text-text-muted">{plan.period}</span>}
                 </div>
 
                 <ul class="space-y-4 mb-8 flex-grow">
