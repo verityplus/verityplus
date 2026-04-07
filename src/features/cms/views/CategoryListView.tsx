@@ -3,6 +3,7 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 
 /**
  * CMS View: CategoryListView
@@ -13,13 +14,14 @@ export default defineComponent({
   setup() {
     const articleStore = useArticleStore()
     const cmsContentStore = useCMSContentStore()
+    const { getLocalizedField } = useLocalizedField()
     const searchQuery = ref('')
 
     const filteredCategories = computed(() => {
       const q = searchQuery.value.toLowerCase().trim()
       if (!q) return articleStore.categories
       return articleStore.categories.filter(
-        (c) => c.name.toLowerCase().includes(q) || c.slug.toLowerCase().includes(q),
+        (c) => getLocalizedField(c, 'name').toLowerCase().includes(q) || c.slug.toLowerCase().includes(q),
       )
     })
 
@@ -65,7 +67,7 @@ export default defineComponent({
                   textColor={cat.color}
                   class="text-xs uppercase font-black tracking-widest px-4 py-1"
                 >
-                  {cat.name}
+                  {getLocalizedField(cat, 'name')}
                 </BaseBadge>
                 <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition">
                   <router-link
@@ -83,7 +85,7 @@ export default defineComponent({
                 </div>
               </div>
 
-              <h3 class="text-xl font-black text-slate-900 mb-2">{cat.name}</h3>
+              <h3 class="text-xl font-black text-slate-900 mb-2">{getLocalizedField(cat, 'name')}</h3>
               <code class="text-xs font-black text-slate-400 uppercase tracking-tighter block mb-6">
                 slug: {cat.slug}
               </code>

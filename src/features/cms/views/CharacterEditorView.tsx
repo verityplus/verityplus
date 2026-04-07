@@ -4,7 +4,7 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import type { Author } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
-import { Stepper } from '@/components/ui/Stepper'
+import { Tabs } from '@/components/ui/Tabs'
 
 /**
  * CMS View: CharacterEditorView
@@ -130,7 +130,7 @@ export default defineComponent({
               </div>
 
               <div class="pt-6 mt-6 space-y-6">
-                <Stepper steps={steps} v-model={currentStep.value} />
+                <Tabs tabs={steps} modelValue={currentStep.value} onUpdate:modelValue={(val) => currentStep.value = val} />
 
                 <div class="space-y-4 pt-4 border-t border-slate-50 animate-in fade-in" key={currentStep.value}>
                   <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">

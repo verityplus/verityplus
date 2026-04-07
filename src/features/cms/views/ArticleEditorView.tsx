@@ -7,7 +7,7 @@ import { MarkdownEditor } from '@/features/cms/components/MarkdownEditor'
 import type { Article, Category, Author, ArticleStatus } from '@/shared/types'
 import { ARTICLE_STATUS_LABELS } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
-import { Stepper } from '@/components/ui/Stepper'
+import { Tabs } from '@/components/ui/Tabs'
 
 /**
  * CMS View: ArticleEditorView
@@ -166,7 +166,7 @@ export default defineComponent({
           <div class="flex-grow space-y-6 overflow-hidden">
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 space-y-8">
               
-              <Stepper steps={steps} v-model={currentStep.value} />
+              <Tabs tabs={steps} modelValue={currentStep.value} onUpdate:modelValue={(val) => currentStep.value = val} />
 
               <div class="pt-6 border-t border-slate-100 space-y-8 animate-in fade-in duration-500" key={currentStep.value}>
                 {/* Title Section */}

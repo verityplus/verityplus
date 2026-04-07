@@ -4,7 +4,7 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import type { Category } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
-import { Stepper } from '@/components/ui/Stepper'
+import { Tabs } from '@/components/ui/Tabs'
 
 /**
  * CMS View: CategoryEditorView
@@ -112,7 +112,7 @@ export default defineComponent({
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           <div class="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200 shadow-sm space-y-8">
-            <Stepper steps={steps} v-model={currentStep.value} />
+            <Tabs tabs={steps} modelValue={currentStep.value} onUpdate:modelValue={(val) => currentStep.value = val} />
 
             <div class="space-y-6 pt-6 border-t border-slate-100" key={currentStep.value}>
               <div class="space-y-2">
