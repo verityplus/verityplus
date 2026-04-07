@@ -8,6 +8,7 @@ import { ArticleGrid } from '@/features/article/components/ArticleGrid'
 import { InstagramEmbed } from '@/features/social/components/InstagramEmbed'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useLocaleRoute } from '@/composables/useLocaleRoute'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 
 /**
  * Page View: HomeView
@@ -19,6 +20,7 @@ export default defineComponent({
     const { t } = useI18n()
     const { push } = useLocaleRoute()
     const store = useArticleStore()
+    const { getLocalizedField } = useLocalizedField()
 
     useHead({
       title: t('common.homeTitle'),
@@ -92,7 +94,7 @@ export default defineComponent({
                         </span>
                         <div class="flex-1 min-w-0">
                           <h4 class="text-sm font-bold leading-snug text-text-primary group-hover:text-primary transition line-clamp-2">
-                            {item.title}
+                            {getLocalizedField(item, 'title')}
                           </h4>
                           <span class="text-xs text-text-muted mt-1 block">
                             {item.readTimeMinutes} {t('common.minRead')}

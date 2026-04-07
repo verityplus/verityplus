@@ -3,6 +3,7 @@ import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useArticleStore } from '../store/article.store'
 import { BaseBadge } from '@/components/ui/Badge'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { Article } from '@/shared/types'
 
 /**
@@ -14,6 +15,7 @@ export const HeadlineCarousel = defineComponent({
   setup() {
     const store = useArticleStore()
     const { t } = useI18n()
+    const { getLocalizedField } = useLocalizedField()
     const currentIndex = ref(0)
     let timer: ReturnType<typeof setInterval> | null = null
 
@@ -65,7 +67,7 @@ export const HeadlineCarousel = defineComponent({
                 >
                   <img
                     src={item.coverImage}
-                    alt={item.title}
+                    alt={getLocalizedField(item, 'title')}
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
 
@@ -89,17 +91,17 @@ export const HeadlineCarousel = defineComponent({
                           textColor={item.category.color}
                           class="mb-3"
                         >
-                          {item.category.name}
+                          {getLocalizedField(item.category, 'name')}
                         </BaseBadge>
                       </RouterLink>
                     </RouterLink>
 
                     <h2 class="text-3xl md:text-4xl font-extrabold mb-3 leading-tight max-w-2xl">
-                      {item.title}
+                      {getLocalizedField(item, 'title')}
                     </h2>
 
                     <p class="text-white/70 text-sm md:text-base line-clamp-2 max-w-xl">
-                      {item.excerpt}
+                      {getLocalizedField(item, 'excerpt')}
                     </p>
                   </div>
                 </RouterLink>

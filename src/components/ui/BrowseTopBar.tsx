@@ -2,6 +2,7 @@ import { defineComponent, ref, onMounted, onUnmounted, Teleport } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { Article, Category } from '@/shared/types'
 
 /**
@@ -13,6 +14,7 @@ export const BrowseTopBar = defineComponent({
   setup() {
     const store = useArticleStore()
     const { t, te } = useI18n()
+    const { getLocalizedField } = useLocalizedField()
     const isOpen = ref(false)
     const megamenuRef = ref<HTMLElement | null>(null)
     const triggerRef = ref<HTMLElement | null>(null)
@@ -137,7 +139,7 @@ export const BrowseTopBar = defineComponent({
                               >
                                 <div class="flex-1 min-w-0">
                                   <p class="text-sm font-medium text-text-primary group-hover:text-primary truncate transition-colors">
-                                    {article.title}
+                                    {getLocalizedField(article, 'title')}
                                   </p>
                                   <p class="text-xs text-text-muted mt-0.5">
                                     {article.author.name} &middot; {article.readTimeMinutes}{' '}
@@ -170,7 +172,7 @@ export const BrowseTopBar = defineComponent({
                               >
                                 <div class="flex-1 min-w-0">
                                   <p class="text-sm font-medium text-text-primary group-hover:text-primary truncate transition-colors">
-                                    {article.title}
+                                    {getLocalizedField(article, 'title')}
                                   </p>
                                   <p class="text-xs text-text-muted mt-0.5">
                                     {article.author.name} &middot; {article.readTimeMinutes}{' '}
@@ -203,7 +205,7 @@ export const BrowseTopBar = defineComponent({
                               >
                                 <div class="flex-1 min-w-0">
                                   <p class="text-sm font-medium text-text-primary group-hover:text-primary truncate transition-colors">
-                                    {article.title}
+                                    {getLocalizedField(article, 'title')}
                                   </p>
                                   <p class="text-xs text-text-muted mt-0.5">
                                     {article.author.name} &middot; {article.readTimeMinutes}{' '}
@@ -235,7 +237,7 @@ export const BrowseTopBar = defineComponent({
                                   class="px-2 py-1.5 rounded-md hover:bg-surface-active hover:text-text-primary transition cursor-pointer text-text-secondary text-xs truncate"
                                   onClick={closeMegamenu}
                                 >
-                                  {category.name}
+                                  {getLocalizedField(category, 'name')}
                                 </router-link>
                               ),
                             )

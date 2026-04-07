@@ -2,6 +2,7 @@ import { defineComponent, type PropType } from 'vue'
 import { RouterLink } from 'vue-router'
 import type { Article } from '@/shared/types'
 import { BaseBadge } from '@/components/ui/Badge'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 
 /**
  * Feature Component: ArticleCard
@@ -34,6 +35,7 @@ export const ArticleCard = defineComponent({
   },
   setup(props) {
     const isHorizontal = props.layout === 'horizontal'
+    const { getLocalizedField } = useLocalizedField()
 
     return () => (
       <article class={['group card h-full relative', props.class]}>
@@ -51,7 +53,7 @@ export const ArticleCard = defineComponent({
           >
             <img
               src={props.article.coverImage}
-              alt={props.article.title}
+              alt={getLocalizedField(props.article, 'title')}
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             {!isHorizontal && (
@@ -65,7 +67,7 @@ export const ArticleCard = defineComponent({
                     bgColor={props.article.category.bgColor}
                     textColor={props.article.category.color}
                   >
-                    {props.article.category.name}
+                    {getLocalizedField(props.article.category, 'name')}
                   </BaseBadge>
                 </RouterLink>
               </div>
@@ -85,7 +87,7 @@ export const ArticleCard = defineComponent({
                   textColor={props.article.category.color}
                   class="mb-3 w-fit"
                 >
-                  {props.article.category.name}
+                  {getLocalizedField(props.article.category, 'name')}
                 </BaseBadge>
               </RouterLink>
             )}
@@ -96,7 +98,7 @@ export const ArticleCard = defineComponent({
                 isHorizontal ? 'text-xl md:text-2xl' : 'text-base line-clamp-2',
               ]}
             >
-              {props.article.title}
+              {getLocalizedField(props.article, 'title')}
             </h3>
 
             <p
@@ -105,7 +107,7 @@ export const ArticleCard = defineComponent({
                 isHorizontal ? 'text-sm md:text-base line-clamp-2' : 'text-sm line-clamp-3',
               ]}
             >
-              {props.article.excerpt}
+              {getLocalizedField(props.article, 'excerpt')}
             </p>
 
             <div class="mt-auto flex justify-end items-center pt-4">
@@ -120,7 +122,7 @@ export const ArticleCard = defineComponent({
                       bgColor={props.article.category.bgColor}
                       textColor={props.article.category.color}
                     >
-                      {props.article.category.name}
+                      {getLocalizedField(props.article.category, 'name')}
                     </BaseBadge>
                   </RouterLink>
                 </div>

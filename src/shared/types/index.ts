@@ -7,15 +7,17 @@ export interface Author {
   id: string
   name: string
   avatar: string
-  bio?: string
+  bioId: string
+  bioEn: string
+  bioZh: string
   role?: string
 }
 
 export interface Category {
   id: string
-  name: string
-  nameEn?: string
-  nameZh?: string
+  nameId: string
+  nameEn: string
+  nameZh: string
   slug: string
   color: string
   bgColor: string
@@ -25,20 +27,24 @@ export interface Category {
 export interface Article {
   id: number
   slug: string
-  title: string
-  titleEn?: string
-  titleZh?: string
-  excerpt: string
-  excerptEn?: string
-  excerptZh?: string
-  content?: string
+  titleId: string
+  titleEn: string
+  titleZh: string
+  excerptId: string
+  excerptEn: string
+  excerptZh: string
+  contentId: string
+  contentEn: string
+  contentZh: string
   coverImage: string
-  coverImageCaption?: string
-  coverImageCaptionEn?: string
-  coverImageCaptionZh?: string
+  coverImageCaptionId: string
+  coverImageCaptionEn: string
+  coverImageCaptionZh: string
   category: Category
   author: Author
-  tags: string[]
+  tagsId: string[]
+  tagsEn: string[]
+  tagsZh: string[]
   publishedAt: string
   readTimeMinutes: number
   status: ArticleStatus

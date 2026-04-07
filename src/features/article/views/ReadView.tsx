@@ -7,6 +7,7 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { BaseBadge } from '@/components/ui/Badge'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { Article } from '@/shared/types'
 
 /**
@@ -19,6 +20,7 @@ export default defineComponent({
     const route = useRoute()
     const store = useArticleStore()
     const { t } = useI18n()
+    const { getLocalizedField } = useLocalizedField()
 
     const article = ref<Article | null>(null)
     const fontSize = ref(18)
@@ -45,18 +47,18 @@ export default defineComponent({
 
     useHead({
       title: computed(() =>
-        article.value ? `${article.value.title} — Verity+` : t('common.articleLoading'),
+        article.value ? `${getLocalizedField(article.value, 'title')} — Verity+` : t('common.articleLoading'),
       ),
       meta: computed(() => [
-        { name: 'description', content: article.value?.excerpt || '' },
-        { property: 'og:title', content: article.value?.title || '' },
+        { name: 'description', content: getLocalizedField(article.value!, 'excerpt') || '' },
+        { property: 'og:title', content: getLocalizedField(article.value!, 'title') || '' },
         { property: 'og:image', content: article.value?.coverImage || '' },
       ]),
     })
 
     const outputHtml = computed(() => {
       if (!article.value) return ''
-      return marked.parse(article.value.content || article.value.excerpt)
+      return marked.parse(getLocalizedField(article.value, 'content') || getLocalizedField(article.value, 'excerpt'))
     })
 
     const toggleSpeech = () => {
@@ -69,7 +71,7 @@ export default defineComponent({
       const rawText = document.getElementById('markdown-content')?.innerText
       if (!rawText || !article.value) return
 
-      const utterance = new SpeechSynthesisUtterance(`${article.value.title}. ${rawText}`)
+      const utterance = new SpeechSynthesisUtterance(`${getLocalizedField(article.value, 'title')}. ${rawText}`)
       utterance.lang = 'id-ID'
       utterance.onend = () => {
         isSpeaking.value = false
@@ -171,7 +173,7 @@ export default defineComponent({
                           bgColor={article.value.category.bgColor}
                           textColor={article.value.category.color}
                         >
-                          {article.value.category.name}
+                          {getLocalizedField(article.value.category, 'name')}
                         </BaseBadge>
                       </RouterLink>
                     </RouterLink>
@@ -181,7 +183,7 @@ export default defineComponent({
                   </div>
 
                   <h1 class="text-4xl sm:text-5xl font-extrabold text-text-primary leading-tight mb-8">
-                    {article.value.title}
+                    {getLocalizedField(article.value, 'title')}
                   </h1>
 
                   <RouterLink
@@ -208,13 +210,13 @@ export default defineComponent({
                 <div class="aspect-video rounded-2xl overflow-hidden shadow-elevated bg-surface-muted">
                   <img
                     src={article.value.coverImage}
-                    alt={article.value.title}
+                    alt={getLocalizedField(article.value, 'title')}
                     class="w-full h-full object-cover"
                   />
                 </div>
-                {article.value.coverImageCaption && (
+                {getLocalizedField(article.value, 'coverImageCaption') && (
                   <p class="text-center text-sm text-text-muted mt-4 italic">
-                    {article.value.coverImageCaption}
+                    {getLocalizedField(article.value, 'coverImageCaption')}
                   </p>
                 )}
               </div>
@@ -231,7 +233,7 @@ export default defineComponent({
                 {/* Tag Metadata */}
                 <div class="mt-16 pt-8 border-t border-border">
                   <div class="flex flex-wrap gap-2">
-                    {article.value.tags.map((tag: string) => (
+                    {getLocalizedField(article.value, 'tags').map((tag: string) => (
                       <span
                         key={tag}
                         class="px-3 py-1 bg-surface-muted text-text-secondary text-sm rounded-lg hover:bg-surface-active cursor-pointer transition"

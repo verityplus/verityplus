@@ -3,6 +3,7 @@ import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSStore } from '../store/cms.store'
 import { useAnalyticsStore } from '@/features/analytics/store/analytics.store'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 
 /**
  * CMS View: DashboardView
@@ -14,6 +15,7 @@ export default defineComponent({
     const articleStore = useArticleStore()
     const cmsStore = useCMSStore()
     const analyticsStore = useAnalyticsStore()
+    const { getLocalizedField } = useLocalizedField()
 
     useHead({
       title: 'Dashboard — CMS Verity+',
@@ -177,7 +179,7 @@ export default defineComponent({
                     />
                     <div class="flex flex-col">
                       <h4 class="font-bold text-slate-900 leading-tight group-hover:text-primary transition">
-                        {article.title}
+                        {getLocalizedField(article, 'title')}
                       </h4>
                       <p class="text-xs text-slate-400 font-medium">
                         By {article.author.name} • {article.publishedAt}

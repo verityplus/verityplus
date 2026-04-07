@@ -45,10 +45,14 @@ export const ArticleService = {
     if (!q) return []
     return ARTICLES.filter(
       (a) =>
-        a.title.toLowerCase().includes(q) ||
-        a.excerpt.toLowerCase().includes(q) ||
-        a.tags.some((t) => t.toLowerCase().includes(q)) ||
-        a.category.name.toLowerCase().includes(q),
+        [a.titleId, a.titleEn, a.titleZh].some((title) => title && title.toLowerCase().includes(q)) ||
+        [a.excerptId, a.excerptEn, a.excerptZh].some((excerpt) => excerpt && excerpt.toLowerCase().includes(q)) ||
+        [...(a.tagsId || []), ...(a.tagsEn || []), ...(a.tagsZh || [])].some((t) =>
+          t.toLowerCase().includes(q),
+        ) ||
+        [a.category.nameId, a.category.nameEn, a.category.nameZh].some(
+          (name) => name && name.toLowerCase().includes(q)
+        ),
     )
   },
 

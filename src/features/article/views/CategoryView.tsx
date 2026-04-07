@@ -5,6 +5,7 @@ import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { Article, Category } from '@/shared/types'
 
 const ARTICLES_PER_PAGE = 9
@@ -16,6 +17,7 @@ export default defineComponent({
     const router = useRouter()
     const store = useArticleStore()
     const { t } = useI18n()
+    const { getLocalizedField } = useLocalizedField()
 
     const category = ref<Category | null>(null)
     const categoryArticles = ref<Article[]>([])
@@ -52,14 +54,14 @@ export default defineComponent({
     useHead({
       title: computed(() =>
         category.value
-          ? t('common.categoryTitle', { name: category.value.name })
+          ? t('common.categoryTitle', { name: getLocalizedField(category.value, 'name') })
           : t('common.categoryTitle', { name: '' }),
       ),
       meta: computed(() => [
         {
           name: 'description',
           content: category.value
-            ? t('common.categoryDesc', { name: category.value.name })
+            ? t('common.categoryDesc', { name: getLocalizedField(category.value, 'name') })
             : t('common.categoryDescFallback'),
         },
       ]),
@@ -86,7 +88,7 @@ export default defineComponent({
             <div class="bg-surface rounded-2xl border border-border p-8 sm:p-12 mb-12 shadow-card">
               <div>
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-text-primary">
-                  {t('common.category')}: {category.value.name}
+                  {t('common.category')}: {getLocalizedField(category.value, 'name')}
                 </h1>
               </div>
             </div>

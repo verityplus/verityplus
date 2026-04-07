@@ -4,6 +4,7 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import type { Category } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
+import { Stepper } from '@/components/ui/Stepper'
 
 /**
  * CMS View: CategoryEditorView
@@ -19,9 +20,21 @@ export default defineComponent({
 
     const isEdit = computed(() => route.params.id !== undefined)
 
+    const currentStep = ref(0)
+    const steps = ['Bahasa Indonesia', 'English', '中文 (Chinese)']
+
+    const activeLangSuffix = computed(() => {
+      if (currentStep.value === 0) return 'Id'
+      if (currentStep.value === 1) return 'En'
+      if (currentStep.value === 2) return 'Zh'
+      return 'Id'
+    })
+
     const form = ref<Category>({
       id: `cat-${Date.now()}`,
-      name: '',
+      nameId: '',
+      nameEn: '',
+      nameZh: '',
       slug: '',
       color: 'text-primary',
       bgColor: 'bg-primary/10',
@@ -42,7 +55,22 @@ export default defineComponent({
     })
 
     const save = () => {
-      if (!form.value.name || !form.value.slug) return
+      if (!form.value.nameId) {
+        alert('Name (ID) is required.')
+        currentStep.value = 0
+        return
+      }
+      if (!form.value.nameEn) {
+        alert('Name (EN) is required.')
+        currentStep.value = 1
+        return
+      }
+      if (!form.value.nameZh) {
+        alert('Name (ZH) is required.')
+        currentStep.value = 2
+        return
+      }
+      if (!form.value.slug) return
 
       if (isEdit.value) {
         cmsContentStore.updateCategory(form.value)
@@ -84,35 +112,45 @@ export default defineComponent({
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           <div class="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200 shadow-sm space-y-8">
-            <div class="space-y-6">
+            <Stepper steps={steps} v-model={currentStep.value} />
+
+            <div class="space-y-6 pt-6 border-t border-slate-100" key={currentStep.value}>
               <div class="space-y-2">
-                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                  Public Taxonomy Name
+                <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
+                  <span>Public Taxonomy Name</span>
+                  <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">{activeLangSuffix.value}</span>
                 </label>
                 <input
-                  value={form.value.name}
+                  value={(form.value as any)[`name${activeLangSuffix.value}`]}
                   onInput={(e) => {
-                    form.value.name = (e.target as HTMLInputElement).value
+                    const val = (e.target as HTMLInputElement).value;
+                    (form.value as any)[`name${activeLangSuffix.value}`] = val
+                    if (activeLangSuffix.value === 'Id' && !isEdit.value) {
+                      form.value.slug = val.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+                    }
                   }}
                   type="text"
-                  placeholder="e.g. Science"
+                  placeholder={`e.g. ${steps[currentStep.value] === 'Bahasa Indonesia' ? 'Sains' : steps[currentStep.value] === 'English' ? 'Science' : '科学'}`}
                   class="w-full text-2xl font-black p-3 bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 rounded-xl outline-none text-slate-900 transition"
                 />
               </div>
-              <div class="space-y-2">
-                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                  URL Slug Reference
-                </label>
-                <input
-                  value={form.value.slug}
-                  onInput={(e) => {
-                    form.value.slug = (e.target as HTMLInputElement).value
-                  }}
-                  type="text"
-                  placeholder="e.g. science-tech"
-                  class="w-full text-lg font-bold p-3 bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 rounded-xl outline-none text-slate-700 transition"
-                />
-              </div>
+
+              {activeLangSuffix.value === 'Id' && (
+                <div class="space-y-2 animate-in fade-in">
+                  <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                    URL Slug Reference
+                  </label>
+                  <input
+                    value={form.value.slug}
+                    onInput={(e) => {
+                      form.value.slug = (e.target as HTMLInputElement).value
+                    }}
+                    type="text"
+                    placeholder="e.g. science-tech"
+                    class="w-full text-lg font-bold p-3 bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 rounded-xl outline-none text-slate-700 transition"
+                  />
+                </div>
+              )}
             </div>
 
             <div class="pt-8 border-t border-slate-50 space-y-6">
@@ -167,20 +205,6 @@ export default defineComponent({
                   </div>
                 ))}
               </div>
-
-              {/* Contrast Warning Area */}
-              <div class="p-4 rounded-xl bg-amber-50 border border-amber-100 flex items-start gap-3">
-                <i class="bi bi-exclamation-triangle-fill text-amber-500 mt-0.5" />
-                <div class="flex flex-col">
-                  <p class="text-xs font-black text-amber-900 uppercase mb-1">
-                    Accessibility Check
-                  </p>
-                  <p class="text-[10px] text-amber-700 leading-relaxed font-bold">
-                    Ensure high contrast between Fill and Text colors for WCAG compliance. Soft
-                    backgrounds are recommended.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -196,7 +220,7 @@ export default defineComponent({
               </p>
               <div class="bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-md">
                 <p class="text-xs uppercase font-black tracking-widest mb-4 opacity-50 text-center">
-                  Live Logic Preview
+                  Live Logic Preview ({activeLangSuffix.value})
                 </p>
                 <div class="flex justify-center">
                   <div
@@ -211,7 +235,7 @@ export default defineComponent({
                     }}
                     class="inline-block px-10 py-3 rounded-2xl text-sm font-black uppercase tracking-widest border-2 shadow-2xl transition-all duration-300"
                   >
-                    {form.value.name || 'Sample Taxonomy'}
+                    {(form.value as any)[`name${activeLangSuffix.value}`] || 'Sample Taxonomy'}
                   </div>
                 </div>
               </div>

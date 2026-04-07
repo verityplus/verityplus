@@ -6,6 +6,7 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { Article } from '@/shared/types'
 
 /**
@@ -18,6 +19,7 @@ export default defineComponent({
     const route = useRoute()
     const store = useArticleStore()
     const { t } = useI18n()
+    const { getLocalizedField } = useLocalizedField()
 
     const query = ref((route.query.q as string) || '')
     const results = ref<Article[]>([])
@@ -87,7 +89,7 @@ export default defineComponent({
                     <div class="w-full md:w-64 h-44 shrink-0 overflow-hidden rounded-lg bg-surface-muted">
                       <img
                         src={article.coverImage}
-                        alt={article.title}
+                        alt={getLocalizedField(article, 'title')}
                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                       />
                     </div>
@@ -103,16 +105,16 @@ export default defineComponent({
                             bgColor={article.category.bgColor}
                             textColor={article.category.color}
                           >
-                            {article.category.name}
+                            {getLocalizedField(article.category, 'name')}
                           </BaseBadge>
                         </RouterLink>
                         <span class="text-text-muted">{article.publishedAt}</span>
                       </div>
                       <h2 class="text-xl font-bold text-text-primary mb-2 group-hover:text-primary transition leading-tight">
-                        {article.title}
+                        {getLocalizedField(article, 'title')}
                       </h2>
                       <p class="text-text-secondary line-clamp-2 mb-4 text-sm leading-relaxed">
-                        {article.excerpt}
+                        {getLocalizedField(article, 'excerpt')}
                       </p>
                       <div class="flex items-center gap-2 text-xs font-bold text-text-primary uppercase tracking-wide group/link">
                         {t('common.readMore')}
@@ -150,7 +152,7 @@ export default defineComponent({
                         class="no-underline w-full flex justify-between items-center"
                       >
                         <span class="text-text-secondary font-medium group-hover:text-primary transition">
-                          {catInfo.category.name}
+                          {getLocalizedField(catInfo.category, 'name')}
                         </span>
                         <span class="text-xs font-bold bg-surface-muted px-2.5 py-1 rounded-md text-text-muted">
                           {catInfo.count}

@@ -4,6 +4,7 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import type { Author } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
+import { Stepper } from '@/components/ui/Stepper'
 
 /**
  * CMS View: CharacterEditorView
@@ -19,12 +20,24 @@ export default defineComponent({
 
     const isEdit = computed(() => route.params.id !== undefined)
 
+    const currentStep = ref(0)
+    const steps = ['Bahasa Indonesia', 'English', '中文 (Chinese)']
+
+    const activeLangSuffix = computed(() => {
+      if (currentStep.value === 0) return 'Id'
+      if (currentStep.value === 1) return 'En'
+      if (currentStep.value === 2) return 'Zh'
+      return 'Id'
+    })
+
     const form = ref<Author>({
       id: `char-${Date.now()}`,
       name: '',
       avatar:
         'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=800&q=80',
-      bio: 'Verity+ Staff Writer',
+      bioId: '',
+      bioEn: '',
+      bioZh: '',
     })
 
     const loadData = () => {
@@ -100,7 +113,7 @@ export default defineComponent({
               </p>
             </div>
 
-            <div class="space-y-6">
+            <div class="space-y-6 pt-6 border-t border-slate-50">
               <div class="space-y-2">
                 <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                   Public Representative Name
@@ -115,18 +128,24 @@ export default defineComponent({
                   class="w-full text-2xl font-black p-3 bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 rounded-xl outline-none text-slate-900 transition"
                 />
               </div>
-              <div class="space-y-2">
-                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                  Character Biography / Backstory
-                </label>
-                <textarea
-                  value={form.value.bio}
-                  onInput={(e) => {
-                    form.value.bio = (e.target as HTMLTextAreaElement).value
-                  }}
-                  placeholder="Tell the character's story..."
-                  class="w-full text-sm font-medium p-3 bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 rounded-xl outline-none text-slate-700 transition min-h-[120px] resize-none"
-                />
+
+              <div class="pt-6 mt-6 space-y-6">
+                <Stepper steps={steps} v-model={currentStep.value} />
+
+                <div class="space-y-4 pt-4 border-t border-slate-50 animate-in fade-in" key={currentStep.value}>
+                  <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
+                    <span>Character Biography / Backstory</span>
+                    <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">{activeLangSuffix.value}</span>
+                  </label>
+                  <textarea
+                    value={(form.value as any)[`bio${activeLangSuffix.value}`]}
+                    onInput={(e) => {
+                      (form.value as any)[`bio${activeLangSuffix.value}`] = (e.target as HTMLTextAreaElement).value
+                    }}
+                    placeholder={`Tell the character's story in ${steps[currentStep.value]}...`}
+                    class="w-full text-sm font-medium p-3 bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 rounded-xl outline-none text-slate-700 transition min-h-[120px] resize-none"
+                  />
+                </div>
               </div>
             </div>
           </div>

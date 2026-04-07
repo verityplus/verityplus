@@ -5,6 +5,7 @@ import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { Article, Author } from '@/shared/types'
 
 /**
@@ -17,6 +18,7 @@ export default defineComponent({
     const route = useRoute()
     const store = useArticleStore()
     const { t } = useI18n()
+    const { getLocalizedField } = useLocalizedField()
 
     const author = ref<Author | null>(null)
     const authorArticles = ref<Article[]>([])
@@ -41,7 +43,7 @@ export default defineComponent({
       meta: computed(() => [
         {
           name: 'description',
-          content: author.value?.bio || t('common.authorDesc', { name: author.value?.name || '' }),
+          content: author.value ? getLocalizedField(author.value, 'bio') : t('common.authorDesc', { name: (author.value as any)?.name || '' }),
         },
       ]),
     })

@@ -1,0 +1,38 @@
+import { useI18n } from 'vue-i18n'
+import type { Locale } from '@/i18n'
+
+/**
+ * Returns the localized variant of a key based on the current locale.
+ * @param obj The object containing localized properties (e.g. titleId, titleEn, titleZh)
+ * @param baseKey The base name of the field (e.g. 'title')
+ * @returns The value of the localized field, falling back to 'Id' if undefined or the field doesn't exist
+ */
+export function useLocalizedField() {
+  const { locale } = useI18n()
+
+  const getLocalizedField = <T extends Record<string, any>>(
+    obj: T,
+    baseKey: string,
+    fallbackToId: boolean = true,
+  ): any => {
+    const currentLocale = locale.value as Locale
+    const suffix = currentLocale.charAt(0).toUpperCase() + currentLocale.slice(1)
+    const localizedKey = `${baseKey}${suffix}` as keyof T
+
+    if (obj && localizedKey in obj && obj[localizedKey] !== undefined && obj[localizedKey] !== '') {
+      return obj[localizedKey]
+    }
+
+    if (fallbackToId) {
+      const idKey = `${baseKey}Id` as keyof T
+      return obj[idKey]
+    }
+
+    return ''
+  }
+
+  return {
+    getLocalizedField,
+    locale,
+  }
+}

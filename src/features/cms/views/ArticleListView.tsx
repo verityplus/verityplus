@@ -4,6 +4,7 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { ArticleStatus } from '@/shared/types'
 import { ARTICLE_STATUS_LABELS } from '@/shared/types'
 
@@ -16,6 +17,7 @@ export default defineComponent({
   setup() {
     const articleStore = useArticleStore()
     const cmsContentStore = useCMSContentStore()
+    const { getLocalizedField } = useLocalizedField()
     const searchQuery = ref('')
 
     useHead({
@@ -26,7 +28,7 @@ export default defineComponent({
       const q = searchQuery.value.toLowerCase().trim()
       if (!q) return articleStore.articles
       return articleStore.articles.filter(
-        (a) => a.title.toLowerCase().includes(q) || a.author.name.toLowerCase().includes(q),
+        (a) => getLocalizedField(a, 'title').toLowerCase().includes(q) || a.author.name.toLowerCase().includes(q),
       )
     })
 
@@ -100,7 +102,7 @@ export default defineComponent({
                           />
                           <div class="flex flex-col">
                             <span class="text-slate-900 font-bold leading-tight group-hover:text-primary transition">
-                              {article.title}
+                              {getLocalizedField(article, 'title')}
                             </span>
                             <span class="text-[10px] text-slate-400 mt-0.5">
                               By {article.author.name}
@@ -114,7 +116,7 @@ export default defineComponent({
                           textColor={article.category.color}
                           class="text-[10px]"
                         >
-                          {article.category.name}
+                          {getLocalizedField(article.category, 'name')}
                         </BaseBadge>
                       </td>
                       <td class="px-6 py-5">

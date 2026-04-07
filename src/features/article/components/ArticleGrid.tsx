@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { useArticleStore } from '../store/article.store'
 import { ArticleCard } from './ArticleCard'
 import { useLocaleRoute } from '@/composables/useLocaleRoute'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { Article } from '@/shared/types'
 
 /**
@@ -15,6 +16,7 @@ export const ArticleGrid = defineComponent({
     const localeRoute = useLocaleRoute()
     const store = useArticleStore()
     const { t } = useI18n()
+    const { getLocalizedField } = useLocalizedField()
     const activeCategory = ref('all')
 
     const nonFeaturedArticles = computed(() =>
@@ -58,7 +60,7 @@ export const ArticleGrid = defineComponent({
                     : 'bg-surface text-text-muted border-transparent hover:border-border hover:text-text-primary',
                 ]}
               >
-                {cat.name}
+                {cat.id === 'all' ? (cat as any).name : getLocalizedField(cat, 'name')}
               </button>
             ))}
           </div>
