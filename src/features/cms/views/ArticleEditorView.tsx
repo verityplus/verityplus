@@ -28,7 +28,7 @@ export default defineComponent({
 
     useHead({
       title: computed(() =>
-        isEdit.value ? `Edit Article — CMS Verity+` : `New Article — CMS Verity+`,
+        isEdit.value ? `Edit Article — CMS VERITY+` : `New Article — CMS VERITY+`,
       ),
     })
 
@@ -149,7 +149,7 @@ export default defineComponent({
               {isEdit.value ? 'Edit Article' : 'New Article'}
             </h1>
             <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1 italic">
-              Verity+ Unified Content Studio
+              VERITY+ Unified Content Studio
             </p>
           </div>
           <BaseButton
@@ -165,21 +165,29 @@ export default defineComponent({
           {/* Main Editor Column */}
           <div class="flex-grow space-y-6 overflow-hidden">
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 space-y-8">
-              
-              <Tabs tabs={steps} modelValue={currentStep.value} onUpdate:modelValue={(val) => currentStep.value = val} />
+              <Tabs
+                tabs={steps}
+                modelValue={currentStep.value}
+                onUpdate:modelValue={(val) => (currentStep.value = val)}
+              />
 
-              <div class="pt-6 border-t border-slate-100 space-y-8 animate-in fade-in duration-500" key={currentStep.value}>
+              <div
+                class="pt-6 border-t border-slate-100 space-y-8 animate-in fade-in duration-500"
+                key={currentStep.value}
+              >
                 {/* Title Section */}
                 <div class="space-y-4">
                   <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
                     <span>Article Title</span>
-                    <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">{activeLangSuffix.value}</span>
+                    <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                      {activeLangSuffix.value}
+                    </span>
                   </label>
                   <input
                     value={(form.value as any)[`title${activeLangSuffix.value}`]}
                     onInput={(e) => {
-                      const val = (e.target as HTMLInputElement).value;
-                      (form.value as any)[`title${activeLangSuffix.value}`] = val
+                      const val = (e.target as HTMLInputElement).value
+                      ;(form.value as any)[`title${activeLangSuffix.value}`] = val
                       if (!isEdit.value && activeLangSuffix.value === 'Id') {
                         form.value.slug = generateSlug(val)
                       }
@@ -194,12 +202,16 @@ export default defineComponent({
                 <div class="space-y-4">
                   <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
                     <span>Short Excerpt</span>
-                    <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">{activeLangSuffix.value}</span>
+                    <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                      {activeLangSuffix.value}
+                    </span>
                   </label>
                   <textarea
                     value={(form.value as any)[`excerpt${activeLangSuffix.value}`]}
                     onInput={(e) => {
-                      (form.value as any)[`excerpt${activeLangSuffix.value}`] = (e.target as HTMLTextAreaElement).value
+                      ;(form.value as any)[`excerpt${activeLangSuffix.value}`] = (
+                        e.target as HTMLTextAreaElement
+                      ).value
                     }}
                     rows={3}
                     placeholder="Write a brief summary..."
@@ -211,13 +223,15 @@ export default defineComponent({
                 <div class="space-y-4">
                   <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
                     <span>Main Content</span>
-                    <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">{activeLangSuffix.value}</span>
+                    <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                      {activeLangSuffix.value}
+                    </span>
                   </label>
-                  <MarkdownEditor 
-                    modelValue={(form.value as any)[`content${activeLangSuffix.value}`]} 
+                  <MarkdownEditor
+                    modelValue={(form.value as any)[`content${activeLangSuffix.value}`]}
                     onUpdate:modelValue={(val) => {
-                      (form.value as any)[`content${activeLangSuffix.value}`] = val
-                    }} 
+                      ;(form.value as any)[`content${activeLangSuffix.value}`] = val
+                    }}
                   />
                 </div>
 
@@ -225,7 +239,9 @@ export default defineComponent({
                 <div class="pt-6 border-t border-slate-50 space-y-3">
                   <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
                     <span>Tags</span>
-                    <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">{activeLangSuffix.value}</span>
+                    <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                      {activeLangSuffix.value}
+                    </span>
                   </label>
                   <div class="flex gap-2">
                     <input
@@ -326,7 +342,9 @@ export default defineComponent({
                   <input
                     value={(form.value as any)[`coverImageCaption${activeLangSuffix.value}`]}
                     onInput={(e) => {
-                      (form.value as any)[`coverImageCaption${activeLangSuffix.value}`] = (e.target as HTMLInputElement).value
+                      ;(form.value as any)[`coverImageCaption${activeLangSuffix.value}`] = (
+                        e.target as HTMLInputElement
+                      ).value
                     }}
                     type="text"
                     placeholder="Caption for cover image..."
@@ -406,7 +424,6 @@ export default defineComponent({
                   ))}
                 </select>
               </div>
-
             </div>
           </aside>
         </div>

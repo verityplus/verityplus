@@ -21,7 +21,9 @@ export default defineComponent({
       const q = searchQuery.value.toLowerCase().trim()
       if (!q) return articleStore.categories
       return articleStore.categories.filter(
-        (c) => getLocalizedField(c, 'name').toLowerCase().includes(q) || c.slug.toLowerCase().includes(q),
+        (c) =>
+          getLocalizedField(c, 'name').toLowerCase().includes(q) ||
+          c.slug.toLowerCase().includes(q),
       )
     })
 
@@ -41,7 +43,7 @@ export default defineComponent({
           <div class="flex flex-col">
             <h1 class="text-3xl font-black text-slate-900 tracking-tight">Category Architecture</h1>
             <p class="text-slate-400 font-medium">
-              Define the core taxonomy and dynamic themes for Verity+ content.
+              Define the core taxonomy and dynamic themes for VERITY+ content.
             </p>
           </div>
           <router-link to="/cms/categories/new">
@@ -85,7 +87,9 @@ export default defineComponent({
                 </div>
               </div>
 
-              <h3 class="text-xl font-black text-slate-900 mb-2">{getLocalizedField(cat, 'name')}</h3>
+              <h3 class="text-xl font-black text-slate-900 mb-2">
+                {getLocalizedField(cat, 'name')}
+              </h3>
               <code class="text-xs font-black text-slate-400 uppercase tracking-tighter block mb-6">
                 slug: {cat.slug}
               </code>

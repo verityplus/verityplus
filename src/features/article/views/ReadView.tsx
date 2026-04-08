@@ -47,7 +47,9 @@ export default defineComponent({
 
     useHead({
       title: computed(() =>
-        article.value ? `${getLocalizedField(article.value, 'title')} — Verity+` : t('common.articleLoading'),
+        article.value
+          ? `${getLocalizedField(article.value, 'title')} — VERITY+`
+          : t('common.articleLoading'),
       ),
       meta: computed(() => [
         { name: 'description', content: getLocalizedField(article.value!, 'excerpt') || '' },
@@ -58,7 +60,9 @@ export default defineComponent({
 
     const outputHtml = computed(() => {
       if (!article.value) return ''
-      return marked.parse(getLocalizedField(article.value, 'content') || getLocalizedField(article.value, 'excerpt'))
+      return marked.parse(
+        getLocalizedField(article.value, 'content') || getLocalizedField(article.value, 'excerpt'),
+      )
     })
 
     const toggleSpeech = () => {
@@ -71,7 +75,9 @@ export default defineComponent({
       const rawText = document.getElementById('markdown-content')?.innerText
       if (!rawText || !article.value) return
 
-      const utterance = new SpeechSynthesisUtterance(`${getLocalizedField(article.value, 'title')}. ${rawText}`)
+      const utterance = new SpeechSynthesisUtterance(
+        `${getLocalizedField(article.value, 'title')}. ${rawText}`,
+      )
       utterance.lang = 'id-ID'
       utterance.onend = () => {
         isSpeaking.value = false

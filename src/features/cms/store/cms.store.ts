@@ -6,13 +6,7 @@ import type { CMSUser } from '@/shared/types'
  * CMSStore: Specialized management for administrative actions.
  */
 export const useCMSStore = defineStore('cms', () => {
-  const currentUser = ref<CMSUser | null>({
-    id: 'u-1',
-    username: 'admin_verity',
-    email: 'admin@verityplus.com',
-    password: 'password123',
-    role: 'admin',
-  })
+  const currentUser = ref<CMSUser | null>(null)
 
   const users = ref<CMSUser[]>([
     {

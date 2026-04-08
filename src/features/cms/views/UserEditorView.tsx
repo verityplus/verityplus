@@ -134,7 +134,7 @@ export default defineComponent({
                 Authorization Security Architecture
               </h3>
               <p class="text-slate-100/70 text-sm leading-relaxed">
-                Verity+ Administrative access tiers define the capabilities of each user.
+                VERITY+ Administrative access tiers define the capabilities of each user.
                 Administrators have full architectural control, while Editors focus on content
                 creation and publication.
               </p>

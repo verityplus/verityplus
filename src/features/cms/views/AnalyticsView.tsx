@@ -9,7 +9,7 @@ export default defineComponent({
     const showClearConfirm = ref(false)
 
     useHead({
-      title: 'Analytics — CMS Verity+',
+      title: 'Analytics — CMS VERITY+',
     })
 
     onMounted(() => {

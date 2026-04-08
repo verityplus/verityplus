@@ -38,7 +38,7 @@ export default defineComponent({
           <div class="flex flex-col">
             <h1 class="text-3xl font-black text-slate-900 tracking-tight">Character Management</h1>
             <p class="text-slate-400 font-medium">
-              Manage the identities and personas that publish content on Verity+.
+              Manage the identities and personas that publish content on VERITY+.
             </p>
           </div>
           <router-link to="/cms/characters/new">

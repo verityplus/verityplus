@@ -18,7 +18,7 @@ export default defineComponent({
     const { getLocalizedField } = useLocalizedField()
 
     useHead({
-      title: 'Dashboard — CMS Verity+',
+      title: 'Dashboard — CMS VERITY+',
     })
 
     onMounted(() => {

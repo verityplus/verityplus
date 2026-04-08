@@ -1,5 +1,5 @@
 /**
- * Verity+ Unified Type Definitions
+ * VERITY+ Unified Type Definitions
  * Single source of truth for all data models across the application.
  */
 

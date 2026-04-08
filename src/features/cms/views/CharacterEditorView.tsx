@@ -130,17 +130,28 @@ export default defineComponent({
               </div>
 
               <div class="pt-6 mt-6 space-y-6">
-                <Tabs tabs={steps} modelValue={currentStep.value} onUpdate:modelValue={(val) => currentStep.value = val} />
+                <Tabs
+                  tabs={steps}
+                  modelValue={currentStep.value}
+                  onUpdate:modelValue={(val) => (currentStep.value = val)}
+                />
 
-                <div class="space-y-4 pt-4 border-t border-slate-50 animate-in fade-in" key={currentStep.value}>
+                <div
+                  class="space-y-4 pt-4 border-t border-slate-50 animate-in fade-in"
+                  key={currentStep.value}
+                >
                   <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
                     <span>Character Biography / Backstory</span>
-                    <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">{activeLangSuffix.value}</span>
+                    <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                      {activeLangSuffix.value}
+                    </span>
                   </label>
                   <textarea
                     value={(form.value as any)[`bio${activeLangSuffix.value}`]}
                     onInput={(e) => {
-                      (form.value as any)[`bio${activeLangSuffix.value}`] = (e.target as HTMLTextAreaElement).value
+                      ;(form.value as any)[`bio${activeLangSuffix.value}`] = (
+                        e.target as HTMLTextAreaElement
+                      ).value
                     }}
                     placeholder={`Tell the character's story in ${steps[currentStep.value]}...`}
                     class="w-full text-sm font-medium p-3 bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 rounded-xl outline-none text-slate-700 transition min-h-[120px] resize-none"
@@ -157,7 +168,7 @@ export default defineComponent({
                 Character Backstory Guidelines
               </h3>
               <p class="text-indigo-100/70 text-sm leading-relaxed">
-                Verity+ authors are part of a larger narrative. Ensure the biography is engaging and
+                VERITY+ authors are part of a larger narrative. Ensure the biography is engaging and
                 provides context to why this character is an authority on their topics.
               </p>
               <div class="space-y-2 pt-4 border-t border-white/10">

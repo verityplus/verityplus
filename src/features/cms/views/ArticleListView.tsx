@@ -21,14 +21,16 @@ export default defineComponent({
     const searchQuery = ref('')
 
     useHead({
-      title: 'Manage Articles — CMS Verity+',
+      title: 'Manage Articles — CMS VERITY+',
     })
 
     const filteredArticles = computed(() => {
       const q = searchQuery.value.toLowerCase().trim()
       if (!q) return articleStore.articles
       return articleStore.articles.filter(
-        (a) => getLocalizedField(a, 'title').toLowerCase().includes(q) || a.author.name.toLowerCase().includes(q),
+        (a) =>
+          getLocalizedField(a, 'title').toLowerCase().includes(q) ||
+          a.author.name.toLowerCase().includes(q),
       )
     })
 
@@ -51,7 +53,7 @@ export default defineComponent({
           <div class="flex flex-col">
             <h1 class="text-3xl font-black text-slate-900 tracking-tight">Article Management</h1>
             <p class="text-slate-400 font-medium">
-              Create, update, or remove articles across the Verity+ network.
+              Create, update, or remove articles across the VERITY+ network.
             </p>
           </div>
           <router-link to="/cms/articles/new">
@@ -168,7 +170,7 @@ export default defineComponent({
             <p>
               Showing {filteredArticles.value.length} of {articleStore.articles.length} articles
             </p>
-            <p>Verity+ Cloud Database System</p>
+            <p>VERITY+ Cloud Database System</p>
           </footer>
         </div>
       </div>

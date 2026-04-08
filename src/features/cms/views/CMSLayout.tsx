@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
-import { RouterView } from 'vue-router'
+import { RouterView, useRouter } from 'vue-router'
 import { CMSSidebar } from '../components/Sidebar'
-import { useCMSStore } from '../store/cms.store'
+import { useAuthStore } from '../store/auth.store'
 import { useArticleStore } from '@/features/article/store/article.store'
 
 /**
@@ -10,9 +10,15 @@ import { useArticleStore } from '@/features/article/store/article.store'
 export default defineComponent({
   name: 'CMSLayout',
   setup() {
-    const store = useCMSStore()
+    const authStore = useAuthStore()
+    const router = useRouter()
     const articleStore = useArticleStore()
     const sidebarCollapsed = ref(false)
+
+    const handleLogout = () => {
+      authStore.logout()
+      router.push('/cms/login')
+    }
 
     onMounted(async () => {
       if (articleStore.articles.length === 0) {
@@ -47,21 +53,28 @@ export default defineComponent({
                 ></i>
               </button>
               <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-400">
-                Verity+ Administration
+                VERITY+ Administration
               </h2>
             </div>
 
             <div class="flex items-center gap-4">
               <div class="text-right hidden sm:block">
                 <p class="text-sm font-bold text-slate-900 leading-none">
-                  {store.currentUser?.username}
+                  {authStore.currentUser?.username}
                 </p>
                 <span class="text-xs text-slate-400 font-medium uppercase tracking-tighter">
-                  {store.currentUser?.role}
+                  {authStore.currentUser?.role}
                 </span>
               </div>
+              <button
+                onClick={handleLogout}
+                class="px-3 py-1 text-sm bg-slate-100 hover:bg-slate-200 rounded transition-colors"
+                title="Logout"
+              >
+                Logout
+              </button>
               <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-black shadow-lg shadow-primary/20">
-                {store.currentUser?.username.charAt(0).toUpperCase()}
+                {authStore.currentUser?.username.charAt(0).toUpperCase()}
               </div>
             </div>
           </header>
@@ -71,7 +84,7 @@ export default defineComponent({
           </main>
 
           <footer class="p-8 border-t border-slate-200 bg-white/50 text-slate-400 text-xs flex justify-between">
-            <p>&copy; 2026 Verity+ Administrative Suite. All rights reserved.</p>
+            <p>&copy; 2026 VERITY+ Administrative Suite. All rights reserved.</p>
             <p class="font-medium tracking-widest uppercase">Version 1.0.0-beta</p>
           </footer>
         </div>

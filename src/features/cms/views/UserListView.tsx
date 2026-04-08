@@ -40,7 +40,7 @@ export default defineComponent({
           <div class="flex flex-col">
             <h1 class="text-3xl font-black text-slate-900 tracking-tight">Access Control</h1>
             <p class="text-slate-400 font-medium">
-              Manage the administrative users and access roles for the Verity+ environment.
+              Manage the administrative users and access roles for the VERITY+ environment.
             </p>
           </div>
           <router-link to="/cms/users/new">

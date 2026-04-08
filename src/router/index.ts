@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { i18n, DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/i18n'
 import type { Locale } from '@/i18n/types'
+import { useAuthStore } from '@/features/cms/store/auth.store'
 
 /**
  * Global Routing Configuration
@@ -87,6 +88,13 @@ const router = createRouter({
           component: () => import('../features/article/views/AllArticlesView'),
         },
       ],
+    },
+
+    {
+      path: '/cms/login',
+      name: 'cms-login',
+      component: () => import('../features/cms/views/LoginView'),
+      meta: { title: 'Login | CMS' },
     },
 
     {
@@ -198,8 +206,11 @@ router.beforeEach((to, _from, next) => {
     }
   }
 
-  if (to.path.startsWith('/cms')) {
-    console.info('[CMS Guard] Admin authorization assumed for development.')
+  if (to.path.startsWith('/cms') && to.name !== 'cms-login') {
+    const authStore = useAuthStore()
+    if (!authStore.isAuthenticated) {
+      return next('/cms/login')
+    }
   }
 
   next()
