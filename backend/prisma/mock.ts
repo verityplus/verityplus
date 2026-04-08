@@ -2,9 +2,8 @@
  * VERITY+ Mock Data
  * Centralized data source — will be replaced by API calls later.
  */
-import type { Article, Author, Category, ArticleStatus } from '@/shared/types'
 
-export const AUTHORS: Author[] = [
+export const AUTHORS = [
   {
     id: 'author-1',
     name: 'Rina Wijaya',
@@ -65,7 +64,7 @@ export const AUTHORS: Author[] = [
   },
 ]
 
-export const CATEGORIES: Category[] = [
+export const CATEGORIES = [
   {
     id: 'cat-tech',
     nameId: 'Teknologi',
@@ -130,7 +129,7 @@ export const CATEGORIES: Category[] = [
 
 const cat = (slug: string) => CATEGORIES.find((c) => c.slug === slug)!
 
-export const ARTICLES: Article[] = [
+export const ARTICLES = [
   {
     id: 1,
     slug: 'teknologi-ai-terbaru-2026',
@@ -157,7 +156,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['人工智能', '机器学习', '科技趋势'],
     publishedAt: '1 Apr 2026',
     readTimeMinutes: 8,
-    status: 'featured' as ArticleStatus,
+    status: 'featured',
   },
   {
     id: 2,
@@ -185,7 +184,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['商业', '可持续性', '经济'],
     publishedAt: '3 Apr 2026',
     readTimeMinutes: 6,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 3,
@@ -213,7 +212,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['太空', '科学', '未来'],
     publishedAt: '5 Apr 2026',
     readTimeMinutes: 10,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 4,
@@ -241,7 +240,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['健康', '心理', '生活方式'],
     publishedAt: '7 Apr 2026',
     readTimeMinutes: 5,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 5,
@@ -269,7 +268,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['元宇宙', '音乐', '娱乐'],
     publishedAt: '8 Apr 2026',
     readTimeMinutes: 7,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 6,
@@ -297,7 +296,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['极简主义', '生活方式', '生产力'],
     publishedAt: '10 Apr 2026',
     readTimeMinutes: 6,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 7,
@@ -325,7 +324,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['科学', '食品技术', '创新'],
     publishedAt: '12 Apr 2026',
     readTimeMinutes: 9,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 8,
@@ -353,7 +352,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['网络安全', '生物识别', '隐私'],
     publishedAt: '14 Apr 2026',
     readTimeMinutes: 7,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 9,
@@ -381,7 +380,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['教育技术', '虚拟现实', '教育'],
     publishedAt: '16 Apr 2026',
     readTimeMinutes: 7,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 10,
@@ -410,7 +409,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['商业', '创意经济', '中小微企业'],
     publishedAt: '18 Apr 2026',
     readTimeMinutes: 6,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 11,
@@ -438,7 +437,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['都市农业', '生活方式', '技术'],
     publishedAt: '20 Apr 2026',
     readTimeMinutes: 5,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 12,
@@ -466,7 +465,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['科学', '医学', '创新'],
     publishedAt: '22 Apr 2026',
     readTimeMinutes: 11,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 13,
@@ -494,7 +493,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['体育技术', '数据分析', '体育'],
     publishedAt: '24 Apr 2026',
     readTimeMinutes: 6,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 14,
@@ -522,7 +521,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['气候变化', '科学', '可持续性'],
     publishedAt: '26 Apr 2026',
     readTimeMinutes: 9,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 15,
@@ -550,7 +549,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['数字艺术', '人工智能', '创意'],
     publishedAt: '28 Apr 2026',
     readTimeMinutes: 7,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 16,
@@ -578,7 +577,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['心理学', '生活方式', '社会'],
     publishedAt: '30 Apr 2026',
     readTimeMinutes: 8,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 17,
@@ -606,7 +605,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['网络安全', '隐私', '人工智能'],
     publishedAt: '2 May 2026',
     readTimeMinutes: 7,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 18,
@@ -634,7 +633,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['太空', '旅游', '未来'],
     publishedAt: '4 May 2026',
     readTimeMinutes: 10,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 19,
@@ -662,7 +661,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['经济', '金融', '加密货币'],
     publishedAt: '6 May 2026',
     readTimeMinutes: 8,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 20,
@@ -690,7 +689,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['机器人技术', '健康', '技术'],
     publishedAt: '8 May 2026',
     readTimeMinutes: 9,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 21,
@@ -717,7 +716,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['电影', '人工智能', '娱乐'],
     publishedAt: '10 May 2026',
     readTimeMinutes: 6,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 22,
@@ -745,7 +744,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['营养', '生物黑客', '健康'],
     publishedAt: '12 May 2026',
     readTimeMinutes: 7,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 23,
@@ -773,7 +772,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['交通', '物流', '基础设施'],
     publishedAt: '14 May 2026',
     readTimeMinutes: 9,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 24,
@@ -801,7 +800,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['生产力', '生活方式', '职业'],
     publishedAt: '16 May 2026',
     readTimeMinutes: 6,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 25,
@@ -829,7 +828,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['时尚技术', '可持续性', '创新'],
     publishedAt: '18 May 2026',
     readTimeMinutes: 6,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 26,
@@ -857,7 +856,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['可再生能源', '科学', '环境'],
     publishedAt: '20 May 2026',
     readTimeMinutes: 9,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 27,
@@ -885,7 +884,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['心理学', '元宇宙', '职业'],
     publishedAt: '22 May 2026',
     readTimeMinutes: 8,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 28,
@@ -913,7 +912,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['天文学', '技术', '建筑'],
     publishedAt: '24 May 2026',
     readTimeMinutes: 11,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 29,
@@ -941,7 +940,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['营销', '人工智能', '社交媒体'],
     publishedAt: '26 May 2026',
     readTimeMinutes: 7,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 30,
@@ -969,7 +968,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['心理健康', '幸福感', '技术'],
     publishedAt: '28 May 2026',
     readTimeMinutes: 5,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 31,
@@ -997,7 +996,7 @@ export const ARTICLES: Article[] = [
     tagsZh: ['食品技术', '机器人技术', '商业'],
     publishedAt: '30 May 2026',
     readTimeMinutes: 7,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
   {
     id: 32,
@@ -1025,6 +1024,6 @@ export const ARTICLES: Article[] = [
     tagsZh: ['旅游', '增强现实', '历史'],
     publishedAt: '1 Jun 2026',
     readTimeMinutes: 8,
-    status: 'published' as ArticleStatus,
+    status: 'published',
   },
 ]

@@ -1,9 +1,8 @@
-import { defineComponent, onMounted, type VNode } from 'vue'
+import { defineComponent, type VNode } from 'vue'
 import { RouterView } from 'vue-router'
 import { AppHeader } from '@/components/layout/Header'
 import { AppFooter } from '@/components/layout/Footer'
 import CookieConsentBanner from '@/features/analytics/components/CookieConsentBanner'
-import { useArticleStore } from '@/features/article/store/article.store'
 
 /**
  * Locale Layout Component
@@ -12,13 +11,7 @@ import { useArticleStore } from '@/features/article/store/article.store'
 export default defineComponent({
   name: 'LocaleLayout',
   setup() {
-    const store = useArticleStore()
 
-    onMounted(async () => {
-      if (store.articles.length === 0) {
-        await store.initStore()
-      }
-    })
 
     return () => (
       <div

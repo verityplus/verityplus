@@ -53,16 +53,19 @@ export default defineComponent({
       loadData()
     })
 
-    const save = () => {
+    const save = async () => {
       if (!form.value.name) return
 
-      if (isEdit.value) {
-        cmsContentStore.updateAuthor(form.value)
-      } else {
-        cmsContentStore.addAuthor(form.value)
+      try {
+        if (isEdit.value) {
+          await cmsContentStore.updateAuthor(form.value)
+        } else {
+          await cmsContentStore.addAuthor(form.value)
+        }
+        router.push('/cms/characters')
+      } catch (err) {
+        alert('Failed to save character.')
       }
-
-      router.push('/cms/characters')
     }
 
     return () => (

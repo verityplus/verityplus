@@ -54,7 +54,7 @@ export default defineComponent({
       loadData()
     })
 
-    const save = () => {
+    const save = async () => {
       if (!form.value.nameId) {
         alert('Name (ID) is required.')
         currentStep.value = 0
@@ -72,13 +72,16 @@ export default defineComponent({
       }
       if (!form.value.slug) return
 
-      if (isEdit.value) {
-        cmsContentStore.updateCategory(form.value)
-      } else {
-        cmsContentStore.addCategory(form.value)
+      try {
+        if (isEdit.value) {
+          await cmsContentStore.updateCategory(form.value)
+        } else {
+          await cmsContentStore.addCategory(form.value)
+        }
+        router.push('/cms/categories')
+      } catch (err) {
+        alert('Failed to save category.')
       }
-
-      router.push('/cms/categories')
     }
 
     const _getContrastYIQ = (_hexcolor: string) => {

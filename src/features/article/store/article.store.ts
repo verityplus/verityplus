@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { useQuery } from '@tanstack/vue-query'
 import { ArticleService } from '../services/article.service'
 import type { Article, Category, Author } from '@/shared/types'
 
@@ -8,36 +9,42 @@ const GRID_PER_PAGE = 8
 
 /**
  * ArticleStore: Centralized State Management for Read Operations
- * Calls ArticleService for data fetching and provides typed state access.
- * CMS mutations are handled by CMSContentStore.
+ * Integrated with Tanstack Vue Query for efficient data fetching and caching.
  */
 export const useArticleStore = defineStore('articles', () => {
-  const articles = ref<Article[]>([])
-  const categories = ref<Category[]>([])
-  const authors = ref<Author[]>([])
-  const isLoading = ref(false)
+  // --- Vue Query Integration ---
+  
+  const { 
+    data: articlesData, 
+    isLoading: articlesLoading,
+    refetch: refetchArticles 
+  } = useQuery({
+    queryKey: ['articles'],
+    queryFn: () => ArticleService.getArticles(),
+    initialData: [],
+  })
+
+  const { data: categoriesData } = useQuery({
+    queryKey: ['categories'],
+    queryFn: () => ArticleService.getAllCategories(),
+    initialData: [],
+  })
+
+  const { data: authorsData } = useQuery({
+    queryKey: ['authors'],
+    queryFn: () => ArticleService.getAllAuthors(),
+    initialData: [],
+  })
+
+  // --- Reactive State ---
+  
+  const articles = computed(() => articlesData.value || [])
+  const categories = computed(() => categoriesData.value || [])
+  const authors = computed(() => authorsData.value || [])
+  const isLoading = computed(() => articlesLoading.value)
 
   const latestPage = ref(1)
   const gridPage = ref(1)
-
-  /**
-   * Initializes the store by fetching all foundational data.
-   */
-  const initStore = async () => {
-    isLoading.value = true
-    try {
-      const [artList, catList, authList] = await Promise.all([
-        ArticleService.getArticles(),
-        ArticleService.getAllCategories(),
-        ArticleService.getAllAuthors(),
-      ])
-      articles.value = artList
-      categories.value = catList
-      authors.value = authList
-    } finally {
-      isLoading.value = false
-    }
-  }
 
   /** Featured articles for the headline carousel */
   const featured = computed(() => articles.value.filter((a) => a.status === 'featured'))
@@ -69,6 +76,8 @@ export const useArticleStore = defineStore('articles', () => {
   const gridTotalPages = computed(() => Math.ceil(nonFeaturedArticles.value.length / GRID_PER_PAGE))
 
   const gridArticles = computed(() => nonFeaturedArticles.value.slice(0, GRID_PER_PAGE))
+
+  // --- Methods ---
 
   /** Find an article by its unique slug */
   const findBySlug = async (slug: string): Promise<Article | undefined> => {
@@ -110,35 +119,22 @@ export const useArticleStore = defineStore('articles', () => {
     return articles.value.filter((a) => a.category.slug === slug)
   }
 
-  /** Go to next page of latest articles */
   const latestNextPage = () => {
-    if (latestPage.value < latestTotalPages.value) {
-      latestPage.value++
-    }
+    if (latestPage.value < latestTotalPages.value) latestPage.value++
   }
 
-  /** Go to previous page of latest articles */
   const latestPrevPage = () => {
-    if (latestPage.value > 1) {
-      latestPage.value--
-    }
+    if (latestPage.value > 1) latestPage.value--
   }
 
-  /** Go to next page of grid articles */
   const gridNextPage = () => {
-    if (gridPage.value < gridTotalPages.value) {
-      gridPage.value++
-    }
+    if (gridPage.value < gridTotalPages.value) gridPage.value++
   }
 
-  /** Go to previous page of grid articles */
   const gridPrevPage = () => {
-    if (gridPage.value > 1) {
-      gridPage.value--
-    }
+    if (gridPage.value > 1) gridPage.value--
   }
 
-  /** Reset pagination to page 1 */
   const resetPagination = () => {
     latestPage.value = 1
     gridPage.value = 1
@@ -149,7 +145,6 @@ export const useArticleStore = defineStore('articles', () => {
     categories,
     authors,
     isLoading,
-    initStore,
     featured,
     nonFeaturedArticles,
     latest,
@@ -172,5 +167,6 @@ export const useArticleStore = defineStore('articles', () => {
     findArticlesByAuthor,
     findCategoryBySlug,
     findArticlesByCategory,
+    refetchArticles
   }
 })

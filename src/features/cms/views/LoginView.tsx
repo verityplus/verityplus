@@ -15,8 +15,9 @@ export default defineComponent({
     const password = ref('')
     const error = ref('')
 
-    const handleLogin = () => {
-      if (authStore.login(username.value, password.value)) {
+    const handleLogin = async () => {
+      const success = await authStore.login(username.value, password.value)
+      if (success) {
         router.push('/cms')
       } else {
         error.value = 'Invalid username or password'
@@ -39,7 +40,7 @@ export default defineComponent({
             class="space-y-6"
           >
             <div>
-              <label htmlFor="username" class="block text-sm font-medium text-slate-700 mb-2">
+              <label for="username" class="block text-sm font-medium text-slate-700 mb-2">
                 Username
               </label>
               <input
@@ -53,7 +54,7 @@ export default defineComponent({
             </div>
 
             <div>
-              <label htmlFor="password" class="block text-sm font-medium text-slate-700 mb-2">
+              <label for="password" class="block text-sm font-medium text-slate-700 mb-2">
                 Password
               </label>
               <input

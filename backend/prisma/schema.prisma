@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator pothos {
+  provider = "prisma-pothos-types"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Author {
+  id      String    @id @default(uuid())
+  name    String
+  avatar  String
+  role    String?
+  bioId   String
+  bioEn   String
+  bioZh   String
+  articles Article[]
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  nameId      String
+  nameEn      String
+  nameZh      String
+  slug        String    @unique
+  color       String
+  bgColor     String
+  borderColor String
+  articles    Article[]
+}
+
+model Article {
+  id                  Int      @id @default(autoincrement())
+  slug                String   @unique
+  titleId             String
+  titleEn             String
+  titleZh             String
+  excerptId           String
+  excerptEn           String
+  excerptZh           String
+  contentId           String
+  contentEn           String
+  contentZh           String
+  coverImage          String
+  coverImageCaptionId String
+  coverImageCaptionEn String
+  coverImageCaptionZh String
+  publishedAt         String
+  readTimeMinutes     Int
+  status              String   // Enum: draft, published, archived, featured
+  category            Category @relation(fields: [categoryId], references: [id])
+  categoryId          String
+  author              Author   @relation(fields: [authorId], references: [id])
+  authorId            String
+  tagsId              String   // Stored as JSON or comma-separated for SQLite
+  tagsEn              String
+  tagsZh              String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model User {
+  id       String @id @default(uuid())
+  username String @unique
+  email    String @unique
+  password String
+  role     String // admin, editor
+}

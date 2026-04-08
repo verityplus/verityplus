@@ -49,8 +49,8 @@ export default defineComponent({
       coverImageCaptionId: '',
       coverImageCaptionEn: '',
       coverImageCaptionZh: '',
-      category: articleStore.categories[0] as Category,
-      author: articleStore.authors[0] as Author,
+      category: articleStore.categories[0]!,
+      author: articleStore.authors[0]!,
       tagsId: [],
       tagsEn: [],
       tagsZh: [],
@@ -111,7 +111,7 @@ export default defineComponent({
       tags.splice(index, 1)
     }
 
-    const save = () => {
+    const save = async () => {
       if (!form.value.titleId) {
         alert('Title (ID) is required.')
         currentStep.value = 0
@@ -132,13 +132,32 @@ export default defineComponent({
         form.value.slug = generateSlug(form.value.titleId)
       }
 
-      if (isEdit.value) {
-        cmsContentStore.updateArticle(form.value)
-      } else {
-        cmsContentStore.addArticle(form.value)
+      const submissionData = {
+        titleId: form.value.titleId,
+        titleEn: form.value.titleEn,
+        titleZh: form.value.titleZh,
+        slug: form.value.slug,
+        contentId: form.value.contentId,
+        contentEn: form.value.contentEn,
+        contentZh: form.value.contentZh,
+        categoryId: form.value.category.id,
+        authorId: form.value.author.id,
+        status: form.value.status,
       }
 
-      router.push('/cms/articles')
+      try {
+        if (isEdit.value) {
+          await cmsContentStore.updateArticle({
+            id: form.value.id,
+            ...submissionData
+          })
+        } else {
+          await cmsContentStore.addArticle(submissionData)
+        }
+        router.push('/cms/articles')
+      } catch (err) {
+        alert('Failed to save article. Please check your credentials and try again.')
+      }
     }
 
     return () => (

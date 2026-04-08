@@ -1,63 +1,76 @@
 import { defineStore } from 'pinia'
-import { useArticleStore } from '@/features/article/store/article.store'
-import type { Article, Category, Author } from '@/shared/types'
+import { ArticleService } from '@/features/article/services/article.service'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
 
 /**
  * CMSContentStore: Dedicated store for CMS content mutations.
- * Delegates all mutations to ArticleStore to ensure state consistency.
- * This prevents disconnected state between CMS operations and article display.
+ * Integrated with GraphQL mutations and Vue Query invalidation.
  */
 export const useCMSContentStore = defineStore('cms-content', () => {
-  const articleStore = useArticleStore()
+  const queryClient = useQueryClient()
 
-  const addArticle = (article: Article) => {
-    articleStore.articles.unshift(article)
-  }
+  // --- Article Mutations ---
+  const createArticleMutation = useMutation({
+    mutationFn: (data: any) => ArticleService.createArticle(data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['articles'] }),
+  })
 
-  const updateArticle = (article: Article) => {
-    const idx = articleStore.articles.findIndex((a) => a.id === article.id)
-    if (idx !== -1) articleStore.articles[idx] = article
-  }
+  const updateArticleMutation = useMutation({
+    mutationFn: (data: any) => ArticleService.updateArticle(data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['articles'] }),
+  })
 
-  const deleteArticle = (id: number) => {
-    articleStore.articles = articleStore.articles.filter((a) => a.id !== id)
-  }
+  const deleteArticleMutation = useMutation({
+    mutationFn: (id: number) => ArticleService.deleteArticle(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['articles'] }),
+  })
 
-  const addCategory = (category: Category) => {
-    articleStore.categories.push(category)
-  }
+  // --- Category Mutations ---
+  const createCategoryMutation = useMutation({
+    mutationFn: (data: any) => ArticleService.createCategory(data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['categories'] }),
+  })
 
-  const updateCategory = (category: Category) => {
-    const idx = articleStore.categories.findIndex((c) => c.id === category.id)
-    if (idx !== -1) articleStore.categories[idx] = category
-  }
+  const updateCategoryMutation = useMutation({
+    mutationFn: (data: any) => ArticleService.updateCategory(data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['categories'] }),
+  })
 
-  const deleteCategory = (id: string) => {
-    articleStore.categories = articleStore.categories.filter((c) => c.id !== id)
-  }
+  const deleteCategoryMutation = useMutation({
+    mutationFn: (id: string) => ArticleService.deleteCategory(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['categories'] }),
+  })
 
-  const addAuthor = (author: Author) => {
-    articleStore.authors.push(author)
-  }
+  // --- Author Mutations ---
+  const createAuthorMutation = useMutation({
+    mutationFn: (data: any) => ArticleService.createAuthor(data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['authors'] }),
+  })
 
-  const updateAuthor = (author: Author) => {
-    const idx = articleStore.authors.findIndex((a) => a.id === author.id)
-    if (idx !== -1) articleStore.authors[idx] = author
-  }
+  const updateAuthorMutation = useMutation({
+    mutationFn: (data: any) => ArticleService.updateAuthor(data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['authors'] }),
+  })
 
-  const deleteAuthor = (id: string) => {
-    articleStore.authors = articleStore.authors.filter((a) => a.id !== id)
-  }
+  const deleteAuthorMutation = useMutation({
+    mutationFn: (id: string) => ArticleService.deleteAuthor(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['authors'] }),
+  })
 
   return {
-    addArticle,
-    updateArticle,
-    deleteArticle,
-    addCategory,
-    updateCategory,
-    deleteCategory,
-    addAuthor,
-    updateAuthor,
-    deleteAuthor,
+    // Articles
+    addArticle: (data: any) => createArticleMutation.mutateAsync(data),
+    updateArticle: (data: any) => updateArticleMutation.mutateAsync(data),
+    deleteArticle: (id: number) => deleteArticleMutation.mutateAsync(id),
+
+    // Categories
+    addCategory: (data: any) => createCategoryMutation.mutateAsync(data),
+    updateCategory: (data: any) => updateCategoryMutation.mutateAsync(data),
+    deleteCategory: (id: string) => deleteCategoryMutation.mutateAsync(id),
+
+    // Authors
+    addAuthor: (data: any) => createAuthorMutation.mutateAsync(data),
+    updateAuthor: (data: any) => updateAuthorMutation.mutateAsync(data),
+    deleteAuthor: (id: string) => deleteAuthorMutation.mutateAsync(id),
   }
 })
