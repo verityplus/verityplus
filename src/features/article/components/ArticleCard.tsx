@@ -47,8 +47,8 @@ export const ArticleCard = defineComponent({
           {/* Cover Image Container */}
           <div
             class={[
-              'overflow-hidden shrink-0',
-              isHorizontal ? 'md:w-1/2 aspect-video md:aspect-auto' : 'aspect-video',
+              'overflow-hidden shrink-0 w-full aspect-video object-cover',
+              isHorizontal ? 'md:w-1/2' : '',
             ]}
           >
             <img
