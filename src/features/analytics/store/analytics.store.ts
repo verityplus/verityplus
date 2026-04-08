@@ -8,6 +8,7 @@ import {
   getAnalyticsSummary,
   getArticleViews,
   clearAllData,
+  loadGoogleAnalytics
 } from '../services/tracker.service'
 import type { AnalyticsSummary, ConsentStatus } from '../types'
 
@@ -23,6 +24,7 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     consent.value = getConsentStatus()
     if (consent.value === 'accepted') {
       sessionId.value = getSessionId()
+      loadGoogleAnalytics()
     }
   }
 
