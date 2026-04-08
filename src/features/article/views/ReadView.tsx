@@ -239,7 +239,7 @@ export default defineComponent({
                 {/* Tag Metadata */}
                 <div class="mt-16 pt-8 border-t border-border">
                   <div class="flex flex-wrap gap-2">
-                    {getLocalizedField(article.value, 'tags').map((tag: string) => (
+                    {JSON.parse(getLocalizedField(article.value, 'tags')).map((tag: string) => (
                       <span
                         key={tag}
                         class="px-3 py-1 bg-surface-muted text-text-secondary text-sm rounded-lg hover:bg-surface-active cursor-pointer transition"
