@@ -85,7 +85,7 @@ export const LanguageSwitcher = defineComponent({
         </button>
 
         {isOpen.value && (
-          <div class="absolute right-0 mt-1 w-52 bg-surface border border-border rounded-lg shadow-lg z-50 overflow-hidden">
+          <div class="absolute right-0 mt-1 w-52 bg-surface border border-border rounded-lg shadow-lg z-1000 overflow-hidden">
             {SUPPORTED_LOCALES.map((locale) => (
               <button
                 key={locale}

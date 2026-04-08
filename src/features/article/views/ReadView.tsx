@@ -106,7 +106,7 @@ export default defineComponent({
       return (
         <article class="bg-background min-h-screen">
           {/* Progress Bar */}
-          <div class="fixed top-28 left-0 w-full h-1 bg-border/20 z-60">
+          <div class="fixed top-28 left-0 w-full h-2 bg-border/20 z-10">
             <div
               class="h-full bg-primary transition-all duration-150"
               style={{ width: `${readingProgress.value}%` }}
