@@ -274,6 +274,7 @@ export interface MessageSchema {
     showingResults: string
     noResults: string
     noResultsDesc: string
+    enterQuery: string
   }
   article: {
     minutesRead: string

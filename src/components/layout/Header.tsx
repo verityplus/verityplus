@@ -2,9 +2,10 @@ import { defineComponent, computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { AppLogo } from '../ui/Logo'
-import { SearchInput } from '@/features/search/components/SearchInput'
 import { LanguageSwitcher } from '../ui/LanguageSwitcher'
 import { BrowseTopBar } from '../ui/BrowseTopBar'
+import router from '@/router'
+import { DEFAULT_LOCALE } from '@/i18n'
 
 /**
  * Layout Component: Header
@@ -15,6 +16,7 @@ export const AppHeader = defineComponent({
   setup() {
     const { t } = useI18n()
     const route = useRoute()
+    const locale = computed(() => route.params.locale || DEFAULT_LOCALE)
     const shouldShowTopBar = computed(() => {
       return route.name !== 'home'
     })
@@ -27,7 +29,16 @@ export const AppHeader = defineComponent({
               <AppLogo />
             </RouterLink>
             <div class="flex gap-4 items-center">
-              <SearchInput />
+              <div class="relative inline-block">
+                <button
+                  onClick={() => {
+                    router.push(`/${locale.value}/search`)
+                  }}
+                  class="flex items-center gap-2 bg-surface border border-border rounded-full hover:border-border-hover focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer"
+                >
+                  <i class="bi bi-search flex items-center justify-center w-10 aspect-square text-text-muted"></i>
+                </button>
+              </div>
               <LanguageSwitcher />
             </div>
           </div>

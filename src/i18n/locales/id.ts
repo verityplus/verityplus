@@ -381,6 +381,7 @@ const id: MessageSchema = {
     showingResults: 'Menampilkan hasil untuk:',
     noResults: 'Tidak ada artikel yang ditemukan.',
     noResultsDesc: 'Coba kata kunci lain atau periksa tipografi Anda.',
+    enterQuery: 'Masukkan kata kunci pencarian untuk menemukan artikel.',
   },
   article: {
     minutesRead: 'menit baca',

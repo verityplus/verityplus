@@ -8,6 +8,7 @@ import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
 import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { Article } from '@/shared/types'
+import { SearchInput } from '../components/SearchInput'
 
 /**
  * Page View: SearchView
@@ -57,23 +58,15 @@ export default defineComponent({
             <h1 class="text-3xl sm:text-4xl font-extrabold text-text-primary mb-4">
               {t('search.heading')}
             </h1>
-            <p class="text-lg text-text-secondary mb-6">
-              {t('search.showingResults')}{' '}
-              <span class="font-bold text-primary">"{query.value}"</span>
-            </p>
+            {(query.value && (
+              <p class="text-lg text-text-secondary mb-6">
+                {t('search.showingResults')}{' '}
+                <span class="font-bold text-primary">"{query.value}"</span>
+              </p>
+            )) || <p class="text-lg text-text-secondary mb-6">{t('search.enterQuery')}</p>}
 
             <div class="max-w-2xl relative">
-              <input
-                value={query.value}
-                onInput={(e) => {
-                  query.value = (e.target as HTMLInputElement).value
-                  search()
-                }}
-                type="text"
-                placeholder={t('common.searchPlaceholderExtended')}
-                class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition duration-300 text-text-primary"
-              />
-              <i class="bi bi-search text-text-muted absolute left-4 top-1/2 -translate-y-1/2 text-lg"></i>
+              <SearchInput />
             </div>
           </div>
 

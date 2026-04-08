@@ -379,6 +379,7 @@ const en: MessageSchema = {
     showingResults: 'Showing results for:',
     noResults: 'No articles found.',
     noResultsDesc: 'Try different keywords or check your spelling.',
+    enterQuery: 'Enter a search query to find articles.',
   },
   article: {
     minutesRead: 'min read',

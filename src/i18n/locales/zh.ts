@@ -365,6 +365,7 @@ const zh: MessageSchema = {
     showingResults: '显示以下内容的结果：',
     noResults: '未找到文章。',
     noResultsDesc: '尝试不同的关键词或检查拼写。',
+    enterQuery: '输入搜索查询以查找文章。',
   },
   article: {
     minutesRead: '分钟阅读',
