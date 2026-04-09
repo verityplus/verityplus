@@ -1,7 +1,12 @@
 import { PrismaClient } from '@prisma/client'
 import { AUTHORS, CATEGORIES, ARTICLES } from './mock'
+import 'dotenv/config'
+import { PrismaLibSql } from '@prisma/adapter-libsql'
 
-const prisma = new PrismaClient()
+const adapter = new PrismaLibSql({
+  url: process.env.DATABASE_URL ?? '',
+})
+const prisma = new PrismaClient({ adapter })
 
 async function main() {
   console.log('Seeding database...')

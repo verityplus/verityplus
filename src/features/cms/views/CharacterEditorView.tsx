@@ -63,7 +63,7 @@ export default defineComponent({
           await cmsContentStore.addAuthor(form.value)
         }
         router.push('/cms/characters')
-      } catch (err) {
+      } catch {
         alert('Failed to save character.')
       }
     }

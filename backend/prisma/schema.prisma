@@ -8,17 +8,16 @@ generator pothos {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
 }
 
 model Author {
-  id      String    @id @default(uuid())
-  name    String
-  avatar  String
-  role    String?
-  bioId   String
-  bioEn   String
-  bioZh   String
+  id       String    @id @default(uuid())
+  name     String
+  avatar   String
+  role     String?
+  bioId    String
+  bioEn    String
+  bioZh    String
   articles Article[]
 }
 
@@ -52,12 +51,12 @@ model Article {
   coverImageCaptionZh String
   publishedAt         String
   readTimeMinutes     Int
-  status              String   // Enum: draft, published, archived, featured
+  status              String // Enum: draft, published, archived, featured
   category            Category @relation(fields: [categoryId], references: [id])
   categoryId          String
   author              Author   @relation(fields: [authorId], references: [id])
   authorId            String
-  tagsId              String   // Stored as JSON or comma-separated for SQLite
+  tagsId              String // Stored as JSON or comma-separated for SQLite
   tagsEn              String
   tagsZh              String
   createdAt           DateTime @default(now())

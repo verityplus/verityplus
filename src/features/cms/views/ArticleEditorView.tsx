@@ -4,7 +4,7 @@ import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import { MarkdownEditor } from '@/features/cms/components/MarkdownEditor'
-import type { Article, Category, Author, ArticleStatus } from '@/shared/types'
+import type { Article, ArticleStatus } from '@/shared/types'
 import { ARTICLE_STATUS_LABELS } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
 import { Tabs } from '@/components/ui/Tabs'
@@ -149,13 +149,13 @@ export default defineComponent({
         if (isEdit.value) {
           await cmsContentStore.updateArticle({
             id: form.value.id,
-            ...submissionData
+            ...submissionData,
           })
         } else {
           await cmsContentStore.addArticle(submissionData)
         }
         router.push('/cms/articles')
-      } catch (err) {
+      } catch {
         alert('Failed to save article. Please check your credentials and try again.')
       }
     }

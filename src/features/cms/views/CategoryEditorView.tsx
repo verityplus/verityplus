@@ -79,7 +79,7 @@ export default defineComponent({
           await cmsContentStore.addCategory(form.value)
         }
         router.push('/cms/categories')
-      } catch (err) {
+      } catch {
         alert('Failed to save category.')
       }
     }
@@ -115,21 +115,30 @@ export default defineComponent({
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           <div class="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200 shadow-sm space-y-8">
-            <Tabs tabs={steps} modelValue={currentStep.value} onUpdate:modelValue={(val) => currentStep.value = val} />
+            <Tabs
+              tabs={steps}
+              modelValue={currentStep.value}
+              onUpdate:modelValue={(val) => (currentStep.value = val)}
+            />
 
             <div class="space-y-6 pt-6 border-t border-slate-100" key={currentStep.value}>
               <div class="space-y-2">
                 <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
                   <span>Public Taxonomy Name</span>
-                  <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">{activeLangSuffix.value}</span>
+                  <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                    {activeLangSuffix.value}
+                  </span>
                 </label>
                 <input
                   value={(form.value as any)[`name${activeLangSuffix.value}`]}
                   onInput={(e) => {
-                    const val = (e.target as HTMLInputElement).value;
-                    (form.value as any)[`name${activeLangSuffix.value}`] = val
+                    const val = (e.target as HTMLInputElement).value
+                    ;(form.value as any)[`name${activeLangSuffix.value}`] = val
                     if (activeLangSuffix.value === 'Id' && !isEdit.value) {
-                      form.value.slug = val.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+                      form.value.slug = val
+                        .toLowerCase()
+                        .replace(/[^a-z0-9]+/g, '-')
+                        .replace(/(^-|-$)/g, '')
                     }
                   }}
                   type="text"

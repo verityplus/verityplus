@@ -19,7 +19,7 @@ const yoga = createYoga({
       try {
         const decoded = jwt.verify(token, JWT_SECRET) as { id: string; role: string }
         return { user: decoded }
-      } catch (err) {
+      } catch {
         // Token invalid or expired
       }
     }

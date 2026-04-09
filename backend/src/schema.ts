@@ -92,13 +92,11 @@ builder.queryFields((t) => ({
   }),
   categories: t.prismaField({
     type: ['Category'],
-    resolve: async (query, _root, _args, _ctx, _info) =>
-      prisma.category.findMany({ ...query }),
+    resolve: async (query, _root, _args, _ctx, _info) => prisma.category.findMany({ ...query }),
   }),
   authors: t.prismaField({
     type: ['Author'],
-    resolve: async (query, _root, _args, _ctx, _info) =>
-      prisma.author.findMany({ ...query }),
+    resolve: async (query, _root, _args, _ctx, _info) => prisma.author.findMany({ ...query }),
   }),
   me: t.prismaField({
     type: 'User',
@@ -136,11 +134,7 @@ builder.mutationFields((t) => ({
         throw new GraphQLError('Invalid credentials')
       }
 
-      const token = jwt.sign(
-        { id: user.id, role: user.role },
-        JWT_SECRET,
-        { expiresIn: '1d' }
-      )
+      const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: '1d' })
 
       return { token, user }
     },
@@ -167,7 +161,7 @@ builder.mutationFields((t) => ({
         ...query,
         data: {
           ...args,
-          excerptId: '', 
+          excerptId: '',
           excerptEn: '',
           excerptZh: '',
           coverImage: '',
@@ -283,6 +277,7 @@ builder.mutationFields((t) => ({
     },
     resolve: async (query, _root, args, ctx) => {
       if (!ctx.user) throw new GraphQLError('Unauthorized')
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return prisma.author.create({ ...query, data: args as any })
     },
   }),
@@ -301,6 +296,7 @@ builder.mutationFields((t) => ({
     resolve: async (query, _root, args, ctx) => {
       if (!ctx.user) throw new GraphQLError('Unauthorized')
       const { id, ...data } = args
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return prisma.author.update({ ...query, where: { id }, data: data as any })
     },
   }),
