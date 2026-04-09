@@ -150,9 +150,9 @@ export default defineComponent({
                     </span>
                   </label>
                   <textarea
-                    value={(form.value as any)[`bio${activeLangSuffix.value}`]}
+                    value={(form.value as Record<string, string>)[`bio${activeLangSuffix.value}`]}
                     onInput={(e) => {
-                      ;(form.value as any)[`bio${activeLangSuffix.value}`] = (
+                      ;(form.value as Record<string, string>)[`bio${activeLangSuffix.value}`] = (
                         e.target as HTMLTextAreaElement
                       ).value
                     }}

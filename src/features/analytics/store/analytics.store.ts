@@ -8,7 +8,7 @@ import {
   getAnalyticsSummary,
   getArticleViews,
   clearAllData,
-  loadGoogleAnalytics
+  loadGoogleAnalytics,
 } from '../services/tracker.service'
 import type { AnalyticsSummary, ConsentStatus } from '../types'
 

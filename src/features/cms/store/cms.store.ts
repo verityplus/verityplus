@@ -48,7 +48,11 @@ const DELETE_USER = gql`
 export const useCMSStore = defineStore('cms', () => {
   const queryClient = useQueryClient()
 
-  const { data: usersData, isLoading, refetch } = useQuery({
+  const {
+    data: usersData,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ['cms_users'],
     queryFn: async () => {
       const result = await apolloClient.query<{ users: CMSUser[] }>({ query: GET_USERS })
@@ -60,7 +64,7 @@ export const useCMSStore = defineStore('cms', () => {
   const users = computed(() => usersData.value || [])
 
   const addUser = async (user: CMSUser) => {
-    const { id, ...input } = user
+    const { id: _id, ...input } = user
     await apolloClient.mutate({
       mutation: CREATE_USER,
       variables: { input },

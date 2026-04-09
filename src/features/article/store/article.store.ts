@@ -13,11 +13,11 @@ const GRID_PER_PAGE = 8
  */
 export const useArticleStore = defineStore('articles', () => {
   // --- Vue Query Integration ---
-  
-  const { 
-    data: articlesData, 
+
+  const {
+    data: articlesData,
     isLoading: articlesLoading,
-    refetch: refetchArticles 
+    refetch: refetchArticles,
   } = useQuery({
     queryKey: ['articles'],
     queryFn: () => ArticleService.getArticles({ take: 50 }), // Fetch just enough for initial sections
@@ -37,7 +37,7 @@ export const useArticleStore = defineStore('articles', () => {
   })
 
   // --- Reactive State ---
-  
+
   const articles = computed(() => articlesData.value || [])
   const categories = computed(() => categoriesData.value || [])
   const authors = computed(() => authorsData.value || [])
@@ -167,6 +167,6 @@ export const useArticleStore = defineStore('articles', () => {
     findArticlesByAuthor,
     findCategoryBySlug,
     findArticlesByCategory,
-    refetchArticles
+    refetchArticles,
   }
 })

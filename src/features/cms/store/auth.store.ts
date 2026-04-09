@@ -28,7 +28,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      const result = await apolloClient.mutate({
+      const result = await apolloClient.mutate<{ login: { token: string; user: CMSUser } }>({
         mutation: LOGIN_MUTATION,
         variables: { username, password },
       })

@@ -43,7 +43,9 @@ export default defineComponent({
       meta: computed(() => [
         {
           name: 'description',
-          content: author.value ? getLocalizedField(author.value, 'bio') : t('common.authorDesc', { name: (author.value as any)?.name || '' }),
+          content: author.value
+            ? getLocalizedField(author.value, 'bio')
+            : t('common.authorDesc', { name: '' }),
         },
       ]),
     })

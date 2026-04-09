@@ -11,8 +11,6 @@ import CookieConsentBanner from '@/features/analytics/components/CookieConsentBa
 export default defineComponent({
   name: 'LocaleLayout',
   setup() {
-
-
     return () => (
       <div
         id="app-portal"

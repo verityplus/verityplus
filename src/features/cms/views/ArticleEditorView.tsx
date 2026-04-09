@@ -4,7 +4,7 @@ import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import { MarkdownEditor } from '@/features/cms/components/MarkdownEditor'
-import type { Article, ArticleStatus } from '@/shared/types'
+import type { ArticleStatus, Category, Author } from '@/shared/types'
 import { ARTICLE_STATUS_LABELS } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
 import { Tabs } from '@/components/ui/Tabs'
@@ -32,7 +32,33 @@ export default defineComponent({
       ),
     })
 
-    const form = ref<any>({
+    type EditorForm = Record<string, unknown> & {
+      id: number
+      slug: string
+      titleId: string
+      titleEn: string
+      titleZh: string
+      excerptId: string
+      excerptEn: string
+      excerptZh: string
+      contentId: string
+      contentEn: string
+      contentZh: string
+      coverImage: string
+      coverImageCaptionId: string
+      coverImageCaptionEn: string
+      coverImageCaptionZh: string
+      category: Category | null
+      author: Author | null
+      tagsId: string[]
+      tagsEn: string[]
+      tagsZh: string[]
+      publishedAt: string
+      readTimeMinutes: number
+      status: ArticleStatus
+    }
+
+    const form = ref<EditorForm>({
       id: 0,
       slug: '',
       titleId: '',
@@ -65,11 +91,11 @@ export default defineComponent({
 
     // Initialize defaults once data is available
     watch(
-      () => [articleStore.categories, articleStore.authors],
+      () => [articleStore.categories, articleStore.authors] as const,
       ([cats, auths]) => {
         if (!isEdit.value) {
-          if (!form.value.category && cats.length > 0) form.value.category = cats[0]
-          if (!form.value.author && auths.length > 0) form.value.author = auths[0]
+          if (!form.value.category && cats.length > 0) form.value.category = cats[0] || null
+          if (!form.value.author && auths.length > 0) form.value.author = auths[0] || null
         }
       },
       { immediate: true },
@@ -131,6 +157,10 @@ export default defineComponent({
     const touched = ref<Record<string, boolean>>({})
     const showErrors = ref(false)
 
+    const markTouched = (field: string) => {
+      touched.value[field] = true
+    }
+
     const errors = computed(() => {
       const errs: Record<string, string> = {}
       if (!form.value.titleId) errs.titleId = 'Title (ID) is required'
@@ -143,7 +173,7 @@ export default defineComponent({
 
     const save = async () => {
       showErrors.value = true
-      
+
       if (Object.keys(errors.value).length > 0) {
         if (errors.value.titleId) currentStep.value = 0
         else if (errors.value.titleEn) currentStep.value = 1
@@ -166,8 +196,17 @@ export default defineComponent({
         contentId: form.value.contentId,
         contentEn: form.value.contentEn,
         contentZh: form.value.contentZh,
-        categoryId: form.value.category.id,
-        authorId: form.value.author.id,
+        excerptId: form.value.excerptId,
+        excerptEn: form.value.excerptEn,
+        excerptZh: form.value.excerptZh,
+        coverImage: form.value.coverImage,
+        coverImageCaptionId: form.value.coverImageCaptionId,
+        coverImageCaptionEn: form.value.coverImageCaptionEn,
+        coverImageCaptionZh: form.value.coverImageCaptionZh,
+        publishedAt: form.value.publishedAt,
+        readTimeMinutes: form.value.readTimeMinutes,
+        categoryId: form.value.category!.id,
+        authorId: form.value.author!.id,
         status: form.value.status,
         tagsId: JSON.stringify(form.value.tagsId),
         tagsEn: JSON.stringify(form.value.tagsEn),
@@ -233,10 +272,11 @@ export default defineComponent({
                     </span>
                   </label>
                   <input
-                    value={(form.value as any)[`title${activeLangSuffix.value}`]}
+                    value={(form.value as Record<string, string>)[`title${activeLangSuffix.value}`]}
                     onInput={(e) => {
                       const val = (e.target as HTMLInputElement).value
-                      ;(form.value as any)[`title${activeLangSuffix.value}`] = val
+                      ;(form.value as Record<string, string>)[`title${activeLangSuffix.value}`] =
+                        val
                       if (!isEdit.value && activeLangSuffix.value === 'Id') {
                         form.value.slug = generateSlug(val)
                       }
@@ -246,16 +286,18 @@ export default defineComponent({
                     placeholder={`Enter headline in ${steps[currentStep.value]}...`}
                     class={[
                       'w-full text-3xl sm:text-4xl rounded-xl border border-transparent focus:border-slate-100 focus:bg-slate-50/20 p-2 outline-none font-black transition',
-                      (showErrors.value || touched.value[`title${activeLangSuffix.value}`]) && errors.value[`title${activeLangSuffix.value}`] 
-                        ? 'text-red-600 placeholder-red-200' 
-                        : 'text-slate-900 placeholder-slate-200'
+                      (showErrors.value || touched.value[`title${activeLangSuffix.value}`]) &&
+                      errors.value[`title${activeLangSuffix.value}`]
+                        ? 'text-red-600 placeholder-red-200'
+                        : 'text-slate-900 placeholder-slate-200',
                     ]}
                   />
-                  {(showErrors.value || touched.value[`title${activeLangSuffix.value}`]) && errors.value[`title${activeLangSuffix.value}`] && (
-                    <p class="text-[10px] font-black text-red-500 uppercase tracking-widest animate-in fade-in slide-in-from-top-1">
-                      {errors.value[`title${activeLangSuffix.value}`]}
-                    </p>
-                  )}
+                  {(showErrors.value || touched.value[`title${activeLangSuffix.value}`]) &&
+                    errors.value[`title${activeLangSuffix.value}`] && (
+                      <p class="text-[10px] font-black text-red-500 uppercase tracking-widest animate-in fade-in slide-in-from-top-1">
+                        {errors.value[`title${activeLangSuffix.value}`]}
+                      </p>
+                    )}
                 </div>
 
                 {/* Excerpt Section */}
@@ -267,11 +309,12 @@ export default defineComponent({
                     </span>
                   </label>
                   <textarea
-                    value={(form.value as any)[`excerpt${activeLangSuffix.value}`]}
+                    value={
+                      (form.value as Record<string, string>)[`excerpt${activeLangSuffix.value}`]
+                    }
                     onInput={(e) => {
-                      ;(form.value as any)[`excerpt${activeLangSuffix.value}`] = (
-                        e.target as HTMLTextAreaElement
-                      ).value
+                      ;(form.value as Record<string, string>)[`excerpt${activeLangSuffix.value}`] =
+                        (e.target as HTMLTextAreaElement).value
                     }}
                     rows={3}
                     placeholder="Write a brief summary..."
@@ -288,9 +331,12 @@ export default defineComponent({
                     </span>
                   </label>
                   <MarkdownEditor
-                    modelValue={(form.value as any)[`content${activeLangSuffix.value}`]}
+                    modelValue={
+                      (form.value as Record<string, string>)[`content${activeLangSuffix.value}`]
+                    }
                     onUpdate:modelValue={(val) => {
-                      ;(form.value as any)[`content${activeLangSuffix.value}`] = val
+                      ;(form.value as Record<string, string>)[`content${activeLangSuffix.value}`] =
+                        val
                     }}
                   />
                 </div>
@@ -400,11 +446,15 @@ export default defineComponent({
                     <span class="text-primary">{activeLangSuffix.value}</span>
                   </label>
                   <input
-                    value={(form.value as any)[`coverImageCaption${activeLangSuffix.value}`]}
+                    value={
+                      (form.value as Record<string, string>)[
+                        `coverImageCaption${activeLangSuffix.value}`
+                      ]
+                    }
                     onInput={(e) => {
-                      ;(form.value as any)[`coverImageCaption${activeLangSuffix.value}`] = (
-                        e.target as HTMLInputElement
-                      ).value
+                      ;(form.value as Record<string, string>)[
+                        `coverImageCaption${activeLangSuffix.value}`
+                      ] = (e.target as HTMLInputElement).value
                     }}
                     type="text"
                     placeholder="Caption for cover image..."
@@ -456,12 +506,14 @@ export default defineComponent({
                   onBlur={() => markTouched('category')}
                   class={[
                     'w-full px-3 py-2 rounded-xl border bg-slate-50/50 focus:bg-white text-xs font-bold transition cursor-pointer outline-none',
-                    (showErrors.value || touched.value.category) && errors.value.category 
-                      ? 'border-red-200 text-red-600' 
-                      : 'border-slate-200 text-slate-700'
+                    (showErrors.value || touched.value.category) && errors.value.category
+                      ? 'border-red-200 text-red-600'
+                      : 'border-slate-200 text-slate-700',
                   ]}
                 >
-                  <option value="" disabled>Select Category</option>
+                  <option value="" disabled>
+                    Select Category
+                  </option>
                   {articleStore.categories.map((cat) => (
                     <option key={cat.id} value={cat.id}>
                       {cat.nameId}
@@ -490,12 +542,14 @@ export default defineComponent({
                   onBlur={() => markTouched('author')}
                   class={[
                     'w-full px-3 py-2 rounded-xl border bg-slate-50/50 text-xs font-black transition outline-none',
-                    (showErrors.value || touched.value.author) && errors.value.author 
-                      ? 'border-red-200 text-red-600' 
-                      : 'border-slate-200 text-slate-700'
+                    (showErrors.value || touched.value.author) && errors.value.author
+                      ? 'border-red-200 text-red-600'
+                      : 'border-slate-200 text-slate-700',
                   ]}
                 >
-                  <option value="" disabled>Select Author</option>
+                  <option value="" disabled>
+                    Select Author
+                  </option>
                   {articleStore.authors.map((a) => (
                     <option key={a.id} value={a.id}>
                       {a.name}

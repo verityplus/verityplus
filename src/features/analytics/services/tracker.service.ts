@@ -6,8 +6,8 @@ const STORAGE_KEYS = {
 
 declare global {
   interface Window {
-    dataLayer: any[]
-    gtag: (...args: any[]) => void
+    dataLayer: unknown[]
+    gtag: (...args: [string, ...unknown[]]) => void
   }
 }
 
@@ -26,7 +26,7 @@ export function setConsentStatus(status: 'accepted' | 'declined'): void {
 
 export function loadGoogleAnalytics() {
   if (getConsentStatus() !== 'accepted') return
-  
+
   const id = import.meta.env.VITE_GOOGLE_ANALYTICS_MEASUREMENT_ID
   if (!id || window.dataLayer) return
 
@@ -36,7 +36,9 @@ export function loadGoogleAnalytics() {
   document.head.appendChild(scriptTag)
 
   window.dataLayer = window.dataLayer || []
-  window.gtag = function gtag() { window.dataLayer.push(arguments) }
+  window.gtag = function gtag(...args: [string, ...unknown[]]) {
+    window.dataLayer.push(args)
+  }
   window.gtag('js', new Date())
   window.gtag('config', id)
 }
@@ -64,7 +66,7 @@ export function getAnalyticsSummary(): AnalyticsSummary {
     d.setDate(d.getDate() - (29 - i))
     return {
       date: d.toISOString().split('T')[0] as string,
-      visits: Math.floor(Math.random() * 200) + 150
+      visits: Math.floor(Math.random() * 200) + 150,
     }
   })
 
@@ -79,16 +81,16 @@ export function getAnalyticsSummary(): AnalyticsSummary {
       { path: '/id', views: 2890 },
       { path: '/en/articles', views: 1845 },
       { path: '/en/read/startup-growth', views: 980 },
-      { path: '/id/about-us', views: 654 }
+      { path: '/id/about-us', views: 654 },
     ],
     topReferrers: [
       { referrer: 'google.com', count: 4890 },
       { referrer: 'direct', count: 1840 },
       { referrer: 'linkedin.com', count: 960 },
       { referrer: 'bing.com', count: 420 },
-      { referrer: 'ycombinator.com', count: 322 }
+      { referrer: 'ycombinator.com', count: 322 },
     ],
-    dailyVisits
+    dailyVisits,
   }
 }
 
@@ -96,10 +98,18 @@ export function getArticleViews(): { slug: string; views: number; title: string 
   // Mock Google Analytics specific article hits
   return [
     { slug: 'startup-growth', views: 980, title: 'The Ultimate Guide to Startup Growth in 2024' },
-    { slug: 'future-of-ai', views: 745, title: 'How Artificial Intelligence is Reshaping Industries' },
+    {
+      slug: 'future-of-ai',
+      views: 745,
+      title: 'How Artificial Intelligence is Reshaping Industries',
+    },
     { slug: 'remote-work-tips', views: 560, title: '10 Essential Tips for Mastering Remote Work' },
     { slug: 'sustainable-tech', views: 420, title: 'Exploring Sustainable Technology Innovations' },
-    { slug: 'cryptocurrency-101', views: 245, title: 'Cryptocurrency 101: Understanding the Basics' }
+    {
+      slug: 'cryptocurrency-101',
+      views: 245,
+      title: 'Cryptocurrency 101: Understanding the Basics',
+    },
   ]
 }
 

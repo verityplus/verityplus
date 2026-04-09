@@ -10,22 +10,19 @@ import type { Locale } from '@/i18n'
 export function useLocalizedField() {
   const { locale } = useI18n()
 
-  const getLocalizedField = <T extends Record<string, any>>(
-    obj: T,
-    baseKey: string,
-    fallbackToId: boolean = true,
-  ): any => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const getLocalizedField = (obj: any, baseKey: string, fallbackToId: boolean = true): string => {
     const currentLocale = locale.value as Locale
     const suffix = currentLocale.charAt(0).toUpperCase() + currentLocale.slice(1)
-    const localizedKey = `${baseKey}${suffix}` as keyof T
+    const localizedKey = `${baseKey}${suffix}`
 
     if (obj && localizedKey in obj && obj[localizedKey] !== undefined && obj[localizedKey] !== '') {
-      return obj[localizedKey]
+      return obj[localizedKey] as string
     }
 
     if (fallbackToId) {
-      const idKey = `${baseKey}Id` as keyof T
-      return obj[idKey]
+      const idKey = `${baseKey}Id`
+      return obj[idKey] as string
     }
 
     return ''

@@ -1,6 +1,14 @@
 import { defineStore } from 'pinia'
 import { ArticleService } from '@/features/article/services/article.service'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import type {
+  CreateArticleInput,
+  UpdateArticleInput,
+  CreateCategoryInput,
+  UpdateCategoryInput,
+  CreateAuthorInput,
+  UpdateAuthorInput,
+} from '@/shared/types'
 
 /**
  * CMSContentStore: Dedicated store for CMS content mutations.
@@ -11,12 +19,12 @@ export const useCMSContentStore = defineStore('cms-content', () => {
 
   // --- Article Mutations ---
   const createArticleMutation = useMutation({
-    mutationFn: (data: any) => ArticleService.createArticle(data),
+    mutationFn: (data: CreateArticleInput) => ArticleService.createArticle(data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['articles'] }),
   })
 
   const updateArticleMutation = useMutation({
-    mutationFn: (data: any) => ArticleService.updateArticle(data),
+    mutationFn: (data: UpdateArticleInput) => ArticleService.updateArticle(data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['articles'] }),
   })
 
@@ -27,12 +35,12 @@ export const useCMSContentStore = defineStore('cms-content', () => {
 
   // --- Category Mutations ---
   const createCategoryMutation = useMutation({
-    mutationFn: (data: any) => ArticleService.createCategory(data),
+    mutationFn: (data: CreateCategoryInput) => ArticleService.createCategory(data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['categories'] }),
   })
 
   const updateCategoryMutation = useMutation({
-    mutationFn: (data: any) => ArticleService.updateCategory(data),
+    mutationFn: (data: UpdateCategoryInput) => ArticleService.updateCategory(data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['categories'] }),
   })
 
@@ -43,12 +51,12 @@ export const useCMSContentStore = defineStore('cms-content', () => {
 
   // --- Author Mutations ---
   const createAuthorMutation = useMutation({
-    mutationFn: (data: any) => ArticleService.createAuthor(data),
+    mutationFn: (data: CreateAuthorInput) => ArticleService.createAuthor(data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['authors'] }),
   })
 
   const updateAuthorMutation = useMutation({
-    mutationFn: (data: any) => ArticleService.updateAuthor(data),
+    mutationFn: (data: UpdateAuthorInput) => ArticleService.updateAuthor(data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['authors'] }),
   })
 
@@ -59,18 +67,18 @@ export const useCMSContentStore = defineStore('cms-content', () => {
 
   return {
     // Articles
-    addArticle: (data: any) => createArticleMutation.mutateAsync(data),
-    updateArticle: (data: any) => updateArticleMutation.mutateAsync(data),
+    addArticle: (data: CreateArticleInput) => createArticleMutation.mutateAsync(data),
+    updateArticle: (data: UpdateArticleInput) => updateArticleMutation.mutateAsync(data),
     deleteArticle: (id: number) => deleteArticleMutation.mutateAsync(id),
 
     // Categories
-    addCategory: (data: any) => createCategoryMutation.mutateAsync(data),
-    updateCategory: (data: any) => updateCategoryMutation.mutateAsync(data),
+    addCategory: (data: CreateCategoryInput) => createCategoryMutation.mutateAsync(data),
+    updateCategory: (data: UpdateCategoryInput) => updateCategoryMutation.mutateAsync(data),
     deleteCategory: (id: string) => deleteCategoryMutation.mutateAsync(id),
 
     // Authors
-    addAuthor: (data: any) => createAuthorMutation.mutateAsync(data),
-    updateAuthor: (data: any) => updateAuthorMutation.mutateAsync(data),
+    addAuthor: (data: CreateAuthorInput) => createAuthorMutation.mutateAsync(data),
+    updateAuthor: (data: UpdateAuthorInput) => updateAuthorMutation.mutateAsync(data),
     deleteAuthor: (id: string) => deleteAuthorMutation.mutateAsync(id),
   }
 })

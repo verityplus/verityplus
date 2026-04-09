@@ -200,7 +200,7 @@ router.beforeEach((to, _from, next) => {
   if (to.params.locale && typeof to.params.locale === 'string') {
     const locale = to.params.locale as Locale
     if (SUPPORTED_LOCALES.includes(locale)) {
-      ;(i18n.global.locale as any).value = locale
+      ;(i18n.global.locale as unknown as { value: string }).value = locale
     } else {
       return next(`/${DEFAULT_LOCALE}`)
     }

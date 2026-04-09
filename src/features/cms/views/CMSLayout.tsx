@@ -1,8 +1,7 @@
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { RouterView, useRouter } from 'vue-router'
 import { CMSSidebar } from '../components/Sidebar'
 import { useAuthStore } from '../store/auth.store'
-import { useArticleStore } from '@/features/article/store/article.store'
 
 /**
  * CMS Layout: Main structural shell for the administrative dashboard.
@@ -12,7 +11,6 @@ export default defineComponent({
   setup() {
     const authStore = useAuthStore()
     const router = useRouter()
-    const articleStore = useArticleStore()
     const sidebarCollapsed = ref(false)
 
     const handleLogout = () => {

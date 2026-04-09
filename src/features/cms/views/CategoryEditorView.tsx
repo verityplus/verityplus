@@ -130,10 +130,10 @@ export default defineComponent({
                   </span>
                 </label>
                 <input
-                  value={(form.value as any)[`name${activeLangSuffix.value}`]}
+                  value={(form.value as Record<string, string>)[`name${activeLangSuffix.value}`]}
                   onInput={(e) => {
                     const val = (e.target as HTMLInputElement).value
-                    ;(form.value as any)[`name${activeLangSuffix.value}`] = val
+                    ;(form.value as Record<string, string>)[`name${activeLangSuffix.value}`] = val
                     if (activeLangSuffix.value === 'Id' && !isEdit.value) {
                       form.value.slug = val
                         .toLowerCase()
@@ -247,7 +247,8 @@ export default defineComponent({
                     }}
                     class="inline-block px-10 py-3 rounded-2xl text-sm font-black uppercase tracking-widest border-2 shadow-2xl transition-all duration-300"
                   >
-                    {(form.value as any)[`name${activeLangSuffix.value}`] || 'Sample Taxonomy'}
+                    {(form.value as Record<string, string>)[`name${activeLangSuffix.value}`] ||
+                      'Sample Taxonomy'}
                   </div>
                 </div>
               </div>

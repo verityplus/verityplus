@@ -6,21 +6,21 @@ import { apolloClient } from '@/shared/services/apollo'
  * useGqlQuery: Wraps Apollo Client calls with Tanstack Vue Query.
  * Provides advanced caching, refetching, and state management.
  */
-export function useGqlQuery<TWork, TVars = any>(
-  key: any[],
+export function useGqlQuery<TWork, TVars = Record<string, unknown>>(
+  key: unknown[],
   query: DocumentNode,
   variables?: TVars,
-  options?: Omit<UseQueryOptions<TWork, Error>, 'queryKey' | 'queryFn'>
+  options?: Omit<UseQueryOptions<TWork, Error>, 'queryKey' | 'queryFn'>,
 ) {
   return useQuery({
     queryKey: key,
     queryFn: async () => {
       const result = await apolloClient.query<TWork>({
         query,
-        variables: variables as any,
+        variables: variables as Record<string, unknown>,
       })
-      if (result.errors) {
-        throw new Error(result.errors[0].message)
+      if (result.error) {
+        throw new Error(result.error.message)
       }
       return result.data
     },

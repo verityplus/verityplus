@@ -1,7 +1,7 @@
 import { defineComponent, type PropType } from 'vue'
 
 export const Tabs = defineComponent({
-  name: 'Tabs',
+  name: 'BaseTabs',
   props: {
     tabs: {
       type: Array as PropType<string[]>,
@@ -19,15 +19,13 @@ export const Tabs = defineComponent({
         <div class="flex items-center gap-6 overflow-x-auto">
           {props.tabs.map((tab, index) => {
             const isActive = index === props.modelValue
-            
+
             return (
               <button
                 key={index}
                 class={[
                   'pb-3 font-bold text-sm transition-colors relative whitespace-nowrap',
-                  isActive 
-                    ? 'text-primary' 
-                    : 'text-text-muted hover:text-text-primary'
+                  isActive ? 'text-primary' : 'text-text-muted hover:text-text-primary',
                 ]}
                 onClick={() => emit('update:modelValue', index)}
                 type="button"
@@ -42,5 +40,5 @@ export const Tabs = defineComponent({
         </div>
       </div>
     )
-  }
+  },
 })

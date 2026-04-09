@@ -60,7 +60,7 @@ export const ArticleGrid = defineComponent({
                     : 'bg-surface text-text-muted border-transparent hover:border-border hover:text-text-primary',
                 ]}
               >
-                {cat.id === 'all' ? (cat as any).name : getLocalizedField(cat, 'name')}
+                {'name' in cat ? (cat as { name: string }).name : getLocalizedField(cat, 'name')}
               </button>
             ))}
           </div>

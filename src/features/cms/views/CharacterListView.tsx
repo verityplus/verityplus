@@ -2,6 +2,7 @@ import { defineComponent, ref, computed } from 'vue'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import { BaseButton } from '@/components/ui/Button'
+import { useLocalizedField } from '@/composables/useLocalizedField'
 
 /**
  * CMS View: CharacterListView
@@ -12,13 +13,15 @@ export default defineComponent({
   setup() {
     const articleStore = useArticleStore()
     const cmsContentStore = useCMSContentStore()
+    const { getLocalizedField } = useLocalizedField()
     const searchQuery = ref('')
 
     const filteredCharacters = computed(() => {
       const q = searchQuery.value.toLowerCase().trim()
       if (!q) return articleStore.authors
       return articleStore.authors.filter(
-        (a) => a.name.toLowerCase().includes(q) || a.bio?.toLowerCase().includes(q),
+        (a) =>
+          a.name.toLowerCase().includes(q) || getLocalizedField(a, 'bio').toLowerCase().includes(q),
       )
     })
 
@@ -71,7 +74,7 @@ export default defineComponent({
                 {char.name}
               </h3>
               <p class="text-xs font-medium text-slate-400 mt-2 mb-6 border-b border-slate-50 pb-4 flex-grow line-clamp-3 italic">
-                "{char.bio || 'No biography provided for this character.'}"
+                "{getLocalizedField(char, 'bio') || 'No biography provided for this character.'}"
               </p>
 
               <div class="flex items-center gap-2 w-full pt-4 border-t border-slate-50">

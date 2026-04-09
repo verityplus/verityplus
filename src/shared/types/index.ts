@@ -163,3 +163,61 @@ export const CMS_ROLE_LABELS: AppRecord<CMSUser['role'], string> = {
   admin: 'Administrator',
   editor: 'Editor',
 }
+
+// --- GraphQL Input Types ---
+
+export interface CreateArticleInput {
+  titleId: string
+  titleEn: string
+  titleZh: string
+  slug: string
+  contentId: string
+  contentEn: string
+  contentZh: string
+  excerptId?: string
+  excerptEn?: string
+  excerptZh?: string
+  coverImage?: string
+  coverImageCaptionId?: string
+  coverImageCaptionEn?: string
+  coverImageCaptionZh?: string
+  publishedAt?: string
+  readTimeMinutes?: number
+  categoryId: string
+  authorId: string
+  status: string
+  tagsId?: string
+  tagsEn?: string
+  tagsZh?: string
+}
+
+export interface UpdateArticleInput extends CreateArticleInput {
+  id: number
+}
+
+export interface CreateCategoryInput {
+  nameId: string
+  nameEn: string
+  nameZh: string
+  slug: string
+  color: string
+  bgColor: string
+  borderColor: string
+}
+
+export interface UpdateCategoryInput extends CreateCategoryInput {
+  id: string
+}
+
+export interface CreateAuthorInput {
+  name: string
+  avatar: string
+  role?: string
+  bioId: string
+  bioEn: string
+  bioZh: string
+}
+
+export interface UpdateAuthorInput extends CreateAuthorInput {
+  id: string
+}

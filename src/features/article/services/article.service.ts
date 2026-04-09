@@ -1,10 +1,32 @@
-import type { Article, Category, Author } from '@/shared/types'
+import type {
+  Article,
+  Category,
+  Author,
+  CreateArticleInput,
+  UpdateArticleInput,
+  CreateCategoryInput,
+  UpdateCategoryInput,
+  CreateAuthorInput,
+  UpdateAuthorInput,
+} from '@/shared/types'
 import { apolloClient } from '@/shared/services/apollo'
 import { gql } from '@apollo/client/core'
 
 const GET_ARTICLES = gql`
-  query GetArticles($search: String, $take: Int, $skip: Int, $categoryId: String, $authorId: String) {
-    articles(search: $search, take: $take, skip: $skip, categoryId: $categoryId, authorId: $authorId) {
+  query GetArticles(
+    $search: String
+    $take: Int
+    $skip: Int
+    $categoryId: String
+    $authorId: String
+  ) {
+    articles(
+      search: $search
+      take: $take
+      skip: $skip
+      categoryId: $categoryId
+      authorId: $authorId
+    ) {
       id
       slug
       titleId
@@ -192,10 +214,18 @@ const DELETE_ARTICLE = gql`
  * Refactored to use GraphQL via Apollo Client.
  */
 export const ArticleService = {
-  async getArticles(args: { search?: string; take?: number; skip?: number; categoryId?: string; authorId?: string } = {}): Promise<Article[]> {
-    const result = await apolloClient.query<{ articles: Article[] }>({ 
+  async getArticles(
+    args: {
+      search?: string
+      take?: number
+      skip?: number
+      categoryId?: string
+      authorId?: string
+    } = {},
+  ): Promise<Article[]> {
+    const result = await apolloClient.query<{ articles: Article[] }>({
       query: GET_ARTICLES,
-      variables: args
+      variables: args,
     })
     return result.data?.articles || []
   },
@@ -222,7 +252,7 @@ export const ArticleService = {
     return result.data?.authors || []
   },
 
-  async createArticle(data: any): Promise<Article> {
+  async createArticle(data: CreateArticleInput): Promise<Article> {
     const result = await apolloClient.mutate<{ createArticle: Article }>({
       mutation: CREATE_ARTICLE,
       variables: { input: data },
@@ -230,7 +260,7 @@ export const ArticleService = {
     return result.data!.createArticle
   },
 
-  async updateArticle(data: any): Promise<Article> {
+  async updateArticle(data: UpdateArticleInput): Promise<Article> {
     const result = await apolloClient.mutate<{ updateArticle: Article }>({
       mutation: UPDATE_ARTICLE,
       variables: { input: data },
@@ -245,7 +275,7 @@ export const ArticleService = {
     })
   },
 
-  async createCategory(data: any): Promise<Category> {
+  async createCategory(data: CreateCategoryInput): Promise<Category> {
     const result = await apolloClient.mutate<{ createCategory: Category }>({
       mutation: CREATE_CATEGORY,
       variables: { input: data },
@@ -253,7 +283,7 @@ export const ArticleService = {
     return result.data!.createCategory
   },
 
-  async updateCategory(data: any): Promise<Category> {
+  async updateCategory(data: UpdateCategoryInput): Promise<Category> {
     const { id, ...input } = data
     const result = await apolloClient.mutate<{ updateCategory: Category }>({
       mutation: UPDATE_CATEGORY,
@@ -269,7 +299,7 @@ export const ArticleService = {
     })
   },
 
-  async createAuthor(data: any): Promise<Author> {
+  async createAuthor(data: CreateAuthorInput): Promise<Author> {
     const result = await apolloClient.mutate<{ createAuthor: Author }>({
       mutation: CREATE_AUTHOR,
       variables: { input: data },
@@ -277,7 +307,7 @@ export const ArticleService = {
     return result.data!.createAuthor
   },
 
-  async updateAuthor(data: any): Promise<Author> {
+  async updateAuthor(data: UpdateAuthorInput): Promise<Author> {
     const { id, ...input } = data
     const result = await apolloClient.mutate<{ updateAuthor: Author }>({
       mutation: UPDATE_AUTHOR,
