@@ -178,6 +178,7 @@ export default defineComponent({
                         <BaseBadge
                           bgColor={article.value.category.bgColor}
                           textColor={article.value.category.color}
+                          borderColor={article.value.category.borderColor}
                         >
                           {getLocalizedField(article.value.category, 'name')}
                         </BaseBadge>

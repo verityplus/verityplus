@@ -58,6 +58,19 @@ export default defineComponent({
         </header>
 
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+          <div class="p-4 border-b border-slate-100 bg-slate-50/50">
+            <div class="relative max-w-md w-full">
+              <input
+                value={searchQuery.value}
+                onInput={(e) => (searchQuery.value = (e.target as HTMLInputElement).value)}
+                type="text"
+                placeholder="Search administrators by username or email..."
+                class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition text-sm font-medium"
+              />
+              <i class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+            </div>
+          </div>
+
           <div class="overflow-x-auto min-h-[400px]">
             <table class="w-full text-left border-collapse">
               <thead>

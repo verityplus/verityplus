@@ -66,6 +66,7 @@ export const ArticleCard = defineComponent({
                   <BaseBadge
                     bgColor={props.article.category.bgColor}
                     textColor={props.article.category.color}
+                    borderColor={props.article.category.borderColor}
                   >
                     {getLocalizedField(props.article.category, 'name')}
                   </BaseBadge>
@@ -85,6 +86,7 @@ export const ArticleCard = defineComponent({
                 <BaseBadge
                   bgColor={props.article.category.bgColor}
                   textColor={props.article.category.color}
+                  borderColor={props.article.category.borderColor}
                   class="mb-3 w-fit"
                 >
                   {getLocalizedField(props.article.category, 'name')}
@@ -121,6 +123,7 @@ export const ArticleCard = defineComponent({
                     <BaseBadge
                       bgColor={props.article.category.bgColor}
                       textColor={props.article.category.color}
+                      borderColor={props.article.category.borderColor}
                     >
                       {getLocalizedField(props.article.category, 'name')}
                     </BaseBadge>

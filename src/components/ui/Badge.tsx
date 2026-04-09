@@ -7,23 +7,18 @@ import { defineComponent } from 'vue'
 export const BaseBadge = defineComponent({
   name: 'BaseBadge',
   props: {
-    /**
-     * Tailwind background color class.
-     */
     bgColor: {
       type: String,
       default: 'bg-primary-100',
     },
-    /**
-     * Tailwind text color class.
-     */
     textColor: {
       type: String,
       default: 'text-primary-700',
     },
-    /**
-     * Allows additional custom classes.
-     */
+    borderColor: {
+      type: String,
+      default: 'border-transparent',
+    },
     class: {
       type: String,
       default: '',
@@ -32,7 +27,13 @@ export const BaseBadge = defineComponent({
   setup(props, { slots }) {
     return () => (
       <span
-        class={['badge backdrop-blur-sm shadow-sm', props.bgColor, props.textColor, props.class]}
+        class={[
+          'badge border shadow-sm font-bold',
+          props.bgColor,
+          props.textColor,
+          props.borderColor,
+          props.class,
+        ]}
       >
         {slots.default?.()}
       </span>

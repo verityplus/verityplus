@@ -266,7 +266,7 @@ export default defineComponent({
               >
                 {/* Title Section */}
                 <div class="space-y-4">
-                  <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
+                  <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
                     <span>Article Title</span>
                     <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">
                       {activeLangSuffix.value}
@@ -303,7 +303,7 @@ export default defineComponent({
 
                 {/* Excerpt Section */}
                 <div class="space-y-4">
-                  <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
+                  <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
                     <span>Short Excerpt</span>
                     <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">
                       {activeLangSuffix.value}
@@ -325,7 +325,7 @@ export default defineComponent({
 
                 {/* Markdown Editor */}
                 <div class="space-y-4">
-                  <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
+                  <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
                     <span>Main Content</span>
                     <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">
                       {activeLangSuffix.value}
@@ -344,7 +344,7 @@ export default defineComponent({
 
                 {/* Tags Input */}
                 <div class="pt-6 border-t border-slate-50 space-y-3">
-                  <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
+                  <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
                     <span>Tags</span>
                     <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">
                       {activeLangSuffix.value}
@@ -400,7 +400,7 @@ export default defineComponent({
 
           <aside class="w-full xl:w-80 shrink-0 space-y-6 animate-in fade-in slide-in-from-right-10">
             {/* Global Settings (Applies to all languages) */}
-            <div class="bg-indigo-600 rounded-2xl p-6 text-white text-center shadow-lg shadow-indigo-100">
+            <div class="bg-primary rounded-2xl p-6 text-white text-center shadow-lg shadow-primary/20">
               <i class="bi bi-globe text-3xl mb-3 block text-white/40" />
               <h4 class="font-black text-lg mb-1 leading-none uppercase tracking-tight">
                 Global Asset
@@ -442,7 +442,7 @@ export default defineComponent({
                 </p>
 
                 <div class="pt-4 border-t border-slate-50 space-y-3">
-                  <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest flex justify-between">
+                  <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
                     <span>Image Caption</span>
                     <span class="text-primary">{activeLangSuffix.value}</span>
                   </label>
@@ -472,7 +472,7 @@ export default defineComponent({
 
               <div class="space-y-4">
                 <div class="space-y-2">
-                  <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
                     Publication Status
                   </label>
                   <select
@@ -493,7 +493,7 @@ export default defineComponent({
 
               {/* Category */}
               <div class="pt-6 border-t border-slate-50 space-y-3">
-                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
                   Category
                 </label>
                 <select
@@ -529,7 +529,7 @@ export default defineComponent({
               </div>
 
               <div class="pt-6 border-t border-slate-50 space-y-3">
-                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
                   Author / Character
                 </label>
                 <select

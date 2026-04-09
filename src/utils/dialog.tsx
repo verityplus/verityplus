@@ -8,7 +8,7 @@ interface DialogOptions {
   title?: string
   message: string
   defaultValue?: string
-  onResolve: (value: any) => void
+  onResolve: (value: unknown) => void
   onClose: () => void
 }
 
@@ -32,7 +32,7 @@ const DialogComponent = defineComponent({
       }, 10)
     })
 
-    const close = (value: any) => {
+    const close = (value: unknown) => {
       isVisible.value = false
       setTimeout(() => {
         props.options.onResolve(value)

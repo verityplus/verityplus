@@ -89,6 +89,7 @@ export const HeadlineCarousel = defineComponent({
                         <BaseBadge
                           bgColor={item.category.bgColor}
                           textColor={item.category.color}
+                          borderColor={item.category.borderColor}
                           class="mb-3"
                         >
                           {getLocalizedField(item.category, 'name')}

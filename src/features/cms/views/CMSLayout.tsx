@@ -2,6 +2,7 @@ import { defineComponent, ref } from 'vue'
 import { RouterView, useRouter } from 'vue-router'
 import { CMSSidebar } from '../components/Sidebar'
 import { useAuthStore } from '../store/auth.store'
+import { BaseButton } from '@/components/ui/Button'
 
 /**
  * CMS Layout: Main structural shell for the administrative dashboard.
@@ -58,13 +59,14 @@ export default defineComponent({
                   {authStore.currentUser?.role}
                 </span>
               </div>
-              <button
+              <BaseButton
                 onClick={handleLogout}
-                class="px-3 py-1 text-sm bg-slate-100 hover:bg-slate-200 rounded transition-colors"
+                variant="ghost"
                 title="Logout"
+                class="px-3 py-1.5 text-sm rounded-lg hover:bg-red-50 hover:text-red-600 transition-colors"
               >
-                Logout
-              </button>
+                Logout <i class="bi bi-box-arrow-right ml-1.5" />
+              </BaseButton>
               <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-black shadow-lg shadow-primary/20">
                 {authStore.currentUser?.username.charAt(0).toUpperCase()}
               </div>

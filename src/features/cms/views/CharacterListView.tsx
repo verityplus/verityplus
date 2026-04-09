@@ -56,54 +56,90 @@ export default defineComponent({
           </router-link>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredCharacters.value.map((char) => (
-            <div
-              key={char.id}
-              class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:shadow-lg hover:border-primary/20 hover:scale-105 transition-all duration-300"
-            >
-              <div class="relative mb-4 group/avatar">
-                <img
-                  src={char.avatar}
-                  class="w-24 h-24 rounded-full object-cover shadow-lg border-4 border-white group-hover/avatar:border-primary/20 group-hover/avatar:scale-110 transition duration-500"
-                />
-                <div class="absolute inset-0 bg-primary/20 rounded-full opacity-0 group-hover/avatar:opacity-100 transition flex items-center justify-center">
-                  <i class="bi bi-person-badge text-white text-3xl drop-shadow-lg"></i>
-                </div>
-              </div>
-
-              <h3 class="text-xl font-black text-slate-900 leading-tight group-hover:text-primary transition">
-                {char.name}
-              </h3>
-              <p class="text-xs font-medium text-slate-400 mt-2 mb-6 border-b border-slate-50 pb-4 flex-grow line-clamp-3 italic">
-                "{getLocalizedField(char, 'bio') || 'No biography provided for this character.'}"
-              </p>
-
-              <div class="flex items-center gap-2 w-full pt-4 border-t border-slate-50">
-                <router-link
-                  to={`/cms/characters/${char.id}/edit`}
-                  class="flex-1 py-2.5 bg-slate-50 text-slate-600 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-slate-900 hover:text-white transition no-underline"
-                >
-                  Edit Identity
-                </router-link>
-                <button
-                  onClick={() => deleteCharacter(char.id)}
-                  class="w-10 h-10 bg-red-50 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition cursor-pointer border-none"
-                >
-                  <i class="bi bi-trash"></i>
-                </button>
-              </div>
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+          <div class="p-4 border-b border-slate-100 bg-slate-50/50">
+            <div class="relative max-w-md w-full">
+              <input
+                value={searchQuery.value}
+                onInput={(e) => (searchQuery.value = (e.target as HTMLInputElement).value)}
+                type="text"
+                placeholder="Search characters by name or bio..."
+                class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition text-sm font-medium"
+              />
+              <i class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
             </div>
-          ))}
+          </div>
 
-          {filteredCharacters.value.length === 0 && (
-            <div class="col-span-full py-24 text-center">
-              <i class="bi bi-person-x text-5xl text-slate-200 mb-4 block" />
-              <p class="text-slate-400 font-bold italic uppercase tracking-widest">
-                No matching characters found.
-              </p>
-            </div>
-          )}
+          <div class="overflow-x-auto min-h-[400px]">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-50 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  <th class="px-6 py-4">Identity</th>
+                  <th class="px-6 py-4">Biography Summary</th>
+                  <th class="px-6 py-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 font-medium text-sm">
+                {filteredCharacters.value.map((char) => (
+                  <tr key={char.id} class="hover:bg-slate-50/50 transition group">
+                    <td class="px-6 py-5 min-w-[200px]">
+                      <div class="flex items-center gap-3">
+                        <img
+                          src={char.avatar}
+                          class="w-10 h-10 rounded-full object-cover shadow-sm bg-slate-100"
+                        />
+                        <div class="flex flex-col">
+                          <span class="text-slate-900 font-bold leading-tight group-hover:text-primary transition">
+                            {char.name}
+                          </span>
+                          <span class="text-[10px] text-slate-400 mt-0.5 tracking-tighter uppercase font-medium">
+                            VERITY+ Network
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-6 py-5">
+                      <p class="text-xs text-slate-500 line-clamp-2 max-w-lg italic font-medium">
+                        "{getLocalizedField(char, 'bio') || 'No biography provided.'}"
+                      </p>
+                    </td>
+                    <td class="px-6 py-5 text-right w-32">
+                      <div class="flex items-center justify-end gap-2 translate-x-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition duration-300">
+                        <router-link
+                          to={`/cms/characters/${char.id}/edit`}
+                          class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center hover:bg-slate-900 hover:text-white transition cursor-pointer no-underline"
+                        >
+                          <i class="bi bi-pencil-fill text-xs" />
+                        </router-link>
+                        <button
+                          onClick={() => deleteCharacter(char.id)}
+                          class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-600 hover:text-white transition cursor-pointer border-none"
+                        >
+                          <i class="bi bi-trash text-xs" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {filteredCharacters.value.length === 0 && (
+              <div class="py-24 flex flex-col items-center justify-center text-center">
+                <i class="bi bi-person-x text-5xl text-slate-200 mb-4 block" />
+                <p class="text-slate-400 font-bold italic uppercase tracking-widest">
+                  No matching characters found.
+                </p>
+              </div>
+            )}
+          </div>
+          
+          <footer class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[10px] font-black text-slate-400 px-6">
+            <p>
+              Showing {filteredCharacters.value.length} of {articleStore.authors.length} characters
+            </p>
+            <p>VERITY+ Identities</p>
+          </footer>
         </div>
       </div>
     )
