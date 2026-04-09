@@ -10,9 +10,8 @@
     "outDir": "dist",
     "rootDir": "src",
     "types": ["node"],
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"],

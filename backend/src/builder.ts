@@ -1,10 +1,11 @@
 import SchemaBuilder from '@pothos/core'
 import PrismaPlugin from '@pothos/plugin-prisma'
-import type PrismaTypes from '@pothos/plugin-prisma/generated'
-import { PrismaClient, Prisma } from '@prisma/client'
+import type PrismaTypes from '../src/generated/pothos-types.js'
+import { PrismaClient } from '@prisma/client'
 import SimpleObjectsPlugin from '@pothos/plugin-simple-objects'
 import 'dotenv/config'
 import { PrismaLibSql } from '@prisma/adapter-libsql'
+import { getDatamodel } from '../src/generated/pothos-types.js'
 
 const adapter = new PrismaLibSql({
   url: process.env.DATABASE_URL ?? '',
@@ -21,8 +22,8 @@ export const builder = new SchemaBuilder<{
   plugins: [PrismaPlugin, SimpleObjectsPlugin],
   prisma: {
     client: prisma,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dmmf: (Prisma as any).dmmf,
+
+    dmmf: getDatamodel(),
   },
 })
 
