@@ -3,6 +3,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useCMSStore } from '../store/cms.store'
 import type { CMSUser } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
+import { appAlert } from '@/utils/dialog'
 
 /**
  * CMS View: UserEditorView
@@ -50,7 +51,7 @@ export default defineComponent({
         router.push('/cms/users')
       } catch (err) {
         console.error('Save user failed:', err)
-        alert('Failed to save user. Please ensure you have administrative privileges.')
+        await appAlert('Failed to save user. Please ensure you have administrative privileges.', 'Error Saving User')
       }
     }
 

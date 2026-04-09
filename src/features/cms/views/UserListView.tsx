@@ -1,6 +1,7 @@
 import { useCMSStore } from '../store/cms.store'
 import { useAuthStore } from '../store/auth.store'
 import { BaseButton } from '@/components/ui/Button'
+import { appAlert, appConfirm } from '@/utils/dialog'
 import { defineComponent, ref, computed } from 'vue'
 
 /**
@@ -22,14 +23,15 @@ export default defineComponent({
       )
     })
 
-    const deleteUser = (id: string) => {
+    const deleteUser = async (id: string) => {
       if (id === authStore.currentUser?.id) {
-        alert('You cannot delete yourself while logged in.')
+        await appAlert('You cannot delete yourself while logged in.', 'Permission Denied')
         return
       }
       if (
-        confirm(
+        await appConfirm(
           'Are you sure you want to delete this administrative user? They will lose all access to the CMS.',
+          'Confirm Deletion'
         )
       ) {
         store.deleteUser(id)

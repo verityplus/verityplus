@@ -3,6 +3,7 @@ import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { AppLogo } from '../ui/Logo'
 import { BaseButton } from '../ui/Button'
+import { appAlert } from '@/utils/dialog'
 
 /**
  * Layout Component: Footer
@@ -15,9 +16,9 @@ export const AppFooter = defineComponent({
     const email = ref('')
     const currentYear = computed(() => new Date().getFullYear())
 
-    const handleSubscribe = (e: Event) => {
+    const handleSubscribe = async (e: Event) => {
       e.preventDefault()
-      alert(t('footer.subscribeSuccess', { email: email.value }))
+      await appAlert(t('footer.subscribeSuccess', { email: email.value }), 'Subscribed')
       email.value = ''
     }
 

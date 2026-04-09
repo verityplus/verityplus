@@ -5,6 +5,7 @@ import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import type { Author } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
 import { Tabs } from '@/components/ui/Tabs'
+import { appAlert } from '@/utils/dialog'
 
 /**
  * CMS View: CharacterEditorView
@@ -64,7 +65,7 @@ export default defineComponent({
         }
         router.push('/cms/characters')
       } catch {
-        alert('Failed to save character.')
+        await appAlert('Failed to save character.', 'Error Saving Character')
       }
     }
 

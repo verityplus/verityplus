@@ -5,6 +5,7 @@ import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import type { Category } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
 import { Tabs } from '@/components/ui/Tabs'
+import { appAlert } from '@/utils/dialog'
 
 /**
  * CMS View: CategoryEditorView
@@ -56,17 +57,17 @@ export default defineComponent({
 
     const save = async () => {
       if (!form.value.nameId) {
-        alert('Name (ID) is required.')
+        await appAlert('Name (ID) is required.', 'Validation Error')
         currentStep.value = 0
         return
       }
       if (!form.value.nameEn) {
-        alert('Name (EN) is required.')
+        await appAlert('Name (EN) is required.', 'Validation Error')
         currentStep.value = 1
         return
       }
       if (!form.value.nameZh) {
-        alert('Name (ZH) is required.')
+        await appAlert('Name (ZH) is required.', 'Validation Error')
         currentStep.value = 2
         return
       }
@@ -80,7 +81,7 @@ export default defineComponent({
         }
         router.push('/cms/categories')
       } catch {
-        alert('Failed to save category.')
+        await appAlert('Failed to save category.', 'Error')
       }
     }
 

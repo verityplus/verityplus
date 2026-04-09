@@ -6,6 +6,7 @@ import Image from '@tiptap/extension-image'
 import Youtube from '@tiptap/extension-youtube'
 import Link from '@tiptap/extension-link'
 import { Markdown } from 'tiptap-markdown'
+import { appPrompt } from '@/utils/dialog'
 
 export const MarkdownEditor = defineComponent({
   name: 'MarkdownEditor',
@@ -73,18 +74,18 @@ export const MarkdownEditor = defineComponent({
       input.click()
     }
 
-    const onToolbarYoutube = () => {
-      const url = prompt('Masukkan URL YouTube:')
+    const onToolbarYoutube = async () => {
+      const url = await appPrompt('Masukkan URL YouTube:', '', 'YouTube URL')
       if (url) editor.value?.chain().focus().setYoutubeVideo({ src: url }).run()
     }
 
-    const onToolbarLink = () => {
+    const onToolbarLink = async () => {
       if (!editor.value) return
 
       const previousUrl = editor.value.getAttributes('link').href
-      const url = window.prompt('Masukkan URL Link:', previousUrl || '')
+      const url = await appPrompt('Masukkan URL Link:', previousUrl || '', 'Insert Link')
 
-      if (url === null) {
+      if (url === false || url === null) {
         return
       }
 

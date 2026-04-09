@@ -3,6 +3,7 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import { BaseButton } from '@/components/ui/Button'
 import { useLocalizedField } from '@/composables/useLocalizedField'
+import { appConfirm } from '@/utils/dialog'
 
 /**
  * CMS View: CharacterListView
@@ -25,10 +26,11 @@ export default defineComponent({
       )
     })
 
-    const deleteCharacter = (id: string) => {
+    const deleteCharacter = async (id: string) => {
       if (
-        confirm(
+        await appConfirm(
           'Are you sure you want to delete this character? All their articles will still remain but may lack an author reference.',
+          'Confirm Deletion'
         )
       ) {
         cmsContentStore.deleteAuthor(id)

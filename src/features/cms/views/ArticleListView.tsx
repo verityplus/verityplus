@@ -7,6 +7,7 @@ import { BaseButton } from '@/components/ui/Button'
 import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { ArticleStatus } from '@/shared/types'
 import { ARTICLE_STATUS_LABELS } from '@/shared/types'
+import { appConfirm } from '@/utils/dialog'
 
 /**
  * CMS View: ArticleListView
@@ -34,8 +35,8 @@ export default defineComponent({
       )
     })
 
-    const deleteArticle = (id: number) => {
-      if (confirm('Are you sure you want to delete this article? This action cannot be undone.')) {
+    const deleteArticle = async (id: number) => {
+      if (await appConfirm('Are you sure you want to delete this article? This action cannot be undone.', 'Confirm Deletion')) {
         cmsContentStore.deleteArticle(id)
       }
     }

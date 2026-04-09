@@ -4,6 +4,7 @@ import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
 import { useLocalizedField } from '@/composables/useLocalizedField'
+import { appConfirm } from '@/utils/dialog'
 
 /**
  * CMS View: CategoryListView
@@ -27,10 +28,11 @@ export default defineComponent({
       )
     })
 
-    const deleteCategory = (id: string) => {
+    const deleteCategory = async (id: string) => {
       if (
-        confirm(
+        await appConfirm(
           'Are you sure you want to delete this category? Articles under this category may still persist but references will be broken.',
+          'Confirm Deletion'
         )
       ) {
         cmsContentStore.deleteCategory(id)

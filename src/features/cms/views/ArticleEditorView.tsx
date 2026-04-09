@@ -8,6 +8,7 @@ import type { ArticleStatus, Category, Author } from '@/shared/types'
 import { ARTICLE_STATUS_LABELS } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
 import { Tabs } from '@/components/ui/Tabs'
+import { appAlert } from '@/utils/dialog'
 
 /**
  * CMS View: ArticleEditorView
@@ -180,7 +181,7 @@ export default defineComponent({
         else if (errors.value.titleZh) currentStep.value = 2
         else currentStep.value = 3 // Settings step
 
-        alert('Please fix the validation errors before saving.')
+        await appAlert('Please fix the validation errors before saving.', 'Validation Error')
         return
       }
 
@@ -225,7 +226,7 @@ export default defineComponent({
         router.push('/cms/articles')
       } catch (err) {
         console.error('Save failed:', err)
-        alert('Failed to save article. Please check your credentials and try again.')
+        await appAlert('Failed to save article. Please check your credentials and try again.', 'Save Failed')
       }
     }
 
