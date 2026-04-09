@@ -33,9 +33,7 @@ export default defineComponent({
     })
 
     onMounted(async () => {
-      if (store.articles.length === 0) {
-        await store.initStore()
-      }
+      // Data is automatically fetched by Tanstack Vue Query via ArticleStore
     })
 
     return () => (

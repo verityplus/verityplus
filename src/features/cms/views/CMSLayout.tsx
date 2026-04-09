@@ -20,12 +20,6 @@ export default defineComponent({
       router.push('/cms/login')
     }
 
-    onMounted(async () => {
-      if (articleStore.articles.length === 0) {
-        await articleStore.initStore()
-      }
-    })
-
     return () => (
       <div class="cms-layout bg-slate-50 min-h-screen text-slate-800">
         <CMSSidebar collapsed={sidebarCollapsed.value} />

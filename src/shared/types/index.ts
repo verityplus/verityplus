@@ -42,9 +42,9 @@ export interface Article {
   coverImageCaptionZh: string
   category: Category
   author: Author
-  tagsId: string[]
-  tagsEn: string[]
-  tagsZh: string[]
+  tagsId: string
+  tagsEn: string
+  tagsZh: string
   publishedAt: string
   readTimeMinutes: number
   status: ArticleStatus

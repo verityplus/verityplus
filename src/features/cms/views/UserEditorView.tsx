@@ -38,16 +38,20 @@ export default defineComponent({
       loadData()
     })
 
-    const save = () => {
+    const save = async () => {
       if (!form.value.username || !form.value.email) return
 
-      if (isEdit.value) {
-        store.updateUser(form.value)
-      } else {
-        store.addUser(form.value)
+      try {
+        if (isEdit.value) {
+          await store.updateUser(form.value)
+        } else {
+          await store.addUser(form.value)
+        }
+        router.push('/cms/users')
+      } catch (err) {
+        console.error('Save user failed:', err)
+        alert('Failed to save user. Please ensure you have administrative privileges.')
       }
-
-      router.push('/cms/users')
     }
 
     return () => (

@@ -1,6 +1,7 @@
-import { defineComponent, ref, computed } from 'vue'
 import { useCMSStore } from '../store/cms.store'
+import { useAuthStore } from '../store/auth.store'
 import { BaseButton } from '@/components/ui/Button'
+import { defineComponent, ref, computed } from 'vue'
 
 /**
  * CMS View: UserListView
@@ -10,6 +11,7 @@ export default defineComponent({
   name: 'UserListView',
   setup() {
     const store = useCMSStore()
+    const authStore = useAuthStore()
     const searchQuery = ref('')
 
     const filteredUsers = computed(() => {
@@ -21,7 +23,7 @@ export default defineComponent({
     })
 
     const deleteUser = (id: string) => {
-      if (id === store.currentUser?.id) {
+      if (id === authStore.currentUser?.id) {
         alert('You cannot delete yourself while logged in.')
         return
       }

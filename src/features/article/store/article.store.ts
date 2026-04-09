@@ -20,7 +20,7 @@ export const useArticleStore = defineStore('articles', () => {
     refetch: refetchArticles 
   } = useQuery({
     queryKey: ['articles'],
-    queryFn: () => ArticleService.getArticles(),
+    queryFn: () => ArticleService.getArticles({ take: 50 }), // Fetch just enough for initial sections
     initialData: [],
   })
 

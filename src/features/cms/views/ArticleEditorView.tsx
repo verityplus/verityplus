@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed, watchEffect } from 'vue'
+import { defineComponent, ref, computed, watchEffect, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
@@ -32,8 +32,8 @@ export default defineComponent({
       ),
     })
 
-    const form = ref<Article>({
-      id: Date.now(),
+    const form = ref<any>({
+      id: 0,
       slug: '',
       titleId: '',
       titleEn: '',
@@ -49,8 +49,8 @@ export default defineComponent({
       coverImageCaptionId: '',
       coverImageCaptionEn: '',
       coverImageCaptionZh: '',
-      category: articleStore.categories[0]!,
-      author: articleStore.authors[0]!,
+      category: null,
+      author: null,
       tagsId: [],
       tagsEn: [],
       tagsZh: [],
@@ -63,11 +63,28 @@ export default defineComponent({
       status: 'draft' as ArticleStatus,
     })
 
+    // Initialize defaults once data is available
+    watch(
+      () => [articleStore.categories, articleStore.authors],
+      ([cats, auths]) => {
+        if (!isEdit.value) {
+          if (!form.value.category && cats.length > 0) form.value.category = cats[0]
+          if (!form.value.author && auths.length > 0) form.value.author = auths[0]
+        }
+      },
+      { immediate: true },
+    )
+
     const loadData = async () => {
       if (isEdit.value) {
         const found = await articleStore.findBySlug(route.params.slug as string)
         if (found) {
-          form.value = JSON.parse(JSON.stringify(found))
+          const processed = JSON.parse(JSON.stringify(found))
+          // Parse stringified tags back to arrays for the UI
+          processed.tagsId = found.tagsId ? JSON.parse(found.tagsId) : []
+          processed.tagsEn = found.tagsEn ? JSON.parse(found.tagsEn) : []
+          processed.tagsZh = found.tagsZh ? JSON.parse(found.tagsZh) : []
+          form.value = processed
         }
       }
     }
@@ -111,20 +128,29 @@ export default defineComponent({
       tags.splice(index, 1)
     }
 
+    const touched = ref<Record<string, boolean>>({})
+    const showErrors = ref(false)
+
+    const errors = computed(() => {
+      const errs: Record<string, string> = {}
+      if (!form.value.titleId) errs.titleId = 'Title (ID) is required'
+      if (!form.value.titleEn) errs.titleEn = 'Title (EN) is required'
+      if (!form.value.titleZh) errs.titleZh = 'Title (ZH) is required'
+      if (!form.value.category) errs.category = 'Category is required'
+      if (!form.value.author) errs.author = 'Author is required'
+      return errs
+    })
+
     const save = async () => {
-      if (!form.value.titleId) {
-        alert('Title (ID) is required.')
-        currentStep.value = 0
-        return
-      }
-      if (!form.value.titleEn) {
-        alert('Title (EN) is required.')
-        currentStep.value = 1
-        return
-      }
-      if (!form.value.titleZh) {
-        alert('Title (ZH) is required.')
-        currentStep.value = 2
+      showErrors.value = true
+      
+      if (Object.keys(errors.value).length > 0) {
+        if (errors.value.titleId) currentStep.value = 0
+        else if (errors.value.titleEn) currentStep.value = 1
+        else if (errors.value.titleZh) currentStep.value = 2
+        else currentStep.value = 3 // Settings step
+
+        alert('Please fix the validation errors before saving.')
         return
       }
 
@@ -143,6 +169,9 @@ export default defineComponent({
         categoryId: form.value.category.id,
         authorId: form.value.author.id,
         status: form.value.status,
+        tagsId: JSON.stringify(form.value.tagsId),
+        tagsEn: JSON.stringify(form.value.tagsEn),
+        tagsZh: JSON.stringify(form.value.tagsZh),
       }
 
       try {
@@ -155,7 +184,8 @@ export default defineComponent({
           await cmsContentStore.addArticle(submissionData)
         }
         router.push('/cms/articles')
-      } catch {
+      } catch (err) {
+        console.error('Save failed:', err)
         alert('Failed to save article. Please check your credentials and try again.')
       }
     }
@@ -211,10 +241,21 @@ export default defineComponent({
                         form.value.slug = generateSlug(val)
                       }
                     }}
+                    onBlur={() => markTouched(`title${activeLangSuffix.value}`)}
                     type="text"
                     placeholder={`Enter headline in ${steps[currentStep.value]}...`}
-                    class="w-full text-3xl sm:text-4xl rounded-xl border border-transparent focus:border-slate-100 focus:bg-slate-50/20 p-2 outline-none font-black text-slate-900 placeholder-slate-200 transition"
+                    class={[
+                      'w-full text-3xl sm:text-4xl rounded-xl border border-transparent focus:border-slate-100 focus:bg-slate-50/20 p-2 outline-none font-black transition',
+                      (showErrors.value || touched.value[`title${activeLangSuffix.value}`]) && errors.value[`title${activeLangSuffix.value}`] 
+                        ? 'text-red-600 placeholder-red-200' 
+                        : 'text-slate-900 placeholder-slate-200'
+                    ]}
                   />
+                  {(showErrors.value || touched.value[`title${activeLangSuffix.value}`]) && errors.value[`title${activeLangSuffix.value}`] && (
+                    <p class="text-[10px] font-black text-red-500 uppercase tracking-widest animate-in fade-in slide-in-from-top-1">
+                      {errors.value[`title${activeLangSuffix.value}`]}
+                    </p>
+                  )}
                 </div>
 
                 {/* Excerpt Section */}
@@ -405,21 +446,33 @@ export default defineComponent({
                   Category
                 </label>
                 <select
-                  value={form.value.category.id}
+                  value={form.value.category?.id || ''}
                   onChange={(e) => {
                     const cat = articleStore.categories.find(
                       (c) => c.id === (e.target as HTMLSelectElement).value,
                     )
                     if (cat) form.value.category = cat
                   }}
-                  class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white text-xs font-bold text-slate-700 transition cursor-pointer outline-none"
+                  onBlur={() => markTouched('category')}
+                  class={[
+                    'w-full px-3 py-2 rounded-xl border bg-slate-50/50 focus:bg-white text-xs font-bold transition cursor-pointer outline-none',
+                    (showErrors.value || touched.value.category) && errors.value.category 
+                      ? 'border-red-200 text-red-600' 
+                      : 'border-slate-200 text-slate-700'
+                  ]}
                 >
+                  <option value="" disabled>Select Category</option>
                   {articleStore.categories.map((cat) => (
                     <option key={cat.id} value={cat.id}>
                       {cat.nameId}
                     </option>
                   ))}
                 </select>
+                {(showErrors.value || touched.value.category) && errors.value.category && (
+                  <p class="text-[10px] font-black text-red-500 uppercase tracking-widest">
+                    {errors.value.category}
+                  </p>
+                )}
               </div>
 
               <div class="pt-6 border-t border-slate-50 space-y-3">
@@ -427,21 +480,33 @@ export default defineComponent({
                   Author / Character
                 </label>
                 <select
-                  value={form.value.author.id}
+                  value={form.value.author?.id || ''}
                   onChange={(e) => {
                     const auth = articleStore.authors.find(
                       (a) => a.id === (e.target as HTMLSelectElement).value,
                     )
                     if (auth) form.value.author = auth
                   }}
-                  class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs font-black text-slate-700 outline-none"
+                  onBlur={() => markTouched('author')}
+                  class={[
+                    'w-full px-3 py-2 rounded-xl border bg-slate-50/50 text-xs font-black transition outline-none',
+                    (showErrors.value || touched.value.author) && errors.value.author 
+                      ? 'border-red-200 text-red-600' 
+                      : 'border-slate-200 text-slate-700'
+                  ]}
                 >
+                  <option value="" disabled>Select Author</option>
                   {articleStore.authors.map((a) => (
                     <option key={a.id} value={a.id}>
                       {a.name}
                     </option>
                   ))}
                 </select>
+                {(showErrors.value || touched.value.author) && errors.value.author && (
+                  <p class="text-[10px] font-black text-red-500 uppercase tracking-widest">
+                    {errors.value.author}
+                  </p>
+                )}
               </div>
             </div>
           </aside>

@@ -3,8 +3,8 @@ import { apolloClient } from '@/shared/services/apollo'
 import { gql } from '@apollo/client/core'
 
 const GET_ARTICLES = gql`
-  query GetArticles {
-    articles {
+  query GetArticles($search: String, $take: Int, $skip: Int, $categoryId: String, $authorId: String) {
+    articles(search: $search, take: $take, skip: $skip, categoryId: $categoryId, authorId: $authorId) {
       id
       slug
       titleId
@@ -110,8 +110,8 @@ const GET_AUTHORS = gql`
 `
 
 const CREATE_CATEGORY = gql`
-  mutation CreateCategory($nameId: String!, $nameEn: String!, $nameZh: String!, $slug: String!, $color: String!, $bgColor: String!, $borderColor: String!) {
-    createCategory(nameId: $nameId, nameEn: $nameEn, nameZh: $nameZh, slug: $slug, color: $color, bgColor: $bgColor, borderColor: $borderColor) {
+  mutation CreateCategory($input: CreateCategoryInput!) {
+    createCategory(input: $input) {
       id
       slug
     }
@@ -119,8 +119,8 @@ const CREATE_CATEGORY = gql`
 `
 
 const UPDATE_CATEGORY = gql`
-  mutation UpdateCategory($id: String!, $nameId: String!, $nameEn: String!, $nameZh: String!, $slug: String!, $color: String!, $bgColor: String!, $borderColor: String!) {
-    updateCategory(id: $id, nameId: $nameId, nameEn: $nameEn, nameZh: $nameZh, slug: $slug, color: $color, bgColor: $bgColor, borderColor: $borderColor) {
+  mutation UpdateCategory($input: CreateCategoryInput!, $id: String!) {
+    updateCategory(id: $id, input: $input) {
       id
       slug
     }
@@ -136,8 +136,8 @@ const DELETE_CATEGORY = gql`
 `
 
 const CREATE_AUTHOR = gql`
-  mutation CreateAuthor($name: String!, $avatar: String!, $role: String, $bioId: String!, $bioEn: String!, $bioZh: String!) {
-    createAuthor(name: $name, avatar: $avatar, role: $role, bioId: $bioId, bioEn: $bioEn, bioZh: $bioZh) {
+  mutation CreateAuthor($input: CreateAuthorInput!) {
+    createAuthor(input: $input) {
       id
       name
     }
@@ -145,8 +145,8 @@ const CREATE_AUTHOR = gql`
 `
 
 const UPDATE_AUTHOR = gql`
-  mutation UpdateAuthor($id: String!, $name: String!, $avatar: String!, $role: String, $bioId: String!, $bioEn: String!, $bioZh: String!) {
-    updateAuthor(id: $id, name: $name, avatar: $avatar, role: $role, bioId: $bioId, bioEn: $bioEn, bioZh: $bioZh) {
+  mutation UpdateAuthor($input: CreateAuthorInput!, $id: String!) {
+    updateAuthor(id: $id, input: $input) {
       id
       name
     }
@@ -162,16 +162,8 @@ const DELETE_AUTHOR = gql`
 `
 
 const CREATE_ARTICLE = gql`
-  mutation CreateArticle(
-    $titleId: String!, $titleEn: String!, $titleZh: String!,
-    $slug: String!, $contentId: String!, $contentEn: String!, $contentZh: String!,
-    $categoryId: String!, $authorId: String!, $status: String!
-  ) {
-    createArticle(
-      titleId: $titleId, titleEn: $titleEn, titleZh: $titleZh,
-      slug: $slug, contentId: $contentId, contentEn: $contentEn, contentZh: $contentZh,
-      categoryId: $categoryId, authorId: $authorId, status: $status
-    ) {
+  mutation CreateArticle($input: CreateArticleInput!) {
+    createArticle(input: $input) {
       id
       slug
     }
@@ -179,16 +171,8 @@ const CREATE_ARTICLE = gql`
 `
 
 const UPDATE_ARTICLE = gql`
-  mutation UpdateArticle(
-    $id: Int!, $titleId: String!, $titleEn: String!, $titleZh: String!,
-    $slug: String!, $contentId: String!, $contentEn: String!, $contentZh: String!,
-    $categoryId: String!, $authorId: String!, $status: String!
-  ) {
-    updateArticle(
-      id: $id, titleId: $titleId, titleEn: $titleEn, titleZh: $titleZh,
-      slug: $slug, contentId: $contentId, contentEn: $contentEn, contentZh: $contentZh,
-      categoryId: $categoryId, authorId: $authorId, status: $status
-    ) {
+  mutation UpdateArticle($input: UpdateArticleInput!) {
+    updateArticle(input: $input) {
       id
       slug
     }
@@ -208,8 +192,11 @@ const DELETE_ARTICLE = gql`
  * Refactored to use GraphQL via Apollo Client.
  */
 export const ArticleService = {
-  async getArticles(): Promise<Article[]> {
-    const result = await apolloClient.query<{ articles: Article[] }>({ query: GET_ARTICLES })
+  async getArticles(args: { search?: string; take?: number; skip?: number; categoryId?: string; authorId?: string } = {}): Promise<Article[]> {
+    const result = await apolloClient.query<{ articles: Article[] }>({ 
+      query: GET_ARTICLES,
+      variables: args
+    })
     return result.data?.articles || []
   },
 
@@ -222,17 +209,7 @@ export const ArticleService = {
   },
 
   async searchArticles(query: string): Promise<Article[]> {
-    const articles = await this.getArticles()
-    const q = query.toLowerCase().trim()
-    if (!q) return []
-    return articles.filter(
-      (a) =>
-        [a.titleId, a.titleEn, a.titleZh].some((title) => title && title.toLowerCase().includes(q)) ||
-        [a.excerptId, a.excerptEn, a.excerptZh].some((excerpt) => excerpt && excerpt.toLowerCase().includes(q)) ||
-        [a.category.nameId, a.category.nameEn, a.category.nameZh].some(
-          (name) => name && name.toLowerCase().includes(q)
-        ),
-    )
+    return this.getArticles({ search: query })
   },
 
   async getAllCategories(): Promise<Category[]> {
@@ -248,7 +225,7 @@ export const ArticleService = {
   async createArticle(data: any): Promise<Article> {
     const result = await apolloClient.mutate<{ createArticle: Article }>({
       mutation: CREATE_ARTICLE,
-      variables: data,
+      variables: { input: data },
     })
     return result.data!.createArticle
   },
@@ -256,7 +233,7 @@ export const ArticleService = {
   async updateArticle(data: any): Promise<Article> {
     const result = await apolloClient.mutate<{ updateArticle: Article }>({
       mutation: UPDATE_ARTICLE,
-      variables: data,
+      variables: { input: data },
     })
     return result.data!.updateArticle
   },
@@ -271,15 +248,16 @@ export const ArticleService = {
   async createCategory(data: any): Promise<Category> {
     const result = await apolloClient.mutate<{ createCategory: Category }>({
       mutation: CREATE_CATEGORY,
-      variables: data,
+      variables: { input: data },
     })
     return result.data!.createCategory
   },
 
   async updateCategory(data: any): Promise<Category> {
+    const { id, ...input } = data
     const result = await apolloClient.mutate<{ updateCategory: Category }>({
       mutation: UPDATE_CATEGORY,
-      variables: data,
+      variables: { id, input },
     })
     return result.data!.updateCategory
   },
@@ -294,15 +272,16 @@ export const ArticleService = {
   async createAuthor(data: any): Promise<Author> {
     const result = await apolloClient.mutate<{ createAuthor: Author }>({
       mutation: CREATE_AUTHOR,
-      variables: data,
+      variables: { input: data },
     })
     return result.data!.createAuthor
   },
 
   async updateAuthor(data: any): Promise<Author> {
+    const { id, ...input } = data
     const result = await apolloClient.mutate<{ updateAuthor: Author }>({
       mutation: UPDATE_AUTHOR,
-      variables: data,
+      variables: { id, input },
     })
     return result.data!.updateAuthor
   },
