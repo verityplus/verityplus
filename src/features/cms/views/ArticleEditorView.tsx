@@ -71,8 +71,7 @@ export default defineComponent({
       contentId: '',
       contentEn: '',
       contentZh: '',
-      coverImage:
-        'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80',
+      coverImage: '/universal-placeholder.png',
       coverImageCaptionId: '',
       coverImageCaptionEn: '',
       coverImageCaptionZh: '',

@@ -8,6 +8,8 @@ import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { ArticleStatus } from '@/shared/types'
 import { ARTICLE_STATUS_LABELS } from '@/shared/types'
 import { appConfirm } from '@/utils/dialog'
+import { BaseImage } from '@/components/ui/Image'
+
 
 /**
  * CMS View: ArticleListView
@@ -99,10 +101,11 @@ export default defineComponent({
                     <tr key={article.id} class="hover:bg-slate-50/50 transition group">
                       <td class="px-6 py-5">
                         <div class="flex items-center gap-3">
-                          <img
+                          <BaseImage
                             src={article.coverImage}
                             class="w-10 h-10 rounded-lg object-cover shadow-sm bg-slate-100"
                           />
+
                           <div class="flex flex-col">
                             <span class="text-slate-900 font-bold leading-tight group-hover:text-primary transition">
                               {getLocalizedField(article, 'title')}

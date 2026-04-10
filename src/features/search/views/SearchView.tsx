@@ -7,7 +7,9 @@ import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
 import { useLocalizedField } from '@/composables/useLocalizedField'
+import { BaseImage } from '@/components/ui/Image'
 import type { Article } from '@/shared/types'
+
 import { SearchInput } from '../components/SearchInput'
 
 /**
@@ -80,11 +82,12 @@ export default defineComponent({
                     class="flex flex-col md:flex-row gap-6 p-4 rounded-xl hover:bg-surface-hover transition duration-300 border border-transparent hover:border-border"
                   >
                     <div class="w-full md:w-64 h-44 shrink-0 overflow-hidden rounded-lg bg-surface-muted">
-                      <img
+                      <BaseImage
                         src={article.coverImage}
                         alt={getLocalizedField(article, 'title')}
                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                       />
+
                     </div>
 
                     <div class="flex flex-col justify-center flex-1">

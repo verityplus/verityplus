@@ -3,6 +3,8 @@ import { RouterLink } from 'vue-router'
 import type { Article } from '@/shared/types'
 import { BaseBadge } from '@/components/ui/Badge'
 import { useLocalizedField } from '@/composables/useLocalizedField'
+import { BaseImage } from '@/components/ui/Image'
+
 
 /**
  * Feature Component: ArticleCard
@@ -51,11 +53,12 @@ export const ArticleCard = defineComponent({
               isHorizontal ? 'md:w-1/2' : '',
             ]}
           >
-            <img
+            <BaseImage
               src={props.article.coverImage}
               alt={getLocalizedField(props.article, 'title')}
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
+
             {!isHorizontal && (
               <div class="absolute top-3 left-3">
                 <RouterLink

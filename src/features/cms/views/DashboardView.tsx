@@ -4,6 +4,8 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSStore } from '../store/cms.store'
 import { useAnalyticsStore } from '@/features/analytics/store/analytics.store'
 import { useLocalizedField } from '@/composables/useLocalizedField'
+import { BaseImage } from '@/components/ui/Image'
+
 
 /**
  * CMS View: DashboardView
@@ -173,10 +175,11 @@ export default defineComponent({
                   class="p-6 flex items-center justify-between group hover:bg-slate-50 transition duration-300"
                 >
                   <div class="flex items-center gap-4">
-                    <img
+                    <BaseImage
                       src={article.coverImage}
                       class="w-12 h-12 rounded-lg object-cover shadow-sm bg-slate-100"
                     />
+
                     <div class="flex flex-col">
                       <h4 class="font-bold text-slate-900 leading-tight group-hover:text-primary transition">
                         {getLocalizedField(article, 'title')}

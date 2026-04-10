@@ -8,7 +8,9 @@ import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { BaseBadge } from '@/components/ui/Badge'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { useLocalizedField } from '@/composables/useLocalizedField'
+import { BaseImage } from '@/components/ui/Image'
 import type { Article } from '@/shared/types'
+
 
 /**
  * Page View: ReadView
@@ -197,11 +199,13 @@ export default defineComponent({
                     to={{ name: 'author', params: { id: article.value.author.id } }}
                     class="flex items-center justify-center gap-4 pt-4 max-w-sm mx-auto group/author hover:opacity-80 transition"
                   >
-                    <img
+                    <BaseImage
                       src={article.value.author.avatar}
                       alt={article.value.author.name}
+                      isProfile
                       class="w-12 h-12 rounded-full border-2 border-primary/20 shadow-sm object-cover group-hover/author:border-primary transition-colors"
                     />
+
                     <div class="text-left">
                       <p class="text-text-primary font-bold leading-none mb-1 group-hover/author:text-primary transition-colors">
                         {article.value.author.name}
@@ -215,11 +219,12 @@ export default defineComponent({
               {/* Cover Media */}
               <div class="mb-12">
                 <div class="aspect-video rounded-2xl overflow-hidden shadow-elevated bg-surface-muted">
-                  <img
+                  <BaseImage
                     src={article.value.coverImage}
                     alt={getLocalizedField(article.value, 'title')}
                     class="w-full h-full object-cover"
                   />
+
                 </div>
                 {getLocalizedField(article.value, 'coverImageCaption') && (
                   <p class="text-center text-sm text-text-muted mt-4 italic">

@@ -6,7 +6,9 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { useLocalizedField } from '@/composables/useLocalizedField'
+import { BaseImage } from '@/components/ui/Image'
 import type { Article, Author } from '@/shared/types'
+
 
 /**
  * Page View: AuthorView
@@ -72,11 +74,13 @@ export default defineComponent({
             <div class="bg-surface rounded-2xl border border-border p-8 sm:p-12 mb-12 shadow-card">
               <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
                 <div class="w-32 h-32 shrink-0 overflow-hidden rounded-full border-4 border-primary/10 shadow-lg">
-                  <img
+                  <BaseImage
                     src={author.value.avatar}
                     alt={author.value.name}
+                    isProfile
                     class="w-full h-full object-cover"
                   />
+
                 </div>
                 <div class="flex-grow text-center md:text-left">
                   <h1 class="text-3xl sm:text-4xl font-extrabold text-text-primary mb-3">

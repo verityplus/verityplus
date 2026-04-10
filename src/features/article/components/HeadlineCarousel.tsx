@@ -4,7 +4,9 @@ import { useI18n } from 'vue-i18n'
 import { useArticleStore } from '../store/article.store'
 import { BaseBadge } from '@/components/ui/Badge'
 import { useLocalizedField } from '@/composables/useLocalizedField'
+import { BaseImage } from '@/components/ui/Image'
 import type { Article } from '@/shared/types'
+
 
 /**
  * Feature Component: HeadlineCarousel
@@ -65,11 +67,12 @@ export const HeadlineCarousel = defineComponent({
                   to={{ name: 'read', params: { slug: item.slug } }}
                   class="block w-full h-full relative focus:outline-none focus:ring-4 focus:ring-primary/40 focus:ring-inset"
                 >
-                  <img
+                  <BaseImage
                     src={item.coverImage}
                     alt={getLocalizedField(item, 'title')}
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
+
 
                   {/* Gradient Overlay */}
                   <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>

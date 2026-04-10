@@ -4,6 +4,8 @@ import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import { BaseButton } from '@/components/ui/Button'
 import { useLocalizedField } from '@/composables/useLocalizedField'
 import { appConfirm } from '@/utils/dialog'
+import { BaseImage } from '@/components/ui/Image'
+
 
 /**
  * CMS View: CharacterListView
@@ -84,10 +86,12 @@ export default defineComponent({
                   <tr key={char.id} class="hover:bg-slate-50/50 transition group">
                     <td class="px-6 py-5 min-w-[200px]">
                       <div class="flex items-center gap-3">
-                        <img
+                        <BaseImage
                           src={char.avatar}
+                          isProfile
                           class="w-10 h-10 rounded-full object-cover shadow-sm bg-slate-100"
                         />
+
                         <div class="flex flex-col">
                           <span class="text-slate-900 font-bold leading-tight group-hover:text-primary transition">
                             {char.name}
