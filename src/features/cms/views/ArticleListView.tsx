@@ -37,7 +37,7 @@ export default defineComponent({
 
     const deleteArticle = async (id: number) => {
       if (await appConfirm('Are you sure you want to delete this article? This action cannot be undone.', 'Confirm Deletion')) {
-        cmsContentStore.deleteArticle(id)
+        await cmsContentStore.deleteArticle(id)
       }
     }
 

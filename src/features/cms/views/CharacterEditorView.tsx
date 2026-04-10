@@ -61,7 +61,8 @@ export default defineComponent({
         if (isEdit.value) {
           await cmsContentStore.updateAuthor(form.value)
         } else {
-          await cmsContentStore.addAuthor(form.value)
+          const { id: _id, ...createData } = form.value
+          await cmsContentStore.addAuthor(createData)
         }
         router.push('/cms/characters')
       } catch {

@@ -35,7 +35,7 @@ export default defineComponent({
           'Confirm Deletion'
         )
       ) {
-        cmsContentStore.deleteCategory(id)
+        await cmsContentStore.deleteCategory(id)
       }
     }
 

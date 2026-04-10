@@ -40,7 +40,15 @@ export default defineComponent({
     })
 
     const save = async () => {
-      if (!form.value.username || !form.value.email) return
+      if (!form.value.username || !form.value.email) {
+        await appAlert('Username and email are required.', 'Validation Error')
+        return
+      }
+
+      if (!isEdit.value && !form.value.password) {
+        await appAlert('Password is required for new users.', 'Validation Error')
+        return
+      }
 
       try {
         if (isEdit.value) {

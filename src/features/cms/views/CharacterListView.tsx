@@ -33,7 +33,7 @@ export default defineComponent({
           'Confirm Deletion'
         )
       ) {
-        cmsContentStore.deleteAuthor(id)
+        await cmsContentStore.deleteAuthor(id)
       }
     }
 

@@ -77,7 +77,8 @@ export default defineComponent({
         if (isEdit.value) {
           await cmsContentStore.updateCategory(form.value)
         } else {
-          await cmsContentStore.addCategory(form.value)
+          const { id: _id, ...createData } = form.value
+          await cmsContentStore.addCategory(createData)
         }
         router.push('/cms/categories')
       } catch {

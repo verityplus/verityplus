@@ -34,7 +34,7 @@ export default defineComponent({
           'Confirm Deletion'
         )
       ) {
-        store.deleteUser(id)
+        await store.deleteUser(id)
       }
     }
 
