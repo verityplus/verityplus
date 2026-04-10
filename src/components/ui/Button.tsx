@@ -43,13 +43,6 @@ export const BaseButton = defineComponent({
       default: 'button',
     },
     /**
-     * Standard button click event.
-     */
-    onClick: {
-      type: Function as PropType<(payload: MouseEvent) => void>,
-      default: undefined,
-    },
-    /**
      * Allows custom tailwind classes.
      */
     class: {
