@@ -139,7 +139,7 @@ export default defineComponent({
                       <td class="px-6 py-5 text-right">
                         <div class="flex items-center justify-end gap-2 translate-x-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition duration-300">
                           <router-link
-                            to={`/cms/articles/${article.slug}/edit`}
+                            to={`/cms/articles/${article.id}/edit`}
                             class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition cursor-pointer"
                           >
                             <i class="bi bi-pencil-square" title="Edit Article" />

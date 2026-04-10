@@ -79,9 +79,9 @@ export const useArticleStore = defineStore('articles', () => {
 
   // --- Methods ---
 
-  /** Find an article by its unique slug */
-  const findBySlug = async (slug: string): Promise<Article | undefined> => {
-    return ArticleService.getArticleBySlug(slug)
+  /** Find an article by its unique id */
+  const findById = async (id: string): Promise<Article | undefined> => {
+    return ArticleService.getArticleById(id)
   }
 
   /** Search articles by query string */
@@ -94,7 +94,7 @@ export const useArticleStore = defineStore('articles', () => {
     return categories.value
       .map((c) => ({
         category: c,
-        count: articles.value.filter((a) => a.category.slug === c.slug).length,
+        count: articles.value.filter((a) => a.category.id === c.id).length,
       }))
       .filter((c) => c.count > 0)
   })
@@ -109,14 +109,14 @@ export const useArticleStore = defineStore('articles', () => {
     return articles.value.filter((a) => a.author.id === id)
   }
 
-  /** Find a category by its slug */
-  const findCategoryBySlug = (slug: string): Category | undefined => {
-    return categories.value.find((c) => c.slug === slug)
+  /** Find a category by its id */
+  const findCategoryById = (id: string): Category | undefined => {
+    return categories.value.find((c) => c.id === id)
   }
 
-  /** Find all articles in a specific category */
-  const findArticlesByCategory = (slug: string): Article[] => {
-    return articles.value.filter((a) => a.category.slug === slug)
+  /** Find all articles in a specific category by its id */
+  const findArticlesByCategoryId = (id: string): Article[] => {
+    return articles.value.filter((a) => a.category.id === id)
   }
 
   const latestNextPage = () => {
@@ -160,13 +160,13 @@ export const useArticleStore = defineStore('articles', () => {
     gridNextPage,
     gridPrevPage,
     resetPagination,
-    findBySlug,
+    findById,
     search,
     getCategoryWithCount,
     findAuthorById,
     findArticlesByAuthor,
-    findCategoryBySlug,
-    findArticlesByCategory,
+    findCategoryById,
+    findArticlesByCategoryId,
     refetchArticles,
   }
 })

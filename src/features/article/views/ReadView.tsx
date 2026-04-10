@@ -31,13 +31,13 @@ export default defineComponent({
     const recommendedArticles = ref<Article[]>([])
 
     watch(
-      () => route.params.slug,
-      async (slug) => {
-        if (slug) {
-          const found = await store.findBySlug(slug as string)
+      () => route.params.id,
+      async (id) => {
+        if (id) {
+          const found = await store.findById(id as string)
           article.value = found || null
           if (article.value) {
-            const sameCategory = store.findArticlesByCategory(article.value.category.slug)
+            const sameCategory = store.findArticlesByCategoryId(article.value.category.id)
             recommendedArticles.value = sameCategory
               .filter((a) => a.id !== article.value!.id)
               .slice(0, 3)
@@ -170,11 +170,11 @@ export default defineComponent({
                 <div class="max-w-3xl mx-auto text-center">
                   <div class="flex items-center justify-center gap-3 mb-6">
                     <RouterLink
-                      to={{ name: 'category', params: { slug: article.value.category.slug } }}
+                      to={{ name: 'category', params: { id: article.value.category.id } }}
                       class="no-underline"
                     >
                       <RouterLink
-                        to={{ name: 'category', params: { slug: article.value.category.slug } }}
+                        to={{ name: 'category', params: { id: article.value.category.id } }}
                         class="no-underline"
                       >
                         <BaseBadge>

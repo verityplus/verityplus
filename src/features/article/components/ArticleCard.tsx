@@ -43,7 +43,7 @@ export const ArticleCard = defineComponent({
       <article class={['group card h-full relative', props.class]}>
         {/* Main Article Link */}
         <RouterLink
-          to={{ name: 'read', params: { slug: props.article.slug } }}
+          to={{ name: 'read', params: { id: props.article.id } }}
           class={['flex h-full no-underline', isHorizontal ? 'flex-col md:flex-row' : 'flex-col']}
         >
           {/* Cover Image Container */}
@@ -62,7 +62,7 @@ export const ArticleCard = defineComponent({
             {!isHorizontal && (
               <div class="absolute top-3 left-3">
                 <RouterLink
-                  to={{ name: 'category', params: { slug: props.article.category.slug } }}
+                  to={{ name: 'category', params: { id: props.article.category.id } }}
                   class="pointer-events-auto no-underline"
                   onClick={(e) => e.stopPropagation()}
                 >
@@ -78,7 +78,7 @@ export const ArticleCard = defineComponent({
           <div class={['flex flex-col flex-1 p-5', isHorizontal ? 'md:w-1/2 justify-center' : '']}>
             {isHorizontal && (
               <RouterLink
-                to={{ name: 'category', params: { slug: props.article.category.slug } }}
+                to={{ name: 'category', params: { id: props.article.category.id } }}
                 class="no-underline"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -112,7 +112,7 @@ export const ArticleCard = defineComponent({
               {!isHorizontal && (
                 <div class="absolute top-3 left-3">
                   <RouterLink
-                    to={{ name: 'category', params: { slug: props.article.category.slug } }}
+                    to={{ name: 'category', params: { id: props.article.category.id } }}
                     class="pointer-events-auto no-underline"
                     onClick={(e) => e.stopPropagation()}
                   >

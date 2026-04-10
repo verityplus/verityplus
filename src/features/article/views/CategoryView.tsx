@@ -41,11 +41,11 @@ export default defineComponent({
     }
 
     watch(
-      () => route.params.slug,
-      (slug) => {
-        if (slug) {
-          category.value = store.findCategoryBySlug(slug as string) || null
-          categoryArticles.value = store.findArticlesByCategory(slug as string)
+      () => route.params.id,
+      (id) => {
+        if (id) {
+          category.value = store.findCategoryById(id as string) || null
+          categoryArticles.value = store.findArticlesByCategoryId(id as string)
         }
       },
       { immediate: true },

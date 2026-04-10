@@ -64,7 +64,7 @@ export const HeadlineCarousel = defineComponent({
                 class="w-full h-full flex-shrink-0 relative overflow-hidden hero-height"
               >
                 <RouterLink
-                  to={{ name: 'read', params: { slug: item.slug } }}
+                  to={{ name: 'read', params: { id: item.id } }}
                   class="block w-full h-full relative focus:outline-none focus:ring-4 focus:ring-primary/40 focus:ring-inset"
                 >
                   <BaseImage
@@ -80,12 +80,12 @@ export const HeadlineCarousel = defineComponent({
                   {/* Content Overlay */}
                   <div class="absolute bottom-0 left-0 right-0 p-6 md:p-10 text-white">
                     <RouterLink
-                      to={{ name: 'category', params: { slug: item.category.slug } }}
+                      to={{ name: 'category', params: { id: item.category.id } }}
                       class="no-underline inline-block mb-3"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <RouterLink
-                        to={{ name: 'category', params: { slug: item.category.slug } }}
+                        to={{ name: 'category', params: { id: item.category.id } }}
                         class="no-underline inline-block mb-3"
                         onClick={(e) => e.stopPropagation()}
                       >

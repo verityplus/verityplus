@@ -68,7 +68,7 @@ const router = createRouter({
           component: () => import('../features/search/views/SearchView'),
         },
         {
-          path: 'read/:slug',
+          path: 'read/:id',
           name: 'read',
           component: () => import('../features/article/views/ReadView'),
         },
@@ -78,7 +78,7 @@ const router = createRouter({
           component: () => import('../features/article/views/AuthorView'),
         },
         {
-          path: 'categories/:slug',
+          path: 'categories/:id',
           name: 'category',
           component: () => import('../features/article/views/CategoryView'),
         },
@@ -120,7 +120,7 @@ const router = createRouter({
           meta: { title: 'New Article | CMS' },
         },
         {
-          path: 'articles/:slug/edit',
+          path: 'articles/:id/edit',
           name: 'cms-articles-edit',
           component: () => import('../features/cms/views/ArticleEditorView'),
           meta: { title: 'Edit Article | CMS' },

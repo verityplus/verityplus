@@ -26,11 +26,11 @@ export const ArticleGrid = defineComponent({
     const displayedArticles = computed(() => {
       return activeCategory.value === 'all'
         ? nonFeaturedArticles.value
-        : store.articles.filter((a: Article) => a.category.slug === activeCategory.value)
+        : store.articles.filter((a: Article) => a.category.id === activeCategory.value)
     })
 
     const categories = computed(() => [
-      { id: 'all', name: t('common.all'), slug: 'all' },
+      { id: 'all', name: t('common.all') },
       ...store.categories,
     ])
 
@@ -51,11 +51,11 @@ export const ArticleGrid = defineComponent({
               <button
                 key={cat.id}
                 onClick={() => {
-                  activeCategory.value = cat.slug
+                  activeCategory.value = cat.id
                 }}
                 class={[
                   'h-full px-5 text-sm font-bold transition-all duration-300 rounded-full cursor-pointer whitespace-nowrap border-2',
-                  activeCategory.value === cat.slug
+                  activeCategory.value === cat.id
                     ? 'bg-primary text-text-inverse border-primary shadow-lg shadow-primary/20 scale-105'
                     : 'bg-surface text-text-muted border-transparent hover:border-border hover:text-text-primary',
                 ]}

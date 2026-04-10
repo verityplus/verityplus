@@ -18,12 +18,10 @@ export interface Category {
   nameId: string
   nameEn: string
   nameZh: string
-  slug: string
 }
 
 export interface Article {
-  id: number
-  slug: string
+  id: string
   titleId: string
   titleEn: string
   titleZh: string
@@ -167,7 +165,6 @@ export interface CreateArticleInput {
   titleId: string
   titleEn: string
   titleZh: string
-  slug: string
   contentId: string
   contentEn: string
   contentZh: string
@@ -189,14 +186,13 @@ export interface CreateArticleInput {
 }
 
 export interface UpdateArticleInput extends CreateArticleInput {
-  id: number
+  id: string
 }
 
 export interface CreateCategoryInput {
   nameId: string
   nameEn: string
   nameZh: string
-  slug: string
 }
 
 export interface UpdateCategoryInput extends CreateCategoryInput {

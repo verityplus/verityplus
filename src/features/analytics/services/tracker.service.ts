@@ -94,19 +94,19 @@ export function getAnalyticsSummary(): AnalyticsSummary {
   }
 }
 
-export function getArticleViews(): { slug: string; views: number; title: string }[] {
+export function getArticleViews(): { id: string; views: number; title: string }[] {
   // Mock Google Analytics specific article hits
   return [
-    { slug: 'startup-growth', views: 980, title: 'The Ultimate Guide to Startup Growth in 2024' },
+    { id: 'startup-growth', views: 980, title: 'The Ultimate Guide to Startup Growth in 2024' },
     {
-      slug: 'future-of-ai',
+      id: 'future-of-ai',
       views: 745,
       title: 'How Artificial Intelligence is Reshaping Industries',
     },
-    { slug: 'remote-work-tips', views: 560, title: '10 Essential Tips for Mastering Remote Work' },
-    { slug: 'sustainable-tech', views: 420, title: 'Exploring Sustainable Technology Innovations' },
+    { id: 'remote-work-tips', views: 560, title: '10 Essential Tips for Mastering Remote Work' },
+    { id: 'sustainable-tech', views: 420, title: 'Exploring Sustainable Technology Innovations' },
     {
-      slug: 'cryptocurrency-101',
+      id: 'cryptocurrency-101',
       views: 245,
       title: 'Cryptocurrency 101: Understanding the Basics',
     },

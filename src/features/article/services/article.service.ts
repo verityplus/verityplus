@@ -28,7 +28,6 @@ const GET_ARTICLES = gql`
       authorId: $authorId
     ) {
       id
-      slug
       titleId
       titleEn
       titleZh
@@ -44,7 +43,6 @@ const GET_ARTICLES = gql`
         nameId
         nameEn
         nameZh
-        slug
       }
       author {
         id
@@ -55,11 +53,10 @@ const GET_ARTICLES = gql`
   }
 `
 
-const GET_ARTICLE_BY_SLUG = gql`
-  query GetArticleBySlug($slug: String!) {
-    article(slug: $slug) {
+const GET_ARTICLE_BY_ID = gql`
+  query GetArticleById($id: ID!) {
+    article(id: $id) {
       id
-      slug
       titleId
       titleEn
       titleZh
@@ -84,7 +81,6 @@ const GET_ARTICLE_BY_SLUG = gql`
         nameId
         nameEn
         nameZh
-        slug
       }
       author {
         id
@@ -105,7 +101,6 @@ const GET_CATEGORIES = gql`
       nameId
       nameEn
       nameZh
-      slug
     }
   }
 `
@@ -128,7 +123,6 @@ const CREATE_CATEGORY = gql`
   mutation CreateCategory($input: CreateCategoryInput!) {
     createCategory(input: $input) {
       id
-      slug
     }
   }
 `
@@ -137,7 +131,6 @@ const UPDATE_CATEGORY = gql`
   mutation UpdateCategory($input: CreateCategoryInput!, $id: String!) {
     updateCategory(id: $id, input: $input) {
       id
-      slug
     }
   }
 `
@@ -180,7 +173,6 @@ const CREATE_ARTICLE = gql`
   mutation CreateArticle($input: CreateArticleInput!) {
     createArticle(input: $input) {
       id
-      slug
     }
   }
 `
@@ -189,13 +181,12 @@ const UPDATE_ARTICLE = gql`
   mutation UpdateArticle($input: UpdateArticleInput!) {
     updateArticle(input: $input) {
       id
-      slug
     }
   }
 `
 
 const DELETE_ARTICLE = gql`
-  mutation DeleteArticle($id: Int!) {
+  mutation DeleteArticle($id: String!) {
     deleteArticle(id: $id) {
       id
     }
@@ -223,10 +214,10 @@ export const ArticleService = {
     return result.data?.articles || []
   },
 
-  async getArticleBySlug(slug: string): Promise<Article | undefined> {
+  async getArticleById(id: string): Promise<Article | undefined> {
     const result = await apolloClient.query<{ article: Article | null }>({
-      query: GET_ARTICLE_BY_SLUG,
-      variables: { slug },
+      query: GET_ARTICLE_BY_ID,
+      variables: { id },
     })
     return result.data?.article || undefined
   },
@@ -251,7 +242,6 @@ export const ArticleService = {
       titleId,
       titleEn,
       titleZh,
-      slug,
       contentId,
       contentEn,
       contentZh,
@@ -276,7 +266,6 @@ export const ArticleService = {
       titleId,
       titleEn,
       titleZh,
-      slug,
       contentId,
       contentEn,
       contentZh,
@@ -312,7 +301,6 @@ export const ArticleService = {
       titleId,
       titleEn,
       titleZh,
-      slug,
       contentId,
       contentEn,
       contentZh,
@@ -338,7 +326,6 @@ export const ArticleService = {
       titleId,
       titleEn,
       titleZh,
-      slug,
       contentId,
       contentEn,
       contentZh,
@@ -366,7 +353,7 @@ export const ArticleService = {
     return result.data!.updateArticle
   },
 
-  async deleteArticle(id: number): Promise<void> {
+  async deleteArticle(id: string): Promise<void> {
     await apolloClient.mutate({
       mutation: DELETE_ARTICLE,
       variables: { id },
@@ -374,8 +361,8 @@ export const ArticleService = {
   },
 
   async createCategory(data: CreateCategoryInput): Promise<Category> {
-    const { nameId, nameEn, nameZh, slug } = data
-    const input = { nameId, nameEn, nameZh, slug }
+    const { nameId, nameEn, nameZh } = data
+    const input = { nameId, nameEn, nameZh }
 
     const result = await apolloClient.mutate<{ createCategory: Category }>({
       mutation: CREATE_CATEGORY,
@@ -385,8 +372,8 @@ export const ArticleService = {
   },
 
   async updateCategory(data: UpdateCategoryInput): Promise<Category> {
-    const { id, nameId, nameEn, nameZh, slug } = data
-    const input = { nameId, nameEn, nameZh, slug }
+    const { id, nameId, nameEn, nameZh } = data
+    const input = { nameId, nameEn, nameZh }
 
     const result = await apolloClient.mutate<{ updateCategory: Category }>({
       mutation: UPDATE_CATEGORY,

@@ -133,7 +133,7 @@ export const BrowseTopBar = defineComponent({
                           {store.featured.length > 0 ? (
                             store.featured.slice(0, 5).map((article: Article) => (
                               <router-link
-                                to={{ name: 'read', params: { slug: article.slug } }}
+                                to={{ name: 'read', params: { id: article.id } }}
                                 class={articleItemClass}
                                 onClick={closeMegamenu}
                               >
@@ -166,7 +166,7 @@ export const BrowseTopBar = defineComponent({
                           {store.latest.length > 0 ? (
                             store.latest.slice(0, 3).map((article: Article) => (
                               <router-link
-                                to={{ name: 'read', params: { slug: article.slug } }}
+                                to={{ name: 'read', params: { id: article.id } }}
                                 class={articleItemClass}
                                 onClick={closeMegamenu}
                               >
@@ -199,7 +199,7 @@ export const BrowseTopBar = defineComponent({
                           {store.popular.length > 0 ? (
                             store.popular.slice(0, 5).map((article: Article) => (
                               <router-link
-                                to={{ name: 'read', params: { slug: article.slug } }}
+                                to={{ name: 'read', params: { id: article.id } }}
                                 class={articleItemClass}
                                 onClick={closeMegamenu}
                               >
@@ -233,7 +233,7 @@ export const BrowseTopBar = defineComponent({
                             store.getCategoryWithCount.map(
                               ({ category }: { category: Category; count: number }) => (
                                 <router-link
-                                  to={{ name: 'category', params: { slug: category.slug } }}
+                                  to={{ name: 'category', params: { id: category.id } }}
                                   class="px-2 py-1.5 rounded-md hover:bg-surface-active hover:text-text-primary transition cursor-pointer text-text-secondary text-xs truncate"
                                   onClick={closeMegamenu}
                                 >

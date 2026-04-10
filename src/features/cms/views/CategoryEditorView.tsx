@@ -36,7 +36,6 @@ export default defineComponent({
       nameId: '',
       nameEn: '',
       nameZh: '',
-      slug: '',
     })
 
     const loadData = () => {
@@ -68,7 +67,6 @@ export default defineComponent({
         currentStep.value = 2
         return
       }
-      if (!form.value.slug) return
 
       try {
         if (isEdit.value) {
@@ -125,12 +123,6 @@ export default defineComponent({
                   onInput={(e) => {
                     const val = (e.target as HTMLInputElement).value
                     ;(form.value as Record<string, string>)[`name${activeLangSuffix.value}`] = val
-                    if (activeLangSuffix.value === 'Id' && !isEdit.value) {
-                      form.value.slug = val
-                        .toLowerCase()
-                        .replace(/[^a-z0-9]+/g, '-')
-                        .replace(/(^-|-$)/g, '')
-                    }
                   }}
                   type="text"
                   placeholder={`e.g. ${steps[currentStep.value] === 'Bahasa Indonesia' ? 'Sains' : steps[currentStep.value] === 'English' ? 'Science' : '科学'}`}
@@ -138,22 +130,7 @@ export default defineComponent({
                 />
               </div>
 
-              {activeLangSuffix.value === 'Id' && (
-                <div class="space-y-2 animate-in fade-in">
-                  <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                    URL Slug Reference
-                  </label>
-                  <input
-                    value={form.value.slug}
-                    onInput={(e) => {
-                      form.value.slug = (e.target as HTMLInputElement).value
-                    }}
-                    type="text"
-                    placeholder="e.g. science-tech"
-                    class="w-full text-lg font-bold p-3 bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 rounded-xl outline-none text-slate-700 transition"
-                  />
-                </div>
-              )}
+
             </div>
           </div>
 

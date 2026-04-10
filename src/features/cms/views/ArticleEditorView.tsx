@@ -23,7 +23,7 @@ export default defineComponent({
     const articleStore = useArticleStore()
     const cmsContentStore = useCMSContentStore()
 
-    const isEdit = computed(() => route.params.slug !== undefined)
+    const isEdit = computed(() => route.params.id !== undefined)
     const tagInput = ref('')
     const isUploading = ref(false)
     const currentStep = ref(0)
@@ -37,7 +37,6 @@ export default defineComponent({
 
     type EditorForm = Record<string, unknown> & {
       id: number
-      slug: string
       titleId: string
       titleEn: string
       titleZh: string
@@ -63,7 +62,6 @@ export default defineComponent({
 
     const form = ref<EditorForm>({
       id: 0,
-      slug: '',
       titleId: '',
       titleEn: '',
       titleZh: '',
@@ -105,7 +103,7 @@ export default defineComponent({
 
     const loadData = async () => {
       if (isEdit.value) {
-        const found = await articleStore.findBySlug(route.params.slug as string)
+        const found = await articleStore.findById(route.params.id as string)
         if (found) {
           const processed = JSON.parse(JSON.stringify(found))
           // Parse stringified tags back to arrays for the UI
@@ -121,14 +119,6 @@ export default defineComponent({
       loadData()
     })
 
-    const generateSlug = (title: string) => {
-      return title
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-')
-        .trim()
-    }
 
     const activeLangSuffix = computed(() => {
       if (currentStep.value === 0) return 'Id'
@@ -185,15 +175,12 @@ export default defineComponent({
         return
       }
 
-      if (!form.value.slug) {
-        form.value.slug = generateSlug(form.value.titleId)
-      }
+
 
       const submissionData = {
         titleId: form.value.titleId,
         titleEn: form.value.titleEn,
         titleZh: form.value.titleZh,
-        slug: form.value.slug,
         contentId: form.value.contentId,
         contentEn: form.value.contentEn,
         contentZh: form.value.contentZh,
@@ -292,9 +279,6 @@ export default defineComponent({
                       const val = (e.target as HTMLInputElement).value
                       ;(form.value as Record<string, string>)[`title${activeLangSuffix.value}`] =
                         val
-                      if (!isEdit.value && activeLangSuffix.value === 'Id') {
-                        form.value.slug = generateSlug(val)
-                      }
                     }}
                     onBlur={() => markTouched(`title${activeLangSuffix.value}`)}
                     type="text"

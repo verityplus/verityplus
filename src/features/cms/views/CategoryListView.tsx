@@ -24,7 +24,7 @@ export default defineComponent({
       return articleStore.categories.filter(
         (c) =>
           getLocalizedField(c, 'name').toLowerCase().includes(q) ||
-          c.slug.toLowerCase().includes(q),
+          c.id.toLowerCase().includes(q),
       )
     })
 
@@ -65,7 +65,7 @@ export default defineComponent({
                 value={searchQuery.value}
                 onInput={(e) => (searchQuery.value = (e.target as HTMLInputElement).value)}
                 type="text"
-                placeholder="Search categories by name or slug..."
+                placeholder="Search categories by name or ID..."
                 class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition text-sm font-medium"
               />
               <i class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
@@ -94,7 +94,7 @@ export default defineComponent({
                             {getLocalizedField(cat, 'name')}
                           </span>
                           <span class="text-[10px] text-slate-400 mt-0.5 tracking-tighter uppercase font-medium">
-                            Slug: {cat.slug}
+                            ID: {cat.id}
                           </span>
                         </div>
                       </div>
