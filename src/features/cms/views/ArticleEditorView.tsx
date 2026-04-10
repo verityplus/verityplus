@@ -225,7 +225,6 @@ export default defineComponent({
         }
         router.push('/cms/articles')
       } catch (err) {
-        console.error('Save failed:', err)
         await appAlert('Failed to save article. Please check your credentials and try again.', 'Save Failed')
       }
     }

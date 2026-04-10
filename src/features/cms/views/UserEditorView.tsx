@@ -58,7 +58,6 @@ export default defineComponent({
         }
         router.push('/cms/users')
       } catch (err) {
-        console.error('Save user failed:', err)
         await appAlert('Failed to save user. Please ensure you have administrative privileges.', 'Error Saving User')
       }
     }

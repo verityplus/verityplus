@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import type { CMSUser } from '@/shared/types'
 import { apolloClient } from '@/shared/services/apollo'
 import { gql } from '@apollo/client/core'
+import { appAlert } from '@/utils/dialog'
 
 const LOGIN_MUTATION = gql`
   mutation Login($username: String!, $password: String!) {
@@ -42,7 +43,7 @@ export const useAuthStore = defineStore('auth', () => {
       }
       return false
     } catch (err) {
-      console.error('Login failed:', err)
+      await appAlert(err.message || 'The user credentials provided are invalid.', 'Authentication Failure')
       return false
     }
   }
