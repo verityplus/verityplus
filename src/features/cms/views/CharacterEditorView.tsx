@@ -6,6 +6,7 @@ import type { Author } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
 import { Tabs } from '@/components/ui/Tabs'
 import { appAlert } from '@/utils/dialog'
+import { StorageService } from '@/shared/services/storage.service'
 
 /**
  * CMS View: CharacterEditorView
@@ -20,8 +21,10 @@ export default defineComponent({
     const cmsContentStore = useCMSContentStore()
 
     const isEdit = computed(() => route.params.id !== undefined)
+    const isUploading = ref(false)
 
     const currentStep = ref(0)
+
     const steps = ['Bahasa Indonesia', 'English', '中文 (Chinese)']
 
     const activeLangSuffix = computed(() => {
@@ -92,29 +95,49 @@ export default defineComponent({
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           <div class="bg-white p-12 rounded-2xl border border-slate-200 shadow-sm space-y-8">
-            <div class="flex flex-col items-center justify-center p-8 border-4 border-dashed border-slate-100 rounded-3xl group hover:border-primary/20 transition duration-300 relative">
+            <div class={[
+              'flex flex-col items-center justify-center p-8 border-4 border-dashed rounded-3xl group transition duration-300 relative',
+              isUploading.value ? 'border-primary/40 bg-slate-50' : 'border-slate-100 hover:border-primary/20',
+            ]}>
               <input
                 type="file"
-                class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                class="absolute inset-0 opacity-0 cursor-pointer z-10 disabled:cursor-not-allowed"
                 accept="image/*"
-                onChange={(e) => {
+                disabled={isUploading.value}
+                onChange={async (e) => {
                   const file = (e.target as HTMLInputElement).files?.[0]
                   if (file) {
-                    form.value.avatar = URL.createObjectURL(file)
+                    isUploading.value = true
+                    try {
+                      const url = await StorageService.upload(file)
+                      form.value.avatar = url
+                    } catch (err: any) {
+                      console.error('Avatar upload failed:', err)
+                      await appAlert(`Failed to upload avatar. ${err.message}`, 'Upload Error')
+                    } finally {
+                      isUploading.value = false
+                    }
                   }
                 }}
               />
               <div class="relative">
                 <img
                   src={form.value.avatar}
-                  class="w-40 h-40 rounded-full border-4 border-white shadow-xl group-hover:scale-105 transition object-cover"
+                  class={[
+                    'w-40 h-40 rounded-full border-4 border-white shadow-xl group-hover:scale-105 transition object-cover',
+                    isUploading.value ? 'opacity-30 blur-sm' : 'opacity-100',
+                  ]}
                 />
                 <div class="absolute bottom-2 right-2 w-10 h-10 bg-slate-900 border-2 border-white rounded-full flex items-center justify-center text-white text-lg shadow-lg">
-                  <i class="bi bi-camera-fill text-sm"></i>
+                  {isUploading.value ? (
+                    <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  ) : (
+                    <i class="bi bi-camera-fill text-sm"></i>
+                  )}
                 </div>
               </div>
               <p class="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-6 group-hover:text-primary">
-                Click to Upload New Avatar
+                {isUploading.value ? 'Uploading to Secure Vault...' : 'Click to Upload New Avatar'}
               </p>
             </div>
 

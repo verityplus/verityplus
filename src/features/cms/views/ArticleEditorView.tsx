@@ -9,6 +9,7 @@ import { ARTICLE_STATUS_LABELS } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
 import { Tabs } from '@/components/ui/Tabs'
 import { appAlert } from '@/utils/dialog'
+import { StorageService } from '@/shared/services/storage.service'
 
 /**
  * CMS View: ArticleEditorView
@@ -24,6 +25,7 @@ export default defineComponent({
 
     const isEdit = computed(() => route.params.slug !== undefined)
     const tagInput = ref('')
+    const isUploading = ref(false)
     const currentStep = ref(0)
     const steps = ['Bahasa Indonesia', 'English', '中文 (Chinese)']
 
@@ -432,25 +434,45 @@ export default defineComponent({
                 <div class="aspect-video w-full rounded-xl overflow-hidden bg-slate-100 relative group">
                   <input
                     type="file"
-                    class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                    class="absolute inset-0 opacity-0 cursor-pointer z-10 disabled:cursor-not-allowed"
                     accept="image/*"
-                    onChange={(e) => {
+                    disabled={isUploading.value}
+                    onChange={async (e) => {
                       const file = (e.target as HTMLInputElement).files?.[0]
-                      if (file) form.value.coverImage = URL.createObjectURL(file)
+                      if (file) {
+                        isUploading.value = true
+                        try {
+                          const url = await StorageService.upload(file)
+                          form.value.coverImage = url
+                        } catch (err: any) {
+                          console.error('Upload failed:', err)
+                          await appAlert(`Failed to upload image. ${err.message}`, 'Upload Error')
+                        } finally {
+                          isUploading.value = false
+                        }
+                      }
                     }}
                   />
                   <img
                     src={form.value.coverImage}
-                    class="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+                    class={[
+                      'w-full h-full object-cover group-hover:scale-110 transition duration-700',
+                      isUploading.value ? 'opacity-20 scale-95' : 'opacity-100',
+                    ]}
                   />
                   <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
                     <span class="px-4 py-2 bg-white text-slate-900 rounded-lg text-xs font-black uppercase tracking-widest shadow-xl pointer-events-none">
-                      Change Asset
+                      {isUploading.value ? 'Uploading...' : 'Change Asset'}
                     </span>
                   </div>
+                  {isUploading.value && (
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    </div>
+                  )}
                 </div>
                 <p class="text-[10px] text-slate-400 leading-tight italic uppercase font-bold tracking-widest text-center">
-                  Click Image to Upload
+                  {isUploading.value ? 'Synchronizing with Secure Storage...' : 'Click Image to Upload'}
                 </p>
 
                 <div class="pt-4 border-t border-slate-50 space-y-3">
