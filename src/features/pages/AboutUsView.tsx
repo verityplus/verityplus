@@ -105,7 +105,7 @@ export default defineComponent({
               <div class="relative">
                 <div class="aspect-[4/3] overflow-hidden rounded-2xl shadow-elevated">
                   <img
-                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+                    src="/about-us-team.png"
                     alt={t('about.teamAlt')}
                     class="w-full h-full object-cover"
                   />
