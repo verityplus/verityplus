@@ -115,15 +115,7 @@ export default defineComponent({
                         isOpen ? 'rotate-180' : ''
                       }`}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="14"
-                        height="14"
-                        viewBox="0 0 16 16"
-                        fill="currentColor"
-                      >
-                        <path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                      </svg>
+                      <i class="bi bi-chevron-down"></i>
                     </span>
                   </button>
 
@@ -155,15 +147,7 @@ export default defineComponent({
               onClick={() => push({ name: 'contact' })}
               class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-              >
-                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.577L16 11.801V4.697l-5.803 3.556ZM7 1.5a.5.5 0 0 0-1 0v1a.5.5 0 0 0 1 0v-1Zm4 0a.5.5 0 0 0-1 0v1a.5.5 0 0 0 1 0v-1Z" />
-              </svg>
+              <i class="bi bi-envelope"></i>
               {t('privacy.contactButton')}
             </button>
           </div>
