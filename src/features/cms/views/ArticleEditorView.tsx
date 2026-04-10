@@ -25,7 +25,7 @@ export default defineComponent({
     const isEdit = computed(() => route.params.slug !== undefined)
     const tagInput = ref('')
     const currentStep = ref(0)
-    const steps = ['Bahasa Indonesia', 'English', '中文 (Chinese)', 'Settings']
+    const steps = ['Bahasa Indonesia', 'English', '中文 (Chinese)']
 
     useHead({
       title: computed(() =>
@@ -132,7 +132,7 @@ export default defineComponent({
       if (currentStep.value === 0) return 'Id'
       if (currentStep.value === 1) return 'En'
       if (currentStep.value === 2) return 'Zh'
-      return 'Id' // Default for Settings tab or others
+      return 'Id'
     })
 
     const getCurrentTags = () => {
@@ -163,9 +163,8 @@ export default defineComponent({
 
     const errors = computed(() => {
       const errs: Record<string, string> = {}
-      if (!form.value.titleId) errs.titleId = 'Title (ID) is required'
-      if (!form.value.titleEn) errs.titleEn = 'Title (EN) is required'
-      if (!form.value.titleZh) errs.titleZh = 'Title (ZH) is required'
+      // Only ID is strictly required for the initial draft save
+      if (!form.value.titleId) errs.titleId = 'Title (Bahasa Indonesia) is required'
       if (!form.value.category) errs.category = 'Category is required'
       if (!form.value.author) errs.author = 'Author is required'
       return errs
@@ -178,7 +177,6 @@ export default defineComponent({
         if (errors.value.titleId || errors.value.contentId) currentStep.value = 0
         else if (errors.value.titleEn || errors.value.contentEn) currentStep.value = 1
         else if (errors.value.titleZh || errors.value.contentZh) currentStep.value = 2
-        else currentStep.value = 3 // Settings step
 
         const errorMsg = Object.values(errors.value).join('\n')
         await appAlert(`Please fix the following validation errors before saving:\n\n${errorMsg}`, 'Validation Error')
@@ -224,8 +222,17 @@ export default defineComponent({
           await cmsContentStore.addArticle(submissionData)
         }
         router.push('/cms/articles')
-      } catch (err) {
-        await appAlert('Failed to save article. Please check your credentials and try again.', 'Save Failed')
+      } catch (err: any) {
+        console.error('Save failed:', err)
+        let detail = err.message || 'Please check your connection.'
+        let title = 'Save Failed'
+
+        if (detail.includes('Unauthorized')) {
+          detail = 'Your session has expired or you are not authorized to perform this action. Please log in again in a new tab, then return here to try saving again.'
+          title = 'Session Expired'
+        }
+
+        await appAlert(`Failed to save article.\n\nDetail: ${detail}`, title)
       }
     }
 
@@ -258,8 +265,7 @@ export default defineComponent({
                   const hasErr =
                     (idx === 0 && (errors.value.titleId || errors.value.contentId)) ||
                     (idx === 1 && (errors.value.titleEn || errors.value.contentEn)) ||
-                    (idx === 2 && (errors.value.titleZh || errors.value.contentZh)) ||
-                    (idx === 3 && (errors.value.category || errors.value.author))
+                    (idx === 2 && (errors.value.titleZh || errors.value.contentZh))
                   return hasErr && showErrors.value ? `${text} ⚠️` : text
                 })}
                 modelValue={currentStep.value}

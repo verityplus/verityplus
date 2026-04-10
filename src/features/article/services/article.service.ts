@@ -253,9 +253,61 @@ export const ArticleService = {
   },
 
   async createArticle(data: CreateArticleInput): Promise<Article> {
+    // Explicitly destructure to remove any unwanted fields
+    const {
+      titleId,
+      titleEn,
+      titleZh,
+      slug,
+      contentId,
+      contentEn,
+      contentZh,
+      excerptId,
+      excerptEn,
+      excerptZh,
+      coverImage,
+      coverImageCaptionId,
+      coverImageCaptionEn,
+      coverImageCaptionZh,
+      publishedAt,
+      readTimeMinutes,
+      categoryId,
+      authorId,
+      status,
+      tagsId,
+      tagsEn,
+      tagsZh,
+    } = data
+
+    const input = {
+      titleId,
+      titleEn,
+      titleZh,
+      slug,
+      contentId,
+      contentEn,
+      contentZh,
+      excerptId,
+      excerptEn,
+      excerptZh,
+      coverImage,
+      coverImageCaptionId,
+      coverImageCaptionEn,
+      coverImageCaptionZh,
+      publishedAt,
+      readTimeMinutes,
+      categoryId,
+      authorId,
+      status,
+      tagsId,
+      tagsEn,
+      tagsZh,
+    }
+
+    console.log('Creating article with input:', input)
     const result = await apolloClient.mutate<{ createArticle: Article }>({
       mutation: CREATE_ARTICLE,
-      variables: { input: data },
+      variables: { input },
     })
     return result.data!.createArticle
   },
@@ -329,9 +381,12 @@ export const ArticleService = {
   },
 
   async createCategory(data: CreateCategoryInput): Promise<Category> {
+    const { nameId, nameEn, nameZh, slug, color, bgColor, borderColor } = data
+    const input = { nameId, nameEn, nameZh, slug, color, bgColor, borderColor }
+
     const result = await apolloClient.mutate<{ createCategory: Category }>({
       mutation: CREATE_CATEGORY,
-      variables: { input: data },
+      variables: { input },
     })
     return result.data!.createCategory
   },
@@ -355,9 +410,12 @@ export const ArticleService = {
   },
 
   async createAuthor(data: CreateAuthorInput): Promise<Author> {
+    const { name, avatar, role, bioId, bioEn, bioZh } = data
+    const input = { name, avatar, role, bioId, bioEn, bioZh }
+
     const result = await apolloClient.mutate<{ createAuthor: Author }>({
       mutation: CREATE_AUTHOR,
-      variables: { input: data },
+      variables: { input },
     })
     return result.data!.createAuthor
   },
