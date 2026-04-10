@@ -33,7 +33,7 @@ export default defineComponent({
     })
 
     onMounted(async () => {
-      // Data is automatically fetched by Tanstack Vue Query via ArticleStore
+
     })
 
     return () => (

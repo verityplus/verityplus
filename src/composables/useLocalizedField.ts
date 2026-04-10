@@ -10,7 +10,7 @@ import type { Locale } from '@/i18n'
 export function useLocalizedField() {
   const { locale } = useI18n()
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const getLocalizedField = (obj: any, baseKey: string, fallbackToId: boolean = true): string => {
     const currentLocale = locale.value as Locale
     const suffix = currentLocale.charAt(0).toUpperCase() + currentLocale.slice(1)

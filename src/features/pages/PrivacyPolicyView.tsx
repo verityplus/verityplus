@@ -36,7 +36,7 @@ export default defineComponent({
     }
 
     const sections = computed<AccordionSection[]>(() => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       const s = tm('privacy.sections') as Record<string, any>
       return [
         {

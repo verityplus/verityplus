@@ -24,7 +24,7 @@ export const StorageService = {
    * @returns The final public URL of the uploaded file
    */
   async upload(file: File): Promise<string> {
-    // 1. Get pre-signed URL from API
+
     const result = await apolloClient.mutate<{ getSignedUrl: SignedUrlResponse }>({
       mutation: GET_SIGNED_URL,
       variables: {
@@ -39,7 +39,7 @@ export const StorageService = {
 
     const { signedUrl, publicUrl } = result.data.getSignedUrl
 
-    // 2. Upload file directly to R2
+
     const response = await fetch(signedUrl, {
       method: 'PUT',
       body: file,

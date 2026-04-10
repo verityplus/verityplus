@@ -17,7 +17,7 @@ import type {
 export const useCMSContentStore = defineStore('cms-content', () => {
   const queryClient = useQueryClient()
 
-  // --- Article Mutations ---
+
   const createArticleMutation = useMutation({
     mutationFn: (data: CreateArticleInput) => ArticleService.createArticle(data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['articles'] }),
@@ -33,7 +33,7 @@ export const useCMSContentStore = defineStore('cms-content', () => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['articles'] }),
   })
 
-  // --- Category Mutations ---
+
   const createCategoryMutation = useMutation({
     mutationFn: (data: CreateCategoryInput) => ArticleService.createCategory(data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['categories'] }),
@@ -49,7 +49,7 @@ export const useCMSContentStore = defineStore('cms-content', () => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['categories'] }),
   })
 
-  // --- Author Mutations ---
+
   const createAuthorMutation = useMutation({
     mutationFn: (data: CreateAuthorInput) => ArticleService.createAuthor(data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['authors'] }),
@@ -66,17 +66,17 @@ export const useCMSContentStore = defineStore('cms-content', () => {
   })
 
   return {
-    // Articles
+
     addArticle: (data: CreateArticleInput) => createArticleMutation.mutateAsync(data),
     updateArticle: (data: UpdateArticleInput) => updateArticleMutation.mutateAsync(data),
     deleteArticle: (id: number) => deleteArticleMutation.mutateAsync(id),
 
-    // Categories
+
     addCategory: (data: CreateCategoryInput) => createCategoryMutation.mutateAsync(data),
     updateCategory: (data: UpdateCategoryInput) => updateCategoryMutation.mutateAsync(data),
     deleteCategory: (id: string) => deleteCategoryMutation.mutateAsync(id),
 
-    // Authors
+
     addAuthor: (data: CreateAuthorInput) => createAuthorMutation.mutateAsync(data),
     updateAuthor: (data: UpdateAuthorInput) => updateAuthorMutation.mutateAsync(data),
     deleteAuthor: (id: string) => deleteAuthorMutation.mutateAsync(id),

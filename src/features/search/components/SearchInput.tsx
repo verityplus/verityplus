@@ -32,7 +32,7 @@ export const SearchInput = defineComponent({
           e.preventDefault()
           submitSearch()
         }}
-        // Memperpanjang lebar maksimal komponen
+
         class="relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl group"
       >
         {/* Menyesuaikan padding kiri untuk ikon */}
@@ -46,13 +46,13 @@ export const SearchInput = defineComponent({
             searchQuery.value = (e.target as HTMLInputElement).value
           }}
           type="text"
-          // Memperbesar padding atas-bawah (py), kiri-kanan (pl, pr), ukuran teks, dan radius sudut
+
           class="block w-full py-3.5 pl-12 pr-12 text-base text-text-primary bg-surface-muted border border-transparent rounded-xl outline-none transition-all duration-300 placeholder-text-muted focus:bg-surface focus:border-primary focus:ring-4 focus:ring-primary/15"
           placeholder={t('common.searchPlaceholder')}
         />
 
         {searchQuery.value.length > 0 && (
-          // Menyesuaikan padding kanan untuk tombol clear
+
           <button
             type="button"
             onClick={clearSearch}

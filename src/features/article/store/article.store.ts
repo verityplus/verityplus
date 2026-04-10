@@ -12,7 +12,7 @@ const GRID_PER_PAGE = 8
  * Integrated with Tanstack Vue Query for efficient data fetching and caching.
  */
 export const useArticleStore = defineStore('articles', () => {
-  // --- Vue Query Integration ---
+
 
   const {
     data: articlesData,
@@ -20,7 +20,7 @@ export const useArticleStore = defineStore('articles', () => {
     refetch: refetchArticles,
   } = useQuery({
     queryKey: ['articles'],
-    queryFn: () => ArticleService.getArticles({ take: 50 }), // Fetch just enough for initial sections
+    queryFn: () => ArticleService.getArticles({ take: 50 }),
     initialData: [],
   })
 
@@ -36,7 +36,7 @@ export const useArticleStore = defineStore('articles', () => {
     initialData: [],
   })
 
-  // --- Reactive State ---
+
 
   const articles = computed(() => articlesData.value || [])
   const categories = computed(() => categoriesData.value || [])
@@ -77,7 +77,7 @@ export const useArticleStore = defineStore('articles', () => {
 
   const gridArticles = computed(() => nonFeaturedArticles.value.slice(0, GRID_PER_PAGE))
 
-  // --- Methods ---
+
 
   /** Find an article by its unique id */
   const findById = async (id: string): Promise<Article | undefined> => {

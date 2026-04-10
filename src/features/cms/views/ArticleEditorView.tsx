@@ -89,7 +89,7 @@ export default defineComponent({
       status: 'draft' as ArticleStatus,
     })
 
-    // Initialize defaults once data is available
+
     watch(
       () => [articleStore.categories, articleStore.authors] as const,
       ([cats, auths]) => {
@@ -106,7 +106,7 @@ export default defineComponent({
         const found = await articleStore.findById(route.params.id as string)
         if (found) {
           const processed = JSON.parse(JSON.stringify(found))
-          // Parse stringified tags back to arrays for the UI
+
           processed.tagsId = found.tagsId ? JSON.parse(found.tagsId) : []
           processed.tagsEn = found.tagsEn ? JSON.parse(found.tagsEn) : []
           processed.tagsZh = found.tagsZh ? JSON.parse(found.tagsZh) : []
@@ -155,7 +155,7 @@ export default defineComponent({
 
     const errors = computed(() => {
       const errs: Record<string, string> = {}
-      // Only ID is strictly required for the initial draft save
+
       if (!form.value.titleId) errs.titleId = 'Title (Bahasa Indonesia) is required'
       if (!form.value.category) errs.category = 'Category is required'
       if (!form.value.author) errs.author = 'Author is required'

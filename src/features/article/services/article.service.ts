@@ -237,7 +237,7 @@ export const ArticleService = {
   },
 
   async createArticle(data: CreateArticleInput): Promise<Article> {
-    // Explicitly destructure to remove any unwanted fields
+
     const {
       titleId,
       titleEn,
@@ -295,7 +295,7 @@ export const ArticleService = {
   },
 
   async updateArticle(data: UpdateArticleInput): Promise<Article> {
-    // Explicitly destructure to remove __typename and relations
+
     const {
       id,
       titleId,

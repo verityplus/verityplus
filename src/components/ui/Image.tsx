@@ -17,7 +17,7 @@ export const BaseImage = defineComponent({
     const error = ref(false)
     const actualPlaceholder = props.isProfile ? '/profile-placeholder.png' : props.placeholder
 
-    // Reset error state when src changes
+
     watch(() => props.src, () => {
       error.value = false
     })

@@ -56,11 +56,11 @@ export function trackPageView(path: string, title: string): void {
 }
 
 export function updateLastPageViewDuration(_duration: number): void {
-  // Driven by GA4 automatically
+
 }
 
 export function getAnalyticsSummary(): AnalyticsSummary {
-  // Generate 30 days of mock timeline data typical of GA
+
   const dailyVisits = Array.from({ length: 30 }).map((_, i) => {
     const d = new Date()
     d.setDate(d.getDate() - (29 - i))
@@ -70,7 +70,7 @@ export function getAnalyticsSummary(): AnalyticsSummary {
     }
   })
 
-  // Mock Google Analytics aggregated metrics
+
   return {
     totalVisits: 8432,
     uniqueVisitors: 6150,
@@ -95,7 +95,7 @@ export function getAnalyticsSummary(): AnalyticsSummary {
 }
 
 export function getArticleViews(): { id: string; views: number; title: string }[] {
-  // Mock Google Analytics specific article hits
+
   return [
     { id: 'startup-growth', views: 980, title: 'The Ultimate Guide to Startup Growth in 2024' },
     {

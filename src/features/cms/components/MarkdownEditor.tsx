@@ -40,7 +40,7 @@ export const MarkdownEditor = defineComponent({
         },
       },
       onUpdate: ({ editor }) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         emit('update:modelValue', (editor.storage as any).markdown.getMarkdown())
       },
     })
@@ -49,10 +49,10 @@ export const MarkdownEditor = defineComponent({
       () => props.modelValue,
       (value) => {
         if (!editor.value) return
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         const isSame = (editor.value.storage as any).markdown.getMarkdown() === value
         if (!isSame) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
           editor.value.commands.setContent(value, false as any)
         }
       },

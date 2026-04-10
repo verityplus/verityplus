@@ -159,7 +159,7 @@ export const CMS_ROLE_LABELS: AppRecord<CMSUser['role'], string> = {
   editor: 'Editor',
 }
 
-// --- GraphQL Input Types ---
+
 
 export interface CreateArticleInput {
   titleId: string

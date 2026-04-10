@@ -6,9 +6,9 @@ const httpLink = createHttpLink({
 })
 
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
+
   const token = localStorage.getItem('verity_token')
-  // return the headers to the context so httpLink can read them
+
   return {
     headers: {
       ...headers,
@@ -34,7 +34,7 @@ export const apolloClient = new ApolloClient({
   }),
   defaultOptions: {
     query: {
-      fetchPolicy: 'no-cache', // We let Vue Query handle caching
+      fetchPolicy: 'no-cache',
     },
   },
 })

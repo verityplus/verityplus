@@ -24,9 +24,9 @@ const DialogComponent = defineComponent({
     const isVisible = ref(false)
     const inputValue = ref(props.options.defaultValue || '')
 
-    // For animation
+
     onMounted(() => {
-      // small delay to allow transition
+
       setTimeout(() => {
         isVisible.value = true
       }, 10)
@@ -37,7 +37,7 @@ const DialogComponent = defineComponent({
       setTimeout(() => {
         props.options.onResolve(value)
         props.options.onClose()
-      }, 300) // matching transition duration
+      }, 300)
     }
 
     const handleConfirm = () => {
@@ -52,7 +52,7 @@ const DialogComponent = defineComponent({
       if (props.options.type === 'alert') {
         close(undefined)
       } else {
-        close(false) // confirm returns false, prompt can return null/false
+        close(false)
       }
     }
 
@@ -151,6 +151,6 @@ function mountDialog(options: Omit<DialogOptions, 'onClose'>) {
     },
   })
 
-  // Inherit context if needed, but not strictly required for this self-contained ui
+
   render(vnode, div)
 }
