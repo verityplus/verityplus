@@ -65,8 +65,9 @@ export default defineComponent({
           await cmsContentStore.addAuthor(createData)
         }
         router.push('/cms/characters')
-      } catch {
-        await appAlert('Failed to save character.', 'Error Saving Character')
+      } catch (err: any) {
+        const detail = err.message || 'Check your network connection and retry.'
+        await appAlert(`Failed to save character.\n\nDetail: ${detail}`, 'Save Error')
       }
     }
 

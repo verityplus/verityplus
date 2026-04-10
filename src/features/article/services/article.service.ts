@@ -261,9 +261,62 @@ export const ArticleService = {
   },
 
   async updateArticle(data: UpdateArticleInput): Promise<Article> {
+    // Explicitly destructure to remove __typename and relations
+    const {
+      id,
+      titleId,
+      titleEn,
+      titleZh,
+      slug,
+      contentId,
+      contentEn,
+      contentZh,
+      excerptId,
+      excerptEn,
+      excerptZh,
+      coverImage,
+      coverImageCaptionId,
+      coverImageCaptionEn,
+      coverImageCaptionZh,
+      publishedAt,
+      readTimeMinutes,
+      categoryId,
+      authorId,
+      status,
+      tagsId,
+      tagsEn,
+      tagsZh,
+    } = data
+
+    const input = {
+      id,
+      titleId,
+      titleEn,
+      titleZh,
+      slug,
+      contentId,
+      contentEn,
+      contentZh,
+      excerptId,
+      excerptEn,
+      excerptZh,
+      coverImage,
+      coverImageCaptionId,
+      coverImageCaptionEn,
+      coverImageCaptionZh,
+      publishedAt,
+      readTimeMinutes,
+      categoryId,
+      authorId,
+      status,
+      tagsId,
+      tagsEn,
+      tagsZh,
+    }
+
     const result = await apolloClient.mutate<{ updateArticle: Article }>({
       mutation: UPDATE_ARTICLE,
-      variables: { input: data },
+      variables: { input },
     })
     return result.data!.updateArticle
   },
@@ -284,7 +337,9 @@ export const ArticleService = {
   },
 
   async updateCategory(data: UpdateCategoryInput): Promise<Category> {
-    const { id, ...input } = data
+    const { id, nameId, nameEn, nameZh, slug, color, bgColor, borderColor } = data
+    const input = { nameId, nameEn, nameZh, slug, color, bgColor, borderColor }
+
     const result = await apolloClient.mutate<{ updateCategory: Category }>({
       mutation: UPDATE_CATEGORY,
       variables: { id, input },
@@ -308,7 +363,9 @@ export const ArticleService = {
   },
 
   async updateAuthor(data: UpdateAuthorInput): Promise<Author> {
-    const { id, ...input } = data
+    const { id, name, avatar, role, bioId, bioEn, bioZh } = data
+    const input = { name, avatar, role, bioId, bioEn, bioZh }
+
     const result = await apolloClient.mutate<{ updateAuthor: Author }>({
       mutation: UPDATE_AUTHOR,
       variables: { id, input },

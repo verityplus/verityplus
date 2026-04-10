@@ -25,7 +25,7 @@ export default defineComponent({
     const isEdit = computed(() => route.params.slug !== undefined)
     const tagInput = ref('')
     const currentStep = ref(0)
-    const steps = ['Bahasa Indonesia', 'English', '中文 (Chinese)']
+    const steps = ['Bahasa Indonesia', 'English', '中文 (Chinese)', 'Settings']
 
     useHead({
       title: computed(() =>
@@ -133,7 +133,7 @@ export default defineComponent({
       if (currentStep.value === 0) return 'Id'
       if (currentStep.value === 1) return 'En'
       if (currentStep.value === 2) return 'Zh'
-      return 'Id'
+      return 'Id' // Default for Settings tab or others
     })
 
     const getCurrentTags = () => {
@@ -176,12 +176,13 @@ export default defineComponent({
       showErrors.value = true
 
       if (Object.keys(errors.value).length > 0) {
-        if (errors.value.titleId) currentStep.value = 0
-        else if (errors.value.titleEn) currentStep.value = 1
-        else if (errors.value.titleZh) currentStep.value = 2
+        if (errors.value.titleId || errors.value.contentId) currentStep.value = 0
+        else if (errors.value.titleEn || errors.value.contentEn) currentStep.value = 1
+        else if (errors.value.titleZh || errors.value.contentZh) currentStep.value = 2
         else currentStep.value = 3 // Settings step
 
-        await appAlert('Please fix the validation errors before saving.', 'Validation Error')
+        const errorMsg = Object.values(errors.value).join('\n')
+        await appAlert(`Please fix the following validation errors before saving:\n\n${errorMsg}`, 'Validation Error')
         return
       }
 
@@ -254,7 +255,14 @@ export default defineComponent({
           <div class="flex-grow space-y-6 overflow-hidden">
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 space-y-8">
               <Tabs
-                tabs={steps}
+                tabs={steps.map((text, idx) => {
+                  const hasErr =
+                    (idx === 0 && (errors.value.titleId || errors.value.contentId)) ||
+                    (idx === 1 && (errors.value.titleEn || errors.value.contentEn)) ||
+                    (idx === 2 && (errors.value.titleZh || errors.value.contentZh)) ||
+                    (idx === 3 && (errors.value.category || errors.value.author))
+                  return hasErr && showErrors.value ? `${text} ⚠️` : text
+                })}
                 modelValue={currentStep.value}
                 onUpdate:modelValue={(val) => (currentStep.value = val)}
               />

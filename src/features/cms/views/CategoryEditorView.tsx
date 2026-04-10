@@ -81,8 +81,9 @@ export default defineComponent({
           await cmsContentStore.addCategory(createData)
         }
         router.push('/cms/categories')
-      } catch {
-        await appAlert('Failed to save category.', 'Error')
+      } catch (err: any) {
+        const detail = err.message || 'Check your network connection and retry.'
+        await appAlert(`Failed to save category.\n\nDetail: ${detail}`, 'Save Error')
       }
     }
 
