@@ -118,9 +118,6 @@ export default defineComponent({
                       </td>
                       <td class="px-6 py-5">
                         <BaseBadge
-                          bgColor={article.category.bgColor}
-                          textColor={article.category.color}
-                          borderColor={article.category.borderColor}
                           class="text-[10px]"
                         >
                           {getLocalizedField(article.category, 'name')}

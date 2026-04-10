@@ -45,9 +45,6 @@ const GET_ARTICLES = gql`
         nameEn
         nameZh
         slug
-        color
-        bgColor
-        borderColor
       }
       author {
         id
@@ -88,7 +85,6 @@ const GET_ARTICLE_BY_SLUG = gql`
         nameEn
         nameZh
         slug
-        color
       }
       author {
         id
@@ -110,9 +106,6 @@ const GET_CATEGORIES = gql`
       nameEn
       nameZh
       slug
-      color
-      bgColor
-      borderColor
     }
   }
 `
@@ -381,8 +374,8 @@ export const ArticleService = {
   },
 
   async createCategory(data: CreateCategoryInput): Promise<Category> {
-    const { nameId, nameEn, nameZh, slug, color, bgColor, borderColor } = data
-    const input = { nameId, nameEn, nameZh, slug, color, bgColor, borderColor }
+    const { nameId, nameEn, nameZh, slug } = data
+    const input = { nameId, nameEn, nameZh, slug }
 
     const result = await apolloClient.mutate<{ createCategory: Category }>({
       mutation: CREATE_CATEGORY,
@@ -392,8 +385,8 @@ export const ArticleService = {
   },
 
   async updateCategory(data: UpdateCategoryInput): Promise<Category> {
-    const { id, nameId, nameEn, nameZh, slug, color, bgColor, borderColor } = data
-    const input = { nameId, nameEn, nameZh, slug, color, bgColor, borderColor }
+    const { id, nameId, nameEn, nameZh, slug } = data
+    const input = { nameId, nameEn, nameZh, slug }
 
     const result = await apolloClient.mutate<{ updateCategory: Category }>({
       mutation: UPDATE_CATEGORY,

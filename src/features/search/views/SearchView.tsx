@@ -97,11 +97,7 @@ export default defineComponent({
                           class="no-underline"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <BaseBadge
-                            bgColor={article.category.bgColor}
-                            textColor={article.category.color}
-                            borderColor={article.category.borderColor}
-                          >
+                          <BaseBadge>
                             {getLocalizedField(article.category, 'name')}
                           </BaseBadge>
                         </RouterLink>

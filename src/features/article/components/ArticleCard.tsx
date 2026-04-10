@@ -66,11 +66,7 @@ export const ArticleCard = defineComponent({
                   class="pointer-events-auto no-underline"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <BaseBadge
-                    bgColor={props.article.category.bgColor}
-                    textColor={props.article.category.color}
-                    borderColor={props.article.category.borderColor}
-                  >
+                  <BaseBadge>
                     {getLocalizedField(props.article.category, 'name')}
                   </BaseBadge>
                 </RouterLink>
@@ -87,9 +83,6 @@ export const ArticleCard = defineComponent({
                 onClick={(e) => e.stopPropagation()}
               >
                 <BaseBadge
-                  bgColor={props.article.category.bgColor}
-                  textColor={props.article.category.color}
-                  borderColor={props.article.category.borderColor}
                   class="mb-3 w-fit"
                 >
                   {getLocalizedField(props.article.category, 'name')}
@@ -123,11 +116,7 @@ export const ArticleCard = defineComponent({
                     class="pointer-events-auto no-underline"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <BaseBadge
-                      bgColor={props.article.category.bgColor}
-                      textColor={props.article.category.color}
-                      borderColor={props.article.category.borderColor}
-                    >
+                    <BaseBadge>
                       {getLocalizedField(props.article.category, 'name')}
                     </BaseBadge>
                   </RouterLink>

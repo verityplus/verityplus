@@ -19,9 +19,6 @@ export interface Category {
   nameEn: string
   nameZh: string
   slug: string
-  color: string
-  bgColor: string
-  borderColor: string
 }
 
 export interface Article {
@@ -200,9 +197,6 @@ export interface CreateCategoryInput {
   nameEn: string
   nameZh: string
   slug: string
-  color: string
-  bgColor: string
-  borderColor: string
 }
 
 export interface UpdateCategoryInput extends CreateCategoryInput {

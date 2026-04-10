@@ -177,11 +177,7 @@ export default defineComponent({
                         to={{ name: 'category', params: { slug: article.value.category.slug } }}
                         class="no-underline"
                       >
-                        <BaseBadge
-                          bgColor={article.value.category.bgColor}
-                          textColor={article.value.category.color}
-                          borderColor={article.value.category.borderColor}
-                        >
+                        <BaseBadge>
                           {getLocalizedField(article.value.category, 'name')}
                         </BaseBadge>
                       </RouterLink>

@@ -45,7 +45,7 @@ export default defineComponent({
           <div class="flex flex-col">
             <h1 class="text-3xl font-black text-slate-900 tracking-tight">Category Architecture</h1>
             <p class="text-slate-400 font-medium">
-              Define the core taxonomy and dynamic themes for VERITY+ content.
+              Define the core taxonomy and structural units for VERITY+ content.
             </p>
           </div>
           <router-link to="/cms/categories/new">
@@ -86,8 +86,8 @@ export default defineComponent({
                   <tr key={cat.id} class="hover:bg-slate-50/50 transition group">
                     <td class="px-6 py-5">
                       <div class="flex items-center gap-3">
-                        <div class={['w-10 h-10 rounded-lg shadow-sm flex items-center justify-center', cat.bgColor]}>
-                          <i class={['bi bi-tag text-lg', cat.color.replace('text-', 'text-white ')]}></i>
+                        <div class="w-10 h-10 rounded-lg shadow-sm flex items-center justify-center bg-primary/10">
+                          <i class="bi bi-tag text-lg text-primary"></i>
                         </div>
                         <div class="flex flex-col">
                           <span class="text-slate-900 font-bold leading-tight group-hover:text-primary transition">
@@ -100,13 +100,8 @@ export default defineComponent({
                       </div>
                     </td>
                     <td class="px-6 py-5">
-                      <BaseBadge
-                        bgColor={cat.bgColor}
-                        textColor={cat.color}
-                        borderColor={cat.borderColor}
-                        class="text-[10px]"
-                      >
-                        Theme Enforced
+                      <BaseBadge class="text-[10px]">
+                        Standard Theme
                       </BaseBadge>
                     </td>
                     <td class="px-6 py-5 text-right">

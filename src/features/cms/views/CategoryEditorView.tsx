@@ -37,9 +37,6 @@ export default defineComponent({
       nameEn: '',
       nameZh: '',
       slug: '',
-      color: 'text-primary',
-      bgColor: 'bg-primary/10',
-      borderColor: 'border-primary',
     })
 
     const loadData = () => {
@@ -85,15 +82,6 @@ export default defineComponent({
         const detail = err.message || 'Check your network connection and retry.'
         await appAlert(`Failed to save category.\n\nDetail: ${detail}`, 'Save Error')
       }
-    }
-
-    const _getContrastYIQ = (_hexcolor: string) => {
-      if (!_hexcolor || !_hexcolor.startsWith('#')) return 255
-      _hexcolor = _hexcolor.replace('#', '')
-      const r = parseInt(_hexcolor.substring(0, 2), 16)
-      const g = parseInt(_hexcolor.substring(2, 4), 16)
-      const b = parseInt(_hexcolor.substring(4, 6), 16)
-      return (r * 299 + g * 587 + b * 114) / 1000
     }
 
     return () => (
@@ -167,89 +155,24 @@ export default defineComponent({
                 </div>
               )}
             </div>
-
-            <div class="pt-8 border-t border-slate-50 space-y-6">
-              <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">
-                Precision Theme Palette
-              </label>
-
-              <div class="space-y-4">
-                {[
-                  {
-                    key: 'color' as keyof Category,
-                    label: 'Text Color',
-                    hint: 'The foreground legend color',
-                  },
-                  {
-                    key: 'bgColor' as keyof Category,
-                    label: 'Fill Color',
-                    hint: 'Backdrop for badges and highlights',
-                  },
-                  {
-                    key: 'borderColor' as keyof Category,
-                    label: 'Stroke Color',
-                    hint: 'Structural focus borders',
-                  },
-                ].map((field) => (
-                  <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
-                    <div class="flex flex-col">
-                      <span class="text-xs font-black text-slate-900 uppercase tracking-tight">
-                        {field.label}
-                      </span>
-                      <span class="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-0.5">
-                        {field.hint}
-                      </span>
-                    </div>
-                    <div class="relative group">
-                      <input
-                        type="color"
-                        value={
-                          (form.value[field.key] ?? '').startsWith('#')
-                            ? form.value[field.key]
-                            : '#3b82f6'
-                        }
-                        onInput={(e) => {
-                          ;(form.value[field.key] as string) = (e.target as HTMLInputElement).value
-                        }}
-                        class="w-12 h-12 rounded-lg cursor-pointer border-4 border-white shadow-sm appearance-none p-0 overflow-hidden"
-                      />
-                      <div class="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-[8px] flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition">
-                        <i class="bi bi-eyedropper" />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
 
           <div class="bg-slate-900 p-12 rounded-2xl text-white relative overflow-hidden flex flex-col justify-center min-h-[400px] shadow-2xl">
             <div class="relative z-10 space-y-6">
-              <i class="bi bi-brush text-6xl opacity-30 drop-shadow-xl" />
+              <i class="bi bi-tag text-6xl opacity-30 drop-shadow-xl" />
               <h3 class="text-3xl font-black leading-tight border-b border-white/20 pb-4">
-                Real-time Theme Generation
+                Category Taxonomy
               </h3>
               <p class="text-slate-100/70 text-sm leading-relaxed">
-                The values selected will be used to generate CSS variables for the article's
-                personality. Changes are propagated throughout the infrastructure instantly.
+                Categories help organize articles into logical structural units. The name will be
+                displayed on badges and filters across the portal.
               </p>
               <div class="bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-md">
                 <p class="text-xs uppercase font-black tracking-widest mb-4 opacity-50 text-center">
-                  Live Logic Preview ({activeLangSuffix.value})
+                  Live Preview ({activeLangSuffix.value})
                 </p>
                 <div class="flex justify-center">
-                  <div
-                    style={{
-                      backgroundColor: form.value.bgColor.startsWith('#')
-                        ? form.value.bgColor
-                        : '#3b82f61a',
-                      color: form.value.color.startsWith('#') ? form.value.color : '#3b82f6',
-                      borderColor: form.value.borderColor.startsWith('#')
-                        ? form.value.borderColor
-                        : '#3b82f6',
-                    }}
-                    class="inline-block px-10 py-3 rounded-2xl text-sm font-black uppercase tracking-widest border-2 shadow-2xl transition-all duration-300"
-                  >
+                  <div class="inline-block px-10 py-3 rounded-2xl text-sm font-black uppercase tracking-widest border-2 shadow-2xl transition-all duration-300 bg-primary/10 text-primary border-primary">
                     {(form.value as Record<string, string>)[`name${activeLangSuffix.value}`] ||
                       'Sample Taxonomy'}
                   </div>
