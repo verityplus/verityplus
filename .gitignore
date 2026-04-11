@@ -40,3 +40,4 @@ __screenshots__/
 
 # Environment variables
 .env*
+!.env.example
