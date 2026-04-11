@@ -185,6 +185,12 @@ const router = createRouter({
           component: () => import('@/features/cms/views/AdSenseView'),
         },
         {
+          path: 'settings',
+          name: 'cms-settings',
+          component: () => import('@/features/cms/views/SettingsView'),
+          meta: { title: 'Settings | CMS' },
+        },
+        {
           path: 'analytics',
           name: 'cms-analytics',
           component: () => import('../features/cms/views/AnalyticsView'),

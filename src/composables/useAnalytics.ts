@@ -17,6 +17,7 @@ export function initAnalyticsTracking(router: Router) {
     }
 
     if (duration > 1000 && store.isTracking) {
+      store.trackEngagement(duration)
     }
   })
 }

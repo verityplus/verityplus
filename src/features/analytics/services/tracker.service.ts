@@ -24,13 +24,12 @@ export function setConsentStatus(status: 'accepted' | 'declined'): void {
   }
 }
 
-export function loadGoogleAnalytics() {
+export function loadGoogleAnalytics(id: string) {
   if (getConsentStatus() !== 'accepted') return
-
-  const id = import.meta.env.VITE_GOOGLE_ANALYTICS_MEASUREMENT_ID
   if (!id || window.dataLayer) return
 
   const scriptTag = document.createElement('script')
+  scriptTag.id = 'ga-script'
   scriptTag.async = true
   scriptTag.src = `https://www.googletagmanager.com/gtag/js?id=${id}`
   document.head.appendChild(scriptTag)
@@ -40,41 +39,38 @@ export function loadGoogleAnalytics() {
     window.dataLayer.push(args)
   }
   window.gtag('js', new Date())
-  window.gtag('config', id)
+  window.gtag('config', id, {
+    send_page_view: false // We handle page views manually
+  })
+}
+
+export function trackPageView(id: string, path: string, title: string): void {
+  if (getConsentStatus() !== 'accepted' || !window.gtag) return
+  window.gtag('config', id, { 
+    page_path: path, 
+    page_title: title,
+    engagement_time_msec: 0 // Reset engagement time on new page
+  })
+}
+
+export function trackEvent(name: string, params: Record<string, any> = {}): void {
+  if (getConsentStatus() !== 'accepted' || !window.gtag) return
+  window.gtag('event', name, params)
+}
+
+export function updateEngagementTime(durationMs: number): void {
+  if (getConsentStatus() !== 'accepted' || !window.gtag) return
+  window.gtag('event', 'user_engagement', {
+    engagement_time_msec: durationMs
+  })
 }
 
 export function getSessionId(): string {
-  return 'ga-session'
-}
-
-export function trackPageView(path: string, title: string): void {
-  if (getConsentStatus() !== 'accepted' || !window.gtag) return
-  const id = import.meta.env.VITE_GOOGLE_ANALYTICS_MEASUREMENT_ID
-  if (id) {
-    window.gtag('config', id, { page_path: path, page_title: title })
+  // Simple session ID for internal tracking if needed
+  let sessionId = sessionStorage.getItem('v_session_id')
+  if (!sessionId) {
+    sessionId = Math.random().toString(36).substring(2, 11)
+    sessionStorage.setItem('v_session_id', sessionId)
   }
-}
-
-export function updateLastPageViewDuration(_duration: number): void {
-
-}
-
-export function getAnalyticsSummary(): AnalyticsSummary {
-  return {
-    totalVisits: 0,
-    uniqueVisitors: 0,
-    pageViews: 0,
-    avgDuration: 0,
-    topPages: [],
-    topReferrers: [],
-    dailyVisits: [],
-  }
-}
-
-export function getArticleViews(): { id: string; views: number; title: string }[] {
-  return []
-}
-
-export function clearAllData(): void {
-  localStorage.removeItem(STORAGE_KEYS.CONSENT)
+  return sessionId
 }

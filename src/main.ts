@@ -5,19 +5,22 @@ import App from '@/App'
 import router from '@/router'
 import { i18n } from '@/i18n'
 import { initAnalyticsTracking } from '@/composables/useAnalytics'
-import { useIntegration } from '@/composables/useIntegration'
+import { useSettingsStore } from '@/features/cms/store/settings.store'
 import '@/styles/main.css'
 
-const { init: initIntegrations } = useIntegration()
-initIntegrations()
-
 const app = createApp(App)
+const pinia = createPinia()
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 app.use(VueQueryPlugin)
 app.use(i18n)
 
-initAnalyticsTracking(router)
+const settingsStore = useSettingsStore()
+
+// Initialize settings and analytics
+settingsStore.fetchSettings().then(() => {
+  initAnalyticsTracking(router)
+})
 
 app.mount('#app')

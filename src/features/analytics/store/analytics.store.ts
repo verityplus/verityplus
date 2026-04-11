@@ -5,18 +5,18 @@ import {
   setConsentStatus,
   getSessionId,
   trackPageView,
-  getAnalyticsSummary,
-  getArticleViews,
-  clearAllData,
   loadGoogleAnalytics,
+  updateEngagementTime
 } from '../services/tracker.service'
 import { AnalyticsService } from '../services/analytics.service'
+import { useSettingsStore } from '@/features/cms/store/settings.store'
 import type { AnalyticsSummary, ConsentStatus } from '../types'
 
 export const useAnalyticsStore = defineStore('analytics', () => {
   const consent = ref<ConsentStatus>(getConsentStatus())
   const sessionId = ref<string>('')
   const summary = ref<AnalyticsSummary | null>(null)
+  const settingsStore = useSettingsStore()
 
   const isTracking = computed(() => consent.value === 'accepted')
   const isPending = computed(() => consent.value === 'pending')
@@ -25,7 +25,10 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     consent.value = getConsentStatus()
     if (consent.value === 'accepted') {
       sessionId.value = getSessionId()
-      loadGoogleAnalytics()
+      const gaId = settingsStore.settings.google_analytics_id
+      if (gaId) {
+        loadGoogleAnalytics(gaId)
+      }
     }
   }
 
@@ -33,6 +36,10 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     setConsentStatus('accepted')
     consent.value = 'accepted'
     sessionId.value = getSessionId()
+    const gaId = settingsStore.settings.google_analytics_id
+    if (gaId) {
+      loadGoogleAnalytics(gaId)
+    }
   }
 
   function declineConsent() {
@@ -46,20 +53,24 @@ export const useAnalyticsStore = defineStore('analytics', () => {
 
   function track(path: string, title: string) {
     if (consent.value !== 'accepted') return
-    trackPageView(path, title)
+    const gaId = settingsStore.settings.google_analytics_id
+    if (gaId) {
+      trackPageView(gaId, path, title)
+    }
   }
 
-  async function refreshSummary() {
-    const data = await AnalyticsService.getSummary()
-    if (data) summary.value = data
+  function trackEngagement(durationMs: number) {
+    if (consent.value !== 'accepted') return
+    updateEngagementTime(durationMs)
   }
 
-  function fetchArticleViews() {
-    return getArticleViews()
+  async function refreshSummary(pagePath?: string) {
+    // AnalyticsService.getSummary should be updated to accept pagePath
+    const result = await AnalyticsService.getSummary(pagePath)
+    if (result) summary.value = result
   }
 
   function resetData() {
-    clearAllData()
     summary.value = null
   }
 
@@ -74,8 +85,8 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     declineConsent,
     resetConsent,
     track,
+    trackEngagement,
     refreshSummary,
-    fetchArticleViews,
     resetData,
   }
 })
