@@ -56,7 +56,7 @@ export default defineComponent({
     return () => (
       <section class="bg-background min-h-screen py-12">
         <div class="container-page">
-          {/* Search Header Area */}
+
           <div class="mb-12 border-b border-border pb-10">
             <h1 class="text-3xl sm:text-4xl font-extrabold text-text-primary mb-4">
               {t('search.heading')}
@@ -74,7 +74,7 @@ export default defineComponent({
           </div>
 
           <div class="flex flex-col lg:flex-row gap-12">
-            {/* Main Result Area */}
+
             <div class="flex-grow space-y-6">
               {results.value.map((article: Article) => (
                 <article key={article.id} class="group">
@@ -128,9 +128,9 @@ export default defineComponent({
               )}
             </div>
 
-            {/* Sidebar Overview Area */}
+
             <aside class="w-full lg:w-80 space-y-8">
-              {/* Category Count Overview */}
+
               <div>
                 <div class="section-header">
                   <span class="section-header-title">{t('common.popularCategories')}</span>
@@ -157,7 +157,7 @@ export default defineComponent({
                 </ul>
               </div>
 
-              {/* Newsletter Call-to-Action */}
+
               <div class="bg-text-primary p-8 rounded-xl text-text-inverse relative overflow-hidden">
                 <div class="relative z-10">
                   <h3 class="text-xl font-bold mb-3 leading-tight">

@@ -80,7 +80,7 @@ export default defineComponent({
 
     return () => (
       <section class="bg-background">
-        {/* Hero Section */}
+
         <div class="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/5 py-20 sm:py-28">
           <div class="container-page">
             <div class="max-w-3xl mx-auto text-center">
@@ -98,7 +98,7 @@ export default defineComponent({
           <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
         </div>
 
-        {/* Story Section */}
+
         <div class="py-16 sm:py-24 px-6">
           <div class="container-page">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -128,7 +128,7 @@ export default defineComponent({
           </div>
         </div>
 
-        {/* Mission & Vision Section */}
+
         <div class="py-16 sm:py-24 px-6 bg-surface border-y border-border">
           <div class="container-page">
             <div class="text-center mb-12">
@@ -158,7 +158,7 @@ export default defineComponent({
           </div>
         </div>
 
-        {/* Stats Section */}
+
         <div class="py-16 px-6">
           <div class="container-page">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -174,7 +174,7 @@ export default defineComponent({
           </div>
         </div>
 
-        {/* Core Values Section */}
+
         <div class="py-16 sm:py-24 px-6 bg-surface border-t border-border">
           <div class="container-page">
             <div class="text-center mb-16">

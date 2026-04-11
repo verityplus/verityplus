@@ -18,14 +18,14 @@ function detectLocale(): Locale {
     : DEFAULT_LOCALE
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export const i18n = createI18n({
   legacy: false,
   locale: detectLocale(),
   fallbackLocale: DEFAULT_LOCALE,
   messages: { id, en, zh } as any,
 } as any)
-/* eslint-enable @typescript-eslint/no-explicit-any */
+
 
 export { SUPPORTED_LOCALES, DEFAULT_LOCALE }
 export type { Locale } from './types'

@@ -153,7 +153,7 @@ export default defineComponent({
         )}
 
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
-          {/* Recent Articles Snapshot */}
+
           <div class="xl:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-full">
             <header class="p-6 border-b border-slate-100 flex items-center justify-between">
               <h3 class="font-black text-slate-900 flex items-center gap-2">
@@ -210,7 +210,7 @@ export default defineComponent({
             </div>
           </div>
 
-          {/* Analytics Snapshot */}
+
           <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-full">
             <header class="p-6 border-b border-slate-100 flex items-center justify-between">
               <h3 class="font-black text-slate-900 flex items-center gap-2">

@@ -39,10 +39,10 @@ export default defineComponent({
 
     return () => (
       <main class="bg-background">
-        {/* Top Hero Section */}
+
         <div class="container-page py-6">
           <div class="flex flex-col xl:flex-row gap-8">
-            {/* Main Area */}
+
             <section class="xl:w-2/3 w-full flex flex-col gap-6">
               <div class="hero-height">
                 <HeadlineCarousel />
@@ -59,7 +59,7 @@ export default defineComponent({
                   ))}
                 </div>
 
-                {/* Lihat Semua Button */}
+
                 <div class="flex items-center justify-end mt-8 pt-6 border-t border-border">
                   <button
                     onClick={() => push('/articles')}
@@ -71,12 +71,12 @@ export default defineComponent({
               </div>
             </section>
 
-            {/* Sidebar View Area */}
+
             <aside class="xl:w-1/3 w-full">
               <div class="flex flex-col gap-4 sticky top-20">
                 <AdDisplay size="banner" slot={AD_SLOTS.HOME_HEADER} label={t('ads.header')} />
 
-                {/* Popular Articles Widget */}
+
                 <div class="rounded-[var(--radius-xl)] bg-surface border border-border p-5">
                   <div class="section-header">
                     <span class="section-header-title">{t('home.popularArticles')}</span>
@@ -113,10 +113,10 @@ export default defineComponent({
           </div>
         </div>
 
-        {/* Dynamic Grid Section */}
+
         <ArticleGrid />
 
-        {/* Footer Ad Placement */}
+
         <div class="container-page py-10">
           <AdDisplay size="leaderboard" slot={AD_SLOTS.HOME_FOOTER} label={t('ads.footer')} />
         </div>

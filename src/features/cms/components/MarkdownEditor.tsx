@@ -166,14 +166,14 @@ export const MarkdownEditor = defineComponent({
 
       return (
         <div class="pt-4 border-t border-slate-100 min-h-[500px] flex flex-col relative">
-          {/* Header & Tab Switcher */}
+
           <header class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
             <div class="flex items-center gap-4">
               <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                 Content Editor
               </label>
 
-              {/* Tabs */}
+
               <div class="flex bg-slate-100 p-1 rounded-lg">
                 <button
                   onClick={() => (activeTab.value = 'visual')}
@@ -200,7 +200,7 @@ export const MarkdownEditor = defineComponent({
               </div>
             </div>
 
-            {/* Toolbar */}
+
             {activeTab.value === 'visual' && (
               <div class="flex items-center gap-1 bg-slate-50 p-1 rounded-lg border border-slate-100 overflow-x-auto custom-scrollbar">
                 {toolbar.map((tool) => (
@@ -227,7 +227,7 @@ export const MarkdownEditor = defineComponent({
             )}
           </header>
 
-          {/* Main Content Area */}
+
           <div class="w-full flex-grow p-4 bg-slate-50/30 rounded-xl border border-transparent focus-within:border-slate-100 focus-within:bg-white transition-all">
             {activeTab.value === 'visual' ? (
               <EditorContent editor={editor.value} />
@@ -242,7 +242,7 @@ export const MarkdownEditor = defineComponent({
             )}
           </div>
 
-          {/* Image Uploader Dialog */}
+
           {showImageDialog.value && (
             <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity">
               <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden transform transition-all p-6 relative">

@@ -61,7 +61,7 @@ export const AdDisplay = defineComponent({
       if (pubId && props.slot) {
         await nextTick()
         try {
-          // @ts-ignore
+
           ;(window.adsbygoogle = window.adsbygoogle || []).push({})
           adLoaded.value = true
         } catch (e) {

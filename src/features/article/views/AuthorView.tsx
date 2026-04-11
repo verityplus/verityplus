@@ -71,7 +71,6 @@ export default defineComponent({
       return (
         <main class="bg-background min-h-screen py-12">
           <div class="container-page">
-            {/* Author Profile Header */}
             <div class="bg-surface rounded-2xl border border-border p-8 sm:p-12 mb-12 shadow-card">
               <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
                 <div class="w-32 h-32 shrink-0 overflow-hidden rounded-full border-4 border-primary/10 shadow-lg">
@@ -105,12 +104,10 @@ export default defineComponent({
               </div>
             </div>
 
-            {/* Intermediate Ad Placement */}
             <div class="mb-12">
               <AdDisplay size="leaderboard" slot={AD_SLOTS.CATEGORY_TOP} label={t('ads.authorSponsor')} />
             </div>
 
-            {/* Articles by Author */}
             <div class="section-header mb-8">
               <span class="section-header-title">
                 {t('article.articlesBy')} {author.value.name}
@@ -123,7 +120,6 @@ export default defineComponent({
               ))}
             </div>
 
-            {/* Bottom Ad Placement */}
             <div class="pt-8 border-t border-border">
               <AdDisplay size="leaderboard" slot={AD_SLOTS.HOME_FOOTER} label={t('ads.exclusivePromo')} />
             </div>

@@ -41,12 +41,10 @@ export const ArticleCard = defineComponent({
 
     return () => (
       <article class={['group card h-full relative', props.class]}>
-        {/* Main Article Link */}
         <RouterLink
           to={{ name: 'read', params: { id: props.article.id } }}
           class={['flex h-full no-underline', isHorizontal ? 'flex-col md:flex-row' : 'flex-col']}
         >
-          {/* Cover Image Container */}
           <div
             class={[
               'overflow-hidden shrink-0 w-full aspect-video object-cover',
@@ -74,7 +72,6 @@ export const ArticleCard = defineComponent({
             )}
           </div>
 
-          {/* Content Container */}
           <div class={['flex flex-col flex-1 p-5', isHorizontal ? 'md:w-1/2 justify-center' : '']}>
             {isHorizontal && (
               <RouterLink

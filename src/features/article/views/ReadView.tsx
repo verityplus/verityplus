@@ -108,7 +108,6 @@ export default defineComponent({
 
       return (
         <article class="bg-background min-h-screen">
-          {/* Progress Bar */}
           <div class="fixed top-28 left-0 w-full h-2 bg-border/20 z-10">
             <div
               class="h-full bg-primary transition-all duration-150"
@@ -116,7 +115,6 @@ export default defineComponent({
             />
           </div>
 
-          {/* Accessibility Controls */}
           <div class="fixed bottom-8 right-8 flex flex-col gap-3 z-40">
             <button
               onClick={toggleSpeech}
@@ -154,7 +152,6 @@ export default defineComponent({
           </div>
 
           <div class="mx-auto px-4 sm:px-6 lg:px-8 flex flex-col xl:flex-row gap-8 pt-8 pb-24">
-            {/* Left Sidebar Ad (Slim Skyscraper) */}
             <aside class="w-full xl:w-48 shrink-0 order-1">
               <div class="sticky top-24">
                 <AdDisplay
@@ -166,7 +163,6 @@ export default defineComponent({
               </div>
             </aside>
 
-            {/* Main Content Area */}
             <main class="flex-1 w-full max-w-4xl mx-auto order-2">
               <header class="pb-10 mb-10 border-b border-border">
                 <div class="max-w-3xl mx-auto text-center">
@@ -214,7 +210,7 @@ export default defineComponent({
                 </div>
               </header>
 
-              {/* Cover Media */}
+
               <div class="mb-12">
                 <div class="aspect-video rounded-2xl overflow-hidden shadow-elevated bg-surface-muted">
                   <BaseImage
@@ -231,7 +227,7 @@ export default defineComponent({
                 )}
               </div>
 
-              {/* Content Render Area */}
+
               <div class="max-w-3xl mx-auto relative">
                 <div
                   id="markdown-content"
@@ -240,7 +236,7 @@ export default defineComponent({
                   v-html={outputHtml.value}
                 />
 
-                {/* Tag Metadata */}
+
                 <div class="mt-16 pt-8 border-t border-border">
                   <div class="flex flex-wrap gap-2">
                     {JSON.parse(getLocalizedField(article.value, 'tags')).map((tag: string) => (
@@ -255,7 +251,7 @@ export default defineComponent({
                 </div>
               </div>
 
-              {/* Recommended Articles */}
+
               {recommendedArticles.value.length > 0 && (
                 <div class="mt-16 pt-12 border-t border-border">
                   <h2 class="text-2xl font-bold text-text-primary mb-8">
@@ -270,7 +266,7 @@ export default defineComponent({
               )}
             </main>
 
-            {/* Right Sidebar Area (Slim) */}
+
             <aside class="w-full xl:w-48 shrink-0 order-3">
               <div class="sticky top-24 flex flex-col gap-6">
                 <AdDisplay

@@ -234,7 +234,6 @@ export default defineComponent({
         </header>
 
         <div class="flex-grow flex flex-col xl:flex-row gap-8 min-h-[600px]">
-          {/* Main Editor Column */}
           <div class="flex-grow space-y-6 overflow-hidden">
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 space-y-8">
               <Tabs
@@ -253,7 +252,6 @@ export default defineComponent({
                 class="pt-6 border-t border-slate-100 space-y-8 animate-in fade-in duration-500"
                 key={currentStep.value}
               >
-                {/* Title Section */}
                 <div class="space-y-4">
                   <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
                     <span>Article Title</span>
@@ -287,7 +285,6 @@ export default defineComponent({
                     )}
                 </div>
 
-                {/* Markdown Editor */}
                 <div class="space-y-4">
                   <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
                     <span>Main Content</span>
@@ -306,7 +303,6 @@ export default defineComponent({
                   />
                 </div>
 
-                {/* Tags Input */}
                 <div class="pt-6 border-t border-slate-50 space-y-3">
                   <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
                     <span>Tags</span>
@@ -363,7 +359,6 @@ export default defineComponent({
           </div>
 
           <aside class="w-full xl:w-80 shrink-0 space-y-6 animate-in fade-in slide-in-from-right-10">
-            {/* Global Settings (Applies to all languages) */}
             <div class="bg-primary rounded-2xl p-6 text-white text-center shadow-lg shadow-primary/20">
               <i class="bi bi-globe text-3xl mb-3 block text-white/40" />
               <h4 class="font-black text-lg mb-1 leading-none uppercase tracking-tight">
@@ -374,7 +369,6 @@ export default defineComponent({
               </p>
             </div>
 
-            {/* Cover Image Uploader */}
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
               <div class="section-header mb-4 border-b border-slate-50 pb-2">
                 <span class="section-header-title">Cover Asset</span>
@@ -475,7 +469,6 @@ export default defineComponent({
                 </div>
               </div>
 
-              {/* Category */}
               <div class="pt-6 border-t border-slate-50 space-y-3">
                 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
                   Category

@@ -35,7 +35,6 @@ export const SearchInput = defineComponent({
 
         class="relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl group"
       >
-        {/* Menyesuaikan padding kiri untuk ikon */}
         <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
           <i class="bi bi-search text-lg text-text-muted group-focus-within:text-primary transition-colors"></i>
         </div>

@@ -46,50 +46,50 @@ export const useArticleStore = defineStore('articles', () => {
   const latestPage = ref(1)
   const gridPage = ref(1)
 
-  /** Featured articles for the headline carousel */
+
   const featured = computed(() => articles.value.filter((a) => a.status === 'featured'))
 
-  /** Non-featured articles for pagination */
+
   const nonFeaturedArticles = computed(() => articles.value.filter((a) => a.status !== 'featured'))
 
-  /** Paginated latest articles excluding featured ones */
+
   const latest = computed(() => {
     const start = (latestPage.value - 1) * LATEST_PER_PAGE
     return nonFeaturedArticles.value.slice(start, start + LATEST_PER_PAGE)
   })
 
-  /** Total pages for latest articles */
+
   const latestTotalPages = computed(() =>
     Math.ceil(nonFeaturedArticles.value.length / LATEST_PER_PAGE),
   )
 
-  /** Popular articles (featured or marked as popular) */
+
   const popular = computed(() => articles.value.filter((a) => a.status === 'featured').slice(0, 5))
 
-  /** Paginated articles for grid display, excluding featured */
+
   const paginatedGridArticles = computed(() => {
     const start = (gridPage.value - 1) * GRID_PER_PAGE
     return nonFeaturedArticles.value.slice(start, start + GRID_PER_PAGE)
   })
 
-  /** Total pages for grid articles */
+
   const gridTotalPages = computed(() => Math.ceil(nonFeaturedArticles.value.length / GRID_PER_PAGE))
 
   const gridArticles = computed(() => nonFeaturedArticles.value.slice(0, GRID_PER_PAGE))
 
 
 
-  /** Find an article by its unique id */
+
   const findById = async (id: string): Promise<Article | undefined> => {
     return ArticleService.getArticleById(id)
   }
 
-  /** Search articles by query string */
+
   const search = async (query: string): Promise<Article[]> => {
     return ArticleService.searchArticles(query)
   }
 
-  /** Get categories with their article counts */
+
   const getCategoryWithCount = computed(() => {
     return categories.value
       .map((c) => ({
@@ -99,22 +99,22 @@ export const useArticleStore = defineStore('articles', () => {
       .filter((c) => c.count > 0)
   })
 
-  /** Find an author by their ID */
+
   const findAuthorById = (id: string): Author | undefined => {
     return authors.value.find((a) => a.id === id)
   }
 
-  /** Find all articles written by a specific author */
+
   const findArticlesByAuthor = (id: string): Article[] => {
     return articles.value.filter((a) => a.author.id === id)
   }
 
-  /** Find a category by its id */
+
   const findCategoryById = (id: string): Category | undefined => {
     return categories.value.find((c) => c.id === id)
   }
 
-  /** Find all articles in a specific category by its id */
+
   const findArticlesByCategoryId = (id: string): Article[] => {
     return articles.value.filter((a) => a.category.id === id)
   }

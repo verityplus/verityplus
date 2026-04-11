@@ -11,7 +11,6 @@
  */
 
 @theme {
-  /* --- Primary: brand blue used for CTAs, links, accents --- */
   --color-primary-50: oklch(0.97 0.02 250);
   --color-primary-100: oklch(0.93 0.04 250);
   --color-primary-200: oklch(0.86 0.08 250);
@@ -21,7 +20,6 @@
   --color-primary-600: oklch(0.48 0.2 250);
   --color-primary-700: oklch(0.4 0.18 250);
 
-  /* --- Secondary: warm accent for badges, highlights --- */
   --color-secondary-50: oklch(0.97 0.02 80);
   --color-secondary-100: oklch(0.94 0.05 80);
   --color-secondary-200: oklch(0.88 0.1 80);
@@ -29,52 +27,42 @@
   --color-secondary-600: oklch(0.65 0.15 80);
   --color-secondary-700: oklch(0.55 0.13 80);
 
-  /* --- Background: page-level backgrounds --- */
   --color-background: oklch(0.985 0.002 260);
   --color-background-alt: oklch(0.97 0.004 260);
 
-  /* --- Surface: card/component backgrounds --- */
   --color-surface: oklch(1 0 0);
   --color-surface-hover: oklch(0.975 0.004 260);
   --color-surface-active: oklch(0.96 0.006 260);
   --color-surface-muted: oklch(0.95 0.005 260);
 
-  /* --- Text: readable contrast hierarchy --- */
   --color-text-primary: oklch(0.15 0.01 260);
   --color-text-secondary: oklch(0.4 0.01 260);
   --color-text-muted: oklch(0.55 0.01 260);
   --color-text-inverse: oklch(0.98 0 0);
 
-  /* --- Border --- */
   --color-border: oklch(0.91 0.005 260);
   --color-border-hover: oklch(0.85 0.01 260);
 
-  /* --- Container max widths --- */
   --container-content: 80rem;
 
-  /* --- Shadows --- */
   --shadow-card: 0 1px 3px oklch(0 0 0 / 0.04), 0 1px 2px oklch(0 0 0 / 0.06);
   --shadow-card-hover: 0 10px 25px oklch(0 0 0 / 0.08), 0 4px 10px oklch(0 0 0 / 0.04);
   --shadow-elevated: 0 20px 40px oklch(0 0 0 / 0.1), 0 8px 16px oklch(0 0 0 / 0.06);
 
-  /* --- Border Radius Scale --- */
   --radius-sm: 0.375rem;
   --radius-md: 0.625rem;
   --radius-lg: 1rem;
   --radius-xl: 1.25rem;
   --radius-2xl: 1.5rem;
 
-  /* --- Typography --- */
   --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
 
-  /* --- Arbitrary replacements: spacing and sizing --- */
-  --spacing-hero-sm: 25rem; /* 400px */
-  --spacing-hero-lg: 28.125rem; /* 450px */
-  --spacing-sidebar-ad: 31.25rem; /* 500px */
-  --spacing-embed-min: 30rem; /* 480px */
+  --spacing-hero-sm: 25rem;
+  --spacing-hero-lg: 28.125rem;
+  --spacing-sidebar-ad: 31.25rem;
+  --spacing-embed-min: 30rem;
 }
 
-/* --- Reusable Layout Utilities --- */
 .hero-height {
   height: var(--spacing-hero-sm);
 }
@@ -88,7 +76,6 @@
   height: var(--spacing-sidebar-ad);
 }
 
-/* --- Scrollbar Utility --- */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -97,7 +84,6 @@
   scrollbar-width: none;
 }
 
-/* --- Page Container --- */
 .container-page {
   width: 100%;
   max-width: var(--container-content);
@@ -121,7 +107,6 @@
   }
 }
 
-/* --- Category Badge --- */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -134,7 +119,6 @@
   line-height: 1.5;
 }
 
-/* --- Section Header --- */
 .section-header {
   display: flex;
   align-items: center;
@@ -160,7 +144,6 @@
   letter-spacing: -0.02em;
 }
 
-/* --- Article Card Shared --- */
 .card {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -175,7 +158,6 @@
   transform: translateY(-2px);
 }
 
-/* --- Button Variants --- */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -214,7 +196,6 @@
   background-color: var(--color-primary-50);
 }
 
-/* --- Markdown Body for ReadView --- */
 .markdown-body :deep(h1) {
   font-size: 2.25rem;
   font-weight: 800;

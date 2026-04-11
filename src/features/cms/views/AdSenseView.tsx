@@ -82,33 +82,33 @@ export default defineComponent({
           </div>
         ) : (
           <div class="space-y-8">
-            {/* Top Stats Grid */}
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { 
-                  label: 'Estimated Earnings', 
-                  value: formatCurrency(summary.value?.estimatedEarnings || '0'), 
+                {
+                  label: 'Estimated Earnings',
+                  value: formatCurrency(summary.value?.estimatedEarnings || '0'),
                   icon: 'bi bi-cash-stack',
                   color: 'bg-emerald-500',
                   trend: '+12.5%'
                 },
-                { 
-                  label: 'Impressions', 
-                  value: formatNumber(summary.value?.impressions || 0), 
+                {
+                  label: 'Impressions',
+                  value: formatNumber(summary.value?.impressions || 0),
                   icon: 'bi bi-eye-fill',
                   color: 'bg-blue-500',
                   trend: '+5.2%'
                 },
-                { 
-                  label: 'Page Views', 
-                  value: formatNumber(summary.value?.pageViews || 0), 
+                {
+                  label: 'Page Views',
+                  value: formatNumber(summary.value?.pageViews || 0),
                   icon: 'bi bi-file-earmark-text',
                   color: 'bg-indigo-500',
                   trend: '-1.4%'
                 },
-                { 
-                  label: 'CTR', 
-                  value: `${(summary.value?.pageViewsCtr || 0).toFixed(2)}%`, 
+                {
+                  label: 'CTR',
+                  value: `${(summary.value?.pageViewsCtr || 0).toFixed(2)}%`,
                   icon: 'bi bi-cursor-fill',
                   color: 'bg-amber-500',
                   trend: '+0.8%'
@@ -129,7 +129,7 @@ export default defineComponent({
               ))}
             </div>
 
-            {/* Sub Stats Area */}
+
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div class="lg:col-span-2 bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                 <div class="flex items-center justify-between mb-8">
@@ -139,7 +139,7 @@ export default defineComponent({
                      <span class="text-xs text-slate-400 font-medium">Daily Performance</span>
                    </div>
                 </div>
-                
+
                 <div class="space-y-4">
                   {(summary.value?.dailyStats || []).length > 0 ? (
                     summary.value.dailyStats.map((stat: any) => (
@@ -148,7 +148,7 @@ export default defineComponent({
                           {new Date(stat.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                         </span>
                         <div class="flex-1 h-3 bg-slate-50 rounded-full overflow-hidden">
-                           <div 
+                           <div
                              class="h-full bg-gradient-to-r from-primary/80 to-primary rounded-full group-hover:from-primary transition-all duration-500"
                              style={{ width: `${Math.min(100, (stat.earnings / (Math.max(...summary.value.dailyStats.map((s: any) => s.earnings)) || 1)) * 100)}%` }}
                            />

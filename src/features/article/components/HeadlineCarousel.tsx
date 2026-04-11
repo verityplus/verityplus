@@ -74,10 +74,8 @@ export const HeadlineCarousel = defineComponent({
                   />
 
 
-                  {/* Gradient Overlay */}
                   <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 
-                  {/* Content Overlay */}
                   <div class="absolute bottom-0 left-0 right-0 p-6 md:p-10 text-white">
                     <RouterLink
                       to={{ name: 'category', params: { id: item.category.id } }}
@@ -111,7 +109,6 @@ export const HeadlineCarousel = defineComponent({
           </div>
         </div>
 
-        {/* Indicators */}
         <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10 transition-opacity opacity-0 group-hover:opacity-100 duration-300">
           {featuredArticles.value.map((_: Article, index: number) => (
             <button
@@ -126,7 +123,6 @@ export const HeadlineCarousel = defineComponent({
           ))}
         </div>
 
-        {/* Navigation Buttons */}
         <button
           onClick={prevSlide}
           class="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 transition-all opacity-0 group-hover:opacity-100 duration-300 cursor-pointer"

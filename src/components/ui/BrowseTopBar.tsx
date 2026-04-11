@@ -81,7 +81,6 @@ export const BrowseTopBar = defineComponent({
       <div data-article-topbar class="w-full border-t border-border" ref={megamenuRef}>
         <div class="container-page">
           <div class="flex items-center gap-2 h-12">
-            {/* Browse Megamenu Trigger */}
             <div class="relative">
               <button
                 ref={triggerRef}
@@ -101,7 +100,6 @@ export const BrowseTopBar = defineComponent({
                 />
               </button>
 
-              {/* Megamenu Panel — di-Teleport ke body agar keluar dari stacking context header */}
               <Teleport to="body">
                 {isOpen.value && (
                   <div
@@ -117,12 +115,9 @@ export const BrowseTopBar = defineComponent({
                     }
                   >
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 divide-y sm:divide-y-0 md:divide-x divide-border overflow-y-auto max-h-[calc(100vh-6rem)] md:max-h-80">
-                      {/* Ad Slot */}
                       <div class="p-4">
                         <AdDisplay class="md:h-full h-32 w-full" slot={AD_SLOTS.HOME_HEADER} label="Browse TopBar Ad" />
                       </div>
-
-                      {/* Featured Column */}
                       <div class="p-4">
                         <div class="flex items-center gap-2 mb-3">
                           <i class="bi bi-star-fill text-yellow-500 text-sm" />
@@ -155,7 +150,6 @@ export const BrowseTopBar = defineComponent({
                         </div>
                       </div>
 
-                      {/* Latest Column */}
                       <div class="p-4">
                         <div class="flex items-center gap-2 mb-3">
                           <i class="bi bi-clock-fill text-blue-500 text-sm" />
@@ -188,7 +182,6 @@ export const BrowseTopBar = defineComponent({
                         </div>
                       </div>
 
-                      {/* Popular Column */}
                       <div class="p-4">
                         <div class="flex items-center gap-2 mb-3">
                           <i class="bi bi-fire text-orange-500 text-sm" />
@@ -221,7 +214,6 @@ export const BrowseTopBar = defineComponent({
                         </div>
                       </div>
 
-                      {/* Categories Column */}
                       <div class="p-4">
                         <div class="flex items-center gap-2 mb-2">
                           <i class="bi bi-folder-fill text-green-500 text-sm" />

@@ -37,7 +37,6 @@ export const ArticleGrid = defineComponent({
     return () => (
       <section class="bg-background-alt py-12">
         <div class="container-page">
-          {/* Section Header */}
           <div class="mb-10 text-center">
             <h2 class="text-3xl font-extrabold text-text-primary sm:text-4xl">
               {t('common.exploreArticles')}
@@ -45,7 +44,6 @@ export const ArticleGrid = defineComponent({
             <p class="mt-3 text-lg text-text-muted">{t('common.exploreArticlesDesc')}</p>
           </div>
 
-          {/* Category Filter */}
           <div class="flex items-center justify-center h-10 overflow-x-auto no-scrollbar gap-2 mb-10">
             {categories.value.map((cat) => (
               <button
@@ -65,14 +63,12 @@ export const ArticleGrid = defineComponent({
             ))}
           </div>
 
-          {/* Article Grid */}
           <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {displayedArticles.value.map((article: Article) => (
               <ArticleCard key={article.id} article={article} />
             ))}
           </div>
 
-          {/* Empty State */}
           {displayedArticles.value.length === 0 && (
             <div class="text-center py-20 bg-surface rounded-xl border border-border">
               <i class="bi bi-journal-x text-4xl text-text-muted mb-4 block"></i>
@@ -80,7 +76,6 @@ export const ArticleGrid = defineComponent({
             </div>
           )}
 
-          {/* Lihat Selengkapnya Button */}
           {displayedArticles.value.length > 0 && (
             <div class="flex items-center justify-center mt-12">
               <button
