@@ -1,63 +1,29 @@
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
-export const API_BASE_ORIGIN = API_BASE_URL.replace('/api/v1', '');
+import createClient from 'openapi-fetch'
+import type { paths } from '../types/openapi'
 
-class ApiError extends Error {
-  status: number;
-  data: any;
-  constructor(message: string, status: number, data: any) {
-    super(message);
-    this.status = status;
-    this.data = data;
-  }
-}
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1'
+export const API_BASE_ORIGIN = API_BASE_URL.replace('/api/v1', '')
 
-async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const token = localStorage.getItem('verity_token');
-  const headers = new Headers(options.headers || {});
-  
-  if (token) {
-    headers.set('Authorization', `Bearer ${token}`);
-  }
-  
-  if (!headers.has('Content-Type') && !(options.body instanceof FormData)) {
-    headers.set('Content-Type', 'application/json');
-  }
+// Create the type-safe client
+const client = createClient<paths>({ 
+  baseUrl: API_BASE_URL 
+})
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    ...options,
-    headers,
-  });
-
-  let data;
-  try {
-    data = await response.json();
-  } catch (e) {
-    // response might not be JSON (e.g. 204 No Content)
-    data = null;
-  }
-
-  if (!response.ok) {
-    throw new ApiError(`API Error: ${response.statusText}`, response.status, data);
-  }
-
-  return data;
-}
+// Add Auth middleware/interceptor
+client.use({
+  async onRequest({ request }) {
+    const token = localStorage.getItem('verity_token')
+    if (token) {
+      request.headers.set('Authorization', `Bearer ${token}`)
+    }
+    return request
+  },
+})
 
 export const apiClient = {
-  get: <T>(endpoint: string, options?: RequestInit) => request<T>(endpoint, { ...options, method: 'GET' }),
-  post: <T>(endpoint: string, body: any, options?: RequestInit) => {
-    return request<T>(endpoint, {
-      ...options,
-      method: 'POST',
-      body: body instanceof FormData ? body : JSON.stringify(body),
-    });
-  },
-  put: <T>(endpoint: string, body: any, options?: RequestInit) => {
-    return request<T>(endpoint, {
-      ...options,
-      method: 'PUT',
-      body: body instanceof FormData ? body : JSON.stringify(body),
-    });
-  },
-  delete: <T>(endpoint: string, options?: RequestInit) => request<T>(endpoint, { ...options, method: 'DELETE' }),
-};
+  get: client.GET,
+  post: client.POST,
+  put: client.PUT,
+  patch: client.PATCH,
+  delete: client.DELETE,
+}

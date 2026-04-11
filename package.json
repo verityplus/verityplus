@@ -12,6 +12,7 @@
     "lint": "run-s lint:*",
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
+    "generate-types": "openapi-typescript http://localhost:4000/docs/json --output src/shared/types/openapi.ts",
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
     "@unhead/vue": "^2.1.13",
     "bootstrap-icons": "^1.13.1",
     "marked": "^18.0.0",
+    "openapi-fetch": "^0.17.0",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.2.2",
     "tiptap-markdown": "^0.9.0",
@@ -47,6 +49,7 @@
     "eslint-plugin-vue": "~10.8.0",
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
+    "openapi-typescript": "^7.13.0",
     "oxlint": "~1.59.0",
     "prettier": "3.8.1",
     "typescript": "~6.0.2",
