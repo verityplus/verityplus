@@ -10,6 +10,7 @@ import {
   clearAllData,
   loadGoogleAnalytics,
 } from '../services/tracker.service'
+import { AnalyticsService } from '../services/analytics.service'
 import type { AnalyticsSummary, ConsentStatus } from '../types'
 
 export const useAnalyticsStore = defineStore('analytics', () => {
@@ -48,8 +49,9 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     trackPageView(path, title)
   }
 
-  function refreshSummary() {
-    summary.value = getAnalyticsSummary()
+  async function refreshSummary() {
+    const data = await AnalyticsService.getSummary()
+    if (data) summary.value = data
   }
 
   function fetchArticleViews() {
