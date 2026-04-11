@@ -7,6 +7,8 @@ import Youtube from '@tiptap/extension-youtube'
 import Link from '@tiptap/extension-link'
 import { Markdown } from 'tiptap-markdown'
 import { appPrompt } from '@/utils/dialog'
+import { StorageService } from '@/shared/services/storage.service'
+import { resolveAssetUrl } from '@/shared/utils/assets'
 
 export const MarkdownEditor = defineComponent({
   name: 'MarkdownEditor',
@@ -63,13 +65,18 @@ export const MarkdownEditor = defineComponent({
     const showImageDialog = ref(false)
     const imageUrl = ref('')
 
-    const handleFileSelect = (e: Event) => {
+    const handleFileSelect = async (e: Event) => {
       const file = (e.target as HTMLInputElement).files?.[0]
       if (file) {
-        const url = URL.createObjectURL(file)
-        editor.value?.chain().focus().setImage({ src: url }).run()
-        showImageDialog.value = false
-        imageUrl.value = ''
+        try {
+          const url = await StorageService.upload(file)
+          editor.value?.chain().focus().setImage({ src: resolveAssetUrl(url) }).run()
+          showImageDialog.value = false
+          imageUrl.value = ''
+        } catch (err: any) {
+          console.error('Markdown image upload failed:', err)
+          alert(`Failed to upload image: ${err.message}`)
+        }
       }
     }
 

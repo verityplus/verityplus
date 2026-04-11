@@ -7,6 +7,7 @@ import { BaseButton } from '@/components/ui/Button'
 import { Tabs } from '@/components/ui/Tabs'
 import { appAlert } from '@/utils/dialog'
 import { StorageService } from '@/shared/services/storage.service'
+import { resolveAssetUrl } from '@/shared/utils/assets'
 
 /**
  * CMS View: CharacterEditorView
@@ -122,7 +123,7 @@ export default defineComponent({
               />
               <div class="relative">
                 <img
-                  src={form.value.avatar}
+                  src={resolveAssetUrl(form.value.avatar)}
                   class={[
                     'w-40 h-40 rounded-full border-4 border-white shadow-xl group-hover:scale-105 transition object-cover',
                     isUploading.value ? 'opacity-30 blur-sm' : 'opacity-100',

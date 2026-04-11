@@ -10,6 +10,7 @@ import { BaseButton } from '@/components/ui/Button'
 import { Tabs } from '@/components/ui/Tabs'
 import { appAlert } from '@/utils/dialog'
 import { StorageService } from '@/shared/services/storage.service'
+import { resolveAssetUrl } from '@/shared/utils/assets'
 
 /**
  * CMS View: ArticleEditorView
@@ -402,7 +403,7 @@ export default defineComponent({
                     }}
                   />
                   <img
-                    src={form.value.coverImage}
+                    src={resolveAssetUrl(form.value.coverImage as string)}
                     class={[
                       'w-full h-full object-cover group-hover:scale-110 transition duration-700',
                       isUploading.value ? 'opacity-20 scale-95' : 'opacity-100',
