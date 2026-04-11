@@ -5,6 +5,7 @@ import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
+import { AD_SLOTS } from '@/features/ads/services/ad.service'
 import type { Article } from '@/shared/types'
 
 const ARTICLES_PER_PAGE = 9
@@ -62,7 +63,7 @@ export default defineComponent({
           </div>
 
           <div class="mb-12">
-            <AdDisplay size="leaderboard" label={t('ads.sponsor')} />
+            <AdDisplay size="leaderboard" slot={AD_SLOTS.CATEGORY_TOP} label={t('ads.sponsor')} />
           </div>
 
           {paginatedArticles.value.length > 0 ? (
@@ -112,7 +113,7 @@ export default defineComponent({
           )}
 
           <div class="pt-8 border-t border-border">
-            <AdDisplay size="leaderboard" label={t('ads.exclusivePromo')} />
+            <AdDisplay size="leaderboard" slot={AD_SLOTS.HOME_FOOTER} label={t('ads.exclusivePromo')} />
           </div>
         </div>
       </main>

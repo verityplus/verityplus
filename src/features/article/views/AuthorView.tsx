@@ -5,6 +5,7 @@ import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
+import { AD_SLOTS } from '@/features/ads/services/ad.service'
 import { useLocalizedField } from '@/composables/useLocalizedField'
 import { BaseImage } from '@/components/ui/Image'
 import type { Article, Author } from '@/shared/types'
@@ -106,7 +107,7 @@ export default defineComponent({
 
             {/* Intermediate Ad Placement */}
             <div class="mb-12">
-              <AdDisplay size="leaderboard" label={t('ads.authorSponsor')} />
+              <AdDisplay size="leaderboard" slot={AD_SLOTS.CATEGORY_TOP} label={t('ads.authorSponsor')} />
             </div>
 
             {/* Articles by Author */}
@@ -124,7 +125,7 @@ export default defineComponent({
 
             {/* Bottom Ad Placement */}
             <div class="pt-8 border-t border-border">
-              <AdDisplay size="leaderboard" label={t('ads.exclusivePromo')} />
+              <AdDisplay size="leaderboard" slot={AD_SLOTS.HOME_FOOTER} label={t('ads.exclusivePromo')} />
             </div>
           </div>
         </main>

@@ -5,6 +5,7 @@ import { useHead } from '@/composables/useHead'
 import { marked } from 'marked'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
+import { AD_SLOTS } from '@/features/ads/services/ad.service'
 import { BaseBadge } from '@/components/ui/Badge'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { useLocalizedField } from '@/composables/useLocalizedField'
@@ -158,6 +159,7 @@ export default defineComponent({
               <div class="sticky top-24">
                 <AdDisplay
                   size="inline"
+                  slot={AD_SLOTS.ARTICLE_SIDEBAR_LEFT}
                   label={t('article.mainPromo')}
                   class="xl:h-[calc(100vh-8rem)] h-40"
                 />
@@ -273,6 +275,7 @@ export default defineComponent({
               <div class="sticky top-24 flex flex-col gap-6">
                 <AdDisplay
                   size="inline"
+                  slot={AD_SLOTS.ARTICLE_SIDEBAR_RIGHT}
                   label={t('article.mainPromo')}
                   class="h-40 xl:h-[calc(100vh-8rem)]"
                 />

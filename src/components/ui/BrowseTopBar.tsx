@@ -2,6 +2,7 @@ import { defineComponent, ref, onMounted, onUnmounted, Teleport } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
+import { AD_SLOTS } from '@/features/ads/services/ad.service'
 import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { Article, Category } from '@/shared/types'
 
@@ -118,7 +119,7 @@ export const BrowseTopBar = defineComponent({
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 divide-y sm:divide-y-0 md:divide-x divide-border overflow-y-auto max-h-[calc(100vh-6rem)] md:max-h-80">
                       {/* Ad Slot */}
                       <div class="p-4">
-                        <AdDisplay class="md:h-full h-32 w-full" label="Browse TopBar Ad" />
+                        <AdDisplay class="md:h-full h-32 w-full" slot={AD_SLOTS.HOME_HEADER} label="Browse TopBar Ad" />
                       </div>
 
                       {/* Featured Column */}

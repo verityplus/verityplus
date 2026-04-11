@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
+import { AD_SLOTS } from '@/features/ads/services/ad.service'
 import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
 import { useLocalizedField } from '@/composables/useLocalizedField'
@@ -177,7 +178,7 @@ export default defineComponent({
                 <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
               </div>
 
-              <AdDisplay size="sidebar" label={t('ads.sidePromo')} />
+              <AdDisplay size="sidebar" slot={AD_SLOTS.SEARCH_RESULTS} label={t('ads.sidePromo')} />
             </aside>
           </div>
         </div>

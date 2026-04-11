@@ -2,6 +2,7 @@ import { defineComponent, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
+import { AD_SLOTS } from '@/features/ads/services/ad.service'
 import { HeadlineCarousel } from '@/features/article/components/HeadlineCarousel'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { ArticleGrid } from '@/features/article/components/ArticleGrid'
@@ -73,7 +74,7 @@ export default defineComponent({
             {/* Sidebar View Area */}
             <aside class="xl:w-1/3 w-full">
               <div class="flex flex-col gap-4 sticky top-20">
-                <AdDisplay size="banner" label={t('ads.header')} />
+                <AdDisplay size="banner" slot={AD_SLOTS.HOME_HEADER} label={t('ads.header')} />
 
                 {/* Popular Articles Widget */}
                 <div class="rounded-[var(--radius-xl)] bg-surface border border-border p-5">
@@ -103,7 +104,7 @@ export default defineComponent({
                   </div>
                 </div>
 
-                <AdDisplay size="sidebar" label={t('ads.middle')} />
+                <AdDisplay size="sidebar" slot={AD_SLOTS.HOME_SIDEBAR} label={t('ads.middle')} />
                 <div class="ad-skyscraper-height">
                   <InstagramEmbed />
                 </div>
@@ -117,7 +118,7 @@ export default defineComponent({
 
         {/* Footer Ad Placement */}
         <div class="container-page py-10">
-          <AdDisplay size="leaderboard" label={t('ads.footer')} />
+          <AdDisplay size="leaderboard" slot={AD_SLOTS.HOME_FOOTER} label={t('ads.footer')} />
         </div>
       </main>
     )
