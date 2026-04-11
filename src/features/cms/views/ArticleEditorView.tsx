@@ -36,7 +36,7 @@ export default defineComponent({
     })
 
     type EditorForm = Record<string, unknown> & {
-      id: number
+      id: string
       titleId: string
       titleEn: string
       titleZh: string
@@ -57,7 +57,7 @@ export default defineComponent({
     }
 
     const form = ref<EditorForm>({
-      id: 0,
+      id: '',
       titleId: '',
       titleEn: '',
       titleZh: '',
@@ -73,11 +73,7 @@ export default defineComponent({
       tagsId: [],
       tagsEn: [],
       tagsZh: [],
-      publishedAt: new Date().toLocaleDateString('en-GB', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-      }),
+      publishedAt: new Date().toISOString(),
       status: 'draft' as ArticleStatus,
     })
 
@@ -148,7 +144,13 @@ export default defineComponent({
     const errors = computed(() => {
       const errs: Record<string, string> = {}
 
-      if (!form.value.titleId) errs.titleId = 'Title (Bahasa Indonesia) is required'
+      if (!form.value.titleId) errs.titleId = 'Title (ID) is required'
+      if (!form.value.titleEn) errs.titleEn = 'Title (EN) is required'
+      if (!form.value.titleZh) errs.titleZh = 'Title (ZH) is required'
+      if (!form.value.contentId) errs.contentId = 'Content (ID) is required'
+      if (!form.value.contentEn) errs.contentEn = 'Content (EN) is required'
+      if (!form.value.contentZh) errs.contentZh = 'Content (ZH) is required'
+      
       if (!form.value.category) errs.category = 'Category is required'
       if (!form.value.author) errs.author = 'Author is required'
       return errs
@@ -225,7 +227,9 @@ export default defineComponent({
             </p>
           </div>
           <BaseButton
-            onClick={save}
+            onClick={() => {
+              void save()
+            }}
             variant="primary"
             class="shadow-lg shadow-primary/20 px-8 py-3.5 uppercase font-black tracking-widest text-xs"
           >
