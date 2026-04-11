@@ -1,4 +1,4 @@
-import { defineComponent, type PropType, onMounted, nextTick, ref } from 'vue'
+import { defineComponent, type PropType, onMounted, nextTick, ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { AdSize } from '@/shared/types'
 
@@ -24,7 +24,7 @@ export const AdDisplay = defineComponent({
       default: '',
     },
     /**
-     * Google AdSense Slot ID.
+     * Google AdSense Slot ID (optional override).
      */
     slot: {
       type: String,
@@ -41,7 +41,18 @@ export const AdDisplay = defineComponent({
   setup(props) {
     const { t } = useI18n()
     const adLoaded = ref(false)
-    const pubId = import.meta.env.VITE_ADSENSE_PUB_ID
+
+    const pubId = computed(() => import.meta.env.VITE_ADSENSE_PUB_ID)
+    const slotId = computed(() => {
+      if (props.slot) return props.slot
+      
+      switch (props.size) {
+        case 'leaderboard': return import.meta.env.VITE_ADSENSE_SLOT_HOME_HEADER
+        case 'banner': return import.meta.env.VITE_ADSENSE_SLOT_ARTICLE_INLINE
+        case 'sidebar': return import.meta.env.VITE_ADSENSE_SLOT_HOME_SIDEBAR
+        default: return import.meta.env.VITE_ADSENSE_SLOT_ARTICLE_INLINE
+      }
+    })
 
     const sizeClasses: Record<AdSize, string> = {
       leaderboard: 'h-24',
@@ -58,10 +69,9 @@ export const AdDisplay = defineComponent({
     }
 
     onMounted(async () => {
-      if (pubId && props.slot) {
+      if (pubId.value && pubId.value !== 'ca-pub-XXXXXXXXXXXXXXXX' && slotId.value && slotId.value !== 'XXXXXXXXXX') {
         await nextTick()
         try {
-
           ;(window.adsbygoogle = window.adsbygoogle || []).push({})
           adLoaded.value = true
         } catch (e) {
@@ -71,9 +81,9 @@ export const AdDisplay = defineComponent({
     })
 
     return () => {
-      const isDev = import.meta.env.DEV || !pubId || !props.slot
+      const isDev = import.meta.env.DEV || !pubId.value || !slotId.value
 
-      if (isDev && !adLoaded.value) {
+      if ((isDev || !pubId.value || !slotId.value) && !adLoaded.value) {
         return (
           <div
             class={[
@@ -87,7 +97,7 @@ export const AdDisplay = defineComponent({
               <span>{props.label || t('ads.defaultLabel')}</span>
               {isDev && (
                 <span class="text-[10px] lowercase font-normal opacity-70">
-                  {pubId ? (props.slot ? 'AdSense Active' : 'Missing Slot ID') : 'Pub ID Not Configured'}
+                  {pubId.value ? (slotId.value ? 'AdSense Active' : 'Missing Slot ID') : 'Pub ID Not Configured'}
                 </span>
               )}
             </div>
@@ -100,8 +110,8 @@ export const AdDisplay = defineComponent({
           <ins
             class="adsbygoogle"
             style={{ display: 'block', height: '100%' }}
-            data-ad-client={pubId}
-            data-ad-slot={props.slot}
+            data-ad-client={pubId.value}
+            data-ad-slot={slotId.value}
             data-ad-format={adFormat[props.size]}
             data-full-width-responsive="true"
           ></ins>
