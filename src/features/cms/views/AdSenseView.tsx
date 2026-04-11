@@ -1,25 +1,7 @@
 import { defineComponent, ref, onMounted, computed } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
 import { useI18n } from 'vue-i18n'
-import { gql } from '@apollo/client/core'
-import { apolloClient } from '@/shared/services/apollo'
-
-const GET_ADSENSE_SUMMARY = gql`
-  query GetAdSenseSummary {
-    adsenseSummary {
-      estimatedEarnings
-      impressions
-      pageViews
-      clicks
-      pageViewsCtr
-      costPerClick
-      dailyStats {
-        date
-        earnings
-      }
-    }
-  }
-`
+import { apiClient } from '@/shared/services/apiClient'
 
 export default defineComponent({
   name: 'AdSenseView',
@@ -29,11 +11,8 @@ export default defineComponent({
     const { data, isLoading, error } = useQuery({
       queryKey: ['adsense-summary'],
       queryFn: async () => {
-        const result = await apolloClient.query({
-          query: GET_ADSENSE_SUMMARY,
-          fetchPolicy: 'network-only',
-        })
-        return result.data.adsenseSummary
+        const result = await apiClient.get<any>('/adsense/summary')
+        return result
       },
     })
 

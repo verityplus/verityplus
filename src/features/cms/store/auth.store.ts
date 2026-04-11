@@ -1,27 +1,12 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { CMSUser } from '@/shared/types'
-import { apolloClient } from '@/shared/services/apollo'
-import { gql } from '@apollo/client/core'
+import { apiClient } from '@/shared/services/apiClient'
 import { appAlert } from '@/utils/dialog'
-
-const LOGIN_MUTATION = gql`
-  mutation Login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      token
-      user {
-        id
-        username
-        email
-        role
-      }
-    }
-  }
-`
 
 /**
  * AuthStore: Manages authentication state for CMS access.
- * Refactored to use GraphQL JWT-based authentication.
+ * Refactored to use standard REST JWT-based authentication.
  */
 export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref(!!localStorage.getItem('verity_token'))
@@ -29,20 +14,20 @@ export const useAuthStore = defineStore('auth', () => {
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      const result = await apolloClient.mutate<{ login: { token: string; user: CMSUser } }>({
-        mutation: LOGIN_MUTATION,
-        variables: { username, password },
-      })
+      const result = await apiClient.post<{ token: string; user: CMSUser }>('/auth/login', {
+        username,
+        password,
+      });
 
-      if (result.data?.login) {
-        const { token, user } = result.data.login
+      if (result) {
+        const { token, user } = result
         localStorage.setItem('verity_token', token)
         isAuthenticated.value = true
         currentUser.value = user
         return true
       }
       return false
-    } catch (err) {
+    } catch (err: any) {
       await appAlert(err.message || 'The user credentials provided are invalid.', 'Authentication Failure')
       return false
     }

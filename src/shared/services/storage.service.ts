@@ -1,57 +1,22 @@
-import { gql } from '@apollo/client/core'
-import { apolloClient } from './apollo'
-
-const GET_SIGNED_URL = gql`
-  mutation GetSignedUrl($filename: String!, $mimetype: String!) {
-    getSignedUrl(filename: $filename, mimetype: $mimetype) {
-      signedUrl
-      publicUrl
-      key
-    }
-  }
-`
-
-export interface SignedUrlResponse {
-  signedUrl: string
-  publicUrl: string
-  key: string
-}
+import { apiClient } from './apiClient'
 
 export const StorageService = {
   /**
-   * Orchestrates the file upload flow to Cloudflare R2
+   * Orchestrates the file upload flow directly to the backend
    * @param file The file object from input change event
    * @returns The final public URL of the uploaded file
    */
   async upload(file: File): Promise<string> {
-
-    const result = await apolloClient.mutate<{ getSignedUrl: SignedUrlResponse }>({
-      mutation: GET_SIGNED_URL,
-      variables: {
-        filename: file.name,
-        mimetype: file.type,
-      },
-    })
-
-    if (!result.data?.getSignedUrl) {
-      throw new Error('Failed to get signed upload URL')
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    // We send multipart/form-data. The apiClient will bypass JSON stringification for FormData.
+    const result = await apiClient.post<{ url: string }>('/storage/upload', formData);
+    
+    if (!result || !result.url) {
+      throw new Error('Failed to get public URL after upload');
     }
 
-    const { signedUrl, publicUrl } = result.data.getSignedUrl
-
-
-    const response = await fetch(signedUrl, {
-      method: 'PUT',
-      body: file,
-      headers: {
-        'Content-Type': file.type,
-      },
-    })
-
-    if (!response.ok) {
-      throw new Error(`Upload failed with status: ${response.statusText}`)
-    }
-
-    return publicUrl
+    return result.url;
   },
 }

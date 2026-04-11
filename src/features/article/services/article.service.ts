@@ -9,193 +9,11 @@ import type {
   CreateAuthorInput,
   UpdateAuthorInput,
 } from '@/shared/types'
-import { apolloClient } from '@/shared/services/apollo'
-import { gql } from '@apollo/client/core'
-
-const GET_ARTICLES = gql`
-  query GetArticles(
-    $search: String
-    $take: Int
-    $skip: Int
-    $categoryId: String
-    $authorId: String
-  ) {
-    articles(
-      search: $search
-      take: $take
-      skip: $skip
-      categoryId: $categoryId
-      authorId: $authorId
-    ) {
-      id
-      titleId
-      titleEn
-      titleZh
-      excerptId
-      excerptEn
-      excerptZh
-      coverImage
-      publishedAt
-      readTimeMinutes
-      status
-      category {
-        id
-        nameId
-        nameEn
-        nameZh
-      }
-      author {
-        id
-        name
-        avatar
-      }
-    }
-  }
-`
-
-const GET_ARTICLE_BY_ID = gql`
-  query GetArticleById($id: ID!) {
-    article(id: $id) {
-      id
-      titleId
-      titleEn
-      titleZh
-      excerptId
-      excerptEn
-      excerptZh
-      contentId
-      contentEn
-      contentZh
-      coverImage
-      coverImageCaptionId
-      coverImageCaptionEn
-      coverImageCaptionZh
-      publishedAt
-      readTimeMinutes
-      status
-      tagsId
-      tagsEn
-      tagsZh
-      category {
-        id
-        nameId
-        nameEn
-        nameZh
-      }
-      author {
-        id
-        name
-        avatar
-        bioId
-        bioEn
-        bioZh
-      }
-    }
-  }
-`
-
-const GET_CATEGORIES = gql`
-  query GetCategories {
-    categories {
-      id
-      nameId
-      nameEn
-      nameZh
-    }
-  }
-`
-
-const GET_AUTHORS = gql`
-  query GetAuthors {
-    authors {
-      id
-      name
-      avatar
-      role
-      bioId
-      bioEn
-      bioZh
-    }
-  }
-`
-
-const CREATE_CATEGORY = gql`
-  mutation CreateCategory($input: CreateCategoryInput!) {
-    createCategory(input: $input) {
-      id
-    }
-  }
-`
-
-const UPDATE_CATEGORY = gql`
-  mutation UpdateCategory($input: CreateCategoryInput!, $id: String!) {
-    updateCategory(id: $id, input: $input) {
-      id
-    }
-  }
-`
-
-const DELETE_CATEGORY = gql`
-  mutation DeleteCategory($id: String!) {
-    deleteCategory(id: $id) {
-      id
-    }
-  }
-`
-
-const CREATE_AUTHOR = gql`
-  mutation CreateAuthor($input: CreateAuthorInput!) {
-    createAuthor(input: $input) {
-      id
-      name
-    }
-  }
-`
-
-const UPDATE_AUTHOR = gql`
-  mutation UpdateAuthor($input: CreateAuthorInput!, $id: String!) {
-    updateAuthor(id: $id, input: $input) {
-      id
-      name
-    }
-  }
-`
-
-const DELETE_AUTHOR = gql`
-  mutation DeleteAuthor($id: String!) {
-    deleteAuthor(id: $id) {
-      id
-    }
-  }
-`
-
-const CREATE_ARTICLE = gql`
-  mutation CreateArticle($input: CreateArticleInput!) {
-    createArticle(input: $input) {
-      id
-    }
-  }
-`
-
-const UPDATE_ARTICLE = gql`
-  mutation UpdateArticle($input: UpdateArticleInput!) {
-    updateArticle(input: $input) {
-      id
-    }
-  }
-`
-
-const DELETE_ARTICLE = gql`
-  mutation DeleteArticle($id: String!) {
-    deleteArticle(id: $id) {
-      id
-    }
-  }
-`
+import { apiClient } from '@/shared/services/apiClient'
 
 /**
  * ArticleService: Unified Data Access Layer
- * Refactored to use GraphQL via Apollo Client.
+ * Refactored to use standard REST API via apiClient.
  */
 export const ArticleService = {
   async getArticles(
@@ -207,19 +25,23 @@ export const ArticleService = {
       authorId?: string
     } = {},
   ): Promise<Article[]> {
-    const result = await apolloClient.query<{ articles: Article[] }>({
-      query: GET_ARTICLES,
-      variables: args,
-    })
-    return result.data?.articles || []
+    const params = new URLSearchParams()
+    if (args.search) params.append('search', args.search)
+    if (args.take) params.append('take', args.take.toString())
+    if (args.skip) params.append('skip', args.skip.toString())
+    if (args.categoryId) params.append('categoryId', args.categoryId)
+    if (args.authorId) params.append('authorId', args.authorId)
+
+    const queryStr = params.toString()
+    const endpoint = `/articles${queryStr ? '?' + queryStr : ''}`
+    
+    const result = await apiClient.get<Article[]>(endpoint)
+    return result || []
   },
 
   async getArticleById(id: string): Promise<Article | undefined> {
-    const result = await apolloClient.query<{ article: Article | null }>({
-      query: GET_ARTICLE_BY_ID,
-      variables: { id },
-    })
-    return result.data?.article || undefined
+    const result = await apiClient.get<Article>(`/articles/${id}`)
+    return result || undefined
   },
 
   async searchArticles(query: string): Promise<Article[]> {
@@ -227,194 +49,58 @@ export const ArticleService = {
   },
 
   async getAllCategories(): Promise<Category[]> {
-    const result = await apolloClient.query<{ categories: Category[] }>({ query: GET_CATEGORIES })
-    return result.data?.categories || []
+    const result = await apiClient.get<Category[]>('/categories')
+    return result || []
   },
 
   async getAllAuthors(): Promise<Author[]> {
-    const result = await apolloClient.query<{ authors: Author[] }>({ query: GET_AUTHORS })
-    return result.data?.authors || []
+    const result = await apiClient.get<Author[]>('/authors')
+    return result || []
   },
 
   async createArticle(data: CreateArticleInput): Promise<Article> {
-
-    const {
-      titleId,
-      titleEn,
-      titleZh,
-      contentId,
-      contentEn,
-      contentZh,
-      excerptId,
-      excerptEn,
-      excerptZh,
-      coverImage,
-      coverImageCaptionId,
-      coverImageCaptionEn,
-      coverImageCaptionZh,
-      publishedAt,
-      readTimeMinutes,
-      categoryId,
-      authorId,
-      status,
-      tagsId,
-      tagsEn,
-      tagsZh,
-    } = data
-
-    const input = {
-      titleId,
-      titleEn,
-      titleZh,
-      contentId,
-      contentEn,
-      contentZh,
-      excerptId,
-      excerptEn,
-      excerptZh,
-      coverImage,
-      coverImageCaptionId,
-      coverImageCaptionEn,
-      coverImageCaptionZh,
-      publishedAt,
-      readTimeMinutes,
-      categoryId,
-      authorId,
-      status,
-      tagsId,
-      tagsEn,
-      tagsZh,
-    }
-
-    console.log('Creating article with input:', input)
-    const result = await apolloClient.mutate<{ createArticle: Article }>({
-      mutation: CREATE_ARTICLE,
-      variables: { input },
-    })
-    return result.data!.createArticle
+    console.log('Creating article with input:', data)
+    const result = await apiClient.post<Article>('/articles', data)
+    return result
   },
 
   async updateArticle(data: UpdateArticleInput): Promise<Article> {
-
-    const {
-      id,
-      titleId,
-      titleEn,
-      titleZh,
-      contentId,
-      contentEn,
-      contentZh,
-      excerptId,
-      excerptEn,
-      excerptZh,
-      coverImage,
-      coverImageCaptionId,
-      coverImageCaptionEn,
-      coverImageCaptionZh,
-      publishedAt,
-      readTimeMinutes,
-      categoryId,
-      authorId,
-      status,
-      tagsId,
-      tagsEn,
-      tagsZh,
-    } = data
-
-    const input = {
-      id,
-      titleId,
-      titleEn,
-      titleZh,
-      contentId,
-      contentEn,
-      contentZh,
-      excerptId,
-      excerptEn,
-      excerptZh,
-      coverImage,
-      coverImageCaptionId,
-      coverImageCaptionEn,
-      coverImageCaptionZh,
-      publishedAt,
-      readTimeMinutes,
-      categoryId,
-      authorId,
-      status,
-      tagsId,
-      tagsEn,
-      tagsZh,
-    }
-
-    const result = await apolloClient.mutate<{ updateArticle: Article }>({
-      mutation: UPDATE_ARTICLE,
-      variables: { input },
-    })
-    return result.data!.updateArticle
+    const { id, ...input } = data
+    const result = await apiClient.put<Article>(`/articles/${id}`, input)
+    return result
   },
 
   async deleteArticle(id: string): Promise<void> {
-    await apolloClient.mutate({
-      mutation: DELETE_ARTICLE,
-      variables: { id },
-    })
+    await apiClient.delete(`/articles/${id}`)
   },
 
   async createCategory(data: CreateCategoryInput): Promise<Category> {
-    const { nameId, nameEn, nameZh } = data
-    const input = { nameId, nameEn, nameZh }
-
-    const result = await apolloClient.mutate<{ createCategory: Category }>({
-      mutation: CREATE_CATEGORY,
-      variables: { input },
-    })
-    return result.data!.createCategory
+    const result = await apiClient.post<Category>('/categories', data)
+    return result
   },
 
   async updateCategory(data: UpdateCategoryInput): Promise<Category> {
-    const { id, nameId, nameEn, nameZh } = data
-    const input = { nameId, nameEn, nameZh }
-
-    const result = await apolloClient.mutate<{ updateCategory: Category }>({
-      mutation: UPDATE_CATEGORY,
-      variables: { id, input },
-    })
-    return result.data!.updateCategory
+    const { id, ...input } = data
+    const result = await apiClient.put<Category>(`/categories/${id}`, input)
+    return result
   },
 
   async deleteCategory(id: string): Promise<void> {
-    await apolloClient.mutate({
-      mutation: DELETE_CATEGORY,
-      variables: { id },
-    })
+    await apiClient.delete(`/categories/${id}`)
   },
 
   async createAuthor(data: CreateAuthorInput): Promise<Author> {
-    const { name, avatar, role, bioId, bioEn, bioZh } = data
-    const input = { name, avatar, role, bioId, bioEn, bioZh }
-
-    const result = await apolloClient.mutate<{ createAuthor: Author }>({
-      mutation: CREATE_AUTHOR,
-      variables: { input },
-    })
-    return result.data!.createAuthor
+    const result = await apiClient.post<Author>('/authors', data)
+    return result
   },
 
   async updateAuthor(data: UpdateAuthorInput): Promise<Author> {
-    const { id, name, avatar, role, bioId, bioEn, bioZh } = data
-    const input = { name, avatar, role, bioId, bioEn, bioZh }
-
-    const result = await apolloClient.mutate<{ updateAuthor: Author }>({
-      mutation: UPDATE_AUTHOR,
-      variables: { id, input },
-    })
-    return result.data!.updateAuthor
+    const { id, ...input } = data
+    const result = await apiClient.put<Author>(`/authors/${id}`, input)
+    return result
   },
 
   async deleteAuthor(id: string): Promise<void> {
-    await apolloClient.mutate({
-      mutation: DELETE_AUTHOR,
-      variables: { id },
-    })
+    await apiClient.delete(`/authors/${id}`)
   },
 }
