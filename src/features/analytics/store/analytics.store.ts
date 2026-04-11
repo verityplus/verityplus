@@ -64,6 +64,13 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     updateEngagementTime(durationMs)
   }
 
+  function getViewsForPathPattern(pattern: RegExp): number {
+    if (!summary.value?.topPages) return 0
+    return summary.value.topPages
+      .filter((p) => pattern.test(p.path))
+      .reduce((sum, p) => sum + p.views, 0)
+  }
+
   async function refreshSummary(pagePath?: string) {
     // AnalyticsService.getSummary should be updated to accept pagePath
     const result = await AnalyticsService.getSummary(pagePath)

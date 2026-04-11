@@ -1,6 +1,8 @@
 import { defineComponent, ref, computed } from 'vue'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
+import { useAnalyticsStore } from '@/features/analytics/store/analytics.store'
+import { onMounted } from 'vue'
 import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
 import { useLocalizedField } from '@/composables/useLocalizedField'
@@ -17,6 +19,16 @@ export default defineComponent({
     const cmsContentStore = useCMSContentStore()
     const { getLocalizedField } = useLocalizedField()
     const searchQuery = ref('')
+    const analyticsStore = useAnalyticsStore()
+
+    onMounted(async () => {
+      await analyticsStore.refreshSummary()
+    })
+
+    const getViewsForCategory = (id: string) => {
+      const pattern = new RegExp(`^(\\/[a-z]{2})?\\/categories\\/${id}$`)
+      return analyticsStore.getViewsForPathPattern(pattern)
+    }
 
     const filteredCategories = computed(() => {
       const q = searchQuery.value.toLowerCase().trim()
@@ -78,6 +90,7 @@ export default defineComponent({
                 <tr class="bg-slate-50 text-[10px] font-black uppercase tracking-widest text-slate-400">
                   <th class="px-6 py-4">Category Detail</th>
                   <th class="px-6 py-4">Theme Configuration</th>
+                  <th class="px-6 py-4 text-center">Engagement</th>
                   <th class="px-6 py-4 text-right">Actions</th>
                 </tr>
               </thead>
@@ -103,6 +116,13 @@ export default defineComponent({
                       <BaseBadge class="text-[10px]">
                         Standard Theme
                       </BaseBadge>
+                    </td>
+                    <td class="px-6 py-5 text-center">
+                      <div class="inline-flex items-center gap-1.5 text-slate-500 font-mono text-xs bg-slate-50 px-3 py-1.5 rounded-full border border-slate-100">
+                        <i class="bi bi-eye-fill text-[10px] text-primary"></i>
+                        {getViewsForCategory(cat.id).toLocaleString()}
+                        <span class="text-[8px] uppercase tracking-widest text-slate-400 font-black ml-1">Views</span>
+                      </div>
                     </td>
                     <td class="px-6 py-5 text-right">
                       <div class="flex items-center justify-end gap-2 translate-x-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition duration-300">
