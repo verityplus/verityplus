@@ -40,9 +40,6 @@ export default defineComponent({
       titleId: string
       titleEn: string
       titleZh: string
-      excerptId: string
-      excerptEn: string
-      excerptZh: string
       contentId: string
       contentEn: string
       contentZh: string
@@ -56,7 +53,6 @@ export default defineComponent({
       tagsEn: string[]
       tagsZh: string[]
       publishedAt: string
-      readTimeMinutes: number
       status: ArticleStatus
     }
 
@@ -65,9 +61,6 @@ export default defineComponent({
       titleId: '',
       titleEn: '',
       titleZh: '',
-      excerptId: '',
-      excerptEn: '',
-      excerptZh: '',
       contentId: '',
       contentEn: '',
       contentZh: '',
@@ -85,7 +78,6 @@ export default defineComponent({
         month: 'short',
         year: 'numeric',
       }),
-      readTimeMinutes: 5,
       status: 'draft' as ArticleStatus,
     })
 
@@ -184,15 +176,11 @@ export default defineComponent({
         contentId: form.value.contentId,
         contentEn: form.value.contentEn,
         contentZh: form.value.contentZh,
-        excerptId: form.value.excerptId,
-        excerptEn: form.value.excerptEn,
-        excerptZh: form.value.excerptZh,
         coverImage: form.value.coverImage,
         coverImageCaptionId: form.value.coverImageCaptionId,
         coverImageCaptionEn: form.value.coverImageCaptionEn,
         coverImageCaptionZh: form.value.coverImageCaptionZh,
         publishedAt: form.value.publishedAt,
-        readTimeMinutes: form.value.readTimeMinutes,
         categoryId: form.value.category!.id,
         authorId: form.value.author!.id,
         status: form.value.status,
@@ -297,28 +285,6 @@ export default defineComponent({
                         {errors.value[`title${activeLangSuffix.value}`]}
                       </p>
                     )}
-                </div>
-
-                {/* Excerpt Section */}
-                <div class="space-y-4">
-                  <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
-                    <span>Short Excerpt</span>
-                    <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">
-                      {activeLangSuffix.value}
-                    </span>
-                  </label>
-                  <textarea
-                    value={
-                      (form.value as Record<string, string>)[`excerpt${activeLangSuffix.value}`]
-                    }
-                    onInput={(e) => {
-                      ;(form.value as Record<string, string>)[`excerpt${activeLangSuffix.value}`] =
-                        (e.target as HTMLTextAreaElement).value
-                    }}
-                    rows={3}
-                    placeholder="Write a brief summary..."
-                    class="w-full text-sm rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white p-4 outline-none font-medium text-slate-700 transition resize-none"
-                  ></textarea>
                 </div>
 
                 {/* Markdown Editor */}

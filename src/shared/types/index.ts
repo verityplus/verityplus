@@ -168,15 +168,11 @@ export interface CreateArticleInput {
   contentId: string
   contentEn: string
   contentZh: string
-  excerptId?: string
-  excerptEn?: string
-  excerptZh?: string
   coverImage?: string
   coverImageCaptionId?: string
   coverImageCaptionEn?: string
   coverImageCaptionZh?: string
   publishedAt?: string
-  readTimeMinutes?: number
   categoryId: string
   authorId: string
   status: string
