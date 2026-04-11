@@ -180,6 +180,11 @@ const router = createRouter({
           meta: { title: 'Edit User | CMS' },
         },
         {
+          path: 'adsense',
+          name: 'cms-adsense',
+          component: () => import('@/features/cms/views/AdSenseView'),
+        },
+        {
           path: 'analytics',
           name: 'cms-analytics',
           component: () => import('../features/cms/views/AnalyticsView'),
