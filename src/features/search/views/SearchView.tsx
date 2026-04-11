@@ -158,26 +158,6 @@ export default defineComponent({
               </div>
 
 
-              <div class="bg-text-primary p-8 rounded-xl text-text-inverse relative overflow-hidden">
-                <div class="relative z-10">
-                  <h3 class="text-xl font-bold mb-3 leading-tight">
-                    {t('common.subscribeNewsletter')}
-                  </h3>
-                  <p class="text-white/50 text-sm mb-6 leading-relaxed">
-                    {t('common.subscribeNewsletterDesc')}
-                  </p>
-                  <input
-                    type="email"
-                    placeholder={t('common.emailYour')}
-                    class="w-full px-4 py-3 rounded-lg bg-white/10 border-none text-white focus:ring-2 focus:ring-primary mb-3 outline-none transition placeholder-white/40 text-sm"
-                  />
-                  <BaseButton fullWidth variant="primary">
-                    {t('common.joinNow')}
-                  </BaseButton>
-                </div>
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
-              </div>
-
               <AdDisplay size="sidebar" slot={AD_SLOTS.SEARCH_RESULTS} label={t('ads.sidePromo')} />
             </aside>
           </div>

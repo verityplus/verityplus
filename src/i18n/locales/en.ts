@@ -17,15 +17,11 @@ const en: MessageSchema = {
     help: 'Help',
     privacy: 'Privacy Policy',
     terms: 'Terms & Conditions',
-    newsletter: 'Newsletter',
-    newsletterDesc: 'Get the latest updates from us directly in your inbox.',
-    emailPlaceholder: 'Your Email',
-    subscribe: 'Subscribe',
-    subscribeSuccess: 'Thank you for signing up with email: {email}',
     copyright: '© {year} VERITY+. All rights reserved.',
     instagram: 'Instagram',
     tiktok: 'TikTok',
     email: 'Email',
+    social: 'Social',
   },
   common: {
     minRead: 'min read',
@@ -70,8 +66,6 @@ const en: MessageSchema = {
     allArticles: 'All Articles',
     recommendedArticles: 'Recommended Articles',
     popularCategories: 'Popular Categories',
-    subscribeNewsletter: 'Subscribe to Newsletter',
-    subscribeNewsletterDesc: 'Get exclusive weekly updates directly in your inbox.',
     clearSearch: 'Clear search',
     searchResults: 'Search Results',
     searchResultsFor: 'Showing results for:',
@@ -194,7 +188,6 @@ const en: MessageSchema = {
       monthlyViews: 'Monthly Views',
       activeUsers: 'Active Users',
       avgCTR: 'Avg. CTR',
-      subscribers: 'Subscribers',
     },
     features: {
       bannerSidebar3Days: 'Sidebar Banner (3 days)',
@@ -215,7 +208,7 @@ const en: MessageSchema = {
     heading: 'Privacy Policy',
     lastUpdated: 'Last updated: April 6, 2026',
     intro:
-      'At VERITY+, your privacy matters. This policy explains how we collect, use, and protect your personal information when you read articles, subscribe to our newsletter, or interact with our blog platform.',
+      'At VERITY+, your privacy matters. This policy explains how we collect, use, and protect your personal information when you read articles or interact with our blog platform.',
     contactHeading: 'Questions about this policy?',
     contactDesc:
       'If you have additional questions about how we use your data, feel free to contact us.',
@@ -225,7 +218,7 @@ const en: MessageSchema = {
         title: '1. Information We Collect',
         content: 'We collect the following types of information:',
         items: [
-          'Account Information: Name, email address, and profile details when you register or subscribe to our newsletter.',
+          'Account Information: Name, email address, and profile details when you register.',
           'Reading Activity: Articles you view, time spent reading, and content preferences to personalize your experience.',
           'Technical Data: IP address, browser type, device information, and operating system for site optimization and security.',
           'Cookies & Analytics: Browsing behavior, referral sources, and interaction patterns through cookies and analytics tools.',
@@ -237,7 +230,7 @@ const en: MessageSchema = {
         content: 'Your information helps us:',
         items: [
           'Deliver personalized article recommendations based on your reading interests.',
-          'Send our newsletter and relevant content updates you have opted into.',
+          'Send relevant content updates you have opted into.',
           'Improve site performance, content quality, and user experience.',
           'Display relevant advertisements and measure ad campaign effectiveness.',
           'Detect and prevent spam, fraud, and abusive activities on our platform.',
@@ -262,13 +255,13 @@ const en: MessageSchema = {
           'Analytics Providers: Tools like Google Analytics help us measure site traffic and reader engagement.',
           'Advertising Partners: Ad networks may collect data to serve targeted advertisements on our platform.',
           'Social Media: Embedded social media content (Instagram, TikTok) may track your interactions.',
-          'Email Service Providers: Our newsletter delivery partners process your email address for subscription management.',
+          'Email Service Providers: Partners may process your email address for account management.',
         ],
       },
       dataRetention: {
         title: '5. Data Retention',
         content:
-          'We retain your personal data only as long as necessary. Newsletter subscriber data is kept until you unsubscribe. Analytics data is anonymized after 14 months. Account data is deleted upon request or after 24 months of inactivity.',
+          'We retain your personal data only as long as necessary. Analytics data is anonymized after 14 months. Account data is deleted upon request or after 24 months of inactivity.',
       },
       yourRights: {
         title: '6. Your Rights',
@@ -277,7 +270,6 @@ const en: MessageSchema = {
           'Access: Request a copy of all personal data we hold about you.',
           'Correction: Update or correct inaccurate information in your account.',
           'Deletion: Request deletion of your account and associated personal data.',
-          'Unsubscribe: Opt out of our newsletter at any time using the link in every email.',
           'Cookie Control: Manage your cookie preferences through our cookie consent banner.',
         ],
       },
@@ -322,7 +314,7 @@ const en: MessageSchema = {
       userAccounts: {
         title: '3. User Accounts & Registration',
         content:
-          'Certain features such as commenting, newsletter subscriptions, and bookmarking may require account registration. You are responsible for:',
+          'Certain features such as commenting and bookmarking may require account registration. You are responsible for:',
         items: [
           'Providing accurate and current information during registration.',
           'Maintaining the confidentiality of your login credentials.',

@@ -1,9 +1,7 @@
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { AppLogo } from '../ui/Logo'
-import { BaseButton } from '../ui/Button'
-import { appAlert } from '@/utils/dialog'
 
 /**
  * Layout Component: Footer
@@ -13,14 +11,7 @@ export const AppFooter = defineComponent({
   name: 'AppFooter',
   setup() {
     const { t } = useI18n()
-    const email = ref('')
     const currentYear = computed(() => new Date().getFullYear())
-
-    const handleSubscribe = async (e: Event) => {
-      e.preventDefault()
-      await appAlert(t('footer.subscribeSuccess', { email: email.value }), 'Subscribed')
-      email.value = ''
-    }
 
     return () => (
       <footer class="bg-text-primary text-text-muted pt-12 pb-6 mt-auto">
@@ -91,24 +82,34 @@ export const AppFooter = defineComponent({
 
             <div>
               <h3 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">
-                {t('footer.newsletter')}
+                {t('footer.social')}
               </h3>
-              <p class="text-sm mb-4 text-white/60">{t('footer.newsletterDesc')}</p>
-              <form onSubmit={handleSubscribe} class="flex flex-col gap-2">
-                <input
-                  value={email.value}
-                  onInput={(e) => {
-                    email.value = (e.target as HTMLInputElement).value
-                  }}
-                  type="email"
-                  placeholder={t('footer.emailPlaceholder')}
-                  class="bg-white/10 border border-white/15 text-white px-4 py-2.5 rounded-lg focus:outline-none focus:border-primary text-sm placeholder-white/40 transition-colors"
-                  required
-                />
-                <BaseButton fullWidth type="submit">
-                  {t('footer.subscribe')}
-                </BaseButton>
-              </form>
+              <ul class="space-y-2">
+                <li>
+                  <a
+                    href="https://instagram.com/verityplus"
+                    class="text-white/60 hover:text-primary transition-colors text-sm"
+                  >
+                    {t('footer.instagram')}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://tiktok.com/@verityplus"
+                    class="text-white/60 hover:text-primary transition-colors text-sm"
+                  >
+                    {t('footer.tiktok')}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:contact@verityplus.space"
+                    class="text-white/60 hover:text-primary transition-colors text-sm"
+                  >
+                    {t('footer.email')}
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
 
@@ -118,27 +119,6 @@ export const AppFooter = defineComponent({
             <p class="text-sm text-white/40">
               {t('footer.copyright', { year: currentYear.value })}
             </p>
-
-            <div class="flex space-x-6">
-              <a
-                href="https://instagram.com/verityplus"
-                class="text-white/40 hover:text-white transition-colors text-sm"
-              >
-                {t('footer.instagram')}
-              </a>
-              <a
-                href="https://tiktok.com/@verityplus"
-                class="text-white/40 hover:text-white transition-colors text-sm"
-              >
-                {t('footer.tiktok')}
-              </a>
-              <a
-                href="mailto:contact@verityplus.space"
-                class="text-white/40 hover:text-white transition-colors text-sm"
-              >
-                {t('footer.email')}
-              </a>
-            </div>
           </div>
         </div>
       </footer>

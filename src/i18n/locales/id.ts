@@ -17,15 +17,11 @@ const id: MessageSchema = {
     help: 'Bantuan',
     privacy: 'Kebijakan Privasi',
     terms: 'Syarat & Ketentuan',
-    newsletter: 'Newsletter',
-    newsletterDesc: 'Dapatkan update terbaru dari kami langsung di inbox Anda.',
-    emailPlaceholder: 'Email Anda',
-    subscribe: 'Langganan',
-    subscribeSuccess: 'Terima kasih telah mendaftar dengan email: {email}',
     copyright: '© {year} VERITY+. Hak cipta dilindungi undang-undang.',
     instagram: 'Instagram',
     tiktok: 'TikTok',
     email: 'Email',
+    social: 'Sosial',
   },
   common: {
     minRead: 'min baca',
@@ -70,8 +66,6 @@ const id: MessageSchema = {
     allArticles: 'Semua Artikel',
     recommendedArticles: 'Artikel Rekomendasi',
     popularCategories: 'Kategori Populer',
-    subscribeNewsletter: 'Berlangganan Newsletter',
-    subscribeNewsletterDesc: 'Dapatkan update mingguan eksklusif langsung di inbox Anda.',
     clearSearch: 'Hapus pencarian',
     searchResults: 'Hasil Pencarian',
     searchResultsFor: 'Menampilkan hasil untuk:',
@@ -195,7 +189,6 @@ const id: MessageSchema = {
       monthlyViews: 'Monthly Views',
       activeUsers: 'Active Users',
       avgCTR: 'Avg. CTR',
-      subscribers: 'Subscribers',
     },
     features: {
       bannerSidebar3Days: 'Banner Sidebar (3 hari)',
@@ -216,7 +209,7 @@ const id: MessageSchema = {
     heading: 'Kebijakan Privasi',
     lastUpdated: 'Terakhir diperbarui: 6 April 2026',
     intro:
-      'Di VERITY+, privasi Anda sangat penting. Kebijakan ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda saat membaca artikel, berlangganan newsletter, atau berinteraksi dengan platform blog kami.',
+      'Di VERITY+, privasi Anda sangat penting. Kebijakan ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda saat membaca artikel atau berinteraksi dengan platform blog kami.',
     contactHeading: 'Pertanyaan tentang kebijakan ini?',
     contactDesc:
       'Jika Anda memiliki pertanyaan tambahan tentang penggunaan data Anda, jangan ragu untuk menghubungi kami.',
@@ -226,7 +219,7 @@ const id: MessageSchema = {
         title: '1. Informasi yang Kami Kumpulkan',
         content: 'Kami mengumpulkan jenis informasi berikut:',
         items: [
-          'Informasi Akun: Nama, alamat email, dan detail profil saat Anda mendaftar atau berlangganan newsletter kami.',
+          'Informasi Akun: Nama, alamat email, dan detail profil saat Anda mendaftar.',
           'Aktivitas Membaca: Artikel yang Anda lihat, waktu yang dihabiskan membaca, dan preferensi konten untuk mempersonalisasi pengalaman Anda.',
           'Data Teknis: Alamat IP, jenis browser, informasi perangkat, dan sistem operasi untuk optimasi dan keamanan situs.',
           'Cookie & Analitik: Perilaku browsing, sumber rujukan, dan pola interaksi melalui cookie dan alat analitik.',
@@ -238,7 +231,7 @@ const id: MessageSchema = {
         content: 'Informasi Anda membantu kami:',
         items: [
           'Menyajikan rekomendasi artikel yang dipersonalisasi berdasarkan minat baca Anda.',
-          'Mengirimkan newsletter dan pembaruan konten relevan yang telah Anda setujui.',
+          'Mengirimkan pembaruan konten relevan yang telah Anda setujui.',
           'Meningkatkan performa situs, kualitas konten, dan pengalaman pengguna.',
           'Menampilkan iklan yang relevan dan mengukur efektivitas kampanye iklan.',
           'Mendeteksi dan mencegah spam, penipuan, dan aktivitas berbahaya di platform kami.',
@@ -263,13 +256,13 @@ const id: MessageSchema = {
           'Penyedia Analitik: Alat seperti Google Analytics membantu kami mengukur lalu lintas situs dan keterlibatan pembaca.',
           'Mitra Periklanan: Jaringan iklan dapat mengumpulkan data untuk menampilkan iklan bertarget di platform kami.',
           'Media Sosial: Konten media sosial yang disematkan (Instagram, TikTok) dapat melacak interaksi Anda.',
-          'Penyedia Layanan Email: Mitra pengiriman newsletter kami memproses alamat email Anda untuk manajemen langganan.',
+          'Penyedia Layanan Email: Mitra dapat memproses alamat email Anda untuk manajemen akun.',
         ],
       },
       dataRetention: {
         title: '5. Retensi Data',
         content:
-          'Kami menyimpan data pribadi Anda hanya selama diperlukan. Data pelanggan newsletter disimpan hingga Anda berhenti berlangganan. Data analitik dianonimkan setelah 14 bulan. Data akun dihapus atas permintaan atau setelah 24 bulan tidak aktif.',
+          'Kami menyimpan data pribadi Anda hanya selama diperlukan. Data analitik dianonimkan setelah 14 bulan. Data akun dihapus atas permintaan atau setelah 24 bulan tidak aktif.',
       },
       yourRights: {
         title: '6. Hak Anda',
@@ -278,7 +271,6 @@ const id: MessageSchema = {
           'Akses: Meminta salinan semua data pribadi yang kami simpan tentang Anda.',
           'Koreksi: Memperbarui atau memperbaiki informasi yang tidak akurat di akun Anda.',
           'Penghapusan: Meminta penghapusan akun dan data pribadi terkait.',
-          'Berhenti Berlangganan: Keluar dari newsletter kami kapan saja menggunakan tautan di setiap email.',
           'Kontrol Cookie: Kelola preferensi cookie Anda melalui banner persetujuan cookie kami.',
         ],
       },
@@ -323,7 +315,7 @@ const id: MessageSchema = {
       userAccounts: {
         title: '3. Akun Pengguna & Pendaftaran',
         content:
-          'Fitur tertentu seperti komentar, langganan newsletter, dan penandaan mungkin memerlukan pendaftaran akun. Anda bertanggung jawab atas:',
+          'Fitur tertentu seperti komentar dan penandaan mungkin memerlukan pendaftaran akun. Anda bertanggung jawab atas:',
         items: [
           'Memberikan informasi yang akurat dan terkini saat pendaftaran.',
           'Menjaga kerahasiaan kredensial login Anda.',

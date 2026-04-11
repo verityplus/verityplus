@@ -16,15 +16,11 @@ const zh: MessageSchema = {
     help: '帮助',
     privacy: '隐私政策',
     terms: '条款与条件',
-    newsletter: '新闻通讯',
-    newsletterDesc: '在我们的收件箱中获取最新更新。',
-    emailPlaceholder: '您的邮箱',
-    subscribe: '订阅',
-    subscribeSuccess: '感谢您使用以下邮箱注册：{email}',
     copyright: '© {year} VERITY+。保留所有权利。',
     instagram: 'Instagram',
     tiktok: 'TikTok',
     email: '邮箱',
+    social: '社交媒体',
   },
   common: {
     minRead: '分钟阅读',
@@ -69,8 +65,6 @@ const zh: MessageSchema = {
     allArticles: '所有文章',
     recommendedArticles: '推荐文章',
     popularCategories: '热门分类',
-    subscribeNewsletter: '订阅新闻通讯',
-    subscribeNewsletterDesc: '在您的收件箱中获取独家每周更新。',
     clearSearch: '清除搜索',
     searchResults: '搜索结果',
     searchResultsFor: '显示以下内容的结果：',
@@ -187,7 +181,6 @@ const zh: MessageSchema = {
       monthlyViews: '月浏览量',
       activeUsers: '活跃用户',
       avgCTR: '平均点击率',
-      subscribers: '订阅用户',
     },
     features: {
       bannerSidebar3Days: '侧边栏横幅（3天）',
@@ -208,7 +201,7 @@ const zh: MessageSchema = {
     heading: '隐私政策',
     lastUpdated: '最后更新：2026年4月6日',
     intro:
-      '在 VERITY+，您的隐私至关重要。本政策解释了我们在您阅读文章、订阅新闻通讯或与我们的博客平台互动时如何收集、使用和保护您的个人信息。',
+      '在 VERITY+，您的隐私至关重要。本政策解释了我们在您阅读文章或与我们的博客平台互动时如何收集、使用和保护您的个人信息。',
     contactHeading: '对本政策有疑问？',
     contactDesc: '如果您对我们如何使用您的数据有其他疑问，请随时联系我们。',
     contactButton: '联系我们',
@@ -217,7 +210,7 @@ const zh: MessageSchema = {
         title: '1. 我们收集的信息',
         content: '我们收集以下类型的信息：',
         items: [
-          '账户信息：注册或订阅新闻通讯时的姓名、电子邮件地址和个人资料详情。',
+          '账户信息：注册时的姓名、电子邮件地址和个人资料详情。',
           '阅读活动：您浏览的文章、阅读时间和内容偏好，以个性化您的体验。',
           '技术数据：IP 地址、浏览器类型、设备信息和操作系统，用于网站优化和安全。',
           'Cookie 与分析：通过 Cookie 和分析工具收集浏览行为、推荐来源和互动模式。',
@@ -229,7 +222,7 @@ const zh: MessageSchema = {
         content: '您的信息帮助我们：',
         items: [
           '根据您的阅读兴趣提供个性化的文章推荐。',
-          '发送您已选择接收的新闻通讯和相关内容更新。',
+          '发送您已选择接收的相关内容更新。',
           '改善网站性能、内容质量和用户体验。',
           '展示相关广告并衡量广告活动效果。',
           '检测和防止我们平台上的垃圾邮件、欺诈和滥用行为。',
@@ -252,13 +245,13 @@ const zh: MessageSchema = {
           '分析提供商：Google Analytics 等工具帮助我们衡量网站流量和读者参与度。',
           '广告合作伙伴：广告网络可能会收集数据以在我们的平台上投放定向广告。',
           '社交媒体：嵌入的社交媒体内容（Instagram、TikTok）可能会跟踪您的互动。',
-          '电子邮件服务提供商：我们的新闻通讯发送合作伙伴处理您的电子邮件地址以管理订阅。',
+          '电子邮件服务提供商：合作伙伴处理您的电子邮件地址以管理账户。',
         ],
       },
       dataRetention: {
         title: '5. 数据保留',
         content:
-          '我们仅在必要时保留您的个人数据。新闻通讯订阅者数据将保留至您取消订阅。分析数据在 14 个月后匿名化。账户数据将在请求后或 24 个月不活动后删除。',
+          '我们仅在必要时保留您的个人数据。分析数据在 14 个月后匿名化。账户数据将在请求后或 24 个月不活动后删除。',
       },
       yourRights: {
         title: '6. 您的权利',
@@ -267,7 +260,6 @@ const zh: MessageSchema = {
           '访问：请求获取我们持有的关于您的所有个人数据的副本。',
           '更正：更新或更正您账户中的不准确信息。',
           '删除：请求删除您的账户和相关个人数据。',
-          '取消订阅：使用每封电子邮件中的链接随时退出我们的新闻通讯。',
           'Cookie 控制：通过我们的 Cookie 同意横幅管理您的 Cookie 偏好。',
         ],
       },
@@ -309,7 +301,7 @@ const zh: MessageSchema = {
       },
       userAccounts: {
         title: '3. 用户账户与注册',
-        content: '某些功能（如评论、新闻通讯订阅和书签）可能需要账户注册。您需对以下事项负责：',
+        content: '某些功能（如评论和书签）可能需要账户注册。您需对以下事项负责：',
         items: [
           '在注册时提供准确和最新的信息。',
           '保持登录凭证的机密性。',

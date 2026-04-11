@@ -18,15 +18,11 @@ export interface MessageSchema {
     help: string
     privacy: string
     terms: string
-    newsletter: string
-    newsletterDesc: string
-    emailPlaceholder: string
-    subscribe: string
-    subscribeSuccess: string
     copyright: string
     instagram: string
     tiktok: string
     email: string
+    social: string
   }
   common: {
     minRead: string
@@ -73,8 +69,6 @@ export interface MessageSchema {
     categoryDescFallback: string
     recommendedArticles: string
     popularCategories: string
-    subscribeNewsletter: string
-    subscribeNewsletterDesc: string
     clearSearch: string
     searchResults: string
     searchResultsFor: string
@@ -185,7 +179,6 @@ export interface MessageSchema {
       monthlyViews: string
       activeUsers: string
       avgCTR: string
-      subscribers: string
     }
     features: {
       bannerSidebar3Days: string
