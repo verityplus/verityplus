@@ -19,6 +19,10 @@ export default defineComponent({
       ga_property_id: '',
       adsense_pub_id: '',
       adsense_account_id: '',
+      ads_slot_leaderboard: '',
+      ads_slot_banner: '',
+      ads_slot_sidebar: '',
+      ads_slot_inline: '',
     })
 
     onMounted(async () => {
@@ -28,6 +32,10 @@ export default defineComponent({
         ga_property_id: settingsStore.settings.ga_property_id || '',
         adsense_pub_id: settingsStore.settings.adsense_pub_id || '',
         adsense_account_id: settingsStore.settings.adsense_account_id || '',
+        ads_slot_leaderboard: settingsStore.settings.ads_slot_leaderboard || '',
+        ads_slot_banner: settingsStore.settings.ads_slot_banner || '',
+        ads_slot_sidebar: settingsStore.settings.ads_slot_sidebar || '',
+        ads_slot_inline: settingsStore.settings.ads_slot_inline || '',
       }
     })
 
@@ -116,6 +124,59 @@ export default defineComponent({
                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm"
                 />
                 <p class="text-[10px] text-slate-400">Used for earnings reports.</p>
+              </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-50">
+              <h4 class="text-xs font-black uppercase tracking-widest text-slate-900 mb-6 flex items-center gap-2">
+                <i class="bi bi-layout-three-columns text-primary"></i>
+                Ad Slot Configurations
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-2">
+                  <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    Leaderboard Slot ID
+                  </label>
+                  <input
+                    v-model={form.value.ads_slot_leaderboard}
+                    type="text"
+                    placeholder="XXXXXXXXXX"
+                    class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-primary outline-none transition font-mono text-xs"
+                  />
+                </div>
+                <div class="space-y-2">
+                  <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    Banner Slot ID
+                  </label>
+                  <input
+                    v-model={form.value.ads_slot_banner}
+                    type="text"
+                    placeholder="XXXXXXXXXX"
+                    class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-primary outline-none transition font-mono text-xs"
+                  />
+                </div>
+                <div class="space-y-2">
+                  <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    Sidebar Slot ID
+                  </label>
+                  <input
+                    v-model={form.value.ads_slot_sidebar}
+                    type="text"
+                    placeholder="XXXXXXXXXX"
+                    class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-primary outline-none transition font-mono text-xs"
+                  />
+                </div>
+                <div class="space-y-2">
+                  <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    Inline Content Slot ID
+                  </label>
+                  <input
+                    v-model={form.value.ads_slot_inline}
+                    type="text"
+                    placeholder="XXXXXXXXXX"
+                    class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-primary outline-none transition font-mono text-xs"
+                  />
+                </div>
               </div>
             </div>
           </div>

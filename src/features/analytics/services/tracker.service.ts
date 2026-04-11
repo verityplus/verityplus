@@ -44,6 +44,18 @@ export function loadGoogleAnalytics(id: string) {
   })
 }
 
+export function loadGoogleAdSense(pubId: string) {
+  if (document.getElementById('adsense-script')) return
+  if (!pubId || pubId === 'ca-pub-XXXXXXXXXXXXXXXX') return
+
+  const script = document.createElement('script')
+  script.id = 'adsense-script'
+  script.async = true
+  script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubId}`
+  script.crossOrigin = 'anonymous'
+  document.head.appendChild(script)
+}
+
 export function trackPageView(id: string, path: string, title: string): void {
   if (getConsentStatus() !== 'accepted' || !window.gtag) return
   window.gtag('config', id, { 

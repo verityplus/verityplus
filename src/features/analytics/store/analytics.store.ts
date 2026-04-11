@@ -6,6 +6,7 @@ import {
   getSessionId,
   trackPageView,
   loadGoogleAnalytics,
+  loadGoogleAdSense,
   updateEngagementTime
 } from '../services/tracker.service'
 import { AnalyticsService } from '../services/analytics.service'
@@ -26,8 +27,12 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     if (consent.value === 'accepted') {
       sessionId.value = getSessionId()
       const gaId = settingsStore.settings.google_analytics_id
+      const adsenseId = settingsStore.settings.adsense_pub_id
       if (gaId) {
         loadGoogleAnalytics(gaId)
+      }
+      if (adsenseId) {
+        loadGoogleAdSense(adsenseId)
       }
     }
   }
@@ -37,8 +42,12 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     consent.value = 'accepted'
     sessionId.value = getSessionId()
     const gaId = settingsStore.settings.google_analytics_id
+    const adsenseId = settingsStore.settings.adsense_pub_id
     if (gaId) {
       loadGoogleAnalytics(gaId)
+    }
+    if (adsenseId) {
+      loadGoogleAdSense(adsenseId)
     }
   }
 

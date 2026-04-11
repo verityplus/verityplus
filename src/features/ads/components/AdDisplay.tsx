@@ -1,6 +1,7 @@
 import { defineComponent, type PropType, onMounted, nextTick, ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { AdSize } from '@/shared/types'
+import { useSettingsStore } from '@/features/cms/store/settings.store'
 
 /**
  * Feature Component: AdDisplay
@@ -9,30 +10,18 @@ import type { AdSize } from '@/shared/types'
 export const AdDisplay = defineComponent({
   name: 'AdDisplay',
   props: {
-    /**
-     * Preset ad display dimension.
-     */
     size: {
       type: String as PropType<AdSize>,
       default: 'banner',
     },
-    /**
-     * Label for the ad placement (shown if ad fails to load or in dev).
-     */
     label: {
       type: String,
       default: '',
     },
-    /**
-     * Google AdSense Slot ID (optional override).
-     */
     slot: {
       type: String,
       default: '',
     },
-    /**
-     * Optional custom classes.
-     */
     class: {
       type: String,
       default: '',
@@ -41,16 +30,19 @@ export const AdDisplay = defineComponent({
   setup(props) {
     const { t } = useI18n()
     const adLoaded = ref(false)
+    const settingsStore = useSettingsStore()
 
-    const pubId = computed(() => import.meta.env.VITE_ADSENSE_PUB_ID)
+    const pubId = computed(() => settingsStore.settings.adsense_pub_id)
     const slotId = computed(() => {
       if (props.slot) return props.slot
       
+      const s = settingsStore.settings
       switch (props.size) {
-        case 'leaderboard': return import.meta.env.VITE_ADSENSE_SLOT_HOME_HEADER
-        case 'banner': return import.meta.env.VITE_ADSENSE_SLOT_ARTICLE_INLINE
-        case 'sidebar': return import.meta.env.VITE_ADSENSE_SLOT_HOME_SIDEBAR
-        default: return import.meta.env.VITE_ADSENSE_SLOT_ARTICLE_INLINE
+        case 'leaderboard': return s.ads_slot_leaderboard || ''
+        case 'banner': return s.ads_slot_banner || ''
+        case 'sidebar': return s.ads_slot_sidebar || ''
+        case 'inline': return s.ads_slot_inline || ''
+        default: return s.ads_slot_inline || ''
       }
     })
 
@@ -69,11 +61,13 @@ export const AdDisplay = defineComponent({
     }
 
     onMounted(async () => {
-      if (pubId.value && pubId.value !== 'ca-pub-XXXXXXXXXXXXXXXX' && slotId.value && slotId.value !== 'XXXXXXXXXX') {
+      if (pubId.value && pubId.value !== 'ca-pub-XXXXXXXXXXXXXXXX' && slotId.value) {
         await nextTick()
         try {
-          ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-          adLoaded.value = true
+          if (window.adsbygoogle) {
+            ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+            adLoaded.value = true
+          }
         } catch (e) {
           console.error('AdSense error:', e)
         }
@@ -81,32 +75,31 @@ export const AdDisplay = defineComponent({
     })
 
     return () => {
-      const isDev = import.meta.env.DEV || !pubId.value || !slotId.value
+      // In development or if IDs are missing, show a placeholder
+      const isMissingConfig = !pubId.value || pubId.value === 'ca-pub-XXXXXXXXXXXXXXXX' || !slotId.value
 
-      if ((isDev || !pubId.value || !slotId.value) && !adLoaded.value) {
+      if (isMissingConfig && !adLoaded.value) {
         return (
           <div
             class={[
-              'w-full flex items-center justify-center text-text-muted font-bold tracking-widest uppercase text-xs border-2 border-dashed border-border rounded-xl bg-surface-muted/50',
+              'w-full flex items-center justify-center text-slate-400 font-bold tracking-widest uppercase text-[10px] border border-dashed border-slate-200 rounded-xl bg-slate-50',
               sizeClasses[props.size],
               props.class,
             ]}
           >
-            <div class="flex flex-col items-center gap-1 opacity-50 text-center px-4">
-              <i class="bi bi-megaphone text-lg"></i>
+            <div class="flex flex-col items-center gap-1 text-center px-4">
+              <i class="bi bi-megaphone text-lg opacity-30"></i>
               <span>{props.label || t('ads.defaultLabel')}</span>
-              {isDev && (
-                <span class="text-[10px] lowercase font-normal opacity-70">
-                  {pubId.value ? (slotId.value ? 'AdSense Active' : 'Missing Slot ID') : 'Pub ID Not Configured'}
-                </span>
-              )}
+              <span class="text-[8px] lowercase font-normal opacity-50">
+                {pubId.value ? (slotId.value ? 'AdSense Active' : 'Missing Slot ID') : 'Pub ID Not Configured'}
+              </span>
             </div>
           </div>
         )
       }
 
       return (
-        <div class={['overflow-hidden rounded-xl bg-surface-muted/10', props.class]}>
+        <div class={['overflow-hidden rounded-xl bg-transparent', props.class]}>
           <ins
             class="adsbygoogle"
             style={{ display: 'block', height: '100%' }}
