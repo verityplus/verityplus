@@ -23,7 +23,7 @@ export const i18n = createI18n<[MessageSchema], Locale>({
   legacy: false,
   locale: detectLocale(),
   fallbackLocale: DEFAULT_LOCALE,
-  messages: { id, en, zh } as any,
+  messages: { id, en, zh } as Record<Locale, MessageSchema>,
 })
 
 

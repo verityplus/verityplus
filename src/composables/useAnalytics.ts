@@ -58,8 +58,10 @@ export function useAnalytics(consentStatus: { value: ConsentStatus }) {
 
       const isGranted = newStatus === 'accepted'
       
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('consent', 'update', {
+      const win = window as unknown as { gtag?: (...args: unknown[]) => void }
+      
+      if (typeof window !== 'undefined' && win.gtag) {
+        win.gtag('consent', 'update', {
           'ad_storage': isGranted ? 'granted' : 'denied',
           'analytics_storage': isGranted ? 'granted' : 'denied',
           'ad_user_data': isGranted ? 'granted' : 'denied',

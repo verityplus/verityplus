@@ -1,7 +1,6 @@
 import { defineComponent, ref, computed } from 'vue'
 import type { Category } from '@/shared/types'
 import { useCategories } from '../composables/useCategories'
-import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
 import { useLocalizedField } from '@/composables/useLocalizedField'
 import { appConfirm } from '@/utils/dialog'

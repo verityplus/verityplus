@@ -29,7 +29,7 @@ export const useSettingsStore = defineStore('settings', () => {
     isLoading.value = true
     try {
       await apiClient.PUT('/api/v1/settings/', {
-        body: updates as any
+        body: updates
       })
       await fetchSettings()
     } catch (error) {

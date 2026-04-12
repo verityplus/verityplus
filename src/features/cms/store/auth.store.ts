@@ -19,10 +19,10 @@ export const useAuthStore = defineStore('auth', () => {
       });
 
       if (data) {
-        const { token, user } = data as any
+        const { token, user } = data
         localStorage.setItem('verity_token', token)
         isAuthenticated.value = true
-        currentUser.value = user
+        currentUser.value = user as CMSUser // Need cast to CMSUser as types might slightly differ (e.g. role)
         return true
       }
       if (error) throw error

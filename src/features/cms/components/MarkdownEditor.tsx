@@ -43,7 +43,8 @@ export const MarkdownEditor = defineComponent({
       },
       onUpdate: ({ editor }) => {
 
-        emit('update:modelValue', (editor.storage as any).markdown.getMarkdown())
+        const storage = editor.storage as { markdown: { getMarkdown: () => string } }
+        emit('update:modelValue', storage.markdown.getMarkdown())
       },
     })
 

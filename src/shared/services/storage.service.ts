@@ -11,9 +11,8 @@ export const StorageService = {
     formData.append('file', file);
     
     // We send multipart/form-data.
-    const { data, error } = await (apiClient as any).POST('/storage/upload', {
-      body: formData,
-      // Since it's FormData, we don't want the default application/json header
+    const { data, error } = await apiClient.POST('/api/v1/storage/upload', {
+      body: formData as unknown as never,
       headers: {
         'Content-Type': undefined 
       }

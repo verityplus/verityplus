@@ -18,7 +18,7 @@ export const useCMSStore = defineStore('cms', () => {
     queryKey: ['cms_users'],
     queryFn: async () => {
       const { data } = await apiClient.GET('/api/v1/auth/users')
-      return (data as any as CMSUser[]) || []
+      return (data as CMSUser[]) || []
     },
     initialData: [],
   })
@@ -28,14 +28,14 @@ export const useCMSStore = defineStore('cms', () => {
   const addUser = async (user: CMSUser) => {
     const { id: _id, ...input } = user
     await apiClient.POST('/api/v1/auth/users', {
-      body: input as any
+      body: input as { username: string; email: string; password?: string }
     })
     queryClient.invalidateQueries({ queryKey: ['cms_users'] })
   }
 
   const updateUser = async (user: CMSUser) => {
     const { id, username, email } = user
-    await (apiClient as any).PUT('/api/v1/auth/users/{id}', {
+    await apiClient.PUT('/api/v1/auth/users/{id}', {
       params: { path: { id } },
       body: { username, email }
     })

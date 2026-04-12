@@ -16,7 +16,15 @@ export const CMSSidebar = defineComponent({
   setup(props) {
     const route = useRoute()
 
-    const navItems = [
+    interface NavItem {
+      name: string
+      path: string
+      icon: string
+      exact?: boolean
+      title?: string
+    }
+
+    const navItems: NavItem[] = [
       { name: 'Dashboard', path: '/cms', icon: 'bi bi-speedometer2', exact: true },
       { name: 'Articles', path: '/cms/articles', icon: 'bi bi-journal-text' },
       { name: 'Characters', path: '/cms/characters', icon: 'bi bi-people' },
@@ -25,7 +33,7 @@ export const CMSSidebar = defineComponent({
       { name: 'Settings', path: '/cms/settings', icon: 'bi bi-gear-fill' },
     ]
 
-    const externalLinks = [
+    const externalLinks: NavItem[] = [
       { name: 'Analytics', path: '#', icon: 'bi bi-graph-up', title: 'Google Analytics' },
       { name: 'AdSense', path: '#', icon: 'bi bi-cash-stack', title: 'Google AdSense' },
     ]
@@ -35,7 +43,7 @@ export const CMSSidebar = defineComponent({
       return route.path.startsWith(path)
     }
 
-    const renderLink = (item: any, isExternal = false) => {
+    const renderLink = (item: NavItem, isExternal = false) => {
       const commonClass = [
         'flex items-center gap-3 rounded-lg transition duration-200 group no-underline',
         props.collapsed ? 'justify-center py-3 px-2' : 'px-4 py-3',

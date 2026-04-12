@@ -38,7 +38,7 @@ export default defineComponent({
 
     const sections = computed<AccordionSection[]>(() => {
 
-      const s = tm('privacy.sections') as any as MessageSchema['privacy']['sections']
+      const s = tm('privacy.sections') as unknown as MessageSchema['privacy']['sections']
       return [
         {
           key: 'infoCollected',
