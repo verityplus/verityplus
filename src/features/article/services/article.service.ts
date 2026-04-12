@@ -19,18 +19,18 @@ export const ArticleService = {
   async getArticles(
     args: {
       search?: string
-      take?: number
-      skip?: number
+      page?: number
+      limit?: number
       categoryId?: string
       authorId?: string
     } = {},
-  ): Promise<Article[]> {
+  ): Promise<{ items: Article[]; total: number }> {
     const { data, error } = await apiClient.GET('/articles/', {
       params: {
         query: {
           search: args.search,
-          take: args.take?.toString(),
-          skip: args.skip?.toString(),
+          page: args.page?.toString(),
+          limit: args.limit?.toString(),
           categoryId: args.categoryId,
           authorId: args.authorId,
         },
@@ -39,9 +39,11 @@ export const ArticleService = {
 
     if (error) {
       console.error('Error fetching articles:', error)
-      return []
+      return { items: [], total: 0 }
     }
-    return data || []
+    
+    // The backend now returns { items, total }
+    return data as { items: Article[]; total: number }
   },
 
   async getArticleById(id: string): Promise<Article | undefined> {
@@ -59,7 +61,8 @@ export const ArticleService = {
   },
 
   async searchArticles(query: string): Promise<Article[]> {
-    return this.getArticles({ search: query })
+    const result = await this.getArticles({ search: query })
+    return result.items
   },
 
   async getAllCategories(): Promise<Category[]> {

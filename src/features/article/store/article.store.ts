@@ -14,15 +14,29 @@ const GRID_PER_PAGE = 8
 export const useArticleStore = defineStore('articles', () => {
 
 
+  const cmsPage = ref(1)
+  const cmsLimit = ref(10)
+  const cmsSearch = ref('')
+
   const {
     data: articlesData,
     isLoading: articlesLoading,
     refetch: refetchArticles,
   } = useQuery({
-    queryKey: ['articles'],
-    queryFn: () => ArticleService.getArticles({ take: 50 }),
-    initialData: [],
+    queryKey: ['articles', cmsPage, cmsLimit, cmsSearch],
+    queryFn: () => ArticleService.getArticles({ 
+      page: cmsPage.value, 
+      limit: cmsLimit.value, 
+      search: cmsSearch.value 
+    }),
+    keepPreviousData: true,
   })
+
+  // We should also have a query for all articles (or at least a larger batch) 
+  // if the public site still relies on client-side logic for featured/latest/etc.
+  // For now, let's keep the main articles query and adjust it.
+  const articles = computed(() => articlesData.value?.items || [])
+  const totalArticles = computed(() => articlesData.value?.total || 0)
 
   const { data: categoriesData } = useQuery({
     queryKey: ['categories'],
@@ -38,7 +52,6 @@ export const useArticleStore = defineStore('articles', () => {
 
 
 
-  const articles = computed(() => articlesData.value || [])
   const categories = computed(() => categoriesData.value || [])
   const authors = computed(() => authorsData.value || [])
   const isLoading = computed(() => articlesLoading.value)
@@ -142,6 +155,7 @@ export const useArticleStore = defineStore('articles', () => {
 
   return {
     articles,
+    totalArticles,
     categories,
     authors,
     isLoading,
@@ -168,5 +182,8 @@ export const useArticleStore = defineStore('articles', () => {
     findCategoryById,
     findArticlesByCategoryId,
     refetchArticles,
+    cmsPage,
+    cmsLimit,
+    cmsSearch,
   }
 })

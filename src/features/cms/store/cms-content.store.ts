@@ -29,7 +29,7 @@ export const useCMSContentStore = defineStore('cms-content', () => {
   })
 
   const deleteArticleMutation = useMutation({
-    mutationFn: (id: number) => ArticleService.deleteArticle(id),
+    mutationFn: (id: string) => ArticleService.deleteArticle(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['articles'] }),
   })
 
@@ -69,7 +69,7 @@ export const useCMSContentStore = defineStore('cms-content', () => {
 
     addArticle: (data: CreateArticleInput) => createArticleMutation.mutateAsync(data),
     updateArticle: (data: UpdateArticleInput) => updateArticleMutation.mutateAsync(data),
-    deleteArticle: (id: number) => deleteArticleMutation.mutateAsync(id),
+    deleteArticle: (id: string) => deleteArticleMutation.mutateAsync(id),
 
 
     addCategory: (data: CreateCategoryInput) => createCategoryMutation.mutateAsync(data),

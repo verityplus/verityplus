@@ -21,29 +21,30 @@ export default defineComponent({
     const articleStore = useArticleStore()
     const cmsContentStore = useCMSContentStore()
     const { getLocalizedField } = useLocalizedField()
-    const searchQuery = ref('')
+    const searchQuery = ref(articleStore.cmsSearch)
 
-// getViewsForArticle removed
+    // Sync local search to store with debounce
+    let debounceTimeout: any
+    const handleSearchInput = (val: string) => {
+      searchQuery.value = val
+      clearTimeout(debounceTimeout)
+      debounceTimeout = setTimeout(() => {
+        articleStore.cmsSearch = val
+        articleStore.cmsPage = 1
+      }, 500)
+    }
 
     useHead({
       title: 'Manage Articles — CMS VERITY+',
     })
 
-    const filteredArticles = computed(() => {
-      const q = searchQuery.value.toLowerCase().trim()
-      if (!q) return articleStore.articles
-      return articleStore.articles.filter(
-        (a) =>
-          getLocalizedField(a, 'title').toLowerCase().includes(q) ||
-          a.author.name.toLowerCase().includes(q),
-      )
-    })
-
-    const deleteArticle = async (id: number) => {
+    const deleteArticle = async (id: string) => {
       if (await appConfirm('Are you sure you want to delete this article? This action cannot be undone.', 'Confirm Deletion')) {
         await cmsContentStore.deleteArticle(id)
       }
     }
+
+    const totalPages = computed(() => Math.ceil(articleStore.totalArticles / articleStore.cmsLimit))
 
     const statusColors: Record<ArticleStatus, { bg: string; text: string; icon: string }> = {
       draft: { bg: 'bg-slate-100', text: 'text-slate-600', icon: 'bi-file-earmark' },
@@ -72,17 +73,24 @@ export default defineComponent({
         </header>
 
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-          <div class="p-4 border-b border-slate-100 bg-slate-50/50">
+          <div class="p-4 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
             <div class="relative max-w-md w-full">
               <input
                 value={searchQuery.value}
-                onInput={(e) => (searchQuery.value = (e.target as HTMLInputElement).value)}
+                onInput={(e) => handleSearchInput((e.target as HTMLInputElement).value)}
                 type="text"
                 placeholder="Search articles by title or author..."
                 class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition text-sm font-medium"
               />
               <i class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
             </div>
+
+            {articleStore.isLoading && (
+              <div class="flex items-center gap-2 text-primary font-black text-[10px] uppercase tracking-widest">
+                <span class="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></span>
+                Syncing...
+              </div>
+            )}
           </div>
 
           <div class="overflow-x-auto min-h-[400px]">
@@ -96,8 +104,8 @@ export default defineComponent({
                   <th class="px-6 py-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100 font-medium text-sm">
-                {filteredArticles.value.map((article) => {
+              <tbody class={`divide-y divide-slate-100 font-medium text-sm ${articleStore.isLoading ? 'opacity-50' : 'opacity-100 transition-opacity duration-300'}`}>
+                {articleStore.articles.map((article) => {
                   const statusConfig = statusColors[article.status] || statusColors.draft
                   return (
                     <tr key={article.id} class="hover:bg-slate-50/50 transition group">
@@ -135,7 +143,6 @@ export default defineComponent({
                           </span>
                         </span>
                       </td>
-                      {/* Views cell removed */}
                       <td class="px-6 py-5 text-slate-400 text-xs uppercase tracking-tighter">
                         {article.publishedAt}
                       </td>
@@ -161,7 +168,7 @@ export default defineComponent({
               </tbody>
             </table>
 
-            {filteredArticles.value.length === 0 && (
+            {articleStore.articles.length === 0 && !articleStore.isLoading && (
               <div class="py-24 flex flex-col items-center justify-center text-center">
                 <i class="bi bi-journal-x text-5xl text-slate-200 mb-4" />
                 <p class="text-slate-400 font-bold italic">
@@ -172,9 +179,31 @@ export default defineComponent({
           </div>
 
           <footer class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[10px] font-black text-slate-400 px-6">
-            <p>
-              Showing {filteredArticles.value.length} of {articleStore.articles.length} articles
-            </p>
+            <div class="flex items-center gap-4">
+               <p>
+                Showing {articleStore.articles.length} of {articleStore.totalArticles} articles
+               </p>
+               
+               <div class="flex items-center gap-1 ml-4 py-1 px-2 bg-white rounded-lg border border-slate-200 shadow-sm">
+                  <button 
+                    disabled={articleStore.cmsPage <= 1}
+                    onClick={() => articleStore.cmsPage--}
+                    class="w-6 h-6 flex items-center justify-center rounded-md hover:bg-slate-100 disabled:opacity-30 disabled:hover:bg-transparent transition cursor-pointer border-none"
+                  >
+                    <i class="bi bi-chevron-left"></i>
+                  </button>
+                  <span class="px-2 text-slate-900">
+                    PAGE {articleStore.cmsPage} OF {totalPages.value || 1}
+                  </span>
+                  <button 
+                    disabled={articleStore.cmsPage >= totalPages.value}
+                    onClick={() => articleStore.cmsPage++}
+                    class="w-6 h-6 flex items-center justify-center rounded-md hover:bg-slate-100 disabled:opacity-30 disabled:hover:bg-transparent transition cursor-pointer border-none"
+                  >
+                    <i class="bi bi-chevron-right"></i>
+                  </button>
+               </div>
+            </div>
             <p>VERITY+ Cloud Database System</p>
           </footer>
         </div>
