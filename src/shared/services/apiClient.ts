@@ -20,10 +20,5 @@ client.use({
   },
 })
 
-export const apiClient = {
-  get: client.GET,
-  post: client.POST,
-  put: client.PUT,
-  patch: client.PATCH,
-  delete: client.DELETE,
-}
+export const apiClient = client
+

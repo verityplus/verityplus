@@ -25,23 +25,37 @@ export const ArticleService = {
       authorId?: string
     } = {},
   ): Promise<Article[]> {
-    const params = new URLSearchParams()
-    if (args.search) params.append('search', args.search)
-    if (args.take) params.append('take', args.take.toString())
-    if (args.skip) params.append('skip', args.skip.toString())
-    if (args.categoryId) params.append('categoryId', args.categoryId)
-    if (args.authorId) params.append('authorId', args.authorId)
+    const { data, error } = await apiClient.GET('/articles', {
+      params: {
+        query: {
+          search: args.search,
+          take: args.take?.toString(),
+          skip: args.skip?.toString(),
+          categoryId: args.categoryId,
+          authorId: args.authorId,
+        } as any, // Cast due to internal Zod pollution in OpenAPI spec causing type mismatch
+      },
+    })
 
-    const queryStr = params.toString()
-    const endpoint = `/articles${queryStr ? '?' + queryStr : ''}`
-    
-    const result = await apiClient.get<Article[]>(endpoint)
-    return result || []
+    if (error) {
+      console.error('Error fetching articles:', error)
+      return []
+    }
+    return (data as any) || []
   },
 
   async getArticleById(id: string): Promise<Article | undefined> {
-    const result = await apiClient.get<Article>(`/articles/${id}`)
-    return result || undefined
+    const { data, error } = await apiClient.GET('/articles/{id}', {
+      params: {
+        path: { id },
+      },
+    })
+
+    if (error) {
+      console.error(`Error fetching article ${id}:`, error)
+      return undefined
+    }
+    return data as any
   },
 
   async searchArticles(query: string): Promise<Article[]> {
@@ -49,58 +63,137 @@ export const ArticleService = {
   },
 
   async getAllCategories(): Promise<Category[]> {
-    const result = await apiClient.get<Category[]>('/categories')
-    return result || []
+    const { data, error } = await apiClient.GET('/categories')
+    if (error) {
+      console.error('Error fetching categories:', error)
+      return []
+    }
+    return (data as any) || []
   },
 
   async getAllAuthors(): Promise<Author[]> {
-    const result = await apiClient.get<Author[]>('/authors')
-    return result || []
+    const { data, error } = await apiClient.GET('/authors')
+    if (error) {
+      console.error('Error fetching authors:', error)
+      return []
+    }
+    return (data as any) || []
   },
 
-  async createArticle(data: CreateArticleInput): Promise<Article> {
-    console.log('Creating article with input:', data)
-    const result = await apiClient.post<Article>('/articles', data)
-    return result
+  async createArticle(dataInput: CreateArticleInput): Promise<Article> {
+    const { data, error } = await apiClient.POST('/articles', {
+      body: dataInput as any,
+    })
+
+    if (error) {
+      console.error('Error creating article:', error)
+      throw error
+    }
+    return data as any
   },
 
-  async updateArticle(data: UpdateArticleInput): Promise<Article> {
-    const { id, ...input } = data
-    const result = await apiClient.put<Article>(`/articles/${id}`, input)
-    return result
+  async updateArticle(dataInput: UpdateArticleInput): Promise<Article> {
+    const { id, ...input } = dataInput
+    const { data, error } = await apiClient.PUT('/articles/{id}', {
+      params: {
+        path: { id },
+      },
+      body: input as any,
+    })
+
+    if (error) {
+      console.error(`Error updating article ${id}:`, error)
+      throw error
+    }
+    return data as any
   },
 
   async deleteArticle(id: string): Promise<void> {
-    await apiClient.delete(`/articles/${id}`)
+    const { error } = await apiClient.DELETE('/articles/{id}', {
+      params: {
+        path: { id },
+      },
+    })
+
+    if (error) {
+      console.error(`Error deleting article ${id}:`, error)
+      throw error
+    }
   },
 
-  async createCategory(data: CreateCategoryInput): Promise<Category> {
-    const result = await apiClient.post<Category>('/categories', data)
-    return result
+  async createCategory(dataInput: CreateCategoryInput): Promise<Category> {
+    const { data, error } = await apiClient.POST('/categories', {
+      body: dataInput as any,
+    })
+
+    if (error) {
+      throw error
+    }
+    return data as any
   },
 
-  async updateCategory(data: UpdateCategoryInput): Promise<Category> {
-    const { id, ...input } = data
-    const result = await apiClient.put<Category>(`/categories/${id}`, input)
-    return result
+  async updateCategory(dataInput: UpdateCategoryInput): Promise<Category> {
+    const { id, ...input } = dataInput
+    const { data, error } = await apiClient.PUT('/categories/{id}', {
+      params: {
+        path: { id },
+      },
+      body: input as any,
+    })
+
+    if (error) {
+      throw error
+    }
+    return data as any
   },
 
   async deleteCategory(id: string): Promise<void> {
-    await apiClient.delete(`/categories/${id}`)
+    const { error } = await apiClient.DELETE('/categories/{id}', {
+      params: {
+        path: { id },
+      },
+    })
+
+    if (error) {
+      throw error
+    }
   },
 
-  async createAuthor(data: CreateAuthorInput): Promise<Author> {
-    const result = await apiClient.post<Author>('/authors', data)
-    return result
+  async createAuthor(dataInput: CreateAuthorInput): Promise<Author> {
+    const { data, error } = await apiClient.POST('/authors', {
+      body: dataInput as any,
+    })
+
+    if (error) {
+      throw error
+    }
+    return data as any
   },
 
-  async updateAuthor(data: UpdateAuthorInput): Promise<Author> {
-    const { id, ...input } = data
-    const result = await apiClient.put<Author>(`/authors/${id}`, input)
-    return result
+  async updateAuthor(dataInput: UpdateAuthorInput): Promise<Author> {
+    const { id, ...input } = dataInput
+    const { data, error } = await apiClient.PUT('/authors/{id}', {
+      params: {
+        path: { id },
+      },
+      body: input as any,
+    })
+
+    if (error) {
+      throw error
+    }
+    return data as any
   },
 
   async deleteAuthor(id: string): Promise<void> {
-    await apiClient.delete(`/authors/${id}`)
+    const { error } = await apiClient.DELETE('/authors/{id}', {
+      params: {
+        path: { id },
+      },
+    })
+
+    if (error) {
+      throw error
+    }
   },
 }

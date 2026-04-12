@@ -27,9 +27,26 @@ export default defineComponent({
 
     const query = ref((route.query.q as string) || '')
     const results = ref<Article[]>([])
+    const isLoading = ref(false)
+    const error = ref<string | null>(null)
 
     const search = async () => {
-      results.value = await store.search(query.value)
+      if (!query.value) {
+        results.value = []
+        return
+      }
+
+      isLoading.value = true
+      error.value = null
+      try {
+        results.value = await store.search(query.value)
+      } catch (err) {
+        console.error('Search failed:', err)
+        error.value = t('common.errorLoading')
+        results.value = []
+      } finally {
+        isLoading.value = false
+      }
     }
 
     watchEffect(() => {
@@ -76,7 +93,27 @@ export default defineComponent({
           <div class="flex flex-col lg:flex-row gap-12">
 
             <div class="flex-grow space-y-6">
-              {results.value.map((article: Article) => (
+              {isLoading.value && (
+                <div class="flex flex-col items-center justify-center py-24">
+                  <div class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+                  <p class="mt-4 text-text-muted font-medium animate-pulse">{t('common.loading')}</p>
+                </div>
+              )}
+
+              {!isLoading.value && error.value && (
+                <div class="text-center py-24 bg-red-50/10 rounded-xl border border-red-200/20">
+                  <i class="bi bi-exclamation-triangle text-4xl text-red-500 mb-4 block"></i>
+                  <p class="text-red-500 font-bold">{error.value}</p>
+                  <button 
+                    onClick={() => search()} 
+                    class="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                  >
+                    {t('common.retry')}
+                  </button>
+                </div>
+              )}
+
+              {!isLoading.value && !error.value && results.value.map((article: Article) => (
                 <article key={article.id} class="group">
                   <RouterLink
                     to={{ name: 'read', params: { id: article.id } }}
@@ -119,7 +156,7 @@ export default defineComponent({
                 </article>
               ))}
 
-              {results.value.length === 0 && (
+              {!isLoading.value && !error.value && results.value.length === 0 && (
                 <div class="text-center py-24 bg-surface rounded-xl border border-border shadow-sm">
                   <i class="bi bi-search text-5xl text-text-muted mb-4 block"></i>
                   <p class="text-text-muted text-xl font-bold">{t('search.noResults')}</p>
