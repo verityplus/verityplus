@@ -103,7 +103,6 @@ export default defineComponent({
                             </div>
                           </div>
                         </td>
-                        {/* Engagement cell removed */}
                         <td class="px-6 py-5 text-right">
                           <div class="flex items-center justify-end gap-2 translate-x-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition duration-300">
                             <router-link
