@@ -10,6 +10,7 @@ import { BaseBadge } from '@/components/ui/Badge'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { useLocalizedField } from '@/composables/useLocalizedField'
 import { BaseImage } from '@/components/ui/Image'
+import { formatDate } from '@/utils/date'
 import type { Article } from '@/shared/types'
 
 
@@ -204,7 +205,7 @@ export default defineComponent({
                       <p class="text-text-primary font-bold leading-none mb-1 group-hover/author:text-primary transition-colors">
                         {article.value.author.name}
                       </p>
-                      <p class="text-text-muted text-sm">{article.value.publishedAt}</p>
+                      <p class="text-text-muted text-sm">{formatDate(article.value.publishedAt, locale.value)}</p>
                     </div>
                   </RouterLink>
                 </div>
@@ -239,14 +240,25 @@ export default defineComponent({
 
                 <div class="mt-16 pt-8 border-t border-border">
                   <div class="flex flex-wrap gap-2">
-                    {JSON.parse(getLocalizedField(article.value, 'tags')).map((tag: string) => (
-                      <span
-                        key={tag}
-                        class="px-3 py-1 bg-surface-muted text-text-secondary text-sm rounded-lg hover:bg-surface-active cursor-pointer transition"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
+                    {(() => {
+                      try {
+                        const tagsRaw = getLocalizedField(article.value, 'tags')
+                        const tags = tagsRaw ? JSON.parse(tagsRaw) : []
+                        return Array.isArray(tags)
+                          ? tags.map((tag: string) => (
+                              <span
+                                key={tag}
+                                class="px-3 py-1 bg-surface-muted text-text-secondary text-sm rounded-lg hover:bg-surface-active cursor-pointer transition"
+                              >
+                                #{tag}
+                              </span>
+                            ))
+                          : null
+                      } catch (e) {
+                        console.error('Error parsing tags:', e)
+                        return null
+                      }
+                    })()}
                   </div>
                 </div>
               </div>

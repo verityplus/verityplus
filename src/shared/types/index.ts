@@ -1,52 +1,9 @@
-/**
- * VERITY+ Unified Type Definitions
- * Single source of truth for all data models across the application.
- */
+import type { paths } from './openapi'
 
-export interface Author {
-  id: string
-  name: string
-  avatar: string
-  bioId: string
-  bioEn: string
-  bioZh: string
-  role?: string
-}
-
-export interface Category {
-  id: string
-  nameId: string
-  nameEn: string
-  nameZh: string
-}
-
-export interface Article {
-  id: string
-  titleId: string
-  titleEn: string
-  titleZh: string
-  excerptId: string
-  excerptEn: string
-  excerptZh: string
-  contentId: string
-  contentEn: string
-  contentZh: string
-  coverImage: string
-  coverImageCaptionId: string
-  coverImageCaptionEn: string
-  coverImageCaptionZh: string
-  category: Category
-  author: Author
-  tagsId: string
-  tagsEn: string
-  tagsZh: string
-  publishedAt: string
-  readTimeMinutes: number
-  status: ArticleStatus
-}
-
-export type AdSize = 'banner' | 'sidebar' | 'leaderboard' | 'inline'
-
+export type Article = paths['/api/v1/articles/']['get']['responses']['200']['content']['application/json'][number]
+export type Author = paths['/api/v1/authors/']['get']['responses']['200']['content']['application/json'][number]
+export type Category = paths['/api/v1/categories/']['get']['responses']['200']['content']['application/json'][number]
+export type CMSUser = paths['/api/v1/auth/users']['get']['responses']['200']['content']['application/json'][number]
 
 export type ArticleStatus = 'draft' | 'published' | 'archived' | 'featured'
 
@@ -161,49 +118,17 @@ export const CMS_ROLE_LABELS: AppRecord<CMSUser['role'], string> = {
 
 
 
-export interface CreateArticleInput {
-  titleId: string
-  titleEn: string
-  titleZh: string
-  contentId: string
-  contentEn: string
-  contentZh: string
-  coverImage?: string
-  coverImageCaptionId?: string
-  coverImageCaptionEn?: string
-  coverImageCaptionZh?: string
-  publishedAt?: string
-  categoryId: string
-  authorId: string
-  status: string
-  tagsId?: string
-  tagsEn?: string
-  tagsZh?: string
-}
-
-export interface UpdateArticleInput extends CreateArticleInput {
+export interface CreateArticleInput extends paths['/api/v1/articles/']['post']['requestBody']['content']['application/json'] {}
+export interface UpdateArticleInput extends paths['/api/v1/articles/{id}']['put']['requestBody']['content']['application/json'] {
   id: string
 }
 
-export interface CreateCategoryInput {
-  nameId: string
-  nameEn: string
-  nameZh: string
-}
-
+export interface CreateCategoryInput extends paths['/api/v1/categories/']['post']['requestBody']['content']['application/json'] {}
 export interface UpdateCategoryInput extends CreateCategoryInput {
   id: string
 }
 
-export interface CreateAuthorInput {
-  name: string
-  avatar: string
-  role?: string
-  bioId: string
-  bioEn: string
-  bioZh: string
-}
-
+export interface CreateAuthorInput extends paths['/api/v1/authors/']['post']['requestBody']['content']['application/json'] {}
 export interface UpdateAuthorInput extends CreateAuthorInput {
   id: string
 }

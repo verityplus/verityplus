@@ -35,7 +35,32 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            token: string;
+                            user: {
+                                /** Format: uuid */
+                                id: string;
+                                username: string;
+                                /** Format: email */
+                                email: string;
+                                role: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -67,7 +92,29 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            username: string;
+                            /** Format: email */
+                            email: string;
+                            role: string;
+                        }[];
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -94,11 +141,46 @@ export interface paths {
             };
             responses: {
                 /** @description Default Response */
-                200: {
+                201: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            username: string;
+                            /** Format: email */
+                            email: string;
+                            role: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -144,7 +226,55 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            username: string;
+                            /** Format: email */
+                            email: string;
+                            role: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -162,11 +292,39 @@ export interface paths {
             requestBody?: never;
             responses: {
                 /** @description Default Response */
-                200: {
+                204: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": null;
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -190,6 +348,7 @@ export interface paths {
                     skip?: string;
                     categoryId?: string;
                     authorId?: string;
+                    search?: string;
                 };
                 header?: never;
                 path?: never;
@@ -202,7 +361,65 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            titleId: string;
+                            titleEn: string;
+                            titleZh: string;
+                            excerptId?: string | null;
+                            excerptEn?: string | null;
+                            excerptZh?: string | null;
+                            contentId: string;
+                            contentEn: string;
+                            contentZh: string;
+                            coverImage?: string | null;
+                            coverImageCaptionId?: string | null;
+                            coverImageCaptionEn?: string | null;
+                            coverImageCaptionZh?: string | null;
+                            /** Format: uuid */
+                            categoryId: string;
+                            /** Format: uuid */
+                            authorId: string;
+                            tagsId?: string | null;
+                            tagsEn?: string | null;
+                            tagsZh?: string | null;
+                            publishedAt: string;
+                            readTimeMinutes?: number | null;
+                            status: string;
+                            category?: {
+                                /** Format: uuid */
+                                id: string;
+                                nameId: string;
+                                nameEn: string;
+                                nameZh: string;
+                            };
+                            author?: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                avatar: string;
+                                bioId: string;
+                                bioEn: string;
+                                bioZh: string;
+                                role?: string | null;
+                            };
+                        }[];
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -234,7 +451,9 @@ export interface paths {
                         coverImageCaptionId?: string;
                         coverImageCaptionEn?: string;
                         coverImageCaptionZh?: string;
+                        /** Format: uuid */
                         categoryId: string;
+                        /** Format: uuid */
                         authorId: string;
                         tagsId?: string;
                         tagsEn?: string;
@@ -251,11 +470,82 @@ export interface paths {
             };
             responses: {
                 /** @description Default Response */
-                200: {
+                201: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            titleId: string;
+                            titleEn: string;
+                            titleZh: string;
+                            excerptId?: string | null;
+                            excerptEn?: string | null;
+                            excerptZh?: string | null;
+                            contentId: string;
+                            contentEn: string;
+                            contentZh: string;
+                            coverImage?: string | null;
+                            coverImageCaptionId?: string | null;
+                            coverImageCaptionEn?: string | null;
+                            coverImageCaptionZh?: string | null;
+                            /** Format: uuid */
+                            categoryId: string;
+                            /** Format: uuid */
+                            authorId: string;
+                            tagsId?: string | null;
+                            tagsEn?: string | null;
+                            tagsZh?: string | null;
+                            publishedAt: string;
+                            readTimeMinutes?: number | null;
+                            status: string;
+                            category?: {
+                                /** Format: uuid */
+                                id: string;
+                                nameId: string;
+                                nameEn: string;
+                                nameZh: string;
+                            };
+                            author?: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                avatar: string;
+                                bioId: string;
+                                bioEn: string;
+                                bioZh: string;
+                                role?: string | null;
+                            };
+                        };
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -289,7 +579,65 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            titleId: string;
+                            titleEn: string;
+                            titleZh: string;
+                            excerptId?: string | null;
+                            excerptEn?: string | null;
+                            excerptZh?: string | null;
+                            contentId: string;
+                            contentEn: string;
+                            contentZh: string;
+                            coverImage?: string | null;
+                            coverImageCaptionId?: string | null;
+                            coverImageCaptionEn?: string | null;
+                            coverImageCaptionZh?: string | null;
+                            /** Format: uuid */
+                            categoryId: string;
+                            /** Format: uuid */
+                            authorId: string;
+                            tagsId?: string | null;
+                            tagsEn?: string | null;
+                            tagsZh?: string | null;
+                            publishedAt: string;
+                            readTimeMinutes?: number | null;
+                            status: string;
+                            category?: {
+                                /** Format: uuid */
+                                id: string;
+                                nameId: string;
+                                nameEn: string;
+                                nameZh: string;
+                            };
+                            author?: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                avatar: string;
+                                bioId: string;
+                                bioEn: string;
+                                bioZh: string;
+                                role?: string | null;
+                            };
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -322,7 +670,9 @@ export interface paths {
                         coverImageCaptionId?: string;
                         coverImageCaptionEn?: string;
                         coverImageCaptionZh?: string;
+                        /** Format: uuid */
                         categoryId?: string;
+                        /** Format: uuid */
                         authorId?: string;
                         tagsId?: string;
                         tagsEn?: string;
@@ -343,7 +693,91 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            titleId: string;
+                            titleEn: string;
+                            titleZh: string;
+                            excerptId?: string | null;
+                            excerptEn?: string | null;
+                            excerptZh?: string | null;
+                            contentId: string;
+                            contentEn: string;
+                            contentZh: string;
+                            coverImage?: string | null;
+                            coverImageCaptionId?: string | null;
+                            coverImageCaptionEn?: string | null;
+                            coverImageCaptionZh?: string | null;
+                            /** Format: uuid */
+                            categoryId: string;
+                            /** Format: uuid */
+                            authorId: string;
+                            tagsId?: string | null;
+                            tagsEn?: string | null;
+                            tagsZh?: string | null;
+                            publishedAt: string;
+                            readTimeMinutes?: number | null;
+                            status: string;
+                            category?: {
+                                /** Format: uuid */
+                                id: string;
+                                nameId: string;
+                                nameEn: string;
+                                nameZh: string;
+                            };
+                            author?: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                avatar: string;
+                                bioId: string;
+                                bioEn: string;
+                                bioZh: string;
+                                role?: string | null;
+                            };
+                        };
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -361,11 +795,39 @@ export interface paths {
             requestBody?: never;
             responses: {
                 /** @description Default Response */
-                200: {
+                204: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": null;
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -396,7 +858,28 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            nameId: string;
+                            nameEn: string;
+                            nameZh: string;
+                        }[];
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -419,11 +902,45 @@ export interface paths {
             };
             responses: {
                 /** @description Default Response */
-                200: {
+                201: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            nameId: string;
+                            nameEn: string;
+                            nameZh: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -456,7 +973,28 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            nameId: string;
+                            nameEn: string;
+                            nameZh: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -484,7 +1022,54 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            nameId: string;
+                            nameEn: string;
+                            nameZh: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -501,11 +1086,39 @@ export interface paths {
             requestBody?: never;
             responses: {
                 /** @description Default Response */
-                200: {
+                204: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": null;
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -536,7 +1149,31 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            avatar: string;
+                            bioId: string;
+                            bioEn: string;
+                            bioZh: string;
+                            role?: string | null;
+                        }[];
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -562,11 +1199,48 @@ export interface paths {
             };
             responses: {
                 /** @description Default Response */
-                200: {
+                201: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            avatar: string;
+                            bioId: string;
+                            bioEn: string;
+                            bioZh: string;
+                            role?: string | null;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -599,7 +1273,31 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            avatar: string;
+                            bioId: string;
+                            bioEn: string;
+                            bioZh: string;
+                            role?: string | null;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -630,7 +1328,57 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            avatar: string;
+                            bioId: string;
+                            bioEn: string;
+                            bioZh: string;
+                            role?: string | null;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -647,11 +1395,39 @@ export interface paths {
             requestBody?: never;
             responses: {
                 /** @description Default Response */
-                200: {
+                204: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": null;
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -684,80 +1460,41 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            url: string;
+                            filename: string;
+                        };
+                    };
                 };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/analytics/summary": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Get Google Analytics summary */
-        get: {
-            parameters: {
-                query?: {
-                    pagePath?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
                 /** @description Default Response */
-                200: {
+                400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/adsense/summary": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Get Google AdSense summary */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
                 /** @description Default Response */
-                200: {
+                401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
-        put?: never;
-        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -786,7 +1523,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
                 };
             };
         };
@@ -811,7 +1552,24 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -844,42 +1602,25 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            key: string;
+                            value: string;
+                        }[];
+                    };
                 };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/test": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query: {
-                    name: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
                 /** @description Default Response */
-                200: {
+                401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
                 };
             };
         };

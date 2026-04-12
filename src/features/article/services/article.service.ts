@@ -25,7 +25,7 @@ export const ArticleService = {
       authorId?: string
     } = {},
   ): Promise<Article[]> {
-    const { data, error } = await apiClient.GET('/articles', {
+    const { data, error } = await apiClient.GET('/articles/', {
       params: {
         query: {
           search: args.search,
@@ -33,7 +33,7 @@ export const ArticleService = {
           skip: args.skip?.toString(),
           categoryId: args.categoryId,
           authorId: args.authorId,
-        } as any, // Cast due to internal Zod pollution in OpenAPI spec causing type mismatch
+        },
       },
     })
 
@@ -41,7 +41,7 @@ export const ArticleService = {
       console.error('Error fetching articles:', error)
       return []
     }
-    return (data as any) || []
+    return data || []
   },
 
   async getArticleById(id: string): Promise<Article | undefined> {
@@ -55,7 +55,7 @@ export const ArticleService = {
       console.error(`Error fetching article ${id}:`, error)
       return undefined
     }
-    return data as any
+    return data
   },
 
   async searchArticles(query: string): Promise<Article[]> {
@@ -63,33 +63,33 @@ export const ArticleService = {
   },
 
   async getAllCategories(): Promise<Category[]> {
-    const { data, error } = await apiClient.GET('/categories')
+    const { data, error } = await apiClient.GET('/categories/')
     if (error) {
       console.error('Error fetching categories:', error)
       return []
     }
-    return (data as any) || []
+    return data || []
   },
 
   async getAllAuthors(): Promise<Author[]> {
-    const { data, error } = await apiClient.GET('/authors')
+    const { data, error } = await apiClient.GET('/authors/')
     if (error) {
       console.error('Error fetching authors:', error)
       return []
     }
-    return (data as any) || []
+    return data || []
   },
 
   async createArticle(dataInput: CreateArticleInput): Promise<Article> {
-    const { data, error } = await apiClient.POST('/articles', {
-      body: dataInput as any,
+    const { data, error } = await apiClient.POST('/articles/', {
+      body: dataInput,
     })
 
     if (error) {
       console.error('Error creating article:', error)
       throw error
     }
-    return data as any
+    return data
   },
 
   async updateArticle(dataInput: UpdateArticleInput): Promise<Article> {
@@ -98,14 +98,14 @@ export const ArticleService = {
       params: {
         path: { id },
       },
-      body: input as any,
+      body: input,
     })
 
     if (error) {
       console.error(`Error updating article ${id}:`, error)
       throw error
     }
-    return data as any
+    return data
   },
 
   async deleteArticle(id: string): Promise<void> {
@@ -122,14 +122,14 @@ export const ArticleService = {
   },
 
   async createCategory(dataInput: CreateCategoryInput): Promise<Category> {
-    const { data, error } = await apiClient.POST('/categories', {
-      body: dataInput as any,
+    const { data, error } = await apiClient.POST('/categories/', {
+      body: dataInput,
     })
 
     if (error) {
       throw error
     }
-    return data as any
+    return data
   },
 
   async updateCategory(dataInput: UpdateCategoryInput): Promise<Category> {
@@ -138,13 +138,13 @@ export const ArticleService = {
       params: {
         path: { id },
       },
-      body: input as any,
+      body: input,
     })
 
     if (error) {
       throw error
     }
-    return data as any
+    return data
   },
 
   async deleteCategory(id: string): Promise<void> {
@@ -160,14 +160,14 @@ export const ArticleService = {
   },
 
   async createAuthor(dataInput: CreateAuthorInput): Promise<Author> {
-    const { data, error } = await apiClient.POST('/authors', {
-      body: dataInput as any,
+    const { data, error } = await apiClient.POST('/authors/', {
+      body: dataInput,
     })
 
     if (error) {
       throw error
     }
-    return data as any
+    return data
   },
 
   async updateAuthor(dataInput: UpdateAuthorInput): Promise<Author> {
@@ -176,13 +176,13 @@ export const ArticleService = {
       params: {
         path: { id },
       },
-      body: input as any,
+      body: input,
     })
 
     if (error) {
       throw error
     }
-    return data as any
+    return data
   },
 
   async deleteAuthor(id: string): Promise<void> {
