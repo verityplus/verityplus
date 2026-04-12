@@ -17,6 +17,7 @@ export default defineComponent({
     const form = ref({
       adsense_pub_id: '',
       adsense_account_id: '',
+      ga_measurement_id: '',
       ads_slot_leaderboard: '',
       ads_slot_banner: '',
       ads_slot_sidebar: '',
@@ -28,6 +29,7 @@ export default defineComponent({
       form.value = {
         adsense_pub_id: settingsStore.settings.adsense_pub_id || '',
         adsense_account_id: settingsStore.settings.adsense_account_id || '',
+        ga_measurement_id: settingsStore.settings.ga_measurement_id || '',
         ads_slot_leaderboard: settingsStore.settings.ads_slot_leaderboard || '',
         ads_slot_banner: settingsStore.settings.ads_slot_banner || '',
         ads_slot_sidebar: settingsStore.settings.ads_slot_sidebar || '',
@@ -67,7 +69,24 @@ export default defineComponent({
           </header>
           
           <div class="p-8 space-y-8">
-            {/* Google Analytics fields removed */}
+            <div class="space-y-6">
+              <h4 class="text-xs font-black uppercase tracking-widest text-slate-900 flex items-center gap-2">
+                <i class="bi bi-graph-up-arrow text-primary"></i>
+                Google Analytics
+              </h4>
+              <div class="space-y-2">
+                <label class="block text-xs font-black uppercase tracking-widest text-slate-400">
+                  Measurement ID
+                </label>
+                <input
+                  v-model={form.value.ga_measurement_id}
+                  type="text"
+                  placeholder="G-XXXXXXXXXX"
+                  class="w-full max-w-md px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm"
+                />
+                <p class="text-[10px] text-slate-400">This ID will be used to inject the Google Analytics Global Site Tag (gtag.js) on all public pages.</p>
+              </div>
+            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-slate-50">
               <div class="space-y-2">

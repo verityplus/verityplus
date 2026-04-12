@@ -1,4 +1,4 @@
-import { defineComponent, type VNode } from 'vue'
+import { defineComponent, type VNode, Transition } from 'vue'
 import { RouterView } from 'vue-router'
 
 /**
@@ -14,9 +14,9 @@ export default defineComponent({
       <RouterView
         v-slots={{
           default: ({ Component }: { Component: VNode }) => (
-            <transition name="fade" mode="out-in">
+            <Transition name="fade" mode="out-in">
               {Component ? Component : null}
-            </transition>
+            </Transition>
           ),
         }}
       />

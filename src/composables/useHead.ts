@@ -3,7 +3,7 @@ import { watch, type Ref, type ComputedRef, isRef } from 'vue'
 
 /**
  * Global head instance for the application.
- * Created once and shared across all components.
+ * Triggering HMR reload.
  */
 export const head = createUnhead()
 
@@ -14,7 +14,7 @@ function unwrap<T>(val: MaybeRef<T>): T {
 }
 
 /**
- * Reactive useHead composable.
+ * Reactive document head management.
  * Watches reactive inputs and updates document head accordingly.
  */
 export function useHead(input: Record<string, MaybeRef<unknown> | MaybeRef<unknown>[]>) {
@@ -54,9 +54,11 @@ export function useHead(input: Record<string, MaybeRef<unknown> | MaybeRef<unkno
 
   const refsToWatch: (Ref<unknown> | ComputedRef<unknown>)[] = []
 
+  // Collect refs to watch (existing logic)
   if (isRef(input.title)) {
     refsToWatch.push(input.title as Ref<unknown> | ComputedRef<unknown>)
   }
+  
   if (Array.isArray(input.meta)) {
     for (const m of input.meta) {
       if (isRef(m)) {
