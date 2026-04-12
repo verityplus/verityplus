@@ -3,7 +3,9 @@ import type { paths } from './openapi'
 export type Article = paths['/api/v1/articles/']['get']['responses']['200']['content']['application/json'][number]
 export type Author = paths['/api/v1/authors/']['get']['responses']['200']['content']['application/json'][number]
 export type Category = paths['/api/v1/categories/']['get']['responses']['200']['content']['application/json'][number]
-export type CMSUser = paths['/api/v1/auth/users']['get']['responses']['200']['content']['application/json'][number]
+export type CMSUser = paths['/api/v1/auth/users']['get']['responses']['200']['content']['application/json'][number] & {
+  password?: string
+}
 
 export type ArticleStatus = 'draft' | 'published' | 'archived' | 'featured'
 
@@ -14,12 +16,7 @@ export const ARTICLE_STATUS_LABELS: AppRecord<ArticleStatus, string> = {
   featured: 'Featured',
 }
 
-export interface CMSUser {
-  id: string
-  username: string
-  email: string
-  password?: string
-}
+export type AdSize = 'leaderboard' | 'banner' | 'sidebar' | 'inline'
 
 
 export type AppPartial<T> = {
@@ -113,17 +110,17 @@ export const AD_SIZE_PRESETS: AppRecord<AdSize, { height: string; label: string 
 
 
 
-export interface CreateArticleInput extends paths['/api/v1/articles/']['post']['requestBody']['content']['application/json'] {}
-export interface UpdateArticleInput extends paths['/api/v1/articles/{id}']['put']['requestBody']['content']['application/json'] {
+export type CreateArticleInput = paths['/api/v1/articles/']['post']['requestBody']['content']['application/json']
+export type UpdateArticleInput = paths['/api/v1/articles/{id}']['put']['requestBody']['content']['application/json'] & {
   id: string
 }
 
-export interface CreateCategoryInput extends paths['/api/v1/categories/']['post']['requestBody']['content']['application/json'] {}
-export interface UpdateCategoryInput extends CreateCategoryInput {
+export type CreateCategoryInput = paths['/api/v1/categories/']['post']['requestBody']['content']['application/json']
+export type UpdateCategoryInput = CreateCategoryInput & {
   id: string
 }
 
-export interface CreateAuthorInput extends paths['/api/v1/authors/']['post']['requestBody']['content']['application/json'] {}
-export interface UpdateAuthorInput extends CreateAuthorInput {
+export type CreateAuthorInput = paths['/api/v1/authors/']['post']['requestBody']['content']['application/json']
+export type UpdateAuthorInput = CreateAuthorInput & {
   id: string
 }
