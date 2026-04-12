@@ -19,7 +19,6 @@ export interface CMSUser {
   username: string
   email: string
   password?: string
-  role: 'admin' | 'editor'
 }
 
 
@@ -111,10 +110,6 @@ export const AD_SIZE_PRESETS: AppRecord<AdSize, { height: string; label: string 
   inline: { height: 'h-40', label: 'Inline (Responsive)' },
 }
 
-export const CMS_ROLE_LABELS: AppRecord<CMSUser['role'], string> = {
-  admin: 'Administrator',
-  editor: 'Editor',
-}
 
 
 

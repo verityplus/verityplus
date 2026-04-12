@@ -55,9 +55,6 @@ export default defineComponent({
                 <p class="text-sm font-bold text-slate-900 leading-none">
                   {authStore.currentUser?.username}
                 </p>
-                <span class="text-xs text-slate-400 font-medium uppercase tracking-tighter">
-                  {authStore.currentUser?.role}
-                </span>
               </div>
               <BaseButton
                 onClick={handleLogout}

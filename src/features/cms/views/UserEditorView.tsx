@@ -23,7 +23,6 @@ export default defineComponent({
       username: '',
       email: '',
       password: '',
-      role: 'admin',
     })
 
     const loadData = () => {
@@ -146,9 +145,8 @@ export default defineComponent({
                 Authorization Security Architecture
               </h3>
               <p class="text-slate-100/70 text-sm leading-relaxed">
-                VERITY+ Administrative access tiers define the capabilities of each user.
-                Administrators have full architectural control, while Editors focus on content
-                creation and publication.
+                VERITY+ Administrative users have full architectural control over the CMS
+                environment, allowing for content creation and publication.
               </p>
               <div class="space-y-3 pt-4">
                 <div class="flex items-center gap-3">
