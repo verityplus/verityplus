@@ -25,9 +25,57 @@ export const CMSSidebar = defineComponent({
       { name: 'Settings', path: '/cms/settings', icon: 'bi bi-gear-fill' },
     ]
 
+    const externalLinks = [
+      { name: 'Analytics', path: '#', icon: 'bi bi-graph-up', title: 'Google Analytics' },
+      { name: 'AdSense', path: '#', icon: 'bi bi-cash-stack', title: 'Google AdSense' },
+    ]
+
     const isActive = (path: string, exact: boolean = false) => {
       if (exact) return route.path === path
       return route.path.startsWith(path)
+    }
+
+    const renderLink = (item: any, isExternal = false) => {
+      const commonClass = [
+        'flex items-center gap-3 rounded-lg transition duration-200 group no-underline',
+        props.collapsed ? 'justify-center py-3 px-2' : 'px-4 py-3',
+        !isExternal && isActive(item.path, item.exact)
+          ? 'bg-primary text-white shadow-lg shadow-primary/20'
+          : 'text-slate-400 hover:bg-slate-800 hover:text-white',
+      ]
+
+      const content = (
+        <>
+          <i class={[item.icon, 'text-lg']} />
+          {!props.collapsed && <span class="font-medium">{item.name}</span>}
+        </>
+      )
+
+      if (isExternal) {
+        return (
+          <a
+            href={item.path}
+            target="_blank"
+            rel="noopener noreferrer"
+            key={item.name}
+            class={commonClass}
+            title={props.collapsed ? (item.title || item.name) : ''}
+          >
+            {content}
+          </a>
+        )
+      }
+
+      return (
+        <RouterLink
+          to={item.path}
+          key={item.name}
+          class={commonClass}
+          title={props.collapsed ? item.name : ''}
+        >
+          {content}
+        </RouterLink>
+      )
     }
 
     return () => (
@@ -48,24 +96,17 @@ export const CMSSidebar = defineComponent({
           </RouterLink>
         </div>
 
-        <nav class={['space-y-1', props.collapsed ? 'p-2' : 'p-4']}>
-          {navItems.map((item) => (
-            <RouterLink
-              to={item.path}
-              key={item.name}
-              class={[
-                'flex items-center gap-3 rounded-lg transition duration-200 group no-underline',
-                props.collapsed ? 'justify-center py-3 px-2' : 'px-4 py-3',
-                isActive(item.path, item.exact)
-                  ? 'bg-primary text-white shadow-lg shadow-primary/20'
-                  : 'text-slate-400 hover:bg-slate-800 hover:text-white',
-              ]}
-              title={props.collapsed ? item.name : ''}
-            >
-              <i class={[item.icon, 'text-lg']} />
-              {!props.collapsed && <span class="font-medium">{item.name}</span>}
-            </RouterLink>
-          ))}
+        <nav class={['flex-1 space-y-1 overflow-y-auto custom-scrollbar', props.collapsed ? 'p-2' : 'p-4']}>
+          {navItems.map((item) => renderLink(item))}
+
+          <div class={['my-4 border-t border-slate-800/50', props.collapsed ? 'mx-2' : 'mx-4']} />
+          {!props.collapsed && (
+            <div class="px-4 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">
+              Services
+            </div>
+          )}
+
+          {externalLinks.map((item) => renderLink(item, true))}
         </nav>
 
         <div
