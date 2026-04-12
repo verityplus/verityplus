@@ -82,7 +82,6 @@ export default defineComponent({
                   <thead>
                     <tr class="bg-slate-50 text-[10px] font-black uppercase tracking-widest text-slate-400">
                       <th class="px-6 py-4">Category Detail</th>
-                      <th class="px-6 py-4">Theme Configuration</th>
                       <th class="px-6 py-4 text-right">Actions</th>
                     </tr>
                   </thead>
@@ -103,11 +102,6 @@ export default defineComponent({
                               </span>
                             </div>
                           </div>
-                        </td>
-                        <td class="px-6 py-5">
-                          <BaseBadge class="text-[10px]">
-                            Standard Theme
-                          </BaseBadge>
                         </td>
                         {/* Engagement cell removed */}
                         <td class="px-6 py-5 text-right">
@@ -140,7 +134,7 @@ export default defineComponent({
                   </div>
                 )}
               </div>
-              
+
               <footer class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[10px] font-black text-slate-400 px-6">
                 <p>
                   Showing {filteredCategories.value.length} categories
