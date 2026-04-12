@@ -68,8 +68,8 @@ export default defineComponent({
           await cmsContentStore.addAuthor(createData)
         }
         router.push('/cms/characters')
-      } catch (err: any) {
-        const detail = err?.message || 'Check your network connection and retry.'
+      } catch (err: unknown) {
+        const detail = err instanceof Error ? err.message : 'Check your network connection and retry.'
         await appAlert(`Failed to save character.\n\nDetail: ${detail}`, 'Save Error')
       }
     }
@@ -112,9 +112,10 @@ export default defineComponent({
                     try {
                       const url = await StorageService.upload(file)
                       form.value.avatar = url
-                    } catch (err: any) {
+                    } catch (err: unknown) {
                       console.error('Avatar upload failed:', err)
-                      await appAlert(`Failed to upload avatar. ${err?.message || 'Unknown error'}`, 'Upload Error')
+                      const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+                      await appAlert(`Failed to upload avatar. ${errorMessage}`, 'Upload Error')
                     } finally {
                       isUploading.value = false
                     }

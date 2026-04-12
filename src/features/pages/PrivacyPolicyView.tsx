@@ -37,7 +37,7 @@ export default defineComponent({
 
     const sections = computed<AccordionSection[]>(() => {
 
-      const s = tm('privacy.sections') as Record<string, any>
+      const s = tm('privacy.sections') as Record<string, { title: string; content?: string; items?: string[] }>
       return [
         {
           key: 'infoCollected',

@@ -1,6 +1,5 @@
 import { defineComponent, ref, computed } from 'vue'
 import { useCategories } from '../composables/useCategories'
-import { onMounted } from 'vue'
 import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
 import { useLocalizedField } from '@/composables/useLocalizedField'

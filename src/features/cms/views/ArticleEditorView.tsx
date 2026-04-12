@@ -202,9 +202,10 @@ export default defineComponent({
           await cmsContentStore.addArticle(submissionData)
         }
         router.push('/cms/articles')
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('Save failed:', err)
-        let detail = err?.message || 'Please check your connection.'
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+        let detail = errorMessage || 'Please check your connection.'
         let title = 'Save Failed'
 
         if (detail.includes('Unauthorized')) {
@@ -393,9 +394,10 @@ export default defineComponent({
                         try {
                           const url = await StorageService.upload(file)
                           form.value.coverImage = url
-                        } catch (err: any) {
+                        } catch (err: unknown) {
                           console.error('Upload failed:', err)
-                          await appAlert(`Failed to upload image. ${err?.message || 'Unknown error'}`, 'Upload Error')
+                          const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+                          await appAlert(`Failed to upload image. ${errorMessage}`, 'Upload Error')
                         } finally {
                           isUploading.value = false
                         }

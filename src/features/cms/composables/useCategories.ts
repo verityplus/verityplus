@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query'
 import { apiClient } from '@/shared/services/apiClient'
+import type { CreateCategoryInput, UpdateCategoryInput } from '@/shared/types'
 
 export function useCategories() {
   const queryClient = useQueryClient()
@@ -14,7 +15,7 @@ export function useCategories() {
   })
 
   const createMutation = useMutation({
-    mutationFn: async (input: any) => {
+    mutationFn: async (input: CreateCategoryInput) => {
       const { data, error } = await apiClient.post('/api/v1/categories/', {
         body: input
       })
@@ -27,7 +28,7 @@ export function useCategories() {
   })
 
   const updateMutation = useMutation({
-    mutationFn: async ({ id, ...input }: { id: string } & any) => {
+    mutationFn: async ({ id, ...input }: UpdateCategoryInput) => {
       const { data, error } = await apiClient.put('/api/v1/categories/{id}', {
         params: {
           path: { id }

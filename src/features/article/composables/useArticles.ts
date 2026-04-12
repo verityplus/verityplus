@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query'
 import { apiClient } from '@/shared/services/apiClient'
+import type { CreateArticleInput, UpdateArticleInput } from '@/shared/types'
 
 export function useArticles(filters: { categoryId?: string; authorId?: string; take?: number; skip?: number } = {}) {
   const queryClient = useQueryClient()
@@ -37,7 +38,7 @@ export function useArticles(filters: { categoryId?: string; authorId?: string; t
   })
 
   const createMutation = useMutation({
-    mutationFn: async (input: any) => {
+    mutationFn: async (input: CreateArticleInput) => {
       const { data, error } = await apiClient.post('/api/v1/articles/', {
         body: input
       })
@@ -50,7 +51,7 @@ export function useArticles(filters: { categoryId?: string; authorId?: string; t
   })
 
   const updateMutation = useMutation({
-    mutationFn: async ({ id, ...input }: { id: string } & any) => {
+    mutationFn: async ({ id, ...input }: UpdateArticleInput) => {
       const { data, error } = await apiClient.put('/api/v1/articles/{id}', {
         params: {
           path: { id }

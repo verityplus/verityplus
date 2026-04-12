@@ -11,7 +11,7 @@ export function useLocalizedField() {
   const { locale } = useI18n()
 
 
-  const getLocalizedField = (obj: any, baseKey: string, fallbackToId: boolean = true): string => {
+  const getLocalizedField = (obj: Record<string, unknown> | null | undefined, baseKey: string, fallbackToId: boolean = true): string => {
     const currentLocale = locale.value as Locale
     const suffix = currentLocale.charAt(0).toUpperCase() + currentLocale.slice(1)
     const localizedKey = `${baseKey}${suffix}`

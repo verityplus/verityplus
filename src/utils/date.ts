@@ -20,7 +20,7 @@ export function formatDate(dateStr: string | undefined | null, locale: string = 
       month: 'long',
       year: 'numeric'
     }).format(date)
-  } catch (e) {
+  } catch {
     return dateStr
   }
 }
