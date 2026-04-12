@@ -86,7 +86,7 @@ export const BaseButton = defineComponent({
       }
 
       return (
-        <button class={classes} type={props.type} disabled={props.loading} {...attrs}>
+        <button onClick={props.onClick} class={classes} type={props.type} disabled={props.loading} {...attrs}>
           {props.loading ? <i class="bi bi-arrow-repeat animate-spin mr-3"></i> : null}
           {slots.default?.()}
         </button>
