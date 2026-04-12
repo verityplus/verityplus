@@ -120,7 +120,7 @@ export default defineComponent({
                   >
                     <div class="w-full md:w-64 h-44 shrink-0 overflow-hidden rounded-lg bg-surface-muted">
                       <BaseImage
-                        src={article.coverImage}
+                        src={article.coverImage ?? undefined}
                         alt={getLocalizedField(article, 'title')}
                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                       />
@@ -130,7 +130,7 @@ export default defineComponent({
                     <div class="flex flex-col justify-center flex-1">
                       <div class="flex items-center gap-3 mb-2 text-sm">
                         <RouterLink
-                          to={{ name: 'category', params: { id: article.category.id } }}
+                          to={{ name: 'category', params: { id: article.category?.id || '' } }}
                           class="no-underline"
                           onClick={(e) => e.stopPropagation()}
                         >

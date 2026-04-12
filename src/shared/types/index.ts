@@ -1,6 +1,6 @@
 import type { paths } from './openapi'
 
-export type Article = paths['/api/v1/articles/']['get']['responses']['200']['content']['application/json'][number]
+export type Article = paths['/api/v1/articles/']['get']['responses']['200']['content']['application/json']['items'][number]
 export type Author = paths['/api/v1/authors/']['get']['responses']['200']['content']['application/json'][number]
 export type Category = paths['/api/v1/categories/']['get']['responses']['200']['content']['application/json'][number]
 export type CMSUser = paths['/api/v1/auth/users']['get']['responses']['200']['content']['application/json'][number] & {

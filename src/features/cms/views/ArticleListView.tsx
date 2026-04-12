@@ -24,7 +24,7 @@ export default defineComponent({
     const searchQuery = ref(articleStore.cmsSearch)
 
     // Sync local search to store with debounce
-    let debounceTimeout: any
+    let debounceTimeout: ReturnType<typeof setTimeout> | undefined
     const handleSearchInput = (val: string) => {
       searchQuery.value = val
       clearTimeout(debounceTimeout)
@@ -106,13 +106,13 @@ export default defineComponent({
               </thead>
               <tbody class={`divide-y divide-slate-100 font-medium text-sm ${articleStore.isLoading ? 'opacity-50' : 'opacity-100 transition-opacity duration-300'}`}>
                 {articleStore.articles.map((article) => {
-                  const statusConfig = statusColors[article.status] || statusColors.draft
+                  const statusConfig = statusColors[article.status as ArticleStatus] || statusColors.draft
                   return (
                     <tr key={article.id} class="hover:bg-slate-50/50 transition group">
                       <td class="px-6 py-5">
                         <div class="flex items-center gap-3">
                           <BaseImage
-                            src={article.coverImage}
+                            src={article.coverImage ?? undefined}
                             class="w-10 h-10 rounded-lg object-cover shadow-sm bg-slate-100"
                           />
 
@@ -121,7 +121,7 @@ export default defineComponent({
                               {getLocalizedField(article, 'title')}
                             </span>
                             <span class="text-[10px] text-slate-400 mt-0.5">
-                              By {article.author.name}
+                              By {article.author?.name || 'Unknown'}
                             </span>
                           </div>
                         </div>
@@ -139,7 +139,7 @@ export default defineComponent({
                         >
                           <i class={`bi ${statusConfig.icon} text-[10px]`} />
                           <span class="text-[10px] font-black uppercase tracking-wider">
-                            {ARTICLE_STATUS_LABELS[article.status]}
+                            {ARTICLE_STATUS_LABELS[article.status as ArticleStatus]}
                           </span>
                         </span>
                       </td>

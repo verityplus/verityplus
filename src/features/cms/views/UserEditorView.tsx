@@ -27,7 +27,7 @@ export default defineComponent({
 
     const loadData = () => {
       if (isEdit.value) {
-        const found = store.users.find((u) => u.id === (route.params.id as string))
+        const found = store.users.find((u: CMSUser) => u.id === (route.params.id as string))
         if (found) {
           form.value = { ...found }
         }

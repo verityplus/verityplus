@@ -10,13 +10,19 @@ export const StorageService = {
     const formData = new FormData();
     formData.append('file', file);
     
-    // We send multipart/form-data. The apiClient will bypass JSON stringification for FormData.
-    const result = await apiClient.post<{ url: string }>('/storage/upload', formData);
+    // We send multipart/form-data.
+    const { data, error } = await (apiClient as any).POST('/storage/upload', {
+      body: formData,
+      // Since it's FormData, we don't want the default application/json header
+      headers: {
+        'Content-Type': undefined 
+      }
+    });
     
-    if (!result || !result.url) {
+    if (error || !data?.url) {
       throw new Error('Failed to get public URL after upload');
     }
 
-    return result.url;
+    return data.url;
   },
 }

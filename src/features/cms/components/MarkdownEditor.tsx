@@ -43,7 +43,7 @@ export const MarkdownEditor = defineComponent({
       },
       onUpdate: ({ editor }) => {
 
-        emit('update:modelValue', (editor.storage as { markdown: { getMarkdown: () => string } }).markdown.getMarkdown())
+        emit('update:modelValue', (editor.storage as any).markdown.getMarkdown())
       },
     })
 
@@ -52,11 +52,9 @@ export const MarkdownEditor = defineComponent({
       (value) => {
         if (!editor.value) return
 
-        const isSame = (editor.value.storage as { markdown: { getMarkdown: () => string } }).markdown.getMarkdown() === value
-        if (!isSame) {
-
-          editor.value.commands.setContent(value, false)
-        }
+          if (!isSame) {
+            editor.value.commands.setContent(value)
+          }
       },
     )
 
@@ -75,7 +73,8 @@ export const MarkdownEditor = defineComponent({
           imageUrl.value = ''
         } catch (err: unknown) {
           console.error('Markdown image upload failed:', err)
-          alert(`Failed to upload image: ${err.message}`)
+          const msg = err instanceof Error ? err.message : 'Unknown'
+          alert(`Failed to upload image: ${msg}`)
         }
       }
     }

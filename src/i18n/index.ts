@@ -1,6 +1,6 @@
 import { createI18n } from 'vue-i18n'
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './types'
-import type { Locale } from './types'
+import type { Locale, MessageSchema } from './types'
 import id from './locales/id'
 import en from './locales/en'
 import zh from './locales/zh'
@@ -19,11 +19,11 @@ function detectLocale(): Locale {
 }
 
 
-export const i18n = createI18n({
+export const i18n = createI18n<[MessageSchema], Locale>({
   legacy: false,
   locale: detectLocale(),
   fallbackLocale: DEFAULT_LOCALE,
-  messages: { id, en, zh },
+  messages: { id, en, zh } as any,
 })
 
 

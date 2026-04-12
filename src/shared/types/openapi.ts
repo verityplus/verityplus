@@ -44,7 +44,6 @@ export interface paths {
                                 username: string;
                                 /** Format: email */
                                 email: string;
-                                role: string;
                             };
                         };
                     };
@@ -99,7 +98,6 @@ export interface paths {
                             username: string;
                             /** Format: email */
                             email: string;
-                            role: string;
                         }[];
                     };
                 };
@@ -134,8 +132,6 @@ export interface paths {
                         /** Format: email */
                         email: string;
                         password?: string;
-                        /** @default editor */
-                        role?: string;
                     };
                 };
             };
@@ -152,7 +148,6 @@ export interface paths {
                             username: string;
                             /** Format: email */
                             email: string;
-                            role: string;
                         };
                     };
                 };
@@ -215,8 +210,6 @@ export interface paths {
                         /** Format: email */
                         email?: string;
                         password?: string;
-                        /** @default editor */
-                        role?: string;
                     };
                 };
             };
@@ -233,7 +226,6 @@ export interface paths {
                             username: string;
                             /** Format: email */
                             email: string;
-                            role: string;
                         };
                     };
                 };
@@ -363,49 +355,52 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
-                            titleId: string;
-                            titleEn: string;
-                            titleZh: string;
-                            excerptId?: string | null;
-                            excerptEn?: string | null;
-                            excerptZh?: string | null;
-                            contentId: string;
-                            contentEn: string;
-                            contentZh: string;
-                            coverImage?: string | null;
-                            coverImageCaptionId?: string | null;
-                            coverImageCaptionEn?: string | null;
-                            coverImageCaptionZh?: string | null;
-                            /** Format: uuid */
-                            categoryId: string;
-                            /** Format: uuid */
-                            authorId: string;
-                            tagsId?: string | null;
-                            tagsEn?: string | null;
-                            tagsZh?: string | null;
-                            publishedAt: string;
-                            readTimeMinutes?: number | null;
-                            status: string;
-                            category?: {
+                            items: {
                                 /** Format: uuid */
                                 id: string;
-                                nameId: string;
-                                nameEn: string;
-                                nameZh: string;
-                            };
-                            author?: {
+                                titleId: string;
+                                titleEn: string;
+                                titleZh: string;
+                                excerptId?: string | null;
+                                excerptEn?: string | null;
+                                excerptZh?: string | null;
+                                contentId: string;
+                                contentEn: string;
+                                contentZh: string;
+                                coverImage?: string | null;
+                                coverImageCaptionId?: string | null;
+                                coverImageCaptionEn?: string | null;
+                                coverImageCaptionZh?: string | null;
                                 /** Format: uuid */
-                                id: string;
-                                name: string;
-                                avatar: string;
-                                bioId: string;
-                                bioEn: string;
-                                bioZh: string;
-                                role?: string | null;
-                            };
-                        }[];
+                                categoryId: string;
+                                /** Format: uuid */
+                                authorId: string;
+                                tagsId?: string | null;
+                                tagsEn?: string | null;
+                                tagsZh?: string | null;
+                                publishedAt: unknown;
+                                readTimeMinutes?: number | null;
+                                status: string;
+                                category?: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    nameId: string;
+                                    nameEn: string;
+                                    nameZh: string;
+                                };
+                                author?: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    avatar: string;
+                                    bioId: string;
+                                    bioEn: string;
+                                    bioZh: string;
+                                    role?: string | null;
+                                };
+                            }[];
+                            total: number;
+                        };
                     };
                 };
                 /** @description Default Response */
@@ -464,7 +459,7 @@ export interface paths {
                          * @default draft
                          * @enum {string}
                          */
-                        status?: "draft" | "published";
+                        status?: "draft" | "published" | "archived" | "featured";
                     };
                 };
             };
@@ -498,7 +493,7 @@ export interface paths {
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
-                            publishedAt: string;
+                            publishedAt: unknown;
                             readTimeMinutes?: number | null;
                             status: string;
                             category?: {
@@ -603,7 +598,7 @@ export interface paths {
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
-                            publishedAt: string;
+                            publishedAt: unknown;
                             readTimeMinutes?: number | null;
                             status: string;
                             category?: {
@@ -683,7 +678,7 @@ export interface paths {
                          * @default draft
                          * @enum {string}
                          */
-                        status?: "draft" | "published";
+                        status?: "draft" | "published" | "archived" | "featured";
                     };
                 };
             };
@@ -717,7 +712,7 @@ export interface paths {
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
-                            publishedAt: string;
+                            publishedAt: unknown;
                             readTimeMinutes?: number | null;
                             status: string;
                             category?: {

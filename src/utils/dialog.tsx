@@ -8,7 +8,7 @@ interface DialogOptions {
   title?: string
   message: string
   defaultValue?: string
-  onResolve: (value: unknown) => void
+  onResolve: (value: any) => void
   onClose: () => void
 }
 

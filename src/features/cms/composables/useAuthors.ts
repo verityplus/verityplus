@@ -8,7 +8,7 @@ export function useAuthors() {
   const listQuery = useQuery({
     queryKey: ['authors'],
     queryFn: async () => {
-      const { data, error } = await apiClient.get('/api/v1/authors/', {})
+      const { data, error } = await apiClient.GET('/api/v1/authors/', {})
       if (error) throw error
       return data
     }
@@ -16,7 +16,7 @@ export function useAuthors() {
 
   const createMutation = useMutation({
     mutationFn: async (input: CreateAuthorInput) => {
-      const { data, error } = await apiClient.post('/api/v1/authors/', {
+      const { data, error } = await apiClient.POST('/api/v1/authors/', {
         body: input
       })
       if (error) throw error
@@ -29,7 +29,7 @@ export function useAuthors() {
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, ...input }: UpdateAuthorInput) => {
-      const { data, error } = await apiClient.put('/api/v1/authors/{id}', {
+      const { data, error } = await apiClient.PUT('/api/v1/authors/{id}', {
         params: {
           path: { id }
         },
@@ -45,7 +45,7 @@ export function useAuthors() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await apiClient.delete('/api/v1/authors/{id}', {
+      const { error } = await apiClient.DELETE('/api/v1/authors/{id}', {
         params: {
           path: { id }
         }

@@ -1,4 +1,5 @@
 import { defineComponent, ref, computed } from 'vue'
+import type { Category } from '@/shared/types'
 import { useCategories } from '../composables/useCategories'
 import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
@@ -19,7 +20,7 @@ export default defineComponent({
       const cats = categories.value || []
       if (!q) return cats
       return cats.filter(
-        (c) =>
+        (c: Category) =>
           getLocalizedField(c, 'name').toLowerCase().includes(q) ||
           c.id.toLowerCase().includes(q),
       )
@@ -86,7 +87,7 @@ export default defineComponent({
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-slate-100 font-medium text-sm">
-                    {filteredCategories.value.map((cat) => (
+                    {filteredCategories.value.map((cat: Category) => (
                       <tr key={cat.id} class="hover:bg-slate-50/50 transition group">
                         <td class="px-6 py-5">
                           <div class="flex items-center gap-3">

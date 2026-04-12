@@ -3,6 +3,7 @@ import { useAuthStore } from '../store/auth.store'
 import { BaseButton } from '@/components/ui/Button'
 import { appAlert, appConfirm } from '@/utils/dialog'
 import { defineComponent, ref, computed } from 'vue'
+import type { CMSUser } from '@/shared/types'
 
 /**
  * CMS View: UserListView
@@ -19,7 +20,7 @@ export default defineComponent({
       const q = searchQuery.value.toLowerCase().trim()
       if (!q) return store.users
       return store.users.filter(
-        (u) => u.username.toLowerCase().includes(q) || u.email.toLowerCase().includes(q),
+        (u: CMSUser) => u.username.toLowerCase().includes(q) || u.email.toLowerCase().includes(q),
       )
     })
 
@@ -81,7 +82,7 @@ export default defineComponent({
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100 font-medium text-sm">
-                {filteredUsers.value.map((user) => (
+                {filteredUsers.value.map((user: CMSUser) => (
                   <tr key={user.id} class="hover:bg-slate-50/50 transition group">
                     <td class="px-6 py-5">
                       <div class="flex items-center gap-3">

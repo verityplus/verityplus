@@ -25,12 +25,12 @@ export const ArticleService = {
       authorId?: string
     } = {},
   ): Promise<{ items: Article[]; total: number }> {
-    const { data, error } = await apiClient.GET('/articles/', {
+    const { data, error } = await apiClient.GET('/api/v1/articles/', {
       params: {
         query: {
           search: args.search,
-          page: args.page?.toString(),
-          limit: args.limit?.toString(),
+          page: args.page?.toString() as any,
+          limit: args.limit?.toString() as any,
           categoryId: args.categoryId,
           authorId: args.authorId,
         },
@@ -47,7 +47,7 @@ export const ArticleService = {
   },
 
   async getArticleById(id: string): Promise<Article | undefined> {
-    const { data, error } = await apiClient.GET('/articles/{id}', {
+    const { data, error } = await apiClient.GET('/api/v1/articles/{id}', {
       params: {
         path: { id },
       },
@@ -57,7 +57,7 @@ export const ArticleService = {
       console.error(`Error fetching article ${id}:`, error)
       return undefined
     }
-    return data
+    return data as Article
   },
 
   async searchArticles(query: string): Promise<Article[]> {
@@ -66,7 +66,7 @@ export const ArticleService = {
   },
 
   async getAllCategories(): Promise<Category[]> {
-    const { data, error } = await apiClient.GET('/categories/')
+    const { data, error } = await apiClient.GET('/api/v1/categories/')
     if (error) {
       console.error('Error fetching categories:', error)
       return []
@@ -75,7 +75,7 @@ export const ArticleService = {
   },
 
   async getAllAuthors(): Promise<Author[]> {
-    const { data, error } = await apiClient.GET('/authors/')
+    const { data, error } = await apiClient.GET('/api/v1/authors/')
     if (error) {
       console.error('Error fetching authors:', error)
       return []
@@ -84,7 +84,7 @@ export const ArticleService = {
   },
 
   async createArticle(dataInput: CreateArticleInput): Promise<Article> {
-    const { data, error } = await apiClient.POST('/articles/', {
+    const { data, error } = await apiClient.POST('/api/v1/articles/', {
       body: dataInput,
     })
 
@@ -92,12 +92,12 @@ export const ArticleService = {
       console.error('Error creating article:', error)
       throw error
     }
-    return data
+    return data as Article
   },
 
   async updateArticle(dataInput: UpdateArticleInput): Promise<Article> {
     const { id, ...input } = dataInput
-    const { data, error } = await apiClient.PUT('/articles/{id}', {
+    const { data, error } = await apiClient.PUT('/api/v1/articles/{id}', {
       params: {
         path: { id },
       },
@@ -108,11 +108,11 @@ export const ArticleService = {
       console.error(`Error updating article ${id}:`, error)
       throw error
     }
-    return data
+    return data as Article
   },
 
   async deleteArticle(id: string): Promise<void> {
-    const { error } = await apiClient.DELETE('/articles/{id}', {
+    const { error } = await apiClient.DELETE('/api/v1/articles/{id}', {
       params: {
         path: { id },
       },
@@ -125,19 +125,19 @@ export const ArticleService = {
   },
 
   async createCategory(dataInput: CreateCategoryInput): Promise<Category> {
-    const { data, error } = await apiClient.POST('/categories/', {
+    const { data, error } = await apiClient.POST('/api/v1/categories/', {
       body: dataInput,
     })
 
     if (error) {
       throw error
     }
-    return data
+    return data as Category
   },
 
   async updateCategory(dataInput: UpdateCategoryInput): Promise<Category> {
     const { id, ...input } = dataInput
-    const { data, error } = await apiClient.PUT('/categories/{id}', {
+    const { data, error } = await apiClient.PUT('/api/v1/categories/{id}', {
       params: {
         path: { id },
       },
@@ -147,11 +147,11 @@ export const ArticleService = {
     if (error) {
       throw error
     }
-    return data
+    return data as Category
   },
 
   async deleteCategory(id: string): Promise<void> {
-    const { error } = await apiClient.DELETE('/categories/{id}', {
+    const { error } = await apiClient.DELETE('/api/v1/categories/{id}', {
       params: {
         path: { id },
       },
@@ -163,19 +163,19 @@ export const ArticleService = {
   },
 
   async createAuthor(dataInput: CreateAuthorInput): Promise<Author> {
-    const { data, error } = await apiClient.POST('/authors/', {
+    const { data, error } = await apiClient.POST('/api/v1/authors/', {
       body: dataInput,
     })
 
     if (error) {
       throw error
     }
-    return data
+    return data as Author
   },
 
   async updateAuthor(dataInput: UpdateAuthorInput): Promise<Author> {
     const { id, ...input } = dataInput
-    const { data, error } = await apiClient.PUT('/authors/{id}', {
+    const { data, error } = await apiClient.PUT('/api/v1/authors/{id}', {
       params: {
         path: { id },
       },
@@ -185,11 +185,11 @@ export const ArticleService = {
     if (error) {
       throw error
     }
-    return data
+    return data as Author
   },
 
   async deleteAuthor(id: string): Promise<void> {
-    const { error } = await apiClient.DELETE('/authors/{id}', {
+    const { error } = await apiClient.DELETE('/api/v1/authors/{id}', {
       params: {
         path: { id },
       },

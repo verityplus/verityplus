@@ -6,7 +6,7 @@ export const API_BASE_ORIGIN = API_BASE_URL.replace('/api/v1', '')
 
 // Create the type-safe client
 const client = createClient<paths>({ 
-  baseUrl: API_BASE_URL 
+  baseUrl: API_BASE_ORIGIN
 })
 
 // Add Auth middleware/interceptor

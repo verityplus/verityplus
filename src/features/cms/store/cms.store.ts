@@ -17,8 +17,8 @@ export const useCMSStore = defineStore('cms', () => {
   } = useQuery({
     queryKey: ['cms_users'],
     queryFn: async () => {
-      const result = await apiClient.get<CMSUser[]>('/users')
-      return result || []
+      const { data } = await apiClient.GET('/api/v1/auth/users')
+      return (data as any as CMSUser[]) || []
     },
     initialData: [],
   })
@@ -27,18 +27,27 @@ export const useCMSStore = defineStore('cms', () => {
 
   const addUser = async (user: CMSUser) => {
     const { id: _id, ...input } = user
-    await apiClient.post('/users', input)
+    await apiClient.POST('/api/v1/auth/users', {
+      body: input as any
+    })
     queryClient.invalidateQueries({ queryKey: ['cms_users'] })
   }
 
   const updateUser = async (user: CMSUser) => {
-    const { id, username, email, role } = user
-    await apiClient.put(`/users/${id}`, { username, email, role })
+    const { id, username, email } = user
+    await (apiClient as any).PUT('/api/v1/auth/users/{id}', {
+      params: { path: { id } },
+      body: { username, email }
+    })
     queryClient.invalidateQueries({ queryKey: ['cms_users'] })
   }
 
   const deleteUser = async (id: string) => {
-    await apiClient.delete(`/users/${id}`)
+    await apiClient.DELETE('/api/v1/auth/users/{id}', {
+      params: {
+        path: { id }
+      }
+    })
     queryClient.invalidateQueries({ queryKey: ['cms_users'] })
   }
 

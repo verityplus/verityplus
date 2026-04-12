@@ -14,21 +14,22 @@ export const useAuthStore = defineStore('auth', () => {
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      const result = await apiClient.post<{ token: string; user: CMSUser }>('/auth/login', {
-        username,
-        password,
+      const { data, error } = await apiClient.POST('/api/v1/auth/login', {
+        body: { username, password }
       });
 
-      if (result) {
-        const { token, user } = result
+      if (data) {
+        const { token, user } = data as any
         localStorage.setItem('verity_token', token)
         isAuthenticated.value = true
         currentUser.value = user
         return true
       }
+      if (error) throw error
       return false
     } catch (err: unknown) {
-      await appAlert(err.message || 'The user credentials provided are invalid.', 'Authentication Failure')
+      const msg = err instanceof Error ? err.message : 'The user credentials provided are invalid.'
+      await appAlert(msg, 'Authentication Failure')
       return false
     }
   }

@@ -106,7 +106,7 @@ export default defineComponent({
                 >
                   <div class="flex items-center gap-4">
                     <BaseImage
-                      src={article.coverImage}
+                      src={article.coverImage ?? undefined}
                       class="w-12 h-12 rounded-lg object-cover shadow-sm bg-slate-100"
                     />
 
@@ -115,7 +115,7 @@ export default defineComponent({
                         {getLocalizedField(article, 'title')}
                       </h4>
                       <p class="text-xs text-slate-400 font-medium">
-                        By {article.author.name} • {article.publishedAt}
+                        By {article.author?.name || 'Unknown'} • {article.publishedAt}
                       </p>
                     </div>
                   </div>

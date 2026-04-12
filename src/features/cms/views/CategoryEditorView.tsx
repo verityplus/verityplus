@@ -77,7 +77,7 @@ export default defineComponent({
         }
         router.push('/cms/categories')
       } catch (err: unknown) {
-        const detail = err.message || 'Check your network connection and retry.'
+        const detail = err instanceof Error ? err.message : 'Check your network connection and retry.'
         await appAlert(`Failed to save category.\n\nDetail: ${detail}`, 'Save Error')
       }
     }

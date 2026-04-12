@@ -23,7 +23,7 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const store = useArticleStore()
-    const { t } = useI18n()
+    const { t, locale } = useI18n()
     const { getLocalizedField } = useLocalizedField()
 
     const article = ref<Article | null>(null)
@@ -190,24 +190,26 @@ export default defineComponent({
                     {getLocalizedField(article.value, 'title')}
                   </h1>
 
-                  <RouterLink
-                    to={{ name: 'author', params: { id: article.value.author.id } }}
-                    class="flex items-center justify-center gap-4 pt-4 max-w-sm mx-auto group/author hover:opacity-80 transition"
-                  >
-                    <BaseImage
-                      src={article.value.author.avatar}
-                      alt={article.value.author.name}
-                      isProfile
-                      class="w-12 h-12 rounded-full border-2 border-primary/20 shadow-sm object-cover group-hover/author:border-primary transition-colors"
-                    />
+                  {article.value.author && (
+                    <RouterLink
+                      to={{ name: 'author', params: { id: article.value.author.id } }}
+                      class="flex items-center justify-center gap-4 pt-4 max-w-sm mx-auto group/author hover:opacity-80 transition"
+                    >
+                      <BaseImage
+                        src={article.value.author.avatar ?? undefined}
+                        alt={article.value.author.name}
+                        isProfile
+                        class="w-12 h-12 rounded-full border-2 border-primary/20 shadow-sm object-cover group-hover/author:border-primary transition-colors"
+                      />
 
-                    <div class="text-left">
-                      <p class="text-text-primary font-bold leading-none mb-1 group-hover/author:text-primary transition-colors">
-                        {article.value.author.name}
-                      </p>
-                      <p class="text-text-muted text-sm">{formatDate(article.value.publishedAt, locale.value)}</p>
-                    </div>
-                  </RouterLink>
+                      <div class="text-left">
+                        <p class="text-text-primary font-bold leading-none mb-1 group-hover/author:text-primary transition-colors">
+                          {article.value.author.name}
+                        </p>
+                        <p class="text-text-muted text-sm">{formatDate(article.value.publishedAt, locale.value)}</p>
+                      </div>
+                    </RouterLink>
+                  )}
                 </div>
               </header>
 
@@ -215,7 +217,7 @@ export default defineComponent({
               <div class="mb-12">
                 <div class="aspect-video rounded-2xl overflow-hidden shadow-elevated bg-surface-muted">
                   <BaseImage
-                    src={article.value.coverImage}
+                    src={article.value.coverImage ?? undefined}
                     alt={getLocalizedField(article.value, 'title')}
                     class="w-full h-full object-cover"
                   />

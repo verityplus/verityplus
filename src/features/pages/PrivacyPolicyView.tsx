@@ -2,6 +2,7 @@ import { defineComponent, computed, ref } from 'vue'
 import { useHead } from '@/composables/useHead'
 import { useI18n } from 'vue-i18n'
 import { useLocaleRoute } from '@/composables/useLocaleRoute'
+import type { MessageSchema } from '@/i18n/types'
 
 export default defineComponent({
   name: 'PrivacyPolicyView',
@@ -37,7 +38,7 @@ export default defineComponent({
 
     const sections = computed<AccordionSection[]>(() => {
 
-      const s = tm('privacy.sections') as Record<string, { title: string; content?: string; items?: string[] }>
+      const s = tm('privacy.sections') as any as MessageSchema['privacy']['sections']
       return [
         {
           key: 'infoCollected',

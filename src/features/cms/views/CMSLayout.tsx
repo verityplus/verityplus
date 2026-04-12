@@ -59,7 +59,6 @@ export default defineComponent({
               <BaseButton
                 onClick={handleLogout}
                 variant="ghost"
-                title="Logout"
                 class="px-3 py-1.5 text-sm rounded-lg hover:bg-red-50 hover:text-red-600 transition-colors"
               >
                 Logout <i class="bi bi-box-arrow-right ml-1.5" />

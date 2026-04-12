@@ -62,10 +62,17 @@ export default defineComponent({
 
       try {
         if (isEdit.value) {
-          await cmsContentStore.updateAuthor(form.value)
+          const { role, ...updateData } = form.value
+          await cmsContentStore.updateAuthor({
+            ...updateData,
+            role: role ?? undefined
+          })
         } else {
-          const { id: _id, ...createData } = form.value
-          await cmsContentStore.addAuthor(createData)
+          const { id: _id, role, ...createData } = form.value
+          await cmsContentStore.addAuthor({
+            ...createData,
+            role: role ?? undefined
+          })
         }
         router.push('/cms/characters')
       } catch (err: unknown) {
