@@ -76,12 +76,6 @@ export default defineComponent({
               Sign In
             </button>
           </form>
-
-          <div class="mt-6 text-center text-sm text-slate-500">
-            <p>Demo Credentials:</p>
-            <p>Username: admin_verity</p>
-            <p>Password: password123</p>
-          </div>
         </div>
       </div>
     )
