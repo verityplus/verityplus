@@ -2,6 +2,7 @@ import { defineComponent, type PropType, onMounted, nextTick, ref, computed } fr
 import { useI18n } from 'vue-i18n'
 import type { AdSize } from '@/shared/types'
 import { useSettingsStore } from '@/features/cms/store/settings.store'
+import { loadAdSenseScript } from '../services/script.service'
 
 /**
  * Feature Component: AdDisplay
@@ -62,6 +63,7 @@ export const AdDisplay = defineComponent({
 
     onMounted(async () => {
       if (pubId.value && pubId.value !== 'ca-pub-XXXXXXXXXXXXXXXX' && slotId.value) {
+        loadAdSenseScript()
         await nextTick()
         try {
           if (window.adsbygoogle) {

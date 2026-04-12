@@ -3,9 +3,7 @@ import { ref } from 'vue'
 import { apiClient } from '@/shared/services/apiClient'
 
 export interface SiteSettings {
-  google_analytics_id?: string
   adsense_pub_id?: string
-  ga_property_id?: string
   adsense_account_id?: string
   [key: string]: string | undefined
 }

@@ -1,19 +1,11 @@
 import { defineComponent, computed, onMounted, ref } from 'vue'
 import { useHead } from '@/composables/useHead'
 import { useI18n } from 'vue-i18n'
-import { useAnalyticsStore } from '@/features/analytics/store/analytics.store'
 
 export default defineComponent({
   name: 'AboutUsView',
   setup() {
     const { t } = useI18n()
-    const analyticsStore = useAnalyticsStore()
-    const hasLoaded = ref(false)
-
-    onMounted(() => {
-      analyticsStore.refreshSummary()
-      hasLoaded.value = true
-    })
 
     const headTitle = computed(() => t('common.aboutTitle'))
     const headDesc = computed(() => t('common.aboutDesc'))
@@ -34,26 +26,7 @@ export default defineComponent({
       return num.toString()
     }
 
-    const stats = computed(() => {
-      const summary = analyticsStore.summary
-      const totalVisits = summary ? summary.totalVisits : 0
-      const uniqueVisitors = summary ? summary.uniqueVisitors : 0
-      const pageViews = summary ? summary.pageViews : 0
-      const avgDuration = summary ? Math.round(summary.avgDuration) : 0
-
-      return [
-        {
-          value: hasLoaded.value ? formatNumber(totalVisits) : '150+',
-          label: t('about.totalVisits'),
-        },
-        {
-          value: hasLoaded.value ? formatNumber(uniqueVisitors) : '10+',
-          label: t('about.uniqueVisitors'),
-        },
-        { value: hasLoaded.value ? formatNumber(pageViews) : '50K+', label: t('about.pageViews') },
-        { value: hasLoaded.value ? `${avgDuration}s` : '5m', label: t('about.avgTimeOnSite') },
-      ]
-    })
+// Stats section removed
 
     const coreValues = computed(() => [
       {
@@ -159,20 +132,7 @@ export default defineComponent({
         </div>
 
 
-        <div class="py-16 px-6">
-          <div class="container-page">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.value.map((stat) => (
-                <div key={stat.label} class="text-center">
-                  <span class="block text-4xl sm:text-5xl font-extrabold text-primary mb-2">
-                    {stat.value}
-                  </span>
-                  <span class="text-sm text-text-muted uppercase tracking-wider">{stat.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        {/* Stats section removed */}
 
 
         <div class="py-16 sm:py-24 px-6 bg-surface border-t border-border">

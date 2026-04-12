@@ -4,7 +4,6 @@ import { VueQueryPlugin } from '@tanstack/vue-query'
 import App from '@/App'
 import router from '@/router'
 import { i18n } from '@/i18n'
-import { initAnalyticsTracking } from '@/composables/useAnalytics'
 import { useSettingsStore } from '@/features/cms/store/settings.store'
 import '@/styles/main.css'
 
@@ -18,9 +17,7 @@ app.use(i18n)
 
 const settingsStore = useSettingsStore()
 
-// Initialize settings and analytics
-settingsStore.fetchSettings().then(() => {
-  initAnalyticsTracking(router)
-})
+// Initialize settings
+settingsStore.fetchSettings()
 
 app.mount('#app')

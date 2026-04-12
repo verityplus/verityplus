@@ -22,8 +22,6 @@ export const CMSSidebar = defineComponent({
       { name: 'Characters', path: '/cms/characters', icon: 'bi bi-people' },
       { name: 'Categories', path: '/cms/categories', icon: 'bi bi-tags' },
       { name: 'Users', path: '/cms/users', icon: 'bi bi-person-gear' },
-      { name: 'Analytics', path: '/cms/analytics', icon: 'bi bi-bar-chart-fill' },
-      { name: 'AdSense', path: '/cms/adsense', icon: 'bi bi-currency-dollar' },
       { name: 'Settings', path: '/cms/settings', icon: 'bi bi-gear-fill' },
     ]
 

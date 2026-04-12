@@ -2,7 +2,6 @@ import { defineComponent, ref, computed } from 'vue'
 import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
-import { useAnalyticsStore } from '@/features/analytics/store/analytics.store'
 import { onMounted } from 'vue'
 import { BaseBadge } from '@/components/ui/Badge'
 import { BaseButton } from '@/components/ui/Button'
@@ -24,19 +23,8 @@ export default defineComponent({
     const cmsContentStore = useCMSContentStore()
     const { getLocalizedField } = useLocalizedField()
     const searchQuery = ref('')
-    const analyticsStore = useAnalyticsStore()
 
-    onMounted(async () => {
-      await analyticsStore.refreshSummary()
-    })
-
-    const getViewsForArticle = (id: string | number) => {
-      if (!analyticsStore.summary?.topPages) return 0
-      const pattern = new RegExp(`^(\\/[a-z]{2})?\\/read\\/${id}$`)
-      return analyticsStore.summary.topPages
-        .filter((p) => pattern.test(p.path))
-        .reduce((sum, p) => sum + p.views, 0)
-    }
+// getViewsForArticle removed
 
     useHead({
       title: 'Manage Articles — CMS VERITY+',
@@ -105,7 +93,6 @@ export default defineComponent({
                   <th class="px-6 py-4">Article Details</th>
                   <th class="px-6 py-4">Category</th>
                   <th class="px-6 py-4">Status</th>
-                  <th class="px-6 py-4">Views</th>
                   <th class="px-6 py-4">Published Date</th>
                   <th class="px-6 py-4 text-right">Actions</th>
                 </tr>
@@ -149,12 +136,7 @@ export default defineComponent({
                           </span>
                         </span>
                       </td>
-                      <td class="px-6 py-5 text-slate-400 text-xs uppercase tracking-tighter">
-                        <div class="flex items-center gap-1 text-slate-500 font-mono text-xs">
-                          <i class="bi bi-eye text-[10px]"></i>
-                          {getViewsForArticle(article.id).toLocaleString()}
-                        </div>
-                      </td>
+                      {/* Views cell removed */}
                       <td class="px-6 py-5 text-slate-400 text-xs uppercase tracking-tighter">
                         {article.publishedAt}
                       </td>
