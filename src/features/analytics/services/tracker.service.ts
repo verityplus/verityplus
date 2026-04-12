@@ -1,4 +1,4 @@
-import type { AnalyticsSummary } from '../types'
+
 
 const STORAGE_KEYS = {
   CONSENT: 'analytics_consent',

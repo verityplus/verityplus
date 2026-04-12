@@ -69,7 +69,7 @@ export default defineComponent({
         }
         router.push('/cms/characters')
       } catch (err: any) {
-        const detail = err.message || 'Check your network connection and retry.'
+        const detail = err?.message || 'Check your network connection and retry.'
         await appAlert(`Failed to save character.\n\nDetail: ${detail}`, 'Save Error')
       }
     }
@@ -114,7 +114,7 @@ export default defineComponent({
                       form.value.avatar = url
                     } catch (err: any) {
                       console.error('Avatar upload failed:', err)
-                      await appAlert(`Failed to upload avatar. ${err.message}`, 'Upload Error')
+                      await appAlert(`Failed to upload avatar. ${err?.message || 'Unknown error'}`, 'Upload Error')
                     } finally {
                       isUploading.value = false
                     }

@@ -27,7 +27,7 @@ export const useAuthStore = defineStore('auth', () => {
         return true
       }
       return false
-    } catch (err: any) {
+    } catch (err: unknown) {
       await appAlert(err.message || 'The user credentials provided are invalid.', 'Authentication Failure')
       return false
     }

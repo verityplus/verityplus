@@ -204,7 +204,7 @@ export default defineComponent({
         router.push('/cms/articles')
       } catch (err: any) {
         console.error('Save failed:', err)
-        let detail = err.message || 'Please check your connection.'
+        let detail = err?.message || 'Please check your connection.'
         let title = 'Save Failed'
 
         if (detail.includes('Unauthorized')) {
@@ -395,7 +395,7 @@ export default defineComponent({
                           form.value.coverImage = url
                         } catch (err: any) {
                           console.error('Upload failed:', err)
-                          await appAlert(`Failed to upload image. ${err.message}`, 'Upload Error')
+                          await appAlert(`Failed to upload image. ${err?.message || 'Unknown error'}`, 'Upload Error')
                         } finally {
                           isUploading.value = false
                         }

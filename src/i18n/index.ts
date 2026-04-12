@@ -23,8 +23,8 @@ export const i18n = createI18n({
   legacy: false,
   locale: detectLocale(),
   fallbackLocale: DEFAULT_LOCALE,
-  messages: { id, en, zh } as any,
-} as any)
+  messages: { id, en, zh },
+})
 
 
 export { SUPPORTED_LOCALES, DEFAULT_LOCALE }

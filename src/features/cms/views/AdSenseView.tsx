@@ -1,12 +1,10 @@
-import { defineComponent, ref, onMounted, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
-import { useI18n } from 'vue-i18n'
 import { apiClient } from '@/shared/services/apiClient'
 
 export default defineComponent({
   name: 'AdSenseView',
   setup() {
-    const { t } = useI18n()
 
     const { data, isLoading, error } = useQuery({
       queryKey: ['adsense-summary'],

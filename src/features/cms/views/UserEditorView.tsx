@@ -57,7 +57,7 @@ export default defineComponent({
           await store.addUser(form.value)
         }
         router.push('/cms/users')
-      } catch (err) {
+      } catch {
         await appAlert('Failed to save user. Please ensure you have administrative privileges.', 'Error Saving User')
       }
     }

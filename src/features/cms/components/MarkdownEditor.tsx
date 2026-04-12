@@ -73,7 +73,7 @@ export const MarkdownEditor = defineComponent({
           editor.value?.chain().focus().setImage({ src: resolveAssetUrl(url) }).run()
           showImageDialog.value = false
           imageUrl.value = ''
-        } catch (err: any) {
+        } catch (err: unknown) {
           console.error('Markdown image upload failed:', err)
           alert(`Failed to upload image: ${err.message}`)
         }
