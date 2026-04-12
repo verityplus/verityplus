@@ -1,16 +1,18 @@
 /**
  * Service: AdService
- * Manages Google AdSense slot IDs and configuration.
+ * Manages Google AdSense slot ID definitions.
+ * Note: Actual slot IDs are primarily managed via CMS Settings in the database.
+ * The AD_SLOTS object here serves as a mapping for component-level overrides if needed.
  */
 export const AD_SLOTS = {
-  HOME_HEADER: import.meta.env.VITE_ADSENSE_SLOT_HOME_HEADER || '',
-  HOME_SIDEBAR: import.meta.env.VITE_ADSENSE_SLOT_HOME_SIDEBAR || '',
-  HOME_FOOTER: import.meta.env.VITE_ADSENSE_SLOT_HOME_FOOTER || '',
-  ARTICLE_SIDEBAR_LEFT: import.meta.env.VITE_ADSENSE_SLOT_ARTICLE_SIDEBAR_LEFT || '',
-  ARTICLE_SIDEBAR_RIGHT: import.meta.env.VITE_ADSENSE_SLOT_ARTICLE_SIDEBAR_RIGHT || '',
-  ARTICLE_INLINE: import.meta.env.VITE_ADSENSE_SLOT_ARTICLE_INLINE || '',
-  CATEGORY_TOP: import.meta.env.VITE_ADSENSE_SLOT_CATEGORY_TOP || '',
-  SEARCH_RESULTS: import.meta.env.VITE_ADSENSE_SLOT_SEARCH_RESULTS || '',
+  HOME_HEADER: '',
+  HOME_SIDEBAR: '',
+  HOME_FOOTER: '',
+  ARTICLE_SIDEBAR_LEFT: '',
+  ARTICLE_SIDEBAR_RIGHT: '',
+  ARTICLE_INLINE: '',
+  CATEGORY_TOP: '',
+  SEARCH_RESULTS: '',
 }
 
 export const AdService = {
@@ -19,9 +21,10 @@ export const AdService = {
   },
   
   /**
-   * Checks if AdSense is enabled via environment variables.
+   * Checks if AdSense is enabled.
+   * Now primarily checks if a Publisher ID is configured in the settings.
    */
-  isEnabled() {
-    return !!import.meta.env.VITE_ADSENSE_PUB_ID
+  isEnabled(pubId?: string) {
+    return !!pubId && pubId !== 'ca-pub-XXXXXXXXXXXXXXXX'
   }
 }
