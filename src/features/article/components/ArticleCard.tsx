@@ -52,22 +52,24 @@ export const ArticleCard = defineComponent({
             ]}
           >
             <BaseImage
-              src={props.article.coverImage}
+              src={props.article.coverImage ?? undefined}
               alt={getLocalizedField(props.article, 'title')}
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
 
+
             {!isHorizontal && (
               <div class="absolute top-3 left-3">
                 <RouterLink
-                  to={{ name: 'category', params: { id: props.article.category.id } }}
+                  to={props.article.category ? { name: 'category', params: { id: props.article.category.id } } : '#'}
                   class="pointer-events-auto no-underline"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <BaseBadge>
-                    {getLocalizedField(props.article.category, 'name')}
+                    {props.article.category ? getLocalizedField(props.article.category, 'name') : ''}
                   </BaseBadge>
                 </RouterLink>
+
               </div>
             )}
           </div>
@@ -75,16 +77,17 @@ export const ArticleCard = defineComponent({
           <div class={['flex flex-col flex-1 p-5', isHorizontal ? 'md:w-1/2 justify-center' : '']}>
             {isHorizontal && (
               <RouterLink
-                to={{ name: 'category', params: { id: props.article.category.id } }}
+                to={props.article.category ? { name: 'category', params: { id: props.article.category.id } } : '#'}
                 class="no-underline"
                 onClick={(e) => e.stopPropagation()}
               >
                 <BaseBadge
                   class="mb-3 w-fit"
                 >
-                  {getLocalizedField(props.article.category, 'name')}
+                  {props.article.category ? getLocalizedField(props.article.category, 'name') : ''}
                 </BaseBadge>
               </RouterLink>
+
             )}
 
             <h3
@@ -109,15 +112,16 @@ export const ArticleCard = defineComponent({
               {!isHorizontal && (
                 <div class="absolute top-3 left-3">
                   <RouterLink
-                    to={{ name: 'category', params: { id: props.article.category.id } }}
+                    to={props.article.category ? { name: 'category', params: { id: props.article.category.id } } : '#'}
                     class="pointer-events-auto no-underline"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <BaseBadge>
-                      {getLocalizedField(props.article.category, 'name')}
+                      {props.article.category ? getLocalizedField(props.article.category, 'name') : ''}
                     </BaseBadge>
                   </RouterLink>
                 </div>
+
               )}
             </div>
           </div>

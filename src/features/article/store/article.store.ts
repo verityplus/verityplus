@@ -29,8 +29,9 @@ export const useArticleStore = defineStore('articles', () => {
       limit: cmsLimit.value, 
       search: cmsSearch.value 
     }),
-    keepPreviousData: true,
+    placeholderData: (previousData) => previousData,
   })
+
 
   // We should also have a query for all articles (or at least a larger batch) 
   // if the public site still relies on client-side logic for featured/latest/etc.
@@ -107,8 +108,9 @@ export const useArticleStore = defineStore('articles', () => {
     return categories.value
       .map((c) => ({
         category: c,
-        count: articles.value.filter((a) => a.category.id === c.id).length,
+        count: articles.value.filter((a) => a.category?.id === c.id).length,
       }))
+
       .filter((c) => c.count > 0)
   })
 
@@ -119,8 +121,9 @@ export const useArticleStore = defineStore('articles', () => {
 
 
   const findArticlesByAuthor = (id: string): Article[] => {
-    return articles.value.filter((a) => a.author.id === id)
+    return articles.value.filter((a) => a.author?.id === id)
   }
+
 
 
   const findCategoryById = (id: string): Category | undefined => {
@@ -129,8 +132,9 @@ export const useArticleStore = defineStore('articles', () => {
 
 
   const findArticlesByCategoryId = (id: string): Article[] => {
-    return articles.value.filter((a) => a.category.id === id)
+    return articles.value.filter((a) => a.category?.id === id)
   }
+
 
   const latestNextPage = () => {
     if (latestPage.value < latestTotalPages.value) latestPage.value++

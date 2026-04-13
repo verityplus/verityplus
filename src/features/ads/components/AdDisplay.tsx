@@ -66,11 +66,13 @@ export const AdDisplay = defineComponent({
         loadAdSenseScript()
         await nextTick()
         try {
-          if (window.adsbygoogle) {
-            ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+          const win = window as any
+          if (win.adsbygoogle) {
+            ;(win.adsbygoogle = win.adsbygoogle || []).push({})
             adLoaded.value = true
           }
         } catch (e) {
+
           console.error('AdSense error:', e)
         }
       }

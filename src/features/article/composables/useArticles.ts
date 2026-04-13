@@ -8,7 +8,7 @@ export function useArticles(filters: { categoryId?: string; authorId?: string; t
   const listQuery = useQuery({
     queryKey: ['articles', filters],
     queryFn: async () => {
-      const { data, error } = await apiClient.get('/api/v1/articles/', {
+      const { data, error } = await apiClient.GET('/api/v1/articles/', {
         params: {
           query: {
             categoryId: filters.categoryId,
@@ -26,7 +26,7 @@ export function useArticles(filters: { categoryId?: string; authorId?: string; t
   const getArticle = (id: string) => useQuery({
     queryKey: ['articles', id],
     queryFn: async () => {
-      const { data, error } = await apiClient.get('/api/v1/articles/{id}', {
+      const { data, error } = await apiClient.GET('/api/v1/articles/{id}', {
         params: {
           path: { id }
         }
@@ -39,7 +39,7 @@ export function useArticles(filters: { categoryId?: string; authorId?: string; t
 
   const createMutation = useMutation({
     mutationFn: async (input: CreateArticleInput) => {
-      const { data, error } = await apiClient.post('/api/v1/articles/', {
+      const { data, error } = await apiClient.POST('/api/v1/articles/', {
         body: input
       })
       if (error) throw error
@@ -52,7 +52,7 @@ export function useArticles(filters: { categoryId?: string; authorId?: string; t
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, ...input }: UpdateArticleInput) => {
-      const { data, error } = await apiClient.put('/api/v1/articles/{id}', {
+      const { data, error } = await apiClient.PUT('/api/v1/articles/{id}', {
         params: {
           path: { id }
         },
@@ -68,7 +68,7 @@ export function useArticles(filters: { categoryId?: string; authorId?: string; t
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await apiClient.delete('/api/v1/articles/{id}', {
+      const { error } = await apiClient.DELETE('/api/v1/articles/{id}', {
         params: {
           path: { id }
         }
@@ -94,3 +94,4 @@ export function useArticles(filters: { categoryId?: string; authorId?: string; t
     isDeleting: deleteMutation.isPending,
   }
 }
+

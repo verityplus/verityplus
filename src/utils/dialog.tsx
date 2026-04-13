@@ -119,21 +119,22 @@ const DialogComponent = defineComponent({
 
 export const appAlert = (message: string, title?: string): Promise<void> => {
   return new Promise((resolve) => {
-    mountDialog({ type: 'alert', message, title, onResolve: resolve })
+    mountDialog({ type: 'alert', message, title, onResolve: () => resolve() })
   })
 }
 
 export const appConfirm = (message: string, title?: string): Promise<boolean> => {
   return new Promise((resolve) => {
-    mountDialog({ type: 'confirm', message, title, onResolve: resolve })
+    mountDialog({ type: 'confirm', message, title, onResolve: (value) => resolve(value as boolean) })
   })
 }
 
 export const appPrompt = (message: string, defaultValue?: string, title?: string): Promise<string | false> => {
   return new Promise((resolve) => {
-    mountDialog({ type: 'prompt', message, defaultValue, title, onResolve: resolve })
+    mountDialog({ type: 'prompt', message, defaultValue, title, onResolve: (value) => resolve(value as string | false) })
   })
 }
+
 
 function mountDialog(options: Omit<DialogOptions, 'onClose'>) {
   const div = document.createElement('div')

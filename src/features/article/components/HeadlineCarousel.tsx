@@ -68,20 +68,17 @@ export const HeadlineCarousel = defineComponent({
                   class="block w-full h-full relative focus:outline-none focus:ring-4 focus:ring-primary/40 focus:ring-inset"
                 >
                   <BaseImage
-                    src={item.coverImage}
+                    src={item.coverImage ?? undefined}
                     alt={getLocalizedField(item, 'title')}
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
 
 
+
                   <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 
                   <div class="absolute bottom-0 left-0 right-0 p-6 md:p-10 text-white">
-                    <RouterLink
-                      to={{ name: 'category', params: { id: item.category.id } }}
-                      class="no-underline inline-block mb-3"
-                      onClick={(e) => e.stopPropagation()}
-                    >
+                    {item.category && (
                       <RouterLink
                         to={{ name: 'category', params: { id: item.category.id } }}
                         class="no-underline inline-block mb-3"
@@ -93,7 +90,8 @@ export const HeadlineCarousel = defineComponent({
                           {getLocalizedField(item.category, 'name')}
                         </BaseBadge>
                       </RouterLink>
-                    </RouterLink>
+                    )}
+
 
                     <h2 class="text-3xl md:text-4xl font-extrabold mb-3 leading-tight max-w-2xl">
                       {getLocalizedField(item, 'title')}

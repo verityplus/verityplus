@@ -26,8 +26,9 @@ export const ArticleGrid = defineComponent({
     const displayedArticles = computed(() => {
       return activeCategory.value === 'all'
         ? nonFeaturedArticles.value
-        : store.articles.filter((a: Article) => a.category.id === activeCategory.value)
+        : store.articles.filter((a: Article) => a.category?.id === activeCategory.value)
     })
+
 
     const categories = computed(() => [
       { id: 'all', name: t('common.all') },

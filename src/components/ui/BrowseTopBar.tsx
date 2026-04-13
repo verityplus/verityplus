@@ -138,9 +138,10 @@ export const BrowseTopBar = defineComponent({
                                     {getLocalizedField(article, 'title')}
                                   </p>
                                   <p class="text-xs text-text-muted mt-0.5">
-                                    {article.author.name} &middot; {article.readTimeMinutes}{' '}
+                                    {article.author?.name} &middot; {article.readTimeMinutes}{' '}
                                     {te('common.minRead') ? t('common.minRead') : 'min read'}
                                   </p>
+
                                 </div>
                               </router-link>
                             ))
@@ -170,9 +171,10 @@ export const BrowseTopBar = defineComponent({
                                     {getLocalizedField(article, 'title')}
                                   </p>
                                   <p class="text-xs text-text-muted mt-0.5">
-                                    {article.author.name} &middot; {article.readTimeMinutes}{' '}
+                                    {article.author?.name} &middot; {article.readTimeMinutes}{' '}
                                     {te('common.minRead') ? t('common.minRead') : 'min read'}
                                   </p>
+
                                 </div>
                               </router-link>
                             ))
@@ -202,9 +204,10 @@ export const BrowseTopBar = defineComponent({
                                     {getLocalizedField(article, 'title')}
                                   </p>
                                   <p class="text-xs text-text-muted mt-0.5">
-                                    {article.author.name} &middot; {article.readTimeMinutes}{' '}
+                                    {article.author?.name} &middot; {article.readTimeMinutes}{' '}
                                     {te('common.minRead') ? t('common.minRead') : 'min read'}
                                   </p>
+
                                 </div>
                               </router-link>
                             ))

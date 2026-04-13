@@ -42,10 +42,12 @@ export const MarkdownEditor = defineComponent({
         },
       },
       onUpdate: ({ editor }) => {
-
-        const storage = editor.storage as { markdown: { getMarkdown: () => string } }
-        emit('update:modelValue', storage.markdown.getMarkdown())
+        const anyStorage = editor.storage as any
+        if (anyStorage.markdown) {
+          emit('update:modelValue', anyStorage.markdown.getMarkdown())
+        }
       },
+
     })
 
     watch(
@@ -53,11 +55,13 @@ export const MarkdownEditor = defineComponent({
       (value) => {
         if (!editor.value) return
 
-          if (!isSame) {
-            editor.value.commands.setContent(value)
-          }
+        const currentMarkdown = (editor.value.storage as any).markdown?.getMarkdown()
+        if (value !== currentMarkdown) {
+          editor.value.commands.setContent(value)
+        }
       },
     )
+
 
     onBeforeUnmount(() => editor.value?.destroy())
 

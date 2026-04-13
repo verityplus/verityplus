@@ -39,11 +39,15 @@ export default defineComponent({
           const found = await store.findById(id as string)
           article.value = found || null
           if (article.value) {
-            const sameCategory = store.findArticlesByCategoryId(article.value.category.id)
-            recommendedArticles.value = sameCategory
-              .filter((a) => a.id !== article.value!.id)
-              .slice(0, 3)
+            const categoryId = article.value.category?.id
+            if (categoryId) {
+              const sameCategory = store.findArticlesByCategoryId(categoryId)
+              recommendedArticles.value = sameCategory
+                .filter((a) => a.id !== article.value!.id)
+                .slice(0, 3)
+            }
           }
+
         }
       },
       { immediate: true },
@@ -168,10 +172,7 @@ export default defineComponent({
               <header class="pb-10 mb-10 border-b border-border">
                 <div class="max-w-3xl mx-auto text-center">
                   <div class="flex items-center justify-center gap-3 mb-6">
-                    <RouterLink
-                      to={{ name: 'category', params: { id: article.value.category.id } }}
-                      class="no-underline"
-                    >
+                    {article.value.category && (
                       <RouterLink
                         to={{ name: 'category', params: { id: article.value.category.id } }}
                         class="no-underline"
@@ -180,7 +181,8 @@ export default defineComponent({
                           {getLocalizedField(article.value.category, 'name')}
                         </BaseBadge>
                       </RouterLink>
-                    </RouterLink>
+                    )}
+
                     <span class="text-text-muted text-sm">
                       {article.value.readTimeMinutes} {t('article.minutesRead')}
                     </span>
@@ -197,16 +199,18 @@ export default defineComponent({
                     >
                       <BaseImage
                         src={article.value.author.avatar ?? undefined}
-                        alt={article.value.author.name}
+                        alt={article.value.author.name ?? 'Author'}
                         isProfile
                         class="w-12 h-12 rounded-full border-2 border-primary/20 shadow-sm object-cover group-hover/author:border-primary transition-colors"
                       />
+
 
                       <div class="text-left">
                         <p class="text-text-primary font-bold leading-none mb-1 group-hover/author:text-primary transition-colors">
                           {article.value.author.name}
                         </p>
-                        <p class="text-text-muted text-sm">{formatDate(article.value.publishedAt, locale.value)}</p>
+                        <p class="text-text-muted text-sm">{formatDate(article.value.publishedAt as any, locale.value)}</p>
+
                       </div>
                     </RouterLink>
                   )}

@@ -20,10 +20,11 @@ export function useLocalizedField() {
       return obj[localizedKey] as string
     }
 
-    if (fallbackToId) {
+    if (fallbackToId && obj) {
       const idKey = `${baseKey}Id`
-      return obj[idKey] as string
+      return (obj[idKey] as string) || ''
     }
+
 
     return ''
   }
