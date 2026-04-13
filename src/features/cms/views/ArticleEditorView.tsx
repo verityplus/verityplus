@@ -11,6 +11,7 @@ import { Tabs } from '@/components/ui/Tabs'
 import { appAlert } from '@/utils/dialog'
 import { StorageService } from '@/shared/services/storage.service'
 import { resolveAssetUrl } from '@/shared/utils/assets'
+import { AIService } from '@/shared/services/ai.service'
 
 /**
  * CMS View: ArticleEditorView
@@ -27,6 +28,8 @@ export default defineComponent({
     const isEdit = computed(() => route.params.id !== undefined)
     const tagInput = ref('')
     const isUploading = ref(false)
+    const isAILoading = ref(false)
+    const isManualEdit = ref(false)
     const currentStep = ref(0)
     const steps = ['Bahasa Indonesia', 'English', '中文 (Chinese)']
 
@@ -116,6 +119,10 @@ export default defineComponent({
       return 'Id'
     })
 
+    const isFieldReadOnly = computed(() => {
+      return currentStep.value !== 0 && !isManualEdit.value
+    })
+
     const getCurrentTags = () => {
       const suffix = activeLangSuffix.value as 'Id' | 'En' | 'Zh'
       return form.value[`tags${suffix}`]
@@ -156,6 +163,90 @@ export default defineComponent({
       if (!form.value.author) errs.author = 'Author is required'
       return errs
     })
+
+    const handleDraft = async () => {
+      const topic = prompt('Enter a topic for the AI to draft an article about:')
+      if (!topic) return
+
+      isAILoading.value = true
+      try {
+        const result = await AIService.draft(topic)
+        form.value.titleId = result.title
+        form.value.contentId = result.content
+        form.value.excerptId = result.excerpt
+        form.value.tagsId = result.tags.split(',').map(t => t.trim())
+        currentStep.value = 0
+      } catch (err: any) {
+        await appAlert(`Failed to generate draft: ${err.message}`, 'AI Error')
+      } finally {
+        isAILoading.value = false
+      }
+    }
+
+    const handleExcerpt = async () => {
+      const content = (form.value as Record<string, string>)[`content${activeLangSuffix.value}`]
+      if (!content) {
+        await appAlert('Please write some content first.', 'Notice')
+        return
+      }
+
+      isAILoading.value = true
+      try {
+        const { excerpt } = await AIService.generateExcerpt(content)
+        ;(form.value as Record<string, string>)[`excerpt${activeLangSuffix.value}`] = excerpt
+      } catch (err: any) {
+        await appAlert(`Failed to generate excerpt: ${err.message}`, 'AI Error')
+      } finally {
+        isAILoading.value = false
+      }
+    }
+
+    const handleTranslateAll = async () => {
+      if (!form.value.titleId || !form.value.contentId) {
+        await appAlert('Please ensure Indonesian title and content are filled first.', 'Notice')
+        return
+      }
+
+      isAILoading.value = true
+      try {
+        // Translate to English
+        const [titleEn, contentEn, excerptEn, tagsEn] = await Promise.all([
+           AIService.translate(form.value.titleId, 'en'),
+           AIService.translate(form.value.contentId, 'en'),
+           form.value.excerptId ? AIService.translate(form.value.excerptId, 'en') : Promise.resolve({ translated: '' }),
+           form.value.tagsId.length > 0 ? AIService.translate(form.value.tagsId.join(', '), 'en') : Promise.resolve({ translated: '' })
+        ])
+        
+        form.value.titleEn = titleEn.translated
+        form.value.contentEn = contentEn.translated
+        form.value.excerptEn = excerptEn.translated
+        form.value.tagsEn = tagsEn.translated ? tagsEn.translated.split(',').map(t => t.trim()) : []
+
+        // Translate to Chinese
+        const [titleZh, contentZh, excerptZh, tagsZh] = await Promise.all([
+           AIService.translate(form.value.titleId, 'zh'),
+           AIService.translate(form.value.contentId, 'zh'),
+           form.value.excerptId ? AIService.translate(form.value.excerptId, 'zh') : Promise.resolve({ translated: '' }),
+           form.value.tagsId.length > 0 ? AIService.translate(form.value.tagsId.join(', '), 'zh') : Promise.resolve({ translated: '' })
+        ])
+
+        form.value.titleZh = titleZh.translated
+        form.value.contentZh = contentZh.translated
+        form.value.excerptZh = excerptZh.translated
+        form.value.tagsZh = tagsZh.translated ? tagsZh.translated.split(',').map(t => t.trim()) : []
+        
+        await appAlert('Translation completed for English and Chinese variants, including tags!', 'AI Success')
+      } catch (err: any) {
+        await appAlert(`Failed to translate: ${err.message}`, 'AI Error')
+      } finally {
+        isAILoading.value = false
+      }
+    }
+
+    const triggerAutoTranslateAtOnce = async () => {
+      if (isManualEdit.value || isAILoading.value) return
+      await handleTranslateAll()
+    }
 
     const save = async () => {
       showErrors.value = true
@@ -228,15 +319,38 @@ export default defineComponent({
               VERITY+ Unified Content Studio
             </p>
           </div>
-          <BaseButton
-            onClick={() => {
-              void save()
-            }}
-            variant="primary"
-            class="shadow-lg shadow-primary/20 px-8 py-3.5 uppercase font-black tracking-widest text-xs"
-          >
-            {isEdit.value ? 'Save Changes' : 'Save Article'}
-          </BaseButton>
+          <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100">
+               <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Manual Edit (EN/ZH)</span>
+               <label class="relative inline-flex items-center cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  class="sr-only peer" 
+                  checked={isManualEdit.value}
+                  onChange={(e) => (isManualEdit.value = (e.target as HTMLInputElement).checked)}
+                />
+                <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+              </label>
+            </div>
+            
+            <BaseButton
+              onClick={handleTranslateAll}
+              loading={isAILoading.value}
+              variant="outline"
+              class="px-6 py-3.5 uppercase font-black tracking-widest text-xs border-primary/20 text-primary hover:bg-primary/5"
+            >
+              <i class="bi bi-translate mr-2"></i> Sync All
+            </BaseButton>
+            <BaseButton
+              onClick={() => {
+                void save()
+              }}
+              variant="primary"
+              class="shadow-lg shadow-primary/20 px-8 py-3.5 uppercase font-black tracking-widest text-xs"
+            >
+              {isEdit.value ? 'Save Changes' : 'Save Article'}
+            </BaseButton>
+          </div>
         </header>
 
         <div class="flex-grow flex flex-col xl:flex-row gap-8 min-h-[600px]">
@@ -265,24 +379,45 @@ export default defineComponent({
                       {activeLangSuffix.value}
                     </span>
                   </label>
-                  <input
-                    value={(form.value as Record<string, string>)[`title${activeLangSuffix.value}`]}
-                    onInput={(e) => {
-                      const val = (e.target as HTMLInputElement).value
-                      ;(form.value as Record<string, string>)[`title${activeLangSuffix.value}`] =
-                        val
-                    }}
-                    onBlur={() => markTouched(`title${activeLangSuffix.value}`)}
-                    type="text"
-                    placeholder={`Enter headline in ${steps[currentStep.value]}...`}
-                    class={[
-                      'w-full text-3xl sm:text-4xl rounded-xl border border-transparent focus:border-slate-100 focus:bg-slate-50/20 p-2 outline-none font-black transition',
-                      (showErrors.value || touched.value[`title${activeLangSuffix.value}`]) &&
-                      errors.value[`title${activeLangSuffix.value}`]
-                        ? 'text-red-600 placeholder-red-200'
-                        : 'text-slate-900 placeholder-slate-200',
-                    ]}
-                  />
+                  <div class="flex gap-4 items-center">
+                    <input
+                      value={(form.value as Record<string, string>)[`title${activeLangSuffix.value}`]}
+                      onInput={(e) => {
+                        const val = (e.target as HTMLInputElement).value
+                        ;(form.value as Record<string, string>)[`title${activeLangSuffix.value}`] =
+                          val
+                      }}
+                      onBlur={() => {
+                        markTouched(`title${activeLangSuffix.value}`)
+                        if (currentStep.value === 0) triggerAutoTranslateAtOnce()
+                      }}
+                      type="text"
+                      disabled={isFieldReadOnly.value}
+                      placeholder={`Enter headline in ${steps[currentStep.value]}...`}
+                      class={[
+                        'flex-grow text-3xl sm:text-4xl rounded-xl border border-transparent focus:border-slate-100 focus:bg-slate-50/20 p-2 outline-none font-black transition',
+                        isFieldReadOnly.value ? 'bg-slate-50/40 text-slate-400 cursor-not-allowed' : 'text-slate-900',
+                        (showErrors.value || touched.value[`title${activeLangSuffix.value}`]) &&
+                        errors.value[`title${activeLangSuffix.value}`]
+                          ? 'text-red-600 placeholder-red-200'
+                          : 'placeholder-slate-200',
+                      ]}
+                    />
+                    {currentStep.value === 0 && (
+                      <button
+                        onClick={handleDraft}
+                        disabled={isAILoading.value}
+                        class="shrink-0 w-12 h-12 rounded-full bg-slate-100 text-slate-600 hover:bg-primary/10 hover:text-primary transition flex items-center justify-center border-none cursor-pointer"
+                        title="Draft article with AI"
+                      >
+                         {isAILoading.value ? (
+                          <div class="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                        ) : (
+                          <i class="bi bi-magic text-xl"></i>
+                        )}
+                      </button>
+                    )}
+                  </div>
                   {(showErrors.value || touched.value[`title${activeLangSuffix.value}`]) &&
                     errors.value[`title${activeLangSuffix.value}`] && (
                       <p class="text-[10px] font-black text-red-500 uppercase tracking-widest animate-in fade-in slide-in-from-top-1">
@@ -306,6 +441,42 @@ export default defineComponent({
                       ;(form.value as Record<string, string>)[`content${activeLangSuffix.value}`] =
                         val
                     }}
+                    onBlur={() => {
+                        if (currentStep.value === 0) triggerAutoTranslateAtOnce()
+                    }}
+                    disabled={isFieldReadOnly.value}
+                  />
+                </div>
+
+                <div class="pt-6 border-t border-slate-50 space-y-3">
+                  <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
+                    <span>Article Excerpt</span>
+                    <button 
+                       onClick={handleExcerpt}
+                       disabled={isAILoading.value}
+                       class="text-[9px] bg-primary/5 hover:bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded-md transition font-black flex items-center gap-1 cursor-pointer"
+                    >
+                      {isAILoading.value ? (
+                        <div class="w-3 h-3 border border-primary border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <><i class="bi bi-cpu"></i> AI GENERATE</>
+                      )}
+                    </button>
+                  </label>
+                  <textarea
+                    value={(form.value as Record<string, string>)[`excerpt${activeLangSuffix.value}`]}
+                    onInput={(e) => {
+                      ;(form.value as Record<string, string>)[`excerpt${activeLangSuffix.value}`] = (e.target as HTMLTextAreaElement).value
+                    }}
+                    onBlur={() => {
+                        if (currentStep.value === 0) triggerAutoTranslateAtOnce()
+                    }}
+                    disabled={isFieldReadOnly.value}
+                    placeholder="Brief summary used for previews..."
+                    class={[
+                      "w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-bold outline-none min-h-[80px] resize-none transition",
+                      isFieldReadOnly.value ? "bg-slate-50 text-slate-400 cursor-not-allowed" : "bg-slate-50/50 text-slate-700"
+                    ]}
                   />
                 </div>
 
@@ -319,8 +490,12 @@ export default defineComponent({
                   <div class="flex gap-2">
                     <input
                       value={tagInput.value}
+                      disabled={isFieldReadOnly.value}
                       onInput={(e) => {
                         tagInput.value = (e.target as HTMLInputElement).value
+                      }}
+                      onBlur={() => {
+                        if (currentStep.value === 0) triggerAutoTranslateAtOnce()
                       }}
                       onKeydown={(e) => {
                         if (e.key === 'Enter') {
@@ -329,8 +504,11 @@ export default defineComponent({
                         }
                       }}
                       type="text"
-                      placeholder={`Add tag for ${steps[currentStep.value]}...`}
-                      class="flex-1 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs font-bold text-slate-700 outline-none"
+                      placeholder={isFieldReadOnly.value ? "Switch to Manual Mode to edit" : `Add tag for ${steps[currentStep.value]}...`}
+                      class={[
+                        "flex-1 px-3 py-2 rounded-xl border border-slate-200 text-xs font-bold outline-none transition",
+                        isFieldReadOnly.value ? "bg-slate-50 text-slate-400 cursor-not-allowed" : "bg-slate-50/50 text-slate-700"
+                      ]}
                     />
                     <button
                       onClick={addTag}

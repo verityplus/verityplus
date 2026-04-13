@@ -22,6 +22,9 @@ export default defineComponent({
       ads_slot_banner: '',
       ads_slot_sidebar: '',
       ads_slot_inline: '',
+      openai_api_key: '',
+      openai_base_url: '',
+      openai_model: '',
     })
 
     onMounted(async () => {
@@ -34,6 +37,9 @@ export default defineComponent({
         ads_slot_banner: settingsStore.settings.ads_slot_banner || '',
         ads_slot_sidebar: settingsStore.settings.ads_slot_sidebar || '',
         ads_slot_inline: settingsStore.settings.ads_slot_inline || '',
+        openai_api_key: settingsStore.settings.openai_api_key || '',
+        openai_base_url: settingsStore.settings.openai_base_url || '',
+        openai_model: settingsStore.settings.openai_model || '',
       }
     })
 
@@ -166,6 +172,56 @@ export default defineComponent({
                     class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-primary outline-none transition font-mono text-xs"
                   />
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <header class="p-6 border-b border-slate-100 bg-slate-50/50 pt-8 mt-8 border-t border-slate-200">
+            <h3 class="font-black text-slate-800 flex items-center gap-2">
+              <i class="bi bi-robot text-primary text-xl"></i>
+              AI Engine Configuration
+            </h3>
+          </header>
+
+          <div class="p-8 space-y-8">
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="space-y-2 col-span-1 md:col-span-2">
+                <label class="block text-xs font-black uppercase tracking-widest text-slate-400">
+                  OpenAI API Key
+                </label>
+                <input
+                  v-model={form.value.openai_api_key}
+                  type="password"
+                  placeholder="sk-..."
+                  class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm"
+                />
+                <p class="text-[10px] text-slate-400">Your OpenAI-compatible API key. Stored securely in the database.</p>
+              </div>
+
+              <div class="space-y-2">
+                <label class="block text-xs font-black uppercase tracking-widest text-slate-400">
+                  Base URL (Optional)
+                </label>
+                <input
+                  v-model={form.value.openai_base_url}
+                  type="text"
+                  placeholder="https://api.openai.com/v1"
+                  class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm"
+                />
+                <p class="text-[10px] text-slate-400">Custom base URL for DeepSeek, OpenRouter, etc.</p>
+              </div>
+
+              <div class="space-y-2">
+                <label class="block text-xs font-black uppercase tracking-widest text-slate-400">
+                  Model Name
+                </label>
+                <input
+                  v-model={form.value.openai_model}
+                  type="text"
+                  placeholder="gpt-4o"
+                  class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm"
+                />
+                <p class="text-[10px] text-slate-400">e.g. gpt-4o, gpt-3.5-turbo, deepseek-chat.</p>
               </div>
             </div>
           </div>

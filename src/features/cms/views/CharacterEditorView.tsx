@@ -8,6 +8,7 @@ import { Tabs } from '@/components/ui/Tabs'
 import { appAlert } from '@/utils/dialog'
 import { StorageService } from '@/shared/services/storage.service'
 import { resolveAssetUrl } from '@/shared/utils/assets'
+import { AIService } from '@/shared/services/ai.service'
 
 /**
  * CMS View: CharacterEditorView
@@ -23,6 +24,8 @@ export default defineComponent({
 
     const isEdit = computed(() => route.params.id !== undefined)
     const isUploading = ref(false)
+    const isAILoading = ref(false)
+    const isManualEdit = ref(false)
 
     const currentStep = ref(0)
 
@@ -33,6 +36,10 @@ export default defineComponent({
       if (currentStep.value === 1) return 'En'
       if (currentStep.value === 2) return 'Zh'
       return 'Id'
+    })
+
+    const isFieldReadOnly = computed(() => {
+      return currentStep.value !== 0 && !isManualEdit.value
     })
 
     const form = ref<Author>({
@@ -56,6 +63,24 @@ export default defineComponent({
     watchEffect(() => {
       loadData()
     })
+
+    const handleAutoTranslate = async () => {
+      if (isManualEdit.value || isAILoading.value || !form.value.bioId) return
+      
+      isAILoading.value = true
+      try {
+        const [en, zh] = await Promise.all([
+           AIService.translate(form.value.bioId, 'en'),
+           AIService.translate(form.value.bioId, 'zh')
+        ])
+        form.value.bioEn = en.translated
+        form.value.bioZh = zh.translated
+      } catch (err: any) {
+        console.error('Auto-translate failed:', err)
+      } finally {
+        isAILoading.value = false
+      }
+    }
 
     const save = async () => {
       if (!form.value.name) return
@@ -92,13 +117,36 @@ export default defineComponent({
               Identity Protection Protocol Active
             </p>
           </div>
-          <BaseButton
-            onClick={save}
-            variant="primary"
-            class="shadow-lg shadow-primary/20 px-10 py-3.5 uppercase font-black tracking-widest text-xs"
-          >
-            Save Character
-          </BaseButton>
+          <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100">
+               <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Manual Edit (EN/ZH)</span>
+               <label class="relative inline-flex items-center cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  class="sr-only peer" 
+                  checked={isManualEdit.value}
+                  onChange={(e) => (isManualEdit.value = (e.target as HTMLInputElement).checked)}
+                />
+                <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+              </label>
+            </div>
+            
+            <BaseButton
+              onClick={handleAutoTranslate}
+              loading={isAILoading.value}
+              variant="outline"
+              class="px-6 py-3.5 uppercase font-black tracking-widest text-xs border-primary/20 text-primary hover:bg-primary/5"
+            >
+              <i class="bi bi-translate mr-2"></i> Sync
+            </BaseButton>
+            <BaseButton
+              onClick={save}
+              variant="primary"
+              class="shadow-lg shadow-primary/20 px-10 py-3.5 uppercase font-black tracking-widest text-xs"
+            >
+              Save Character
+            </BaseButton>
+          </div>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -190,8 +238,15 @@ export default defineComponent({
                         e.target as HTMLTextAreaElement
                       ).value
                     }}
+                    onBlur={() => {
+                      if (currentStep.value === 0) handleAutoTranslate()
+                    }}
+                    disabled={isFieldReadOnly.value}
                     placeholder={`Tell the character's story in ${steps[currentStep.value]}...`}
-                    class="w-full text-sm font-medium p-3 bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 rounded-xl outline-none text-slate-700 transition min-h-[120px] resize-none"
+                    class={[
+                      "w-full text-sm font-medium p-3 rounded-xl outline-none transition min-h-[120px] resize-none",
+                      isFieldReadOnly.value ? "bg-slate-50 text-slate-400 cursor-not-allowed" : "bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 text-slate-700"
+                    ]}
                   />
                 </div>
               </div>

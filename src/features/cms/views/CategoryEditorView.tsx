@@ -6,6 +6,7 @@ import type { Category } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
 import { Tabs } from '@/components/ui/Tabs'
 import { appAlert } from '@/utils/dialog'
+import { AIService } from '@/shared/services/ai.service'
 
 /**
  * CMS View: CategoryEditorView
@@ -20,6 +21,8 @@ export default defineComponent({
     const cmsContentStore = useCMSContentStore()
 
     const isEdit = computed(() => route.params.id !== undefined)
+    const isAILoading = ref(false)
+    const isManualEdit = ref(false)
 
     const currentStep = ref(0)
     const steps = ['Bahasa Indonesia', 'English', '中文 (Chinese)']
@@ -29,6 +32,10 @@ export default defineComponent({
       if (currentStep.value === 1) return 'En'
       if (currentStep.value === 2) return 'Zh'
       return 'Id'
+    })
+
+    const isFieldReadOnly = computed(() => {
+      return currentStep.value !== 0 && !isManualEdit.value
     })
 
     const form = ref<Category>({
@@ -50,6 +57,24 @@ export default defineComponent({
     watchEffect(() => {
       loadData()
     })
+
+    const handleAutoTranslate = async () => {
+      if (isManualEdit.value || isAILoading.value || !form.value.nameId) return
+      
+      isAILoading.value = true
+      try {
+        const [en, zh] = await Promise.all([
+           AIService.translate(form.value.nameId, 'en'),
+           AIService.translate(form.value.nameId, 'zh')
+        ])
+        form.value.nameEn = en.translated
+        form.value.nameZh = zh.translated
+      } catch (err: any) {
+        console.error('Auto-translate failed:', err)
+      } finally {
+        isAILoading.value = false
+      }
+    }
 
     const save = async () => {
       if (!form.value.nameId) {
@@ -93,13 +118,36 @@ export default defineComponent({
               Structural Meta-Taxonomy Unit
             </p>
           </div>
-          <BaseButton
-            onClick={save}
-            variant="primary"
-            class="shadow-lg shadow-primary/20 px-10 py-3.5 uppercase font-black tracking-widest text-xs"
-          >
-            Save Taxonomy
-          </BaseButton>
+          <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100">
+               <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Manual Edit (EN/ZH)</span>
+               <label class="relative inline-flex items-center cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  class="sr-only peer" 
+                  checked={isManualEdit.value}
+                  onChange={(e) => (isManualEdit.value = (e.target as HTMLInputElement).checked)}
+                />
+                <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+              </label>
+            </div>
+            
+            <BaseButton
+              onClick={handleAutoTranslate}
+              loading={isAILoading.value}
+              variant="outline"
+              class="px-6 py-3.5 uppercase font-black tracking-widest text-xs border-primary/20 text-primary hover:bg-primary/5"
+            >
+              <i class="bi bi-translate mr-2"></i> Sync
+            </BaseButton>
+            <BaseButton
+              onClick={save}
+              variant="primary"
+              class="shadow-lg shadow-primary/20 px-8 py-3.5 uppercase font-black tracking-widest text-xs"
+            >
+              Save Taxonomy
+            </BaseButton>
+          </div>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -124,9 +172,16 @@ export default defineComponent({
                     const val = (e.target as HTMLInputElement).value
                     ;(form.value as Record<string, string>)[`name${activeLangSuffix.value}`] = val
                   }}
+                  onBlur={() => {
+                    if (currentStep.value === 0) handleAutoTranslate()
+                  }}
+                  disabled={isFieldReadOnly.value}
                   type="text"
                   placeholder={`e.g. ${steps[currentStep.value] === 'Bahasa Indonesia' ? 'Sains' : steps[currentStep.value] === 'English' ? 'Science' : '科学'}`}
-                  class="w-full text-2xl font-black p-3 bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 rounded-xl outline-none text-slate-900 transition"
+                  class={[
+                    "w-full text-2xl font-black p-3 rounded-xl outline-none transition",
+                    isFieldReadOnly.value ? "bg-slate-50 text-slate-400 cursor-not-allowed" : "bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 text-slate-900"
+                  ]}
                 />
               </div>
 
