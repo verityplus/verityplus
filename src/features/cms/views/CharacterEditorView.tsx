@@ -25,7 +25,6 @@ export default defineComponent({
     const isEdit = computed(() => route.params.id !== undefined)
     const isUploading = ref(false)
     const isAILoading = ref(false)
-    const isManualEdit = ref(false)
 
     const currentStep = ref(0)
 
@@ -39,7 +38,7 @@ export default defineComponent({
     })
 
     const isFieldReadOnly = computed(() => {
-      return currentStep.value !== 0 && !isManualEdit.value
+      return false
     })
 
     const form = ref<Author>({
@@ -65,7 +64,7 @@ export default defineComponent({
     })
 
     const handleAutoTranslate = async () => {
-      if (isManualEdit.value || isAILoading.value || !form.value.bioId) return
+      if (isAILoading.value || !form.value.bioId) return
       
       isAILoading.value = true
       try {
@@ -117,36 +116,13 @@ export default defineComponent({
               Identity Protection Protocol Active
             </p>
           </div>
-          <div class="flex items-center gap-6">
-            <div class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100">
-               <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Manual Edit (EN/ZH)</span>
-               <label class="relative inline-flex items-center cursor-pointer">
-                <input 
-                  type="checkbox" 
-                  class="sr-only peer" 
-                  checked={isManualEdit.value}
-                  onChange={(e) => (isManualEdit.value = (e.target as HTMLInputElement).checked)}
-                />
-                <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
-              </label>
-            </div>
-            
-            <BaseButton
-              onClick={handleAutoTranslate}
-              loading={isAILoading.value}
-              variant="outline"
-              class="px-6 py-3.5 uppercase font-black tracking-widest text-xs border-primary/20 text-primary hover:bg-primary/5"
-            >
-              <i class="bi bi-translate mr-2"></i> Sync
-            </BaseButton>
-            <BaseButton
-              onClick={save}
-              variant="primary"
-              class="shadow-lg shadow-primary/20 px-10 py-3.5 uppercase font-black tracking-widest text-xs"
-            >
-              Save Character
-            </BaseButton>
-          </div>
+          <BaseButton
+            onClick={save}
+            variant="primary"
+            class="shadow-lg shadow-primary/20 px-10 py-3.5 uppercase font-black tracking-widest text-xs"
+          >
+            Save Character
+          </BaseButton>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -221,8 +197,46 @@ export default defineComponent({
                   onUpdate:modelValue={(val) => (currentStep.value = val)}
                 />
 
+                {currentStep.value === 0 && (
+                  <div class="flex justify-between items-center bg-slate-50/50 p-4 rounded-xl border border-slate-100 mt-4 outline outline-2 outline-primary/5">
+                      <div class="flex items-center gap-3">
+                        <i class="bi bi-shield-check text-primary/40 text-lg"></i>
+                        <div>
+                            <p class="text-[9px] font-black uppercase tracking-tighter text-slate-400 mb-0 leading-none">Source Content Authority</p>
+                            <h6 class="text-[11px] font-black text-slate-800 uppercase tracking-widest">Indonesian Master Identity</h6>
+                        </div>
+                      </div>
+                      <div class="p-1 px-3 bg-primary/5 border border-primary/10 rounded-full">
+                        <span class="text-[9px] font-black text-primary uppercase tracking-widest leading-none">PRIMARY</span>
+                      </div>
+                  </div>
+                )}
+
+                {(currentStep.value === 1 || currentStep.value === 2) && (
+                  <div class="flex justify-between items-center bg-slate-50/50 p-4 rounded-xl border border-slate-100 mt-4 overflow-hidden outline outline-4 outline-primary/5">
+                    <div class="flex items-center gap-3">
+                       <i class="bi bi-robot text-primary/40 text-lg"></i>
+                       <span class="text-[10px] font-black text-slate-800 uppercase tracking-widest">{steps[currentStep.value]} Profile Sync</span>
+                    </div>
+                    <div class="flex items-center gap-6">
+                      <button
+                        onClick={handleAutoTranslate}
+                        disabled={isAILoading.value}
+                        class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-600 text-[9px] font-black uppercase tracking-widest hover:border-primary/20 hover:text-primary transition cursor-pointer"
+                      >
+                        {isAILoading.value ? (
+                          <div class="w-2 h-2 border border-primary border-t-transparent rounded-full animate-spin"></div>
+                        ) : (
+                          <i class="bi bi-arrow-repeat"></i>
+                        )}
+                        <span>Sync</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 <div
-                  class="space-y-4 pt-4 border-t border-slate-50 animate-in fade-in"
+                  class={["space-y-4 pt-4 border-t border-slate-50 animate-in fade-in", currentStep.value !== 0 ? "mt-4" : ""]}
                   key={currentStep.value}
                 >
                   <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">

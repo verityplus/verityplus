@@ -8,7 +8,7 @@ import type { ArticleStatus, Category, Author } from '@/shared/types'
 import { ARTICLE_STATUS_LABELS } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
 import { Tabs } from '@/components/ui/Tabs'
-import { appAlert } from '@/utils/dialog'
+import { appAlert, appPrompt } from '@/utils/dialog'
 import { StorageService } from '@/shared/services/storage.service'
 import { resolveAssetUrl } from '@/shared/utils/assets'
 import { AIService } from '@/shared/services/ai.service'
@@ -29,7 +29,6 @@ export default defineComponent({
     const tagInput = ref('')
     const isUploading = ref(false)
     const isAILoading = ref(false)
-    const isManualEdit = ref(false)
     const currentStep = ref(0)
     const steps = ['Bahasa Indonesia', 'English', '中文 (Chinese)']
 
@@ -120,7 +119,7 @@ export default defineComponent({
     })
 
     const isFieldReadOnly = computed(() => {
-      return currentStep.value !== 0 && !isManualEdit.value
+      return false
     })
 
     const getCurrentTags = () => {
@@ -165,7 +164,7 @@ export default defineComponent({
     })
 
     const handleDraft = async () => {
-      const topic = prompt('Enter a topic for the AI to draft an article about:')
+      const topic = await appPrompt('Enter a topic for the AI to draft an article about:', '', 'AI Content Architect')
       if (!topic) return
 
       isAILoading.value = true
@@ -244,7 +243,7 @@ export default defineComponent({
     }
 
     const triggerAutoTranslateAtOnce = async () => {
-      if (isManualEdit.value || isAILoading.value) return
+      if (isAILoading.value) return
       await handleTranslateAll()
     }
 
@@ -319,38 +318,15 @@ export default defineComponent({
               VERITY+ Unified Content Studio
             </p>
           </div>
-          <div class="flex items-center gap-6">
-            <div class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100">
-               <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Manual Edit (EN/ZH)</span>
-               <label class="relative inline-flex items-center cursor-pointer">
-                <input 
-                  type="checkbox" 
-                  class="sr-only peer" 
-                  checked={isManualEdit.value}
-                  onChange={(e) => (isManualEdit.value = (e.target as HTMLInputElement).checked)}
-                />
-                <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
-              </label>
-            </div>
-            
-            <BaseButton
-              onClick={handleTranslateAll}
-              loading={isAILoading.value}
-              variant="outline"
-              class="px-6 py-3.5 uppercase font-black tracking-widest text-xs border-primary/20 text-primary hover:bg-primary/5"
-            >
-              <i class="bi bi-translate mr-2"></i> Sync All
-            </BaseButton>
-            <BaseButton
-              onClick={() => {
-                void save()
-              }}
-              variant="primary"
-              class="shadow-lg shadow-primary/20 px-8 py-3.5 uppercase font-black tracking-widest text-xs"
-            >
-              {isEdit.value ? 'Save Changes' : 'Save Article'}
-            </BaseButton>
-          </div>
+          <BaseButton
+            onClick={() => {
+              void save()
+            }}
+            variant="primary"
+            class="shadow-lg shadow-primary/20 px-10 py-3.5 uppercase font-black tracking-widest text-xs"
+          >
+            {isEdit.value ? 'Save Changes' : 'Save Article'}
+          </BaseButton>
         </header>
 
         <div class="flex-grow flex flex-col xl:flex-row gap-8 min-h-[600px]">
@@ -369,9 +345,60 @@ export default defineComponent({
               />
 
               <div
-                class="pt-6 border-t border-slate-100 space-y-8 animate-in fade-in duration-500"
                 key={currentStep.value}
               >
+                {currentStep.value === 0 && (
+                   <div class="flex justify-between items-center bg-slate-50/50 p-4 rounded-2xl border border-slate-100 mb-4">
+                      <div class="flex items-center gap-3">
+                         <i class="bi bi-shield-check text-primary/40 text-lg"></i>
+                         <div>
+                            <p class="text-[9px] font-black uppercase tracking-tighter text-slate-400 mb-0 leading-none">Source Content Authority</p>
+                            <h6 class="text-[11px] font-black text-slate-800 uppercase tracking-widest">Indonesian Master Identity</h6>
+                         </div>
+                      </div>
+                      <button
+                        onClick={handleDraft}
+                        disabled={isAILoading.value}
+                        class="px-4 py-2 rounded-xl bg-slate-900 text-white hover:bg-primary hover:scale-105 transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest shadow-xl border-none cursor-pointer"
+                        title="Draft article with AI"
+                      >
+                         {isAILoading.value ? (
+                          <div class="w-3 h-3 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+                        ) : (
+                          <i class="bi bi-magic text-sm"></i>
+                        )}
+                        <span>AI Drafting</span>
+                      </button>
+                   </div>
+                )}
+
+                {(currentStep.value === 1 || currentStep.value === 2) && (
+                  <div class="flex justify-between items-center bg-slate-50/50 p-4 rounded-2xl border border-slate-100 mb-2">
+                    <div class="flex items-center gap-3">
+                       <i class="bi bi-robot text-primary/40 text-lg"></i>
+                       <div>
+                          <p class="text-[9px] font-black uppercase tracking-tighter text-slate-400 mb-0 leading-none">Language Optimization Node</p>
+                          <h6 class="text-[11px] font-black text-slate-800 uppercase tracking-widest">{steps[currentStep.value]} variant</h6>
+                       </div>
+                    </div>
+
+                    <div class="flex items-center gap-6">
+                      <button
+                        onClick={handleTranslateAll}
+                        disabled={isAILoading.value}
+                        class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 text-[10px] font-black uppercase tracking-widest hover:border-primary/20 hover:text-primary transition cursor-pointer"
+                      >
+                        {isAILoading.value ? (
+                          <div class="w-3 h-3 border-2 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+                        ) : (
+                          <i class="bi bi-arrow-repeat text-sm"></i>
+                        )}
+                        <span>Sync</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 <div class="space-y-4">
                   <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
                     <span>Article Title</span>
@@ -379,7 +406,6 @@ export default defineComponent({
                       {activeLangSuffix.value}
                     </span>
                   </label>
-                  <div class="flex gap-4 items-center">
                     <input
                       value={(form.value as Record<string, string>)[`title${activeLangSuffix.value}`]}
                       onInput={(e) => {
@@ -395,7 +421,7 @@ export default defineComponent({
                       disabled={isFieldReadOnly.value}
                       placeholder={`Enter headline in ${steps[currentStep.value]}...`}
                       class={[
-                        'flex-grow text-3xl sm:text-4xl rounded-xl border border-transparent focus:border-slate-100 focus:bg-slate-50/20 p-2 outline-none font-black transition',
+                        'w-full text-3xl sm:text-4xl rounded-xl border border-transparent focus:border-slate-100 focus:bg-slate-50/20 p-2 outline-none font-black transition',
                         isFieldReadOnly.value ? 'bg-slate-50/40 text-slate-400 cursor-not-allowed' : 'text-slate-900',
                         (showErrors.value || touched.value[`title${activeLangSuffix.value}`]) &&
                         errors.value[`title${activeLangSuffix.value}`]
@@ -403,21 +429,6 @@ export default defineComponent({
                           : 'placeholder-slate-200',
                       ]}
                     />
-                    {currentStep.value === 0 && (
-                      <button
-                        onClick={handleDraft}
-                        disabled={isAILoading.value}
-                        class="shrink-0 w-12 h-12 rounded-full bg-slate-100 text-slate-600 hover:bg-primary/10 hover:text-primary transition flex items-center justify-center border-none cursor-pointer"
-                        title="Draft article with AI"
-                      >
-                         {isAILoading.value ? (
-                          <div class="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-                        ) : (
-                          <i class="bi bi-magic text-xl"></i>
-                        )}
-                      </button>
-                    )}
-                  </div>
                   {(showErrors.value || touched.value[`title${activeLangSuffix.value}`]) &&
                     errors.value[`title${activeLangSuffix.value}`] && (
                       <p class="text-[10px] font-black text-red-500 uppercase tracking-widest animate-in fade-in slide-in-from-top-1">
