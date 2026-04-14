@@ -11,6 +11,24 @@ import { appAlert } from '@/utils/dialog'
 export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref(!!localStorage.getItem('verity_token'))
   const currentUser = ref<CMSUser | null>(null)
+  const isInitialized = ref(false)
+
+  const checkSession = async () => {
+    try {
+      const { data, error } = await apiClient.GET('/api/v1/auth/me')
+      if (data) {
+        currentUser.value = data as unknown as CMSUser
+        isAuthenticated.value = true
+      } else {
+        throw error
+      }
+    } catch (err) {
+      isAuthenticated.value = false
+      currentUser.value = null
+    } finally {
+      isInitialized.value = true
+    }
+  }
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
@@ -19,10 +37,9 @@ export const useAuthStore = defineStore('auth', () => {
       });
 
       if (data) {
-        const { token, user } = data
-        localStorage.setItem('verity_token', token)
+        const { user } = data
         isAuthenticated.value = true
-        currentUser.value = user as CMSUser // Need cast to CMSUser as types might slightly differ (e.g. role)
+        currentUser.value = user as unknown as CMSUser
         return true
       }
       if (error) throw error
@@ -34,15 +51,22 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const logout = () => {
-    localStorage.removeItem('verity_token')
-    isAuthenticated.value = false
-    currentUser.value = null
+  const logout = async () => {
+    try {
+      await apiClient.POST('/api/v1/auth/logout')
+    } catch (e) {
+      console.error('Logout error:', e)
+    } finally {
+      isAuthenticated.value = false
+      currentUser.value = null
+    }
   }
 
   return {
     isAuthenticated,
     currentUser,
+    isInitialized,
+    checkSession,
     login,
     logout,
   }

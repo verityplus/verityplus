@@ -6,19 +6,10 @@ export const API_BASE_ORIGIN = API_BASE_URL.replace('/api/v1', '')
 
 // Create the type-safe client
 const client = createClient<paths>({ 
-  baseUrl: API_BASE_ORIGIN
+  baseUrl: API_BASE_ORIGIN,
+  credentials: 'include'
 })
 
-// Add Auth middleware/interceptor
-client.use({
-  async onRequest({ request }) {
-    const token = localStorage.getItem('verity_token')
-    if (token) {
-      request.headers.set('Authorization', `Bearer ${token}`)
-    }
-    return request
-  },
-})
-
+// apiClient is now configured to use httpOnly cookies via credentials: 'include'.
 export const apiClient = client
 
