@@ -67,7 +67,9 @@ export const MarkdownEditor = defineComponent({
     onBeforeUnmount(() => editor.value?.destroy())
 
     const showImageDialog = ref(false)
-    const imageUrl = ref('')
+    const showLinkDialog = ref(false)
+    const linkUrl = ref('')
+    const linkTitle = ref('')
 
     const handleFileSelect = async (e: Event) => {
       const file = (e.target as HTMLInputElement).files?.[0]
@@ -76,7 +78,6 @@ export const MarkdownEditor = defineComponent({
           const url = await StorageService.upload(file)
           editor.value?.chain().focus().setImage({ src: resolveAssetUrl(url) }).run()
           showImageDialog.value = false
-          imageUrl.value = ''
         } catch (err: unknown) {
           console.error('Markdown image upload failed:', err)
           const msg = err instanceof Error ? err.message : 'Unknown'
@@ -85,35 +86,48 @@ export const MarkdownEditor = defineComponent({
       }
     }
 
-    const insertImageUrl = () => {
-      if (imageUrl.value) {
-        editor.value?.chain().focus().setImage({ src: imageUrl.value }).run()
-        showImageDialog.value = false
-        imageUrl.value = ''
-      }
-    }
-
     const onToolbarYoutube = async () => {
       const url = await appPrompt('Masukkan URL YouTube:', '', 'YouTube URL')
       if (url) editor.value?.chain().focus().setYoutubeVideo({ src: url }).run()
     }
 
-    const onToolbarLink = async () => {
+    const onToolbarLink = () => {
       if (!editor.value) return
 
-      const previousUrl = editor.value.getAttributes('link').href
-      const url = await appPrompt('Masukkan URL Link:', previousUrl || '', 'Insert Link')
+      const { from, to } = editor.value.state.selection
+      linkTitle.value = editor.value.state.doc.textBetween(from, to, ' ')
+      linkUrl.value = editor.value.getAttributes('link').href || ''
+      showLinkDialog.value = true
+    }
 
-      if (url === false || url === null) {
-        return
-      }
+    const insertLink = () => {
+      if (!editor.value) return
 
-      if (url === '') {
+      if (linkUrl.value) {
+        editor.value
+          .chain()
+          .focus()
+          .extendMarkRange('link')
+          .insertContent({
+            type: 'text',
+            text: linkTitle.value || linkUrl.value,
+            marks: [
+              {
+                type: 'link',
+                attrs: {
+                  href: linkUrl.value,
+                },
+              },
+            ],
+          })
+          .run()
+      } else {
         editor.value.chain().focus().extendMarkRange('link').unsetLink().run()
-        return
       }
 
-      editor.value.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+      showLinkDialog.value = false
+      linkUrl.value = ''
+      linkTitle.value = ''
     }
 
     return () => {
@@ -255,6 +269,71 @@ export const MarkdownEditor = defineComponent({
           </div>
 
 
+          {showLinkDialog.value && (
+            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity">
+              <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden transform transition-all p-6 relative">
+                <button
+                  onClick={() => (showLinkDialog.value = false)}
+                  class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 border-none bg-transparent cursor-pointer"
+                >
+                  <i class="bi bi-x-lg"></i>
+                </button>
+                <div class="text-center mb-6">
+                  <div class="w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-4 text-xl">
+                    <i class="bi bi-link-45deg"></i>
+                  </div>
+                  <h3 class="text-lg font-black text-slate-900">Insert Link</h3>
+                  <p class="text-slate-500 text-sm mt-1">Enter title and URL for the link.</p>
+                </div>
+
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-2">
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      value={linkTitle.value}
+                      onInput={(e) => (linkTitle.value = (e.target as HTMLInputElement).value)}
+                      placeholder="Display text..."
+                      class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition text-sm transition text-slate-800"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-2">
+                      URL
+                    </label>
+                    <input
+                      type="text"
+                      value={linkUrl.value}
+                      onInput={(e) => (linkUrl.value = (e.target as HTMLInputElement).value)}
+                      placeholder="https://..."
+                      class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition text-sm transition text-slate-800"
+                      onKeydown={(e) => e.key === 'Enter' && insertLink()}
+                    />
+                  </div>
+                </div>
+
+                <div class="mt-6 flex justify-end gap-3">
+                  <button
+                    onClick={() => (showLinkDialog.value = false)}
+                    class="px-5 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-100 transition border-none cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={insertLink}
+                    disabled={!linkUrl.value}
+                    class="px-6 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed border-none cursor-pointer shadow-lg shadow-indigo-600/20"
+                  >
+                    Insert Link
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {showImageDialog.value && (
             <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity">
               <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden transform transition-all p-6 relative">
@@ -269,29 +348,10 @@ export const MarkdownEditor = defineComponent({
                     <i class="bi bi-image"></i>
                   </div>
                   <h3 class="text-lg font-black text-slate-900">Upload Image</h3>
-                  <p class="text-slate-500 text-sm mt-1">Provide a URL or browse an image file.</p>
+                  <p class="text-slate-500 text-sm mt-1">Select an image file to upload.</p>
                 </div>
 
                 <div class="space-y-4">
-                  <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-2">
-                      Image URL
-                    </label>
-                    <input
-                      type="text"
-                      value={imageUrl.value}
-                      onInput={(e) => (imageUrl.value = (e.target as HTMLInputElement).value)}
-                      placeholder="https://..."
-                      class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition text-sm transition text-slate-800"
-                    />
-                  </div>
-
-                  <div class="relative flex py-2 items-center">
-                    <div class="flex-grow border-t border-slate-200"></div>
-                    <span class="flex-shrink-0 mx-4 text-slate-400 text-xs font-medium uppercase">Or</span>
-                    <div class="flex-grow border-t border-slate-200"></div>
-                  </div>
-
                   <div>
                     <label class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-slate-300 border-dashed rounded-xl appearance-none cursor-pointer hover:border-indigo-400 focus:outline-none">
                       <span class="flex flex-col items-center justify-center text-slate-500">
@@ -313,14 +373,7 @@ export const MarkdownEditor = defineComponent({
                     onClick={() => (showImageDialog.value = false)}
                     class="px-5 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-100 transition border-none cursor-pointer"
                   >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={insertImageUrl}
-                    disabled={!imageUrl.value}
-                    class="px-6 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed border-none cursor-pointer shadow-lg shadow-indigo-600/20"
-                  >
-                    Insert Image
+                    Close
                   </button>
                 </div>
               </div>
