@@ -12,8 +12,6 @@ const GRID_PER_PAGE = 8
  * Integrated with Tanstack Vue Query for efficient data fetching and caching.
  */
 export const useArticleStore = defineStore('articles', () => {
-
-
   const cmsPage = ref(1)
   const cmsLimit = ref(10)
   const cmsSearch = ref('')
@@ -24,16 +22,16 @@ export const useArticleStore = defineStore('articles', () => {
     refetch: refetchArticles,
   } = useQuery({
     queryKey: ['articles', cmsPage, cmsLimit, cmsSearch],
-    queryFn: () => ArticleService.getArticles({ 
-      page: cmsPage.value, 
-      limit: cmsLimit.value, 
-      search: cmsSearch.value 
-    }),
+    queryFn: () =>
+      ArticleService.getArticles({
+        page: cmsPage.value,
+        limit: cmsLimit.value,
+        search: cmsSearch.value,
+      }),
     placeholderData: (previousData) => previousData,
   })
 
-
-  // We should also have a query for all articles (or at least a larger batch) 
+  // We should also have a query for all articles (or at least a larger batch)
   // if the public site still relies on client-side logic for featured/latest/etc.
   // For now, let's keep the main articles query and adjust it.
   const articles = computed(() => articlesData.value?.items || [])
@@ -51,8 +49,6 @@ export const useArticleStore = defineStore('articles', () => {
     initialData: [],
   })
 
-
-
   const categories = computed(() => categoriesData.value || [])
   const authors = computed(() => authorsData.value || [])
   const isLoading = computed(() => articlesLoading.value)
@@ -60,81 +56,53 @@ export const useArticleStore = defineStore('articles', () => {
   const latestPage = ref(1)
   const gridPage = ref(1)
 
-
   const featured = computed(() => articles.value.filter((a) => a.status === 'featured'))
 
-
   const nonFeaturedArticles = computed(() => articles.value.filter((a) => a.status !== 'featured'))
-
 
   const latest = computed(() => {
     const start = (latestPage.value - 1) * LATEST_PER_PAGE
     return nonFeaturedArticles.value.slice(start, start + LATEST_PER_PAGE)
   })
 
-
   const latestTotalPages = computed(() =>
     Math.ceil(nonFeaturedArticles.value.length / LATEST_PER_PAGE),
   )
 
-
   const popular = computed(() => articles.value.filter((a) => a.status === 'featured').slice(0, 5))
-
 
   const paginatedGridArticles = computed(() => {
     const start = (gridPage.value - 1) * GRID_PER_PAGE
     return nonFeaturedArticles.value.slice(start, start + GRID_PER_PAGE)
   })
 
-
   const gridTotalPages = computed(() => Math.ceil(nonFeaturedArticles.value.length / GRID_PER_PAGE))
 
   const gridArticles = computed(() => nonFeaturedArticles.value.slice(0, GRID_PER_PAGE))
-
-
-
 
   const findById = async (id: string): Promise<Article | undefined> => {
     return ArticleService.getArticleById(id)
   }
 
-
   const search = async (query: string): Promise<Article[]> => {
     return ArticleService.searchArticles(query)
   }
-
-
-  const getCategoryWithCount = computed(() => {
-    return categories.value
-      .map((c) => ({
-        category: c,
-        count: articles.value.filter((a) => a.category?.id === c.id).length,
-      }))
-
-      .filter((c) => c.count > 0)
-  })
-
 
   const findAuthorById = (id: string): Author | undefined => {
     return authors.value.find((a) => a.id === id)
   }
 
-
   const findArticlesByAuthor = (id: string): Article[] => {
     return articles.value.filter((a) => a.author?.id === id)
   }
-
-
 
   const findCategoryById = (id: string): Category | undefined => {
     return categories.value.find((c) => c.id === id)
   }
 
-
   const findArticlesByCategoryId = (id: string): Article[] => {
     return articles.value.filter((a) => a.category?.id === id)
   }
-
 
   const latestNextPage = () => {
     if (latestPage.value < latestTotalPages.value) latestPage.value++
@@ -180,7 +148,6 @@ export const useArticleStore = defineStore('articles', () => {
     resetPagination,
     findById,
     search,
-    getCategoryWithCount,
     findAuthorById,
     findArticlesByAuthor,
     findCategoryById,

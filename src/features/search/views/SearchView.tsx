@@ -66,7 +66,7 @@ export default defineComponent({
       ],
     })
 
-    const categoriesWithCount = computed(() => store.getCategoryWithCount)
+    const categories = computed(() => store.categories)
 
     return () => (
       <section class="bg-background min-h-screen py-12">
@@ -171,17 +171,17 @@ export default defineComponent({
                   <span class="section-header-title">{t('common.popularCategories')}</span>
                 </div>
                 <ul class="space-y-1">
-                  {categoriesWithCount.value.map((catInfo) => (
+                  {categories.value.map((catInfo) => (
                     <li
-                      key={catInfo.category.id}
+                      key={catInfo.id}
                       class="flex items-center p-3 rounded-lg hover:bg-surface-hover transition group"
                     >
                       <RouterLink
-                        to={{ name: 'category', params: { id: catInfo.category.id } }}
+                        to={{ name: 'category', params: { id: catInfo.id } }}
                         class="no-underline w-full flex items-center"
                       >
                         <span class="text-text-secondary font-medium group-hover:text-primary transition">
-                          {getLocalizedField(catInfo.category, 'name')}
+                          {getLocalizedField(catInfo, 'name')}
                         </span>
                       </RouterLink>
                     </li>

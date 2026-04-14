@@ -4,7 +4,7 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { AD_SLOTS } from '@/features/ads/services/ad.service'
 import { useLocalizedField } from '@/composables/useLocalizedField'
-import type { Article, Category } from '@/shared/types'
+import type { Article } from '@/shared/types'
 
 /**
  * BrowseTopBar: Top bar visible on all pages except Home
@@ -225,9 +225,9 @@ export const BrowseTopBar = defineComponent({
                           </h3>
                         </div>
                         <div class="space-y-0 flex flex-col">
-                          {store.getCategoryWithCount.length > 0 ? (
-                            store.getCategoryWithCount.map(
-                              ({ category }: { category: Category; count: number }) => (
+                          {store.categories.length > 0 ? (
+                            store.categories.map(
+                              (category) => (
                                 <router-link
                                   to={{ name: 'category', params: { id: category.id } }}
                                   class="px-2 py-1.5 rounded-md hover:bg-surface-active hover:text-text-primary transition cursor-pointer text-text-secondary text-xs truncate"
