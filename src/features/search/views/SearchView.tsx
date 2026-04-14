@@ -9,7 +9,6 @@ import { BaseBadge } from '@/components/ui/Badge'
 import { useLocalizedField } from '@/composables/useLocalizedField'
 import { BaseImage } from '@/components/ui/Image'
 import type { Article } from '@/shared/types'
-
 import { SearchInput } from '../components/SearchInput'
 
 /**
@@ -103,8 +102,8 @@ export default defineComponent({
                 <div class="text-center py-24 bg-red-50/10 rounded-xl border border-red-200/20">
                   <i class="bi bi-exclamation-triangle text-4xl text-red-500 mb-4 block"></i>
                   <p class="text-red-500 font-bold">{error.value}</p>
-                  <button 
-                    onClick={() => search()} 
+                  <button
+                    onClick={() => search()}
                     class="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
                   >
                     {t('common.retry')}
@@ -175,17 +174,14 @@ export default defineComponent({
                   {categoriesWithCount.value.map((catInfo) => (
                     <li
                       key={catInfo.category.id}
-                      class="flex justify-between items-center p-3 rounded-lg hover:bg-surface-hover transition group"
+                      class="flex items-center p-3 rounded-lg hover:bg-surface-hover transition group"
                     >
                       <RouterLink
                         to={{ name: 'category', params: { id: catInfo.category.id } }}
-                        class="no-underline w-full flex justify-between items-center"
+                        class="no-underline w-full flex items-center"
                       >
                         <span class="text-text-secondary font-medium group-hover:text-primary transition">
                           {getLocalizedField(catInfo.category, 'name')}
-                        </span>
-                        <span class="text-xs font-bold bg-surface-muted px-2.5 py-1 rounded-md text-text-muted">
-                          {catInfo.count}
                         </span>
                       </RouterLink>
                     </li>
