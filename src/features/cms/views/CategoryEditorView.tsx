@@ -61,7 +61,7 @@ export default defineComponent({
 
     const handleAutoTranslate = async () => {
       if (isAILoading.value || !form.value.nameId) return
-      
+
       isAILoading.value = true
       try {
         const [en, zh] = await Promise.all([
@@ -154,7 +154,7 @@ export default defineComponent({
           </BaseButton>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <div class="grid gap-8 items-start">
           <div class="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200 shadow-sm space-y-8">
             <Tabs
               tabs={steps}
@@ -254,31 +254,6 @@ export default defineComponent({
                 />
               </div>
             </div>
-          </div>
-
-          <div class="bg-slate-900 p-12 rounded-2xl text-white relative overflow-hidden flex flex-col justify-center min-h-[400px] shadow-2xl">
-            <div class="relative z-10 space-y-6">
-              <i class="bi bi-tag text-6xl opacity-30 drop-shadow-xl" />
-              <h3 class="text-3xl font-black leading-tight border-b border-white/20 pb-4">
-                Category Taxonomy
-              </h3>
-              <p class="text-slate-100/70 text-sm leading-relaxed">
-                Categories help organize articles into logical structural units. The name will be
-                displayed on badges and filters across the portal.
-              </p>
-              <div class="bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-md">
-                <p class="text-xs uppercase font-black tracking-widest mb-4 opacity-50 text-center">
-                  Live Preview ({activeLangSuffix.value})
-                </p>
-                <div class="flex justify-center">
-                  <div class="inline-block px-10 py-3 rounded-2xl text-sm font-black uppercase tracking-widest border-2 shadow-2xl transition-all duration-300 bg-primary/10 text-primary border-primary">
-                    {form.value[`name${activeLangSuffix.value}` as keyof Category] ||
-                      'Sample Taxonomy'}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl opacity-20" />
           </div>
         </div>
       </div>
