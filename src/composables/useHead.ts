@@ -1,4 +1,5 @@
-import { createHead, useHead as useUnhead } from '@unhead/vue'
+import { useHead as useUnhead } from '@unhead/vue'
+import { createHead } from '@unhead/vue/client'
 import type { UseHeadInput } from '@unhead/vue'
 
 /**

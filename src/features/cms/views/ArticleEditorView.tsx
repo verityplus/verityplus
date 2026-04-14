@@ -39,7 +39,7 @@ export default defineComponent({
       ),
     })
 
-    type EditorForm = Record<string, unknown> & {
+    type EditorForm = {
       id: string
       titleId: string
       titleEn: string
@@ -59,6 +59,9 @@ export default defineComponent({
       publishedAt: string
       status: ArticleStatus
       slug: string
+      excerptId?: string
+      excerptEn?: string
+      excerptZh?: string
     }
 
     const form = ref<EditorForm>({
@@ -104,6 +107,7 @@ export default defineComponent({
           processed.tagsId = found.tagsId ? JSON.parse(found.tagsId) : []
           processed.tagsEn = found.tagsEn ? JSON.parse(found.tagsEn) : []
           processed.tagsZh = found.tagsZh ? JSON.parse(found.tagsZh) : []
+          processed.slug = found.slug || ''
           form.value = processed
         }
       }
@@ -127,7 +131,7 @@ export default defineComponent({
 
     const getCurrentTags = () => {
       const suffix = activeLangSuffix.value as 'Id' | 'En' | 'Zh'
-      return form.value[`tags${suffix}`]
+      return (form.value as any)[`tags${suffix}`] as string[]
     }
 
     const addTag = () => {
@@ -186,7 +190,7 @@ export default defineComponent({
     }
 
     const handleExcerpt = async () => {
-      const content = (form.value as Record<string, string>)[`content${activeLangSuffix.value}`]
+      const content = (form.value as any)[`content${activeLangSuffix.value}`]
       if (!content) {
         await appAlert('Please write some content first.', 'Notice')
         return
@@ -195,7 +199,7 @@ export default defineComponent({
       isAILoading.value = true
       try {
         const { excerpt } = await AIService.generateExcerpt(content)
-        ;(form.value as Record<string, string>)[`excerpt${activeLangSuffix.value}`] = excerpt
+        ;(form.value as any)[`excerpt${activeLangSuffix.value}`] = excerpt
       } catch (err: any) {
         await appAlert(`Failed to generate excerpt: ${err.message}`, 'AI Error')
       } finally {
@@ -289,11 +293,11 @@ export default defineComponent({
         contentId: form.value.contentId,
         contentEn: form.value.contentEn,
         contentZh: form.value.contentZh,
-        coverImage: form.value.coverImage,
-        coverImageCaptionId: form.value.coverImageCaptionId,
-        coverImageCaptionEn: form.value.coverImageCaptionEn,
-        coverImageCaptionZh: form.value.coverImageCaptionZh,
-        publishedAt: form.value.publishedAt,
+        coverImage: form.value.coverImage as string,
+        coverImageCaptionId: form.value.coverImageCaptionId as string,
+        coverImageCaptionEn: form.value.coverImageCaptionEn as string,
+        coverImageCaptionZh: form.value.coverImageCaptionZh as string,
+        publishedAt: form.value.publishedAt as string,
         categoryId: form.value.category!.id,
         authorId: form.value.author!.id,
         status: form.value.status,
@@ -428,10 +432,10 @@ export default defineComponent({
                     </span>
                   </label>
                     <input
-                      value={(form.value as Record<string, string>)[`title${activeLangSuffix.value}`]}
+                      value={(form.value as any)[`title${activeLangSuffix.value}`]}
                       onInput={(e) => {
                         const val = (e.target as HTMLInputElement).value
-                        ;(form.value as Record<string, string>)[`title${activeLangSuffix.value}`] =
+                        ;(form.value as any)[`title${activeLangSuffix.value}`] =
                           val
                       }}
                       onBlur={() => {
@@ -467,14 +471,11 @@ export default defineComponent({
                   </label>
                   <MarkdownEditor
                     modelValue={
-                      (form.value as Record<string, string>)[`content${activeLangSuffix.value}`]
+                      (form.value as any)[`content${activeLangSuffix.value}`]
                     }
                     onUpdate:modelValue={(val) => {
-                      ;(form.value as Record<string, string>)[`content${activeLangSuffix.value}`] =
+                      ;(form.value as any)[`content${activeLangSuffix.value}`] =
                         val
-                    }}
-                    onBlur={() => {
-                        if (currentStep.value === 0) triggerAutoTranslateAtOnce()
                     }}
                     disabled={isFieldReadOnly.value}
                   />
@@ -496,9 +497,9 @@ export default defineComponent({
                     </button>
                   </label>
                   <textarea
-                    value={(form.value as Record<string, string>)[`excerpt${activeLangSuffix.value}`]}
+                    value={(form.value as any)[`excerpt${activeLangSuffix.value}`]}
                     onInput={(e) => {
-                      ;(form.value as Record<string, string>)[`excerpt${activeLangSuffix.value}`] = (e.target as HTMLTextAreaElement).value
+                      ;(form.value as any)[`excerpt${activeLangSuffix.value}`] = (e.target as HTMLTextAreaElement).value
                     }}
                     onBlur={() => {
                         if (currentStep.value === 0) triggerAutoTranslateAtOnce()
@@ -643,12 +644,12 @@ export default defineComponent({
                   </label>
                   <input
                     value={
-                      (form.value as Record<string, string>)[
+                      (form.value as any)[
                         `coverImageCaption${activeLangSuffix.value}`
                       ]
                     }
                     onInput={(e) => {
-                      ;(form.value as Record<string, string>)[
+                      ;(form.value as any)[
                         `coverImageCaption${activeLangSuffix.value}`
                       ] = (e.target as HTMLInputElement).value
                     }}

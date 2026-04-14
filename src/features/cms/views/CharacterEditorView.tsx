@@ -56,7 +56,7 @@ export default defineComponent({
       if (isEdit.value) {
         const found = articleStore.findAuthorById(route.params.id as string)
         if (found) {
-          form.value = { ...found }
+          form.value = { ...found, slug: found.slug || '' }
         }
       }
     }
@@ -104,18 +104,23 @@ export default defineComponent({
       if (!form.value.name) return
 
       try {
+        const submissionData = {
+          name: form.value.name,
+          avatar: form.value.avatar,
+          bioId: form.value.bioId,
+          bioEn: form.value.bioEn,
+          bioZh: form.value.bioZh,
+          role: form.value.role || undefined,
+          slug: form.value.slug || undefined,
+        }
+
         if (isEdit.value) {
-          const { role, ...updateData } = form.value
           await cmsContentStore.updateAuthor({
-            ...updateData,
-            role: role ?? undefined
+            id: form.value.id,
+            ...submissionData,
           })
         } else {
-          const { id: _id, role, ...createData } = form.value
-          await cmsContentStore.addAuthor({
-            ...createData,
-            role: role ?? undefined
-          })
+          await cmsContentStore.addAuthor(submissionData)
         }
         router.push('/cms/characters')
       } catch (err: unknown) {
@@ -291,9 +296,9 @@ export default defineComponent({
                     </span>
                   </label>
                   <textarea
-                    value={(form.value as Record<string, string>)[`bio${activeLangSuffix.value}`]}
+                    value={(form.value as any)[`bio${activeLangSuffix.value}`]}
                     onInput={(e) => {
-                      ;(form.value as Record<string, string>)[`bio${activeLangSuffix.value}`] = (
+                      ;(form.value as any)[`bio${activeLangSuffix.value}`] = (
                         e.target as HTMLTextAreaElement
                       ).value
                     }}

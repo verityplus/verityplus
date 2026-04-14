@@ -50,7 +50,7 @@ export default defineComponent({
       if (isEdit.value) {
         const found = articleStore.categories.find((c) => c.id === (route.params.id as string))
         if (found) {
-          form.value = { ...found }
+          form.value = { ...found, slug: found.slug || '' }
         }
       }
     }
@@ -112,11 +112,20 @@ export default defineComponent({
       }
 
       try {
+        const submissionData = {
+          nameId: form.value.nameId,
+          nameEn: form.value.nameEn,
+          nameZh: form.value.nameZh,
+          slug: form.value.slug || undefined,
+        }
+
         if (isEdit.value) {
-          await cmsContentStore.updateCategory(form.value)
+          await cmsContentStore.updateCategory({
+            id: form.value.id,
+            ...submissionData,
+          })
         } else {
-          const { id: _id, ...createData } = form.value
-          await cmsContentStore.addCategory(createData)
+          await cmsContentStore.addCategory(submissionData)
         }
         router.push('/cms/categories')
       } catch (err: unknown) {
@@ -201,10 +210,10 @@ export default defineComponent({
                   </span>
                 </label>
                 <input
-                  value={(form.value as Record<string, string>)[`name${activeLangSuffix.value}`]}
+                  value={(form.value as any)[`name${activeLangSuffix.value}`]}
                   onInput={(e) => {
                     const val = (e.target as HTMLInputElement).value
-                    ;(form.value as Record<string, string>)[`name${activeLangSuffix.value}`] = val
+                    ;(form.value as any)[`name${activeLangSuffix.value}`] = val
                   }}
                   onBlur={() => {
                     if (currentStep.value === 0) handleAutoTranslate()
@@ -263,7 +272,7 @@ export default defineComponent({
                 </p>
                 <div class="flex justify-center">
                   <div class="inline-block px-10 py-3 rounded-2xl text-sm font-black uppercase tracking-widest border-2 shadow-2xl transition-all duration-300 bg-primary/10 text-primary border-primary">
-                    {(form.value as Record<string, string>)[`name${activeLangSuffix.value}`] ||
+                    {(form.value as any)[`name${activeLangSuffix.value}`] ||
                       'Sample Taxonomy'}
                   </div>
                 </div>

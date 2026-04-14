@@ -83,6 +83,28 @@ export const ArticleService = {
     return data || []
   },
 
+  async getCategory(idOrSlug: string): Promise<Category | undefined> {
+    const { data, error } = await apiClient.GET('/api/v1/categories/{id}', {
+      params: { path: { id: idOrSlug } }
+    })
+    if (error) {
+      console.error(`Error fetching category ${idOrSlug}:`, error)
+      return undefined
+    }
+    return data as Category
+  },
+
+  async getAuthor(idOrSlug: string): Promise<Author | undefined> {
+    const { data, error } = await apiClient.GET('/api/v1/authors/{id}', {
+      params: { path: { id: idOrSlug } }
+    })
+    if (error) {
+      console.error(`Error fetching author ${idOrSlug}:`, error)
+      return undefined
+    }
+    return data as Author
+  },
+
   async createArticle(dataInput: CreateArticleInput): Promise<Article> {
     const { data, error } = await apiClient.POST('/api/v1/articles/', {
       body: dataInput,
