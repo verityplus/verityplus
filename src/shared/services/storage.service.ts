@@ -7,21 +7,27 @@ export const StorageService = {
    * @returns The final public URL of the uploaded file
    */
   async upload(file: File): Promise<string> {
-    const formData = new FormData();
-    formData.append('file', file);
-    
+    const formData = new FormData()
+    formData.append('file', file)
+
     // We send multipart/form-data.
     const { data, error } = await apiClient.POST('/api/v1/storage/upload', {
       body: formData as unknown as never,
       headers: {
-        'Content-Type': undefined 
-      }
-    });
-    
-    if (error || !data?.url) {
-      throw new Error('Failed to get public URL after upload');
+        'Content-Type': undefined,
+      },
+    })
+
+    if (error) {
+      const message = error?.message || 'Upload failed on server'
+      console.error('Upload error details:', error)
+      throw new Error(message)
     }
 
-    return data.url;
+    if (!data?.url) {
+      throw new Error('Failed to get public URL after upload')
+    }
+
+    return data.url
   },
 }
