@@ -81,11 +81,15 @@ export const ArticleGrid = defineComponent({
             <div class="flex items-center justify-center mt-12">
               <button
                 onClick={() => {
-                  const target =
-                    activeCategory.value === 'all'
-                      ? '/articles'
-                      : `/categories/${activeCategory.value}`
-                  localeRoute.push(target)
+                  if (activeCategory.value === 'all') {
+                    localeRoute.push({ name: 'all-articles' })
+                  } else {
+                    const cat = store.categories.find((c) => c.id === activeCategory.value)
+                    localeRoute.push({
+                      name: 'category',
+                      params: { slug: cat?.slug || cat?.id || '' },
+                    })
+                  }
                 }}
                 class="px-8 py-3 rounded-xl text-base font-bold text-text-inverse bg-primary hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20 cursor-pointer"
               >

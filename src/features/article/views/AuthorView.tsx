@@ -32,7 +32,7 @@ export default defineComponent({
       async (slug) => {
         if (slug) {
           author.value = (await ArticleService.getAuthor(slug as string)) || null
-          authorArticles.value = store.findArticlesByAuthor(slug as string)
+          authorArticles.value = store.findArticlesByAuthor(author.value?.id || '')
         }
       },
       { immediate: true },

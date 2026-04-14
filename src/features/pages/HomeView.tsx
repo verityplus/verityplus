@@ -84,7 +84,7 @@ export default defineComponent({
                   <div class="space-y-5">
                     {store.popular.map((item, index) => (
                       <router-link
-                        to={{ name: 'read', params: { id: item.id } }}
+                        to={{ name: 'read', params: { slug: item.slug || item.id } }}
                         key={item.id}
                         class="flex gap-4 group"
                       >

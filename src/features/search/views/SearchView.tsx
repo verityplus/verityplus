@@ -114,7 +114,7 @@ export default defineComponent({
               {!isLoading.value && !error.value && results.value.map((article: Article) => (
                 <article key={article.id} class="group">
                   <RouterLink
-                    to={{ name: 'read', params: { id: article.id } }}
+                    to={{ name: 'read', params: { slug: article.slug || article.id } }}
                     class="flex flex-col md:flex-row gap-6 p-4 rounded-xl hover:bg-surface-hover transition duration-300 border border-transparent hover:border-border"
                   >
                     <div class="w-full md:w-64 h-44 shrink-0 overflow-hidden rounded-lg bg-surface-muted">
@@ -129,7 +129,7 @@ export default defineComponent({
                     <div class="flex flex-col justify-center flex-1">
                       <div class="flex items-center gap-3 mb-2 text-sm">
                         <RouterLink
-                          to={{ name: 'category', params: { id: article.category?.id || '' } }}
+                          to={{ name: 'category', params: { slug: article.category?.slug || article.category?.id || '' } }}
                           class="no-underline"
                           onClick={(e) => e.stopPropagation()}
                         >
@@ -177,7 +177,7 @@ export default defineComponent({
                       class="flex items-center p-3 rounded-lg hover:bg-surface-hover transition group"
                     >
                       <RouterLink
-                        to={{ name: 'category', params: { id: catInfo.id } }}
+                        to={{ name: 'category', params: { slug: catInfo.slug || catInfo.id } }}
                         class="no-underline w-full flex items-center"
                       >
                         <span class="text-text-secondary font-medium group-hover:text-primary transition">
