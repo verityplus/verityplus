@@ -8,32 +8,27 @@ export const AIService = {
   async translate(text: string, targetLang: 'en' | 'zh' | 'id') {
     const { data, error } = await apiClient.POST('/api/v1/ai/translate', {
       body: { text, targetLang },
-    } as any)
+    })
 
     if (error) throw error
-    return data as { translated: string }
+    return data
   },
 
   async generateExcerpt(content: string) {
     const { data, error } = await apiClient.POST('/api/v1/ai/excerpt', {
       body: { content },
-    } as any)
+    })
 
     if (error) throw error
-    return data as { excerpt: string }
+    return data
   },
 
   async draft(topic: string) {
     const { data, error } = await apiClient.POST('/api/v1/ai/draft', {
       body: { topic },
-    } as any)
+    })
 
     if (error) throw error
-    return data as {
-      title: string
-      content: string
-      excerpt: string
-      tags: string
-    }
+    return data
   },
 }

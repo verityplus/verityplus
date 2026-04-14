@@ -39,7 +39,6 @@ export interface paths {
                         "application/json": {
                             token: string;
                             user: {
-                                /** Format: uuid */
                                 id: string;
                                 username: string;
                                 /** Format: email */
@@ -93,8 +92,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             username: string;
                             /** Format: email */
                             email: string;
@@ -143,8 +141,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             username: string;
                             /** Format: email */
                             email: string;
@@ -221,8 +218,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             username: string;
                             /** Format: email */
                             email: string;
@@ -356,7 +352,6 @@ export interface paths {
                     content: {
                         "application/json": {
                             items: {
-                                /** Format: uuid */
                                 id: string;
                                 titleId: string;
                                 titleEn: string;
@@ -371,26 +366,22 @@ export interface paths {
                                 coverImageCaptionId?: string | null;
                                 coverImageCaptionEn?: string | null;
                                 coverImageCaptionZh?: string | null;
-                                /** Format: uuid */
                                 categoryId: string;
-                                /** Format: uuid */
                                 authorId: string;
                                 tagsId?: string | null;
                                 tagsEn?: string | null;
                                 tagsZh?: string | null;
-                                publishedAt: unknown;
+                                publishedAt: string;
                                 readTimeMinutes?: number | null;
                                 status: string;
                                 category?: {
-                                    /** Format: uuid */
-                                    id: string;
+                                        id: string;
                                     nameId: string;
                                     nameEn: string;
                                     nameZh: string;
                                 };
                                 author?: {
-                                    /** Format: uuid */
-                                    id: string;
+                                        id: string;
                                     name: string;
                                     avatar: string;
                                     bioId: string;
@@ -446,9 +437,7 @@ export interface paths {
                         coverImageCaptionId?: string;
                         coverImageCaptionEn?: string;
                         coverImageCaptionZh?: string;
-                        /** Format: uuid */
                         categoryId: string;
-                        /** Format: uuid */
                         authorId: string;
                         tagsId?: string;
                         tagsEn?: string;
@@ -471,8 +460,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             titleId: string;
                             titleEn: string;
                             titleZh: string;
@@ -486,10 +474,8 @@ export interface paths {
                             coverImageCaptionId?: string | null;
                             coverImageCaptionEn?: string | null;
                             coverImageCaptionZh?: string | null;
-                            /** Format: uuid */
-                            categoryId: string;
-                            /** Format: uuid */
-                            authorId: string;
+                                categoryId: string;
+                                authorId: string;
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
@@ -497,14 +483,12 @@ export interface paths {
                             readTimeMinutes?: number | null;
                             status: string;
                             category?: {
-                                /** Format: uuid */
                                 id: string;
                                 nameId: string;
                                 nameEn: string;
                                 nameZh: string;
                             };
                             author?: {
-                                /** Format: uuid */
                                 id: string;
                                 name: string;
                                 avatar: string;
@@ -576,8 +560,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             titleId: string;
                             titleEn: string;
                             titleZh: string;
@@ -591,10 +574,8 @@ export interface paths {
                             coverImageCaptionId?: string | null;
                             coverImageCaptionEn?: string | null;
                             coverImageCaptionZh?: string | null;
-                            /** Format: uuid */
-                            categoryId: string;
-                            /** Format: uuid */
-                            authorId: string;
+                                categoryId: string;
+                                authorId: string;
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
@@ -602,14 +583,12 @@ export interface paths {
                             readTimeMinutes?: number | null;
                             status: string;
                             category?: {
-                                /** Format: uuid */
                                 id: string;
                                 nameId: string;
                                 nameEn: string;
                                 nameZh: string;
                             };
                             author?: {
-                                /** Format: uuid */
                                 id: string;
                                 name: string;
                                 avatar: string;
@@ -665,9 +644,7 @@ export interface paths {
                         coverImageCaptionId?: string;
                         coverImageCaptionEn?: string;
                         coverImageCaptionZh?: string;
-                        /** Format: uuid */
                         categoryId?: string;
-                        /** Format: uuid */
                         authorId?: string;
                         tagsId?: string;
                         tagsEn?: string;
@@ -690,8 +667,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             titleId: string;
                             titleEn: string;
                             titleZh: string;
@@ -705,10 +681,8 @@ export interface paths {
                             coverImageCaptionId?: string | null;
                             coverImageCaptionEn?: string | null;
                             coverImageCaptionZh?: string | null;
-                            /** Format: uuid */
-                            categoryId: string;
-                            /** Format: uuid */
-                            authorId: string;
+                                categoryId: string;
+                                authorId: string;
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
@@ -716,14 +690,12 @@ export interface paths {
                             readTimeMinutes?: number | null;
                             status: string;
                             category?: {
-                                /** Format: uuid */
                                 id: string;
                                 nameId: string;
                                 nameEn: string;
                                 nameZh: string;
                             };
                             author?: {
-                                /** Format: uuid */
                                 id: string;
                                 name: string;
                                 avatar: string;
@@ -855,8 +827,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             nameId: string;
                             nameEn: string;
                             nameZh: string;
@@ -903,8 +874,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             nameId: string;
                             nameEn: string;
                             nameZh: string;
@@ -970,8 +940,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             nameId: string;
                             nameEn: string;
                             nameZh: string;
@@ -1019,8 +988,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             nameId: string;
                             nameEn: string;
                             nameZh: string;
@@ -1146,8 +1114,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             name: string;
                             avatar: string;
                             bioId: string;
@@ -1200,8 +1167,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             name: string;
                             avatar: string;
                             bioId: string;
@@ -1270,8 +1236,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             name: string;
                             avatar: string;
                             bioId: string;
@@ -1325,8 +1290,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: uuid */
-                            id: string;
+                                id: string;
                             name: string;
                             avatar: string;
                             bioId: string;
@@ -1664,6 +1628,70 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+    };
+    "/api/v1/ai/translate": {
+        post: {
+            requestBody: {
+                content: {
+                    "application/json": {
+                        text: string;
+                        targetLang: "en" | "zh" | "id";
+                    };
+                };
+            };
+            responses: {
+                200: {
+                    content: {
+                        "application/json": {
+                            translated: string;
+                        };
+                    };
+                };
+            };
+        };
+    };
+    "/api/v1/ai/excerpt": {
+        post: {
+            requestBody: {
+                content: {
+                    "application/json": {
+                        content: string;
+                    };
+                };
+            };
+            responses: {
+                200: {
+                    content: {
+                        "application/json": {
+                            excerpt: string;
+                        };
+                    };
+                };
+            };
+        };
+    };
+    "/api/v1/ai/draft": {
+        post: {
+            requestBody: {
+                content: {
+                    "application/json": {
+                        topic: string;
+                    };
+                };
+            };
+            responses: {
+                200: {
+                    content: {
+                        "application/json": {
+                            title: string;
+                            content: string;
+                            excerpt: string;
+                            tags: string;
+                        };
+                    };
+                };
+            };
+        };
     };
 }
 export type webhooks = Record<string, never>;
