@@ -42,7 +42,7 @@ export const MarkdownEditor = defineComponent({
         },
       },
       onUpdate: ({ editor }) => {
-        const storage = editor.storage as Record<string, { getMarkdown: () => string }>
+        const storage = editor.storage as unknown as Record<string, { getMarkdown: () => string }>
         if (storage.markdown) {
           emit('update:modelValue', storage.markdown.getMarkdown())
         }
@@ -55,7 +55,7 @@ export const MarkdownEditor = defineComponent({
       (value) => {
         if (!editor.value) return
 
-        const storage = editor.value.storage as Record<string, { getMarkdown: () => string }>
+        const storage = editor.value.storage as unknown as Record<string, { getMarkdown: () => string }>
         const currentMarkdown = storage.markdown?.getMarkdown()
         if (value !== currentMarkdown) {
           editor.value.commands.setContent(value)

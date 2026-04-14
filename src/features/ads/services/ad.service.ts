@@ -15,16 +15,3 @@ export const AD_SLOTS = {
   SEARCH_RESULTS: '',
 }
 
-export const AdService = {
-  getSlot(name: keyof typeof AD_SLOTS) {
-    return AD_SLOTS[name]
-  },
-  
-  /**
-   * Checks if AdSense is enabled.
-   * Now primarily checks if a Publisher ID is configured in the settings.
-   */
-  isEnabled(pubId?: string) {
-    return !!pubId && pubId !== 'ca-pub-XXXXXXXXXXXXXXXX'
-  }
-}

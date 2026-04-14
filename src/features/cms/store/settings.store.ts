@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { apiClient } from '@/shared/services/apiClient'
 
-export interface SiteSettings {
+interface SiteSettings {
   adsense_pub_id?: string
   adsense_account_id?: string
   ga_measurement_id?: string
