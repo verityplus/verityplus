@@ -5,6 +5,7 @@ import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { AD_SLOTS } from '@/features/ads/services/ad.service'
 import { useLocalizedField } from '@/composables/useLocalizedField'
 import type { Article } from '@/shared/types'
+import { calculateReadTime } from '@/utils/readTime'
 
 /**
  * BrowseTopBar: Top bar visible on all pages except Home
@@ -138,7 +139,8 @@ export const BrowseTopBar = defineComponent({
                                     {getLocalizedField(article, 'title')}
                                   </p>
                                   <p class="text-xs text-text-muted mt-0.5">
-                                    {article.author?.name} &middot; {article.readTimeMinutes}{' '}
+                                    {article.author?.name} &middot;{' '}
+                                    {calculateReadTime(getLocalizedField(article, 'content'), t('common.locale') === 'zh')}{' '}
                                     {te('common.minRead') ? t('common.minRead') : 'min read'}
                                   </p>
 
@@ -171,7 +173,8 @@ export const BrowseTopBar = defineComponent({
                                     {getLocalizedField(article, 'title')}
                                   </p>
                                   <p class="text-xs text-text-muted mt-0.5">
-                                    {article.author?.name} &middot; {article.readTimeMinutes}{' '}
+                                    {article.author?.name} &middot;{' '}
+                                    {calculateReadTime(getLocalizedField(article, 'content'), t('common.locale') === 'zh')}{' '}
                                     {te('common.minRead') ? t('common.minRead') : 'min read'}
                                   </p>
 
@@ -204,7 +207,8 @@ export const BrowseTopBar = defineComponent({
                                     {getLocalizedField(article, 'title')}
                                   </p>
                                   <p class="text-xs text-text-muted mt-0.5">
-                                    {article.author?.name} &middot; {article.readTimeMinutes}{' '}
+                                    {article.author?.name} &middot;{' '}
+                                    {calculateReadTime(getLocalizedField(article, 'content'), t('common.locale') === 'zh')}{' '}
                                     {te('common.minRead') ? t('common.minRead') : 'min read'}
                                   </p>
 

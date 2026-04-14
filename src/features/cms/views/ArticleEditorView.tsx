@@ -56,7 +56,7 @@ export default defineComponent({
       tagsId: string[]
       tagsEn: string[]
       tagsZh: string[]
-      publishedAt: string
+      publishedAt: string | null
       status: ArticleStatus
       slug: string
       excerptId?: string
@@ -81,7 +81,7 @@ export default defineComponent({
       tagsId: [],
       tagsEn: [],
       tagsZh: [],
-      publishedAt: new Date().toISOString(),
+      publishedAt: null,
       status: 'draft' as ArticleStatus,
       slug: '',
     })
@@ -300,7 +300,7 @@ export default defineComponent({
         coverImageCaptionId: form.value.coverImageCaptionId as string,
         coverImageCaptionEn: form.value.coverImageCaptionEn as string,
         coverImageCaptionZh: form.value.coverImageCaptionZh as string,
-        publishedAt: form.value.publishedAt as string,
+        publishedAt: form.value.publishedAt,
         categoryId: form.value.category!.id,
         authorId: form.value.author!.id,
         status: form.value.status,

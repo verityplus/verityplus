@@ -463,12 +463,8 @@ export interface paths {
                                 tagsId?: string | null;
                                 tagsEn?: string | null;
                                 tagsZh?: string | null;
-                                /**
-                                 * Format: date-time
-                                 * @description ISO-8601 date string
-                                 */
-                                publishedAt: string;
-                                readTimeMinutes?: number | null;
+                                /** @description ISO-8601 date string */
+                                publishedAt: string | null;
                                 status: string;
                                 slug?: string | null;
                                 category?: {
@@ -541,8 +537,7 @@ export interface paths {
                         tagsId?: string;
                         tagsEn?: string;
                         tagsZh?: string;
-                        publishedAt: string;
-                        readTimeMinutes?: number;
+                        publishedAt?: string | null;
                         /**
                          * @default draft
                          * @enum {string}
@@ -579,12 +574,8 @@ export interface paths {
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
-                            /**
-                             * Format: date-time
-                             * @description ISO-8601 date string
-                             */
-                            publishedAt: string;
-                            readTimeMinutes?: number | null;
+                            /** @description ISO-8601 date string */
+                            publishedAt: string | null;
                             status: string;
                             slug?: string | null;
                             category?: {
@@ -686,12 +677,8 @@ export interface paths {
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
-                            /**
-                             * Format: date-time
-                             * @description ISO-8601 date string
-                             */
-                            publishedAt: string;
-                            readTimeMinutes?: number | null;
+                            /** @description ISO-8601 date string */
+                            publishedAt: string | null;
                             status: string;
                             slug?: string | null;
                             category?: {
@@ -763,8 +750,7 @@ export interface paths {
                         tagsId?: string;
                         tagsEn?: string;
                         tagsZh?: string;
-                        publishedAt?: string;
-                        readTimeMinutes?: number;
+                        publishedAt?: string | null;
                         /**
                          * @default draft
                          * @enum {string}
@@ -801,12 +787,8 @@ export interface paths {
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
-                            /**
-                             * Format: date-time
-                             * @description ISO-8601 date string
-                             */
-                            publishedAt: string;
-                            readTimeMinutes?: number | null;
+                            /** @description ISO-8601 date string */
+                            publishedAt: string | null;
                             status: string;
                             slug?: string | null;
                             category?: {

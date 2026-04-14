@@ -10,6 +10,7 @@ import { InstagramEmbed } from '@/features/social/components/InstagramEmbed'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useLocaleRoute } from '@/composables/useLocaleRoute'
 import { useLocalizedField } from '@/composables/useLocalizedField'
+import { calculateReadTime } from '@/utils/readTime'
 
 /**
  * Page View: HomeView
@@ -96,7 +97,7 @@ export default defineComponent({
                             {getLocalizedField(item, 'title')}
                           </h4>
                           <span class="text-xs text-text-muted mt-1 block">
-                            {item.readTimeMinutes} {t('common.minRead')}
+                            {calculateReadTime(getLocalizedField(item, 'content'), t('common.locale') === 'zh')} {t('common.minRead')}
                           </span>
                         </div>
                       </router-link>

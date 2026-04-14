@@ -13,6 +13,7 @@ import { BaseImage } from '@/components/ui/Image'
 import { formatDate } from '@/utils/date'
 import type { Article } from '@/shared/types'
 import { StructuredData } from '@/components/seo/StructuredData'
+import { calculateReadTime } from '@/utils/readTime'
 
 
 /**
@@ -240,7 +241,10 @@ export default defineComponent({
                     )}
 
                     <span class="text-text-muted text-sm">
-                      {article.value.readTimeMinutes} {t('article.minutesRead')}
+                      {calculateReadTime(
+                        getLocalizedField(article.value, 'content'),
+                        locale.value === 'zh'
+                      )} {t('article.minutesRead')}
                     </span>
                   </div>
 
