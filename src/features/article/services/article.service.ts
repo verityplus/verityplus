@@ -29,8 +29,8 @@ export const ArticleService = {
       params: {
         query: {
           search: args.search,
-          skip: args.page && args.limit ? ((args.page - 1) * args.limit).toString() : undefined,
-          take: args.limit?.toString(),
+          page: args.page?.toString(),
+          limit: args.limit?.toString(),
           categoryId: args.categoryId,
           authorId: args.authorId,
         },

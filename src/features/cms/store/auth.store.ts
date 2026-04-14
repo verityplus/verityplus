@@ -9,7 +9,7 @@ import { appAlert } from '@/utils/dialog'
  * Refactored to use standard REST JWT-based authentication.
  */
 export const useAuthStore = defineStore('auth', () => {
-  const isAuthenticated = ref(!!localStorage.getItem('verity_token'))
+  const isAuthenticated = ref(false)
   const currentUser = ref<CMSUser | null>(null)
   const isInitialized = ref(false)
 
