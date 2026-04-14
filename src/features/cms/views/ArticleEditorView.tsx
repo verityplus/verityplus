@@ -164,7 +164,7 @@ export default defineComponent({
       if (!form.value.contentId) errs.contentId = 'Content (ID) is required'
       if (!form.value.contentEn) errs.contentEn = 'Content (EN) is required'
       if (!form.value.contentZh) errs.contentZh = 'Content (ZH) is required'
-      
+
       if (!form.value.category) errs.category = 'Category is required'
       if (!form.value.author) errs.author = 'Author is required'
       return errs
@@ -241,7 +241,7 @@ export default defineComponent({
            form.value.excerptId ? AIService.translate(form.value.excerptId, 'en') : Promise.resolve({ translated: '' }),
            form.value.tagsId.length > 0 ? AIService.translate(form.value.tagsId.join(', '), 'en') : Promise.resolve({ translated: '' })
         ])
-        
+
         form.value.titleEn = titleEn.translated
         form.value.contentEn = contentEn.translated
         form.value.excerptEn = excerptEn.translated
@@ -259,7 +259,7 @@ export default defineComponent({
         form.value.contentZh = contentZh.translated
         form.value.excerptZh = excerptZh.translated
         form.value.tagsZh = tagsZh.translated ? tagsZh.translated.split(',').map(t => t.trim()) : []
-        
+
         await appAlert('Translation completed for English and Chinese variants, including tags!', 'AI Success')
       } catch (err: unknown) {
         const message = err instanceof Error ? err.message : String(err)
@@ -486,7 +486,7 @@ export default defineComponent({
                 <div class="pt-6 border-t border-slate-50 space-y-3">
                   <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
                     <span>Article Excerpt</span>
-                    <button 
+                    <button
                        onClick={handleExcerpt}
                        disabled={isAILoading.value}
                        class="text-[9px] bg-primary/5 hover:bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded-md transition font-black flex items-center gap-1 cursor-pointer"
@@ -714,6 +714,20 @@ export default defineComponent({
                     ))}
                   </select>
                 </div>
+                {form.value.publishedAt && (
+                  <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1">
+                      <i class="bi bi-calendar-check text-[10px]"></i>
+                      Published On
+                    </label>
+                    <p class="text-[11px] font-black text-slate-800 uppercase tracking-tighter">
+                      {new Date(form.value.publishedAt).toLocaleDateString('en-US', {
+                        day: 'numeric', month: 'long', year: 'numeric',
+                        hour: '2-digit', minute: '2-digit'
+                      })}
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div class="pt-6 border-t border-slate-50 space-y-3">
