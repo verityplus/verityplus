@@ -31,4 +31,13 @@ export const AIService = {
     if (error) throw error
     return data
   },
+
+  async generateSlug(title: string) {
+    const { data, error } = await apiClient.POST('/api/v1/ai/slug', {
+      body: { title },
+    })
+
+    if (error) throw error
+    return data
+  },
 }

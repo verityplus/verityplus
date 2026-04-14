@@ -35,6 +35,7 @@ export const AppHeader = defineComponent({
                     router.push(`/${locale.value}/search`)
                   }}
                   class="flex items-center gap-2 bg-surface border border-border rounded-full hover:border-border-hover focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer"
+                  aria-label={t('common.search')}
                 >
                   <i class="bi bi-search flex items-center justify-center w-10 aspect-square text-text-muted"></i>
                 </button>

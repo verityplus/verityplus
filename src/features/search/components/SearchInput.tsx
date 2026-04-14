@@ -48,6 +48,7 @@ export const SearchInput = defineComponent({
 
           class="block w-full py-3.5 pl-12 pr-12 text-base text-text-primary bg-surface-muted border border-transparent rounded-xl outline-none transition-all duration-300 placeholder-text-muted focus:bg-surface focus:border-primary focus:ring-4 focus:ring-primary/15"
           placeholder={t('common.searchPlaceholder')}
+          aria-label={t('common.searchPlaceholder')}
         />
 
         {searchQuery.value.length > 0 && (

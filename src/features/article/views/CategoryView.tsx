@@ -42,11 +42,11 @@ export default defineComponent({
     }
 
     watch(
-      () => route.params.id,
-      (id) => {
-        if (id) {
-          category.value = store.findCategoryById(id as string) || null
-          categoryArticles.value = store.findArticlesByCategoryId(id as string)
+      () => route.params.slug,
+      async (slug) => {
+        if (slug) {
+          category.value = (await ArticleService.getCategory(slug as string)) || null
+          categoryArticles.value = store.findArticlesByCategoryId(category.value?.id || '')
         }
       },
       { immediate: true },

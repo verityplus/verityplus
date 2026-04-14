@@ -12,6 +12,7 @@ import { useLocalizedField } from '@/composables/useLocalizedField'
 import { BaseImage } from '@/components/ui/Image'
 import { formatDate } from '@/utils/date'
 import type { Article } from '@/shared/types'
+import { StructuredData } from '@/components/seo/StructuredData'
 
 
 /**
@@ -33,10 +34,10 @@ export default defineComponent({
     const recommendedArticles = ref<Article[]>([])
 
     watch(
-      () => route.params.id,
-      async (id) => {
-        if (id) {
-          const found = await store.findById(id as string)
+      () => route.params.slug,
+      async (slug) => {
+        if (slug) {
+          const found = await store.findById(slug as string)
           article.value = found || null
           if (article.value) {
             const categoryId = article.value.category?.id
@@ -59,11 +60,63 @@ export default defineComponent({
           ? `${getLocalizedField(article.value, 'title')} — VERITY+`
           : t('common.articleLoading'),
       ),
-      meta: computed(() => [
-        { name: 'description', content: getLocalizedField(article.value!, 'excerpt') || '' },
-        { property: 'og:title', content: getLocalizedField(article.value!, 'title') || '' },
-        { property: 'og:image', content: article.value?.coverImage || '' },
-      ]),
+      meta: computed(() => {
+        if (!article.value) return []
+        const title = getLocalizedField(article.value, 'title')
+        const excerpt = getLocalizedField(article.value, 'excerpt') || ''
+        const image = article.value.coverImage || ''
+        
+        let tags: string[] = []
+        try {
+          const tagsRaw = getLocalizedField(article.value, 'tags')
+          tags = tagsRaw ? JSON.parse(tagsRaw) : []
+        } catch { /* ignore */ }
+
+        return [
+          { name: 'description', content: excerpt },
+          { name: 'keywords', content: tags.join(', ') },
+          // OpenGraph
+          { property: 'og:title', content: title },
+          { property: 'og:description', content: excerpt },
+          { property: 'og:image', content: image },
+          { property: 'og:type', content: 'article' },
+          { property: 'article:published_time', content: String(article.value.publishedAt) },
+          { property: 'article:author', content: article.value.author?.name || '' },
+          ...tags.map(tag => ({ property: 'article:tag', content: tag })),
+          // Twitter
+          { name: 'twitter:card', content: 'summary_large_image' },
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: excerpt },
+          { name: 'twitter:image', content: image },
+        ]
+      }),
+      link: computed(() => [
+        { rel: 'canonical', href: window.location.href }
+      ])
+    })
+
+    const structuredData = computed(() => {
+      if (!article.value) return null
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: getLocalizedField(article.value, 'title'),
+        description: getLocalizedField(article.value, 'excerpt'),
+        image: article.value.coverImage,
+        datePublished: article.value.publishedAt,
+        author: {
+          '@type': 'Person',
+          name: article.value.author?.name,
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'VERITY+',
+          logo: {
+            '@type': 'ImageObject',
+            url: window.location.origin + '/logo.png',
+          },
+        },
+      }
     })
 
     const outputHtml = computed(() => {
@@ -113,6 +166,7 @@ export default defineComponent({
 
       return (
         <article class="bg-background min-h-screen">
+          {structuredData.value && <StructuredData data={structuredData.value} />}
           <div class="fixed top-28 left-0 w-full h-2 bg-border/20 z-10">
             <div
               class="h-full bg-primary transition-all duration-150"
@@ -141,6 +195,7 @@ export default defineComponent({
                 }}
                 class="w-10 h-10 rounded-full hover:bg-surface-hover font-bold text-text-secondary text-lg cursor-pointer transition border-none"
                 title={t('common.fontSizeIncrease')}
+                aria-label={t('common.fontSizeIncrease')}
               >
                 A+
               </button>
@@ -150,6 +205,7 @@ export default defineComponent({
                 }}
                 class="w-10 h-10 rounded-full hover:bg-surface-hover font-bold text-text-secondary text-sm cursor-pointer transition border-none"
                 title={t('common.fontSizeDecrease')}
+                aria-label={t('common.fontSizeDecrease')}
               >
                 A-
               </button>
@@ -168,13 +224,13 @@ export default defineComponent({
               </div>
             </aside>
 
-            <main class="flex-1 w-full max-w-4xl mx-auto order-2">
+            <main id="main-content" class="flex-1 w-full max-w-4xl mx-auto order-2">
               <header class="pb-10 mb-10 border-b border-border">
                 <div class="max-w-3xl mx-auto text-center">
                   <div class="flex items-center justify-center gap-3 mb-6">
                     {article.value.category && (
                       <RouterLink
-                        to={{ name: 'category', params: { id: article.value.category.id } }}
+                        to={{ name: 'category', params: { slug: article.value.category.slug || article.value.category.id } }}
                         class="no-underline"
                       >
                         <BaseBadge>
@@ -194,7 +250,7 @@ export default defineComponent({
 
                   {article.value.author && (
                     <RouterLink
-                      to={{ name: 'author', params: { id: article.value.author.id } }}
+                      to={{ name: 'author', params: { slug: article.value.author.slug || article.value.author.id } }}
                       class="flex items-center justify-center gap-4 pt-4 max-w-sm mx-auto group/author hover:opacity-80 transition"
                     >
                       <BaseImage

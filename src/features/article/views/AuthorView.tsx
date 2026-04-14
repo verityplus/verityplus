@@ -27,11 +27,11 @@ export default defineComponent({
     const authorArticles = ref<Article[]>([])
 
     watch(
-      () => route.params.id,
-      (id) => {
-        if (id) {
-          author.value = store.findAuthorById(id as string) || null
-          authorArticles.value = store.findArticlesByAuthor(id as string)
+      () => route.params.slug,
+      async (slug) => {
+        if (slug) {
+          author.value = (await ArticleService.getAuthor(slug as string)) || null
+          authorArticles.value = store.findArticlesByAuthor(slug as string)
         }
       },
       { immediate: true },

@@ -1,5 +1,6 @@
 import { defineComponent, ref, computed, watchEffect, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { nanoid } from 'nanoid'
 import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
@@ -57,6 +58,7 @@ export default defineComponent({
       tagsZh: string[]
       publishedAt: string
       status: ArticleStatus
+      slug: string
     }
 
     const form = ref<EditorForm>({
@@ -78,6 +80,7 @@ export default defineComponent({
       tagsZh: [],
       publishedAt: new Date().toISOString(),
       status: 'draft' as ArticleStatus,
+      slug: '',
     })
 
 
@@ -200,6 +203,23 @@ export default defineComponent({
       }
     }
 
+    const handleGenerateSlug = async () => {
+      if (!form.value.titleId) {
+        await appAlert('Please enter a title first.', 'Notice')
+        return
+      }
+      isAILoading.value = true
+      try {
+        const { slug } = await AIService.generateSlug(form.value.titleId as string)
+        form.value.slug = `${slug}-${nanoid(6)}`
+      } catch (err: any) {
+        console.error('Failed to generate slug:', err)
+        form.value.slug = `${(form.value.titleId as string).toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${nanoid(6)}`
+      } finally {
+        isAILoading.value = false
+      }
+    }
+
     const handleTranslateAll = async () => {
       if (!form.value.titleId || !form.value.contentId) {
         await appAlert('Please ensure Indonesian title and content are filled first.', 'Notice')
@@ -280,6 +300,7 @@ export default defineComponent({
         tagsId: JSON.stringify(form.value.tagsId),
         tagsEn: JSON.stringify(form.value.tagsEn),
         tagsZh: JSON.stringify(form.value.tagsZh),
+        slug: form.value.slug || undefined,
       }
 
       try {
@@ -645,6 +666,33 @@ export default defineComponent({
               </div>
 
               <div class="space-y-4">
+                <div class="space-y-2">
+                  <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex justify-between items-center">
+                    <span>SEO Slug</span>
+                    <button
+                      onClick={handleGenerateSlug}
+                      disabled={isAILoading.value}
+                      class="text-[9px] bg-primary/5 hover:bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded-md transition font-black flex items-center gap-1 cursor-pointer"
+                    >
+                      {isAILoading.value ? (
+                        <div class="w-3 h-3 border border-primary border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <><i class="bi bi-cpu"></i> AI GEN</>
+                      )}
+                    </button>
+                  </label>
+                  <input
+                    value={form.value.slug}
+                    onInput={(e) => {
+                      form.value.slug = (e.target as HTMLInputElement).value
+                    }}
+                    type="text"
+                    placeholder="article-url-slug"
+                    class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs font-black text-slate-700 outline-none focus:bg-white transition"
+                  />
+                  <p class="text-[9px] text-slate-400 italic font-bold">Recommended: Unique kebab-case string.</p>
+                </div>
+
                 <div class="space-y-2">
                   <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
                     Publication Status

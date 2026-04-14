@@ -1,5 +1,6 @@
 import { defineComponent, ref, watchEffect, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { nanoid } from 'nanoid'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
 import type { Author } from '@/shared/types'
@@ -48,6 +49,7 @@ export default defineComponent({
       bioId: '',
       bioEn: '',
       bioZh: '',
+      slug: '',
     })
 
     const loadData = () => {
@@ -76,6 +78,23 @@ export default defineComponent({
         form.value.bioZh = zh.translated
       } catch (err: any) {
         console.error('Auto-translate failed:', err)
+      } finally {
+        isAILoading.value = false
+      }
+    }
+
+    const handleGenerateSlug = async () => {
+      if (!form.value.name) {
+        await appAlert('Please enter a name first.', 'Notice')
+        return
+      }
+      isAILoading.value = true
+      try {
+        const { slug } = await AIService.generateSlug(form.value.name)
+        form.value.slug = `${slug}-${nanoid(6)}`
+      } catch (err: any) {
+        console.error('Failed to generate slug:', err)
+        form.value.slug = `${(form.value.name as string).toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${nanoid(6)}`
       } finally {
         isAILoading.value = false
       }
@@ -187,6 +206,32 @@ export default defineComponent({
                   type="text"
                   placeholder="e.g. John Doe"
                   class="w-full text-2xl font-black p-3 bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 rounded-xl outline-none text-slate-900 transition"
+                />
+              </div>
+
+              <div class="space-y-2 pt-6 border-t border-slate-50">
+                <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
+                  <span>SEO Slug</span>
+                  <button
+                    onClick={handleGenerateSlug}
+                    disabled={isAILoading.value}
+                    class="text-[9px] bg-primary/5 hover:bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded-md transition font-black flex items-center gap-1 cursor-pointer"
+                  >
+                    {isAILoading.value ? (
+                      <div class="w-2 h-2 border border-primary border-t-transparent rounded-full animate-spin"></div>
+                    ) : (
+                      <><i class="bi bi-cpu"></i> AI GEN</>
+                    )}
+                  </button>
+                </label>
+                <input
+                  value={form.value.slug}
+                  onInput={(e) => {
+                    form.value.slug = (e.target as HTMLInputElement).value
+                  }}
+                  type="text"
+                  placeholder="author-url-slug"
+                  class="w-full text-base font-black p-3 rounded-xl outline-none transition bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 text-slate-900"
                 />
               </div>
 

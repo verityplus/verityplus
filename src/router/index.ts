@@ -68,17 +68,17 @@ const router = createRouter({
           component: () => import('../features/search/views/SearchView'),
         },
         {
-          path: 'read/:id',
+          path: 'read/:slug',
           name: 'read',
           component: () => import('../features/article/views/ReadView'),
         },
         {
-          path: 'author/:id',
+          path: 'author/:slug',
           name: 'author',
           component: () => import('../features/article/views/AuthorView'),
         },
         {
-          path: 'categories/:id',
+          path: 'categories/:slug',
           name: 'category',
           component: () => import('../features/article/views/CategoryView'),
         },

@@ -28,6 +28,7 @@
     "@unhead/vue": "^2.1.13",
     "bootstrap-icons": "^1.13.1",
     "marked": "^18.0.0",
+    "nanoid": "^5.1.7",
     "openapi-fetch": "^0.17.0",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.2.2",

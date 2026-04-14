@@ -92,7 +92,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             username: string;
                             /** Format: email */
                             email: string;
@@ -141,7 +141,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             username: string;
                             /** Format: email */
                             email: string;
@@ -218,7 +218,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             username: string;
                             /** Format: email */
                             email: string;
@@ -371,23 +371,26 @@ export interface paths {
                                 tagsId?: string | null;
                                 tagsEn?: string | null;
                                 tagsZh?: string | null;
-                                publishedAt: string;
+                                publishedAt: unknown;
                                 readTimeMinutes?: number | null;
                                 status: string;
+                                slug?: string | null;
                                 category?: {
-                                        id: string;
+                                    id: string;
                                     nameId: string;
                                     nameEn: string;
                                     nameZh: string;
+                                    slug?: string | null;
                                 };
                                 author?: {
-                                        id: string;
+                                    id: string;
                                     name: string;
                                     avatar: string;
                                     bioId: string;
                                     bioEn: string;
                                     bioZh: string;
                                     role?: string | null;
+                                    slug?: string | null;
                                 };
                             }[];
                             total: number;
@@ -460,7 +463,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             titleId: string;
                             titleEn: string;
                             titleZh: string;
@@ -474,19 +477,21 @@ export interface paths {
                             coverImageCaptionId?: string | null;
                             coverImageCaptionEn?: string | null;
                             coverImageCaptionZh?: string | null;
-                                categoryId: string;
-                                authorId: string;
+                            categoryId: string;
+                            authorId: string;
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
                             publishedAt: unknown;
                             readTimeMinutes?: number | null;
                             status: string;
+                            slug?: string | null;
                             category?: {
                                 id: string;
                                 nameId: string;
                                 nameEn: string;
                                 nameZh: string;
+                                slug?: string | null;
                             };
                             author?: {
                                 id: string;
@@ -496,6 +501,7 @@ export interface paths {
                                 bioEn: string;
                                 bioZh: string;
                                 role?: string | null;
+                                slug?: string | null;
                             };
                         };
                     };
@@ -560,7 +566,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             titleId: string;
                             titleEn: string;
                             titleZh: string;
@@ -574,19 +580,21 @@ export interface paths {
                             coverImageCaptionId?: string | null;
                             coverImageCaptionEn?: string | null;
                             coverImageCaptionZh?: string | null;
-                                categoryId: string;
-                                authorId: string;
+                            categoryId: string;
+                            authorId: string;
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
                             publishedAt: unknown;
                             readTimeMinutes?: number | null;
                             status: string;
+                            slug?: string | null;
                             category?: {
                                 id: string;
                                 nameId: string;
                                 nameEn: string;
                                 nameZh: string;
+                                slug?: string | null;
                             };
                             author?: {
                                 id: string;
@@ -596,6 +604,7 @@ export interface paths {
                                 bioEn: string;
                                 bioZh: string;
                                 role?: string | null;
+                                slug?: string | null;
                             };
                         };
                     };
@@ -667,7 +676,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             titleId: string;
                             titleEn: string;
                             titleZh: string;
@@ -681,19 +690,21 @@ export interface paths {
                             coverImageCaptionId?: string | null;
                             coverImageCaptionEn?: string | null;
                             coverImageCaptionZh?: string | null;
-                                categoryId: string;
-                                authorId: string;
+                            categoryId: string;
+                            authorId: string;
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
                             publishedAt: unknown;
                             readTimeMinutes?: number | null;
                             status: string;
+                            slug?: string | null;
                             category?: {
                                 id: string;
                                 nameId: string;
                                 nameEn: string;
                                 nameZh: string;
+                                slug?: string | null;
                             };
                             author?: {
                                 id: string;
@@ -703,6 +714,7 @@ export interface paths {
                                 bioEn: string;
                                 bioZh: string;
                                 role?: string | null;
+                                slug?: string | null;
                             };
                         };
                     };
@@ -827,10 +839,11 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             nameId: string;
                             nameEn: string;
                             nameZh: string;
+                            slug?: string | null;
                         }[];
                     };
                 };
@@ -874,10 +887,11 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             nameId: string;
                             nameEn: string;
                             nameZh: string;
+                            slug?: string | null;
                         };
                     };
                 };
@@ -940,10 +954,11 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             nameId: string;
                             nameEn: string;
                             nameZh: string;
+                            slug?: string | null;
                         };
                     };
                 };
@@ -988,10 +1003,11 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             nameId: string;
                             nameEn: string;
                             nameZh: string;
+                            slug?: string | null;
                         };
                     };
                 };
@@ -1114,13 +1130,14 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             name: string;
                             avatar: string;
                             bioId: string;
                             bioEn: string;
                             bioZh: string;
                             role?: string | null;
+                            slug?: string | null;
                         }[];
                     };
                 };
@@ -1167,13 +1184,14 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             name: string;
                             avatar: string;
                             bioId: string;
                             bioEn: string;
                             bioZh: string;
                             role?: string | null;
+                            slug?: string | null;
                         };
                     };
                 };
@@ -1236,13 +1254,14 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             name: string;
                             avatar: string;
                             bioId: string;
                             bioEn: string;
                             bioZh: string;
                             role?: string | null;
+                            slug?: string | null;
                         };
                     };
                 };
@@ -1290,13 +1309,14 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                                id: string;
+                            id: string;
                             name: string;
                             avatar: string;
                             bioId: string;
                             bioEn: string;
                             bioZh: string;
                             role?: string | null;
+                            slug?: string | null;
                         };
                     };
                 };
@@ -1591,6 +1611,357 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/ai/translate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Translate text to a target language */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        text: string;
+                        /** @enum {string} */
+                        targetLang: "en" | "zh" | "id";
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            translated: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/ai/excerpt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Generate an excerpt from content */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        content: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            excerpt: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/ai/draft": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Auto-generate a full article draft from a topic */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        topic: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            title: string;
+                            content: string;
+                            excerpt: string;
+                            tags: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/ai/slug": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Auto-generate a clean SEO slug from a title */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        title: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            slug: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/robots.txt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/sitemap.xml": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -1628,70 +1999,6 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
-    };
-    "/api/v1/ai/translate": {
-        post: {
-            requestBody: {
-                content: {
-                    "application/json": {
-                        text: string;
-                        targetLang: "en" | "zh" | "id";
-                    };
-                };
-            };
-            responses: {
-                200: {
-                    content: {
-                        "application/json": {
-                            translated: string;
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "/api/v1/ai/excerpt": {
-        post: {
-            requestBody: {
-                content: {
-                    "application/json": {
-                        content: string;
-                    };
-                };
-            };
-            responses: {
-                200: {
-                    content: {
-                        "application/json": {
-                            excerpt: string;
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "/api/v1/ai/draft": {
-        post: {
-            requestBody: {
-                content: {
-                    "application/json": {
-                        topic: string;
-                    };
-                };
-            };
-            responses: {
-                200: {
-                    content: {
-                        "application/json": {
-                            title: string;
-                            content: string;
-                            excerpt: string;
-                            tags: string;
-                        };
-                    };
-                };
-            };
-        };
     };
 }
 export type webhooks = Record<string, never>;
