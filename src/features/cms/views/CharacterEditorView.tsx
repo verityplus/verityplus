@@ -76,7 +76,7 @@ export default defineComponent({
         ])
         form.value.bioEn = en.translated
         form.value.bioZh = zh.translated
-      } catch (err: any) {
+      } catch (err) {
         console.error('Auto-translate failed:', err)
       } finally {
         isAILoading.value = false
@@ -92,7 +92,7 @@ export default defineComponent({
       try {
         const { slug } = await AIService.generateSlug(form.value.name)
         form.value.slug = `${slug}-${nanoid(6)}`
-      } catch (err: any) {
+      } catch (err) {
         console.error('Failed to generate slug:', err)
         form.value.slug = `${(form.value.name as string).toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${nanoid(6)}`
       } finally {
@@ -296,9 +296,9 @@ export default defineComponent({
                     </span>
                   </label>
                   <textarea
-                    value={(form.value as any)[`bio${activeLangSuffix.value}`]}
+                    value={form.value[(`bio${activeLangSuffix.value}` as keyof Author) as keyof Author]}
                     onInput={(e) => {
-                      ;(form.value as any)[`bio${activeLangSuffix.value}`] = (
+                      ;(form.value[(`bio${activeLangSuffix.value}` as keyof Author) as keyof Author] as string) = (
                         e.target as HTMLTextAreaElement
                       ).value
                     }}

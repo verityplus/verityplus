@@ -131,7 +131,7 @@ export default defineComponent({
 
     const getCurrentTags = () => {
       const suffix = activeLangSuffix.value as 'Id' | 'En' | 'Zh'
-      return (form.value as any)[`tags${suffix}`] as string[]
+      return form.value[`tags${suffix}` as keyof EditorForm] as string[]
     }
 
     const addTag = () => {
@@ -182,15 +182,16 @@ export default defineComponent({
         form.value.excerptId = result.excerpt
         form.value.tagsId = result.tags.split(',').map(t => t.trim())
         currentStep.value = 0
-      } catch (err: any) {
-        await appAlert(`Failed to generate draft: ${err.message}`, 'AI Error')
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : String(err)
+        await appAlert(`Failed to generate draft: ${message}`, 'AI Error')
       } finally {
         isAILoading.value = false
       }
     }
 
     const handleExcerpt = async () => {
-      const content = (form.value as any)[`content${activeLangSuffix.value}`]
+      const content = form.value[`content${activeLangSuffix.value}` as keyof EditorForm] as string
       if (!content) {
         await appAlert('Please write some content first.', 'Notice')
         return
@@ -199,9 +200,10 @@ export default defineComponent({
       isAILoading.value = true
       try {
         const { excerpt } = await AIService.generateExcerpt(content)
-        ;(form.value as any)[`excerpt${activeLangSuffix.value}`] = excerpt
-      } catch (err: any) {
-        await appAlert(`Failed to generate excerpt: ${err.message}`, 'AI Error')
+        ;(form.value[`excerpt${activeLangSuffix.value}` as keyof EditorForm] as string) = excerpt
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : String(err)
+        await appAlert(`Failed to generate excerpt: ${message}`, 'AI Error')
       } finally {
         isAILoading.value = false
       }
@@ -216,7 +218,7 @@ export default defineComponent({
       try {
         const { slug } = await AIService.generateSlug(form.value.titleId as string)
         form.value.slug = `${slug}-${nanoid(6)}`
-      } catch (err: any) {
+      } catch (err) {
         console.error('Failed to generate slug:', err)
         form.value.slug = `${(form.value.titleId as string).toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${nanoid(6)}`
       } finally {
@@ -259,8 +261,9 @@ export default defineComponent({
         form.value.tagsZh = tagsZh.translated ? tagsZh.translated.split(',').map(t => t.trim()) : []
         
         await appAlert('Translation completed for English and Chinese variants, including tags!', 'AI Success')
-      } catch (err: any) {
-        await appAlert(`Failed to translate: ${err.message}`, 'AI Error')
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : String(err)
+        await appAlert(`Failed to translate: ${message}`, 'AI Error')
       } finally {
         isAILoading.value = false
       }
@@ -432,11 +435,11 @@ export default defineComponent({
                     </span>
                   </label>
                     <input
-                      value={(form.value as any)[`title${activeLangSuffix.value}`]}
+                      value={form.value[`title${activeLangSuffix.value}` as keyof EditorForm] as string}
                       onInput={(e) => {
                         const val = (e.target as HTMLInputElement).value
-                        ;(form.value as any)[`title${activeLangSuffix.value}`] =
-                          val
+                        const key = `title${activeLangSuffix.value}` as keyof EditorForm
+                        ;(form.value[key] as string) = val
                       }}
                       onBlur={() => {
                         markTouched(`title${activeLangSuffix.value}`)
@@ -471,11 +474,10 @@ export default defineComponent({
                   </label>
                   <MarkdownEditor
                     modelValue={
-                      (form.value as any)[`content${activeLangSuffix.value}`]
+                      form.value[`content${activeLangSuffix.value}` as keyof EditorForm] as string
                     }
                     onUpdate:modelValue={(val) => {
-                      ;(form.value as any)[`content${activeLangSuffix.value}`] =
-                        val
+                      ;(form.value[`content${activeLangSuffix.value}` as keyof EditorForm] as string) = val
                     }}
                     disabled={isFieldReadOnly.value}
                   />
@@ -497,9 +499,10 @@ export default defineComponent({
                     </button>
                   </label>
                   <textarea
-                    value={(form.value as any)[`excerpt${activeLangSuffix.value}`]}
+                    value={form.value[`excerpt${activeLangSuffix.value}` as keyof EditorForm] as string}
                     onInput={(e) => {
-                      ;(form.value as any)[`excerpt${activeLangSuffix.value}`] = (e.target as HTMLTextAreaElement).value
+                      const key = `excerpt${activeLangSuffix.value}` as keyof EditorForm
+                      ;(form.value[key] as string) = (e.target as HTMLTextAreaElement).value
                     }}
                     onBlur={() => {
                         if (currentStep.value === 0) triggerAutoTranslateAtOnce()
@@ -644,14 +647,13 @@ export default defineComponent({
                   </label>
                   <input
                     value={
-                      (form.value as any)[
-                        `coverImageCaption${activeLangSuffix.value}`
-                      ]
+                      form.value[
+                        `coverImageCaption${activeLangSuffix.value}` as keyof EditorForm
+                      ] as string
                     }
                     onInput={(e) => {
-                      ;(form.value as any)[
-                        `coverImageCaption${activeLangSuffix.value}`
-                      ] = (e.target as HTMLInputElement).value
+                      const key = `coverImageCaption${activeLangSuffix.value}` as keyof EditorForm
+                      ;(form.value[key] as string) = (e.target as HTMLInputElement).value
                     }}
                     type="text"
                     placeholder="Caption for cover image..."

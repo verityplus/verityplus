@@ -9,7 +9,7 @@ export const StructuredData = defineComponent({
   name: 'StructuredData',
   props: {
     data: {
-      type: Object as PropType<Record<string, any>>,
+      type: Object as PropType<Record<string, unknown>>,
       required: true,
     },
   },

@@ -70,7 +70,7 @@ export default defineComponent({
         ])
         form.value.nameEn = en.translated
         form.value.nameZh = zh.translated
-      } catch (err: any) {
+      } catch (err) {
         console.error('Auto-translate failed:', err)
       } finally {
         isAILoading.value = false
@@ -86,7 +86,7 @@ export default defineComponent({
       try {
         const { slug } = await AIService.generateSlug(form.value.nameId)
         form.value.slug = `${slug}-${nanoid(6)}`
-      } catch (err: any) {
+      } catch (err) {
         console.error('Failed to generate slug:', err)
         form.value.slug = `${(form.value.nameId as string).toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${nanoid(6)}`
       } finally {
@@ -210,10 +210,10 @@ export default defineComponent({
                   </span>
                 </label>
                 <input
-                  value={(form.value as any)[`name${activeLangSuffix.value}`]}
+                  value={form.value[`name${activeLangSuffix.value}` as keyof Category] as string}
                   onInput={(e) => {
                     const val = (e.target as HTMLInputElement).value
-                    ;(form.value as any)[`name${activeLangSuffix.value}`] = val
+                    ;(form.value[`name${activeLangSuffix.value}` as keyof Category] as string) = val
                   }}
                   onBlur={() => {
                     if (currentStep.value === 0) handleAutoTranslate()
@@ -272,7 +272,7 @@ export default defineComponent({
                 </p>
                 <div class="flex justify-center">
                   <div class="inline-block px-10 py-3 rounded-2xl text-sm font-black uppercase tracking-widest border-2 shadow-2xl transition-all duration-300 bg-primary/10 text-primary border-primary">
-                    {(form.value as any)[`name${activeLangSuffix.value}`] ||
+                    {form.value[`name${activeLangSuffix.value}` as keyof Category] ||
                       'Sample Taxonomy'}
                   </div>
                 </div>

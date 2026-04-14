@@ -22,7 +22,7 @@ export const useAuthStore = defineStore('auth', () => {
       } else {
         throw error
       }
-    } catch (err) {
+    } catch {
       isAuthenticated.value = false
       currentUser.value = null
     } finally {

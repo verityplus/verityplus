@@ -66,9 +66,9 @@ export const AdDisplay = defineComponent({
         loadAdSenseScript()
         await nextTick()
         try {
-          const win = window as any
-          if (win.adsbygoogle) {
-            ;(win.adsbygoogle = win.adsbygoogle || []).push({})
+          const adsbygoogle = (window as unknown as { adsbygoogle?: unknown[] }).adsbygoogle
+          if (adsbygoogle) {
+            adsbygoogle.push({})
             adLoaded.value = true
           }
         } catch (e) {
