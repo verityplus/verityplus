@@ -371,7 +371,11 @@ export interface paths {
                                 tagsId?: string | null;
                                 tagsEn?: string | null;
                                 tagsZh?: string | null;
-                                publishedAt: unknown;
+                                /**
+                                 * Format: date-time
+                                 * @description ISO-8601 date string
+                                 */
+                                publishedAt: string;
                                 readTimeMinutes?: number | null;
                                 status: string;
                                 slug?: string | null;
@@ -452,6 +456,7 @@ export interface paths {
                          * @enum {string}
                          */
                         status?: "draft" | "published" | "archived" | "featured";
+                        slug?: string;
                     };
                 };
             };
@@ -482,7 +487,11 @@ export interface paths {
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
-                            publishedAt: unknown;
+                            /**
+                             * Format: date-time
+                             * @description ISO-8601 date string
+                             */
+                            publishedAt: string;
                             readTimeMinutes?: number | null;
                             status: string;
                             slug?: string | null;
@@ -585,7 +594,11 @@ export interface paths {
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
-                            publishedAt: unknown;
+                            /**
+                             * Format: date-time
+                             * @description ISO-8601 date string
+                             */
+                            publishedAt: string;
                             readTimeMinutes?: number | null;
                             status: string;
                             slug?: string | null;
@@ -665,6 +678,7 @@ export interface paths {
                          * @enum {string}
                          */
                         status?: "draft" | "published" | "archived" | "featured";
+                        slug?: string;
                     };
                 };
             };
@@ -695,7 +709,11 @@ export interface paths {
                             tagsId?: string | null;
                             tagsEn?: string | null;
                             tagsZh?: string | null;
-                            publishedAt: unknown;
+                            /**
+                             * Format: date-time
+                             * @description ISO-8601 date string
+                             */
+                            publishedAt: string;
                             readTimeMinutes?: number | null;
                             status: string;
                             slug?: string | null;
@@ -876,6 +894,7 @@ export interface paths {
                         nameId: string;
                         nameEn: string;
                         nameZh: string;
+                        slug?: string;
                     };
                 };
             };
@@ -992,6 +1011,7 @@ export interface paths {
                         nameId?: string;
                         nameEn?: string;
                         nameZh?: string;
+                        slug?: string;
                     };
                 };
             };
@@ -1173,6 +1193,7 @@ export interface paths {
                         bioEn: string;
                         bioZh: string;
                         role?: string;
+                        slug?: string;
                     };
                 };
             };
@@ -1298,6 +1319,7 @@ export interface paths {
                         bioEn?: string;
                         bioZh?: string;
                         role?: string;
+                        slug?: string;
                     };
                 };
             };
