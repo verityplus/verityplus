@@ -424,8 +424,8 @@ export interface paths {
         get: {
             parameters: {
                 query?: {
-                    take?: string;
-                    skip?: string;
+                    page?: string;
+                    limit?: string;
                     categoryId?: string;
                     authorId?: string;
                     search?: string;
