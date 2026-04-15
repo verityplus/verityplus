@@ -28,9 +28,10 @@ export function calculateReadTime(content: string, isChinese: boolean = false): 
 /**
  * Calculate read time for multiple fields if necessary, or detect language.
  */
-export function getReadTime(obj: Record<string, any>, currentLocale: string = 'en'): number {
+export function getReadTime(obj: Record<string, unknown>, currentLocale: string = 'en'): number {
   const contentKey = `content${currentLocale.charAt(0).toUpperCase()}${currentLocale.slice(1)}`;
-  const content = obj[contentKey] || obj.contentEn || obj.contentId || '';
+  const contentRaw = obj[contentKey] || obj.contentEn || obj.contentId || '';
+  const content = typeof contentRaw === 'string' ? contentRaw : '';
   
   return calculateReadTime(content, currentLocale === 'zh');
 }
