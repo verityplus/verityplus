@@ -37,13 +37,12 @@ export const ArticleService = {
       },
     })
 
-    if (error) {
+    if (error || !data) {
       console.error('Error fetching articles:', error)
       return { items: [], total: 0 }
     }
     
-    // The backend now returns { items, total }
-    return data as { items: Article[]; total: number }
+    return data
   },
 
   async getArticleById(id: string): Promise<Article | undefined> {

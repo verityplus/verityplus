@@ -1,11 +1,12 @@
 import createClient from 'openapi-fetch'
 import type { paths } from '../types/openapi'
 
-export const API_BASE_ORIGIN = (import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1').replace('/api/v1', '')
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1'
+export const API_BASE_ORIGIN = new URL(API_BASE_URL).origin
 
 // Create the type-safe client
 const client = createClient<paths>({ 
-  baseUrl: API_BASE_ORIGIN,
+  baseUrl: API_BASE_URL,
   credentials: 'include'
 })
 
