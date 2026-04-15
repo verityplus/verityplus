@@ -2,6 +2,7 @@ import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
 import { useLocaleRoute } from '@/composables/useLocaleRoute'
+import { useRouter } from 'vue-router'
 
 /**
  * Page View: NotFoundView
@@ -13,6 +14,7 @@ export default defineComponent({
   setup() {
     const { t } = useI18n()
     const { push } = useLocaleRoute()
+    const router = useRouter()
 
     useHead({
       title: t('notFound.title') + ' — VERITY+',
@@ -64,7 +66,7 @@ export default defineComponent({
             </button>
 
             <button
-              onClick={() => window.history.back()}
+              onClick={() => router.back()}
               class="px-8 py-4 bg-surface border border-border text-text-primary rounded-2xl font-bold text-lg hover:bg-surface-hover hover:border-primary/30 transition-all duration-300 cursor-pointer flex items-center gap-2"
             >
               <i class="bi bi-arrow-left"></i>
