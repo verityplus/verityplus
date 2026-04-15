@@ -1,5 +1,6 @@
 import { defineComponent, ref, onMounted } from 'vue'
 import { BaseButton } from '@/components/ui/Button'
+import { BaseSelect } from '@/components/ui/Select'
 
 export interface AIDraftOptions {
   topic: string
@@ -120,15 +121,11 @@ export const AIDraftModal = defineComponent({
               <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">
                 Editorial Tone
               </label>
-              <select
-                value={form.value.tone}
-                onChange={(e) => (form.value.tone = (e.target as HTMLSelectElement).value)}
-                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs appearance-none cursor-pointer"
-              >
-                {tones.map(t => (
-                  <option key={t} value={t}>{t}</option>
-                ))}
-              </select>
+              <BaseSelect
+                modelValue={form.value.tone}
+                options={tones.map(t => ({ value: t, label: t }))}
+                onUpdate:modelValue={(val) => (form.value.tone = val as string)}
+              />
             </div>
 
             <div class="space-y-2">

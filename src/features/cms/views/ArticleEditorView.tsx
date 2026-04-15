@@ -8,6 +8,7 @@ import { MarkdownEditor } from '@/features/cms/components/MarkdownEditor'
 import type { ArticleStatus, Category, Author } from '@/shared/types'
 import { ARTICLE_STATUS_LABELS } from '@/shared/types'
 import { BaseButton } from '@/components/ui/Button'
+import { BaseSelect } from '@/components/ui/Select'
 import { Tabs } from '@/components/ui/Tabs'
 import { appAlert, appPrompt } from '@/utils/dialog'
 import { StorageService } from '@/shared/services/storage.service'
@@ -701,19 +702,16 @@ export default defineComponent({
                   <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
                     Publication Status
                   </label>
-                  <select
-                    value={form.value.status}
-                    onChange={(e) => {
-                      form.value.status = (e.target as HTMLSelectElement).value as ArticleStatus
+                  <BaseSelect
+                    modelValue={form.value.status}
+                    options={(Object.keys(ARTICLE_STATUS_LABELS) as ArticleStatus[]).map((status) => ({
+                      value: status,
+                      label: ARTICLE_STATUS_LABELS[status]
+                    }))}
+                    onUpdate:modelValue={(val) => {
+                      form.value.status = val as ArticleStatus
                     }}
-                    class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs font-black text-slate-700 outline-none"
-                  >
-                    {(Object.keys(ARTICLE_STATUS_LABELS) as ArticleStatus[]).map((status) => (
-                      <option key={status} value={status}>
-                        {ARTICLE_STATUS_LABELS[status]}
-                      </option>
-                    ))}
-                  </select>
+                  />
                 </div>
                 {form.value.publishedAt && (
                   <div class="space-y-1">
@@ -735,31 +733,20 @@ export default defineComponent({
                 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
                   Category
                 </label>
-                <select
-                  value={form.value.category?.id || ''}
-                  onChange={(e) => {
-                    const cat = articleStore.categories.find(
-                      (c) => c.id === (e.target as HTMLSelectElement).value,
-                    )
+                <BaseSelect
+                  modelValue={form.value.category?.id || ''}
+                  placeholder="Select Category"
+                  options={articleStore.categories.map((cat) => ({
+                    value: cat.id,
+                    label: cat.nameId
+                  }))}
+                  onUpdate:modelValue={(val) => {
+                    const cat = articleStore.categories.find((c) => c.id === val)
                     if (cat) form.value.category = cat
+                    markTouched('category')
                   }}
-                  onBlur={() => markTouched('category')}
-                  class={[
-                    'w-full px-3 py-2 rounded-xl border bg-slate-50/50 focus:bg-white text-xs font-bold transition cursor-pointer outline-none',
-                    (showErrors.value || touched.value.category) && errors.value.category
-                      ? 'border-red-200 text-red-600'
-                      : 'border-slate-200 text-slate-700',
-                  ]}
-                >
-                  <option value="" disabled>
-                    Select Category
-                  </option>
-                  {articleStore.categories.map((cat) => (
-                    <option key={cat.id} value={cat.id}>
-                      {cat.nameId}
-                    </option>
-                  ))}
-                </select>
+                  error={!!((showErrors.value || touched.value.category) && errors.value.category)}
+                />
                 {(showErrors.value || touched.value.category) && errors.value.category && (
                   <p class="text-[10px] font-black text-red-500 uppercase tracking-widest">
                     {errors.value.category}
@@ -771,31 +758,20 @@ export default defineComponent({
                 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
                   Author / Character
                 </label>
-                <select
-                  value={form.value.author?.id || ''}
-                  onChange={(e) => {
-                    const auth = articleStore.authors.find(
-                      (a) => a.id === (e.target as HTMLSelectElement).value,
-                    )
+                <BaseSelect
+                  modelValue={form.value.author?.id || ''}
+                  placeholder="Select Author"
+                  options={articleStore.authors.map((a) => ({
+                    value: a.id,
+                    label: a.name
+                  }))}
+                  onUpdate:modelValue={(val) => {
+                    const auth = articleStore.authors.find((a) => a.id === val)
                     if (auth) form.value.author = auth
+                    markTouched('author')
                   }}
-                  onBlur={() => markTouched('author')}
-                  class={[
-                    'w-full px-3 py-2 rounded-xl border bg-slate-50/50 text-xs font-black transition outline-none',
-                    (showErrors.value || touched.value.author) && errors.value.author
-                      ? 'border-red-200 text-red-600'
-                      : 'border-slate-200 text-slate-700',
-                  ]}
-                >
-                  <option value="" disabled>
-                    Select Author
-                  </option>
-                  {articleStore.authors.map((a) => (
-                    <option key={a.id} value={a.id}>
-                      {a.name}
-                    </option>
-                  ))}
-                </select>
+                  error={!!((showErrors.value || touched.value.author) && errors.value.author)}
+                />
                 {(showErrors.value || touched.value.author) && errors.value.author && (
                   <p class="text-[10px] font-black text-red-500 uppercase tracking-widest">
                     {errors.value.author}
