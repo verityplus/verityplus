@@ -1,442 +1,343 @@
 import type { MessageSchema } from '../types'
 
 const en: MessageSchema = {
-  nav: {
-    home: 'Home',
-    about: 'About Us',
-    contact: 'Contact',
-    advertise: 'Advertise',
+  "nav": {
+    "home": "Home"
   },
-  footer: {
-    description:
-      'VERITY+ is a digital media platform delivering information and solutions to the younger generation.',
-    company: 'Company',
-    about: 'About Us',
-    contact: 'Contact',
-    advertise: 'Advertise',
-    help: 'Help',
-    privacy: 'Privacy Policy',
-    terms: 'Terms & Conditions',
-    copyright: '© {year} VERITY+. All rights reserved.',
-    instagram: 'Instagram',
-    tiktok: 'TikTok',
-    email: 'Email',
-    social: 'Social',
+  "footer": {
+    "description": "VERITY+ is a digital media platform delivering information and solutions to the younger generation.",
+    "company": "Company",
+    "about": "About Us",
+    "contact": "Contact",
+    "advertise": "Advertise",
+    "help": "Help",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "copyright": "© {year} VERITY+. All rights reserved.",
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "email": "Email",
+    "social": "Social"
   },
-  common: {
-    minRead: 'min read',
-    readMore: 'Read More',
-    seeAll: 'See All',
-    seeMore: 'See More',
-    send: 'Send',
-    email: 'Email',
-    previous: 'Previous',
-    next: 'Next',
-    backToHome: 'Back to Home',
-    all: 'All',
-    subscribe: 'Subscribe',
-    joinNow: 'Join Now',
-    mostPopular: 'MOST POPULAR',
-    popular: 'Popular Reads',
-    featured: 'Featured',
-    custom: 'Custom',
-    contactUs: 'Contact Us',
-    monthly: '/month',
-    latest: 'Latest',
-    articles: 'Articles',
-    categories: 'Categories',
-    search: 'Search',
-    noResults: 'No results found',
-    noResultsDesc: 'Try different keywords or check your spelling.',
-    noArticles: 'No Articles Yet',
-    noArticlesDesc: 'No articles have been published yet.',
-    noArticlesInCategory: 'No articles in this category.',
-    loading: 'Loading...',
-    readArticle: 'Read Article',
-    stop: 'Stop',
-    fontSizeIncrease: 'Increase font size',
-    fontSizeDecrease: 'Decrease font size',
-    totalArticles: 'Total Articles',
-    articlesBy: 'Articles By',
-    category: 'Category',
-    categoryNotFound: 'Category Not Found',
-    authorNotFound: 'Author Not Found',
-    exploreArticles: 'Explore Articles',
-    exploreArticlesDesc: 'Latest insights on technology, business, and lifestyle.',
-    allArticles: 'All Articles',
-    recommendedArticles: 'Recommended Articles',
-    popularCategories: 'Popular Categories',
-    clearSearch: 'Clear search',
-    searchResults: 'Search Results',
-    searchResultsFor: 'Showing results for:',
-    searchPlaceholder: 'Search articles...',
-    searchPlaceholderExtended: 'Search more articles...',
-    emailYour: 'Your Email',
-    phone: 'Phone',
-    homeTitle: 'VERITY+ — Latest Article Portal',
-    homeDesc: 'Latest articles on technology, business, lifestyle, and sports.',
-    aboutTitle: 'About Us — VERITY+',
-    aboutDesc: 'Meet the team behind VERITY+ and our mission to build a digital future.',
-    contactTitle: 'Contact Us — VERITY+',
-    contactDesc: 'Contact the VERITY+ team for questions, partnerships, or more information.',
-    advertiseTitle: 'Advertising & Partnerships — VERITY+',
-    advertiseDesc: 'Increase your brand visibility by advertise on the VERITY+ platform.',
-    privacyTitle: 'Privacy Policy — VERITY+',
-    privacyDesc: 'VERITY+ privacy policy — how we protect your personal data.',
-    termsTitle: 'Terms and Conditions — VERITY+',
-    termsDesc: 'Terms and conditions for using the VERITY+ platform.',
-    searchTitle: 'Search — VERITY+',
-    searchTitleQuery: 'Search: "{query}" — VERITY+',
-    searchDesc: 'Search results for "{query}" on VERITY+.',
-    authorTitle: '{name} — VERITY+',
-    authorDesc: 'Articles by {name}',
-    categoryTitle: '{name} — VERITY+',
-    categoryDesc: 'Articles in category {name}',
-    categoryDescFallback: 'Articles by category',
-    allArticlesTitle: 'All Articles — VERITY+',
-    allArticlesDesc: 'All latest articles from VERITY+',
-    articleLoading: 'Loading Article... — VERITY+',
+  "common": {
+    "locale": "en",
+    "skipToContent": "Skip to content",
+    "errorLoading": "Error loading data",
+    "retry": "Retry",
+    "minRead": "min read",
+    "readMore": "Read More",
+    "seeAll": "See All",
+    "seeMore": "See More",
+    "email": "Email",
+    "previous": "Previous",
+    "next": "Next",
+    "all": "All",
+    "mostPopular": "MOST POPULAR",
+    "contactUs": "Contact Us",
+    "search": "Search",
+    "noResults": "No results found",
+    "noArticles": "No Articles Yet",
+    "noArticlesDesc": "No articles have been published yet.",
+    "noArticlesInCategory": "No articles in this category.",
+    "loading": "Loading...",
+    "readArticle": "Read Article",
+    "stop": "Stop",
+    "fontSizeIncrease": "Increase font size",
+    "fontSizeDecrease": "Decrease font size",
+    "totalArticles": "Total Articles",
+    "category": "Category",
+    "exploreArticles": "Explore Articles",
+    "exploreArticlesDesc": "Latest insights on technology, business, and lifestyle.",
+    "allArticles": "All Articles",
+    "popularCategories": "Popular Categories",
+    "clearSearch": "Clear search",
+    "searchPlaceholder": "Search articles...",
+    "phone": "Phone",
+    "homeTitle": "VERITY+ — Latest Article Portal",
+    "homeDesc": "Latest articles on technology, business, lifestyle, and sports.",
+    "aboutTitle": "About Us — VERITY+",
+    "aboutDesc": "Meet the team behind VERITY+ and our mission to build a digital future.",
+    "contactTitle": "Contact Us — VERITY+",
+    "contactDesc": "Contact the VERITY+ team for questions, partnerships, or more information.",
+    "advertiseTitle": "Advertising & Partnerships — VERITY+",
+    "advertiseDesc": "Increase your brand visibility by advertise on the VERITY+ platform.",
+    "privacyTitle": "Privacy Policy — VERITY+",
+    "privacyDesc": "VERITY+ privacy policy — how we protect your personal data.",
+    "termsTitle": "Terms and Conditions — VERITY+",
+    "termsDesc": "Terms and conditions for using the VERITY+ platform.",
+    "searchTitle": "Search — VERITY+",
+    "searchTitleQuery": "Search: \"{query}\" — VERITY+",
+    "searchDesc": "Search results for \"{query}\" on VERITY+.",
+    "authorTitle": "{name} — VERITY+",
+    "authorDesc": "Articles by {name}",
+    "categoryTitle": "{name} — VERITY+",
+    "categoryDesc": "Articles in category {name}",
+    "categoryDescFallback": "Articles by category",
+    "allArticlesTitle": "All Articles — VERITY+",
+    "allArticlesDesc": "All latest articles from VERITY+",
+    "articleLoading": "Loading Article... — VERITY+"
   },
-  home: {
-    latestArticles: 'Latest Articles',
-    popularArticles: 'Popular Reads',
+  "home": {
+    "latestArticles": "Latest Articles",
+    "popularArticles": "Popular Reads"
   },
-  about: {
-    whoWeAre: 'Who We Are',
-    heading: 'Delivering Information That Inspires the Next Generation',
-    description:
-      'VERITY+ is a digital media platform delivering information and solutions to the younger generation. We believe quality content can change perspectives and empower communities.',
-    ourStory: 'Our Story',
-    storyParagraph1:
-      'Founded with a passion for relevant and accessible content, VERITY+ was born from the need for a media platform that is not only informative but also provides real solutions for young Indonesian readers.',
-    storyParagraph2:
-      'From day one, we have been committed to publishing high-quality articles on technology, business, lifestyle, and sports. With a dedicated content team, we continue to grow into a trusted source of information.',
-    established: 'Est. 2026',
-    projectsCompleted: 'Total Visits',
-    yearsExperience: 'Unique Visitors',
-    monthlyReaders: 'Page Views',
-    articlesPublished: 'Avg. Duration',
-    totalVisits: 'Total Visits',
-    uniqueVisitors: 'Unique Visitors',
-    pageViews: 'Page Views',
-    avgTimeOnSite: 'Avg. Duration',
-    missionVision: 'Mission & Vision',
-    purpose: 'Our Purpose',
-    mission: 'Mission',
-    missionDesc:
-      'To deliver accurate, relevant, and inspiring information that empowers the younger generation to make better decisions.',
-    vision: 'Vision',
-    visionDesc:
-      'To become the leading digital media platform that connects knowledge with real action for Indonesian society.',
-    coreValues: 'Our Core Values',
-    whatWeBelieve: 'What We Believe',
-    communityTitle: 'Community',
-    communityDesc:
-      'We build an active and supportive reader community through relevant and meaningful content.',
-    creativityTitle: 'Creativity',
-    creativityDesc:
-      'Every story is told with a fresh perspective and a creative approach that captivates readers.',
-    innovationTitle: 'Innovation',
-    innovationDesc:
-      'We continuously adapt to the latest trends and modern technology to deliver the best reading experience.',
-    qualityTitle: 'Quality',
-    qualityDesc: 'High editorial standards are our priority in every article we publish.',
-    quote: '"Boundless creativity, uncompromising results."',
-    teamAlt: 'The VERITY+ Team',
+  "about": {
+    "whoWeAre": "Who We Are",
+    "heading": "Delivering Information That Inspires the Next Generation",
+    "description": "VERITY+ is a digital media platform delivering information and solutions to the younger generation. We believe quality content can change perspectives and empower communities.",
+    "ourStory": "Our Story",
+    "storyParagraph1": "Founded with a passion for relevant and accessible content, VERITY+ was born from the need for a media platform that is not only informative but also provides real solutions for young Indonesian readers.",
+    "storyParagraph2": "From day one, we have been committed to publishing high-quality articles on technology, business, lifestyle, and sports. With a dedicated content team, we continue to grow into a trusted source of information.",
+    "established": "Est. 2026",
+    "missionVision": "Mission & Vision",
+    "purpose": "Our Purpose",
+    "mission": "Mission",
+    "missionDesc": "To deliver accurate, relevant, and inspiring information that empowers the younger generation to make better decisions.",
+    "vision": "Vision",
+    "visionDesc": "To become the leading digital media platform that connects knowledge with real action for Indonesian society.",
+    "coreValues": "Our Core Values",
+    "whatWeBelieve": "What We Believe",
+    "communityTitle": "Community",
+    "communityDesc": "We build an active and supportive reader community through relevant and meaningful content.",
+    "creativityTitle": "Creativity",
+    "creativityDesc": "Every story is told with a fresh perspective and a creative approach that captivates readers.",
+    "innovationTitle": "Innovation",
+    "innovationDesc": "We continuously adapt to the latest trends and modern technology to deliver the best reading experience.",
+    "qualityTitle": "Quality",
+    "qualityDesc": "High editorial standards are our priority in every article we publish.",
+    "teamAlt": "The VERITY+ Team"
   },
-  contact: {
-    heading: 'Contact Us',
-    title: "Let's Start Something Amazing",
-    description:
-      "Have an idea or question? Our team is ready to help you realize your digital vision. Send us a message and we'll respond within 24 hours.",
-    mainOffice: 'Main Office',
-    address: '42 Technology St., South Jakarta, Indonesia',
-    phone: '+62 21 1234 5678',
-    messageSent: 'Your message has been sent (This is a demo)',
-    firstName: 'First Name',
-    firstNamePlaceholder: 'John',
-    lastName: 'Last Name',
-    lastNamePlaceholder: 'Doe',
-    message: 'Message',
-    messagePlaceholder: 'How can we help you?',
-    sendMessage: 'Send Message',
+  "contact": {
+    "heading": "Contact Us",
+    "title": "Let's Start Something Amazing",
+    "description": "Have an idea or question? Our team is ready to help you realize your digital vision. Send us a message and we'll respond within 24 hours.",
+    "mainOffice": "Main Office",
+    "address": "42 Technology St., South Jakarta, Indonesia",
+    "phone": "+62 21 1234 5678"
   },
-  advertise: {
-    heading: 'Advertise',
-    title: 'Reach the Right Audience with Us',
-    description:
-      'Increase your brand visibility by placing ads on our platform with thousands of active visitors every day.',
-    mostPopularBadge: 'MOST POPULAR',
-    plans: {
-      starter: {
-        name: 'Starter',
-        subtitle: 'Perfect for SMEs or trial campaigns.',
-        cta: 'Choose Plan',
+  "advertise": {
+    "heading": "Advertise",
+    "title": "Reach the Right Audience with Us",
+    "description": "Increase your brand visibility by placing ads on our platform with thousands of active visitors every day.",
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "subtitle": "Perfect for SMEs or trial campaigns.",
+        "cta": "Choose Plan"
       },
-      professional: {
-        name: 'Professional',
-        subtitle: 'Maximize your brand exposure.',
-        cta: 'Get Started',
+      "professional": {
+        "name": "Professional",
+        "subtitle": "Maximize your brand exposure.",
+        "cta": "Get Started"
       },
-      custom: {
-        name: 'Custom',
-        subtitle: 'Large-scale solutions tailored to your needs.',
-        cta: 'Free Consultation',
-      },
+      "custom": {
+        "name": "Custom",
+        "subtitle": "Large-scale solutions tailored to your needs.",
+        "cta": "Free Consultation"
+      }
     },
-    stats: {
-      monthlyViews: 'Monthly Views',
-      activeUsers: 'Active Users',
-      avgCTR: 'Avg. CTR',
-    },
-    features: {
-      bannerSidebar3Days: 'Sidebar Banner (3 days)',
-      bannerSidebar9Days: 'Sidebar Banner (9 days)',
-      oneAdvertorialArticle: '1 Advertorial Article',
-      threeAdvertorialArticles: '3 Advertorial Articles',
-      oneInstagramPost: '1 Instagram Post',
-      threeInstagramPosts: '3 Instagram Posts',
-      oneTikTokPost: '1 TikTok Post',
-      threeTikTokPosts: '3 TikTok Posts',
-      allProfessionalBenefits: 'All Professional Benefits',
-      promotionalVideo: 'Promotional Video',
-      customCampaign: 'Custom Campaign',
-      etCetera: 'Et Cetera',
-    },
+    "features": {
+      "bannerSidebar3Days": "Sidebar Banner (3 days)",
+      "bannerSidebar9Days": "Sidebar Banner (9 days)",
+      "oneAdvertorialArticle": "1 Advertorial Article",
+      "threeAdvertorialArticles": "3 Advertorial Articles",
+      "oneInstagramPost": "1 Instagram Post",
+      "threeInstagramPosts": "3 Instagram Posts",
+      "oneTikTokPost": "1 TikTok Post",
+      "threeTikTokPosts": "3 TikTok Posts",
+      "allProfessionalBenefits": "All Professional Benefits",
+      "promotionalVideo": "Promotional Video",
+      "customCampaign": "Custom Campaign",
+      "etCetera": "Et Cetera"
+    }
   },
-  privacy: {
-    heading: 'Privacy Policy',
-    lastUpdated: 'Last updated: April 6, 2026',
-    intro:
-      'At VERITY+, your privacy matters. This policy explains how we collect, use, and protect your personal information when you read articles or interact with our blog platform.',
-    contactHeading: 'Questions about this policy?',
-    contactDesc:
-      'If you have additional questions about how we use your data, feel free to contact us.',
-    contactButton: 'Contact Us',
-    sections: {
-      infoCollected: {
-        title: '1. Information We Collect',
-        content: 'We collect the following types of information:',
-        items: [
-          'Account Information: Name, email address, and profile details when you register.',
-          'Reading Activity: Articles you view, time spent reading, and content preferences to personalize your experience.',
-          'Technical Data: IP address, browser type, device information, and operating system for site optimization and security.',
-          'Cookies & Analytics: Browsing behavior, referral sources, and interaction patterns through cookies and analytics tools.',
-          'Communication Data: Messages you send via our contact form or comments on articles.',
-        ],
+  "privacy": {
+    "heading": "Privacy Policy",
+    "lastUpdated": "Last updated: April 6, 2026",
+    "intro": "At VERITY+, your privacy matters. This policy explains how we collect, use, and protect your personal information when you read articles or interact with our blog platform.",
+    "contactHeading": "Questions about this policy?",
+    "contactDesc": "If you have additional questions about how we use your data, feel free to contact us.",
+    "contactButton": "Contact Us",
+    "sections": {
+      "infoCollected": {
+        "title": "1. Information We Collect",
+        "content": "We collect the following types of information:",
+        "items": [
+          "Account Information: Name, email address, and profile details when you register.",
+          "Reading Activity: Articles you view, time spent reading, and content preferences to personalize your experience.",
+          "Technical Data: IP address, browser type, device information, and operating system for site optimization and security.",
+          "Cookies & Analytics: Browsing behavior, referral sources, and interaction patterns through cookies and analytics tools.",
+          "Communication Data: Messages you send via our contact form or comments on articles."
+        ]
       },
-      infoUsage: {
-        title: '2. How We Use Your Information',
-        content: 'Your information helps us:',
-        items: [
-          'Deliver personalized article recommendations based on your reading interests.',
-          'Send relevant content updates you have opted into.',
-          'Improve site performance, content quality, and user experience.',
-          'Display relevant advertisements and measure ad campaign effectiveness.',
-          'Detect and prevent spam, fraud, and abusive activities on our platform.',
-        ],
+      "infoUsage": {
+        "title": "2. How We Use Your Information",
+        "content": "Your information helps us:",
+        "items": [
+          "Deliver personalized article recommendations based on your reading interests.",
+          "Send relevant content updates you have opted into.",
+          "Improve site performance, content quality, and user experience.",
+          "Display relevant advertisements and measure ad campaign effectiveness.",
+          "Detect and prevent spam, fraud, and abusive activities on our platform."
+        ]
       },
-      cookies: {
-        title: '3. Cookies & Tracking',
-        content:
-          'We use cookies and similar tracking technologies to enhance your reading experience:',
-        items: [
-          'Essential Cookies: Required for core site functionality like session management and security.',
-          'Analytics Cookies: Help us understand which articles are most popular and how readers navigate our site.',
-          'Advertising Cookies: Used by us and our ad partners to show relevant ads and track campaign performance.',
-          'Preference Cookies: Remember your settings such as font size, theme, and language preferences.',
-        ],
+      "cookies": {
+        "title": "3. Cookies & Tracking",
+        "content": "We use cookies and similar tracking technologies to enhance your reading experience:",
+        "items": [
+          "Essential Cookies: Required for core site functionality like session management and security.",
+          "Analytics Cookies: Help us understand which articles are most popular and how readers navigate our site.",
+          "Advertising Cookies: Used by us and our ad partners to show relevant ads and track campaign performance.",
+          "Preference Cookies: Remember your settings such as font size, theme, and language preferences."
+        ]
       },
-      thirdParty: {
-        title: '4. Third-Party Services',
-        content:
-          'Our blog platform integrates with trusted third-party services. These services have their own privacy policies:',
-        items: [
-          'Analytics Providers: Tools like Google Analytics help us measure site traffic and reader engagement.',
-          'Advertising Partners: Ad networks may collect data to serve targeted advertisements on our platform.',
-          'Social Media: Embedded social media content (Instagram, TikTok) may track your interactions.',
-          'Email Service Providers: Partners may process your email address for account management.',
-        ],
+      "thirdParty": {
+        "title": "4. Third-Party Services",
+        "content": "Our blog platform integrates with trusted third-party services. These services have their own privacy policies:",
+        "items": [
+          "Analytics Providers: Tools like Google Analytics help us measure site traffic and reader engagement.",
+          "Advertising Partners: Ad networks may collect data to serve targeted advertisements on our platform.",
+          "Social Media: Embedded social media content (Instagram, TikTok) may track your interactions.",
+          "Email Service Providers: Partners may process your email address for account management."
+        ]
       },
-      dataRetention: {
-        title: '5. Data Retention',
-        content:
-          'We retain your personal data only as long as necessary. Analytics data is anonymized after 14 months. Account data is deleted upon request or after 24 months of inactivity.',
+      "dataRetention": {
+        "title": "5. Data Retention",
+        "content": "We retain your personal data only as long as necessary. Analytics data is anonymized after 14 months. Account data is deleted upon request or after 24 months of inactivity."
       },
-      yourRights: {
-        title: '6. Your Rights',
-        content: 'You have the following rights regarding your personal data:',
-        items: [
-          'Access: Request a copy of all personal data we hold about you.',
-          'Correction: Update or correct inaccurate information in your account.',
-          'Deletion: Request deletion of your account and associated personal data.',
-          'Cookie Control: Manage your cookie preferences through our cookie consent banner.',
-        ],
+      "yourRights": {
+        "title": "6. Your Rights",
+        "content": "You have the following rights regarding your personal data:",
+        "items": [
+          "Access: Request a copy of all personal data we hold about you.",
+          "Correction: Update or correct inaccurate information in your account.",
+          "Deletion: Request deletion of your account and associated personal data.",
+          "Cookie Control: Manage your cookie preferences through our cookie consent banner."
+        ]
       },
-      childrenPrivacy: {
-        title: "7. Children's Privacy",
-        content:
-          'VERITY+ is not intended for children under 13 years of age. We do not knowingly collect personal information from children. If we become aware that we have inadvertently collected data from a child under 13, we will take steps to delete it promptly.',
+      "childrenPrivacy": {
+        "title": "7. Children's Privacy",
+        "content": "VERITY+ is not intended for children under 13 years of age. We do not knowingly collect personal information from children. If we become aware that we have inadvertently collected data from a child under 13, we will take steps to delete it promptly."
       },
-      policyChanges: {
-        title: '8. Changes to This Policy',
-        content:
-          'We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements. The updated date at the top of this page will indicate when changes were last made. We encourage you to review this policy periodically.',
-      },
-    },
+      "policyChanges": {
+        "title": "8. Changes to This Policy",
+        "content": "We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements. The updated date at the top of this page will indicate when changes were last made. We encourage you to review this policy periodically."
+      }
+    }
   },
-  terms: {
-    heading: 'Terms & Conditions',
-    lastUpdated: 'Last updated: April 6, 2026',
-    intro:
-      'These Terms & Conditions govern your access to and use of the VERITY+ blog platform. By reading, commenting, or interacting with our content, you agree to be bound by these terms. Please read them carefully.',
-    tocHeading: 'Table of Contents',
-    contactHeading: 'Have questions about these terms?',
-    contactDesc:
-      'If you need clarification or have concerns about any section, our team is happy to help.',
-    contactButton: 'Contact Us',
-    sections: {
-      acceptance: {
-        title: '1. Acceptance of Terms',
-        content:
-          'By accessing, browsing, or using the VERITY+ blog platform, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions. If you do not agree with any part of these terms, please discontinue use of the platform immediately.',
+  "terms": {
+    "heading": "Terms & Conditions",
+    "lastUpdated": "Last updated: April 6, 2026",
+    "intro": "These Terms & Conditions govern your access to and use of the VERITY+ blog platform. By reading, commenting, or interacting with our content, you agree to be bound by these terms. Please read them carefully.",
+    "tocHeading": "Table of Contents",
+    "contactHeading": "Have questions about these terms?",
+    "contactDesc": "If you need clarification or have concerns about any section, our team is happy to help.",
+    "contactButton": "Contact Us",
+    "sections": {
+      "acceptance": {
+        "title": "1. Acceptance of Terms",
+        "content": "By accessing, browsing, or using the VERITY+ blog platform, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions. If you do not agree with any part of these terms, please discontinue use of the platform immediately."
       },
-      contentUse: {
-        title: '2. Content Use & Licensing',
-        content:
-          'All articles, images, graphics, and media on VERITY+ are provided for personal, non-commercial use. You may:',
-        items: [
-          'Read, share, and bookmark articles for personal reference.',
-          'Quote short excerpts (up to 150 words) with clear attribution and a link back to the original article.',
-          'Share article links on social media platforms with accompanying commentary.',
-        ],
+      "contentUse": {
+        "title": "2. Content Use & Licensing",
+        "content": "All articles, images, graphics, and media on VERITY+ are provided for personal, non-commercial use. You may:",
+        "items": [
+          "Read, share, and bookmark articles for personal reference.",
+          "Quote short excerpts (up to 150 words) with clear attribution and a link back to the original article.",
+          "Share article links on social media platforms with accompanying commentary."
+        ]
       },
-      userAccounts: {
-        title: '3. User Accounts & Registration',
-        content:
-          'Certain features such as commenting and bookmarking may require account registration. You are responsible for:',
-        items: [
-          'Providing accurate and current information during registration.',
-          'Maintaining the confidentiality of your login credentials.',
-          'All activities that occur under your account.',
-          'Notifying us immediately of any unauthorized account access.',
-        ],
+      "userAccounts": {
+        "title": "3. User Accounts & Registration",
+        "content": "Certain features such as commenting and bookmarking may require account registration. You are responsible for:",
+        "items": [
+          "Providing accurate and current information during registration.",
+          "Maintaining the confidentiality of your login credentials.",
+          "All activities that occur under your account.",
+          "Notifying us immediately of any unauthorized account access."
+        ]
       },
-      commenting: {
-        title: '4. Comments & Community Guidelines',
-        content: 'We encourage thoughtful discussion. By posting comments, you agree not to:',
-        items: [
-          'Post spam, advertisements, or promotional content.',
-          'Use offensive, discriminatory, or harassing language.',
-          'Share false or misleading information intentionally.',
-          'Impersonate other individuals or entities.',
-          'Include links to malicious or inappropriate websites.',
-        ],
+      "commenting": {
+        "title": "4. Comments & Community Guidelines",
+        "content": "We encourage thoughtful discussion. By posting comments, you agree not to:",
+        "items": [
+          "Post spam, advertisements, or promotional content.",
+          "Use offensive, discriminatory, or harassing language.",
+          "Share false or misleading information intentionally.",
+          "Impersonate other individuals or entities.",
+          "Include links to malicious or inappropriate websites."
+        ]
       },
-      advertising: {
-        title: '5. Advertising & Sponsored Content',
-        content:
-          'VERITY+ may display advertisements, sponsored articles, or affiliate links on the platform. Sponsored content is clearly labeled as such. We partner with trusted advertisers to keep the platform free for readers. Clicking on ads or affiliate links may result in a commission for VERITY+ at no additional cost to you.',
+      "advertising": {
+        "title": "5. Advertising & Sponsored Content",
+        "content": "VERITY+ may display advertisements, sponsored articles, or affiliate links on the platform. Sponsored content is clearly labeled as such. We partner with trusted advertisers to keep the platform free for readers. Clicking on ads or affiliate links may result in a commission for VERITY+ at no additional cost to you."
       },
-      externalLinks: {
-        title: '6. External Links & Third-Party Content',
-        content:
-          'Our articles may contain links to external websites or third-party content. We do not control or endorse these external sites and are not responsible for their content, privacy practices, or terms of use. We encourage you to review the terms and policies of any third-party sites you visit.',
+      "externalLinks": {
+        "title": "6. External Links & Third-Party Content",
+        "content": "Our articles may contain links to external websites or third-party content. We do not control or endorse these external sites and are not responsible for their content, privacy practices, or terms of use. We encourage you to review the terms and policies of any third-party sites you visit."
       },
-      copyright: {
-        title: '7. Copyright & Intellectual Property',
-        content:
-          'All content published on VERITY+ is protected by copyright law. Unauthorized reproduction or distribution is prohibited:',
-        items: [
-          'Full articles may not be republished without explicit written permission.',
-          'Images, graphics, and multimedia are the property of VERITY+ or their respective licensors.',
-          'The VERITY+ name, logo, and branding are registered trademarks.',
-          'Violations may result in account termination and legal action.',
-        ],
+      "copyright": {
+        "title": "7. Copyright & Intellectual Property",
+        "content": "All content published on VERITY+ is protected by copyright law. Unauthorized reproduction or distribution is prohibited:",
+        "items": [
+          "Full articles may not be republished without explicit written permission.",
+          "Images, graphics, and multimedia are the property of VERITY+ or their respective licensors.",
+          "The VERITY+ name, logo, and branding are registered trademarks.",
+          "Violations may result in account termination and legal action."
+        ]
       },
-      limitationLiability: {
-        title: '8. Limitation of Liability',
-        content:
-          'VERITY+ provides content "as is" for informational purposes only. We do not guarantee the accuracy, completeness, or timeliness of any article. We are not liable for any damages arising from your use of the platform, reliance on our content, or inability to access our services.',
+      "limitationLiability": {
+        "title": "8. Limitation of Liability",
+        "content": "VERITY+ provides content \"as is\" for informational purposes only. We do not guarantee the accuracy, completeness, or timeliness of any article. We are not liable for any damages arising from your use of the platform, reliance on our content, or inability to access our services."
       },
-      changes: {
-        title: '9. Changes to These Terms',
-        content:
-          'We may update these Terms & Conditions periodically to reflect changes in our platform, legal requirements, or industry standards. The "Last updated" date at the top of this page will be revised accordingly. Continued use of VERITY+ after changes constitutes acceptance of the new terms.',
-      },
-    },
+      "changes": {
+        "title": "9. Changes to These Terms",
+        "content": "We may update these Terms & Conditions periodically to reflect changes in our platform, legal requirements, or industry standards. The \"Last updated\" date at the top of this page will be revised accordingly. Continued use of VERITY+ after changes constitutes acceptance of the new terms."
+      }
+    }
   },
-  search: {
-    heading: 'Search Results',
-    showingResults: 'Showing results for:',
-    noResults: 'No articles found.',
-    noResultsDesc: 'Try different keywords or check your spelling.',
-    enterQuery: 'Enter a search query to find articles.',
+  "search": {
+    "heading": "Search Results",
+    "showingResults": "Showing results for:",
+    "noResults": "No articles found.",
+    "noResultsDesc": "Try different keywords or check your spelling.",
+    "enterQuery": "Enter a search query to find articles."
   },
-  article: {
-    minutesRead: 'min read',
-    readMore: 'Read More',
-    recommended: 'Recommended Articles',
-    articlesBy: 'Articles By',
-    authorSponsor: 'Author Sponsor',
-    categorySponsor: 'Category Sponsor',
-    exclusivePromo: 'Exclusive Promo',
-    mainPromo: 'Main Promo',
+  "article": {
+    "minutesRead": "min read",
+    "recommended": "Recommended Articles",
+    "articlesBy": "Articles By",
+    "mainPromo": "Main Promo"
   },
-  ads: {
-    defaultLabel: 'Ad Space',
-    header: 'Header Ad',
-    middle: 'Middle Ad',
-    footer: 'Footer Ad',
-    sidebar: 'Sidebar Ad',
-    authorSponsor: 'Author Sponsor',
-    categorySponsor: 'Category Sponsor',
-    exclusivePromo: 'Exclusive Promo',
-    sidePromo: 'Side Promo',
-    mainPromo: 'Main Promo',
-    sponsor: 'Sponsor',
+  "ads": {
+    "defaultLabel": "Ad Space",
+    "header": "Header Ad",
+    "middle": "Middle Ad",
+    "footer": "Footer Ad",
+    "authorSponsor": "Author Sponsor",
+    "categorySponsor": "Category Sponsor",
+    "exclusivePromo": "Exclusive Promo",
+    "sidePromo": "Side Promo",
+    "sponsor": "Sponsor"
   },
-  topbar: {
-    browse: 'Browse',
-    featured: 'Featured',
-    latest: 'Latest',
-    popular: 'Popular',
-    categories: 'Categories',
-    articlesCount: '{count} articles',
+  "topbar": {
+    "browse": "Browse",
+    "featured": "Featured",
+    "latest": "Latest",
+    "popular": "Popular",
+    "categories": "Categories"
   },
-  cookieConsent: {
-    message:
-      'We use cookies to analyze website traffic and improve your experience. By accepting, you help us understand how visitors interact with our site.',
-    accept: 'Accept',
-    decline: 'Decline',
-    learnMore: 'Learn more',
+  "cookieConsent": {
+    "message": "We use cookies to analyze website traffic and improve your experience. By accepting, you help us understand how visitors interact with our site.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "learnMore": "Learn more"
   },
-  analytics: {
-    heading: 'Analytics',
-    totalVisits: 'Total Visits',
-    uniqueVisitors: 'Unique Visitors',
-    pageViews: 'Page Views',
-    avgDuration: 'Avg. Duration',
-    topPages: 'Top Pages',
-    noData: 'No analytics data yet',
-    seconds: 'sec',
-    viewAnalytics: 'View Analytics',
-    analyticsTitle: 'Analytics Dashboard',
-    analyticsDesc: 'Visitor insights and page performance.',
-    date: 'Date',
-    visits: 'Visits',
-    topReferrers: 'Top Referrers',
-    referrer: 'Referrer',
-    count: 'Count',
-    exportData: 'Export Data',
-    clearData: 'Clear Data',
-    clearDataConfirm: 'Are you sure you want to clear all analytics data?',
-  },
-  notFound: {
-    title: '404 - Page Not Found',
-    message: "Oops! The page you're looking for doesn't exist or has been moved.",
-    backHome: 'Back to Home',
-  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "message": "Oops! The page you're looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home"
+  }
 }
 
 export default en

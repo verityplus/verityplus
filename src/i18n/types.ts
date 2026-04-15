@@ -5,9 +5,6 @@ export const DEFAULT_LOCALE: Locale = 'id'
 export interface MessageSchema {
   nav: {
     home: string
-    about: string
-    contact: string
-    advertise: string
   }
   footer: {
     description: string
@@ -25,30 +22,25 @@ export interface MessageSchema {
     social: string
   }
   common: {
+    locale: string
+    skipToContent: string
+    errorLoading: string
+    retry: string
     minRead: string
     readMore: string
     seeAll: string
     seeMore: string
-    send: string
     email: string
     previous: string
     next: string
-    backToHome: string
     all: string
-    subscribe: string
-    joinNow: string
-    mostPopular: string
-    featured: string
-    custom: string
     contactUs: string
-    monthly: string
     popular: string
     latest: string
     articles: string
     categories: string
     search: string
     noResults: string
-    noResultsDesc: string
     noArticles: string
     noArticlesDesc: string
     noArticlesInCategory: string
@@ -58,23 +50,15 @@ export interface MessageSchema {
     fontSizeIncrease: string
     fontSizeDecrease: string
     totalArticles: string
-    articlesBy: string
     category: string
-    categoryNotFound: string
-    authorNotFound: string
     exploreArticles: string
     exploreArticlesDesc: string
     allArticles: string
     allArticlesDesc: string
     categoryDescFallback: string
-    recommendedArticles: string
     popularCategories: string
     clearSearch: string
-    searchResults: string
-    searchResultsFor: string
     searchPlaceholder: string
-    searchPlaceholderExtended: string
-    emailYour: string
     phone: string
     homeTitle: string
     homeDesc: string
@@ -89,13 +73,6 @@ export interface MessageSchema {
     termsTitle: string
     termsDesc: string
     searchTitle: string
-    searchTitleQuery: string
-    searchDesc: string
-    authorTitle: string
-    authorDesc: string
-    categoryTitle: string
-    categoryDesc: string
-    allArticlesTitle: string
     articleLoading: string
   }
   home: {
@@ -110,14 +87,6 @@ export interface MessageSchema {
     storyParagraph1: string
     storyParagraph2: string
     established: string
-    projectsCompleted: string
-    yearsExperience: string
-    monthlyReaders: string
-    articlesPublished: string
-    totalVisits: string
-    uniqueVisitors: string
-    pageViews: string
-    avgTimeOnSite: string
     missionVision: string
     purpose: string
     mission: string
@@ -134,7 +103,6 @@ export interface MessageSchema {
     innovationDesc: string
     qualityTitle: string
     qualityDesc: string
-    quote: string
     teamAlt: string
   }
   contact: {
@@ -144,20 +112,11 @@ export interface MessageSchema {
     mainOffice: string
     address: string
     phone: string
-    messageSent: string
-    firstName: string
-    firstNamePlaceholder: string
-    lastName: string
-    lastNamePlaceholder: string
-    message: string
-    messagePlaceholder: string
-    sendMessage: string
   }
   advertise: {
     heading: string
     title: string
     description: string
-    mostPopularBadge: string
     plans: {
       starter: {
         name: string
@@ -174,11 +133,6 @@ export interface MessageSchema {
         subtitle: string
         cta: string
       }
-    }
-    stats: {
-      monthlyViews: string
-      activeUsers: string
-      avgCTR: string
     }
     features: {
       bannerSidebar3Days: string
@@ -274,10 +228,6 @@ export interface MessageSchema {
     readMore: string
     recommended: string
     articlesBy: string
-    authorSponsor: string
-    categorySponsor: string
-    exclusivePromo: string
-    mainPromo: string
   }
   ads: {
     defaultLabel: string
@@ -287,9 +237,7 @@ export interface MessageSchema {
     sidebar: string
     authorSponsor: string
     categorySponsor: string
-    exclusivePromo: string
     sidePromo: string
-    mainPromo: string
     sponsor: string
   }
   topbar: {
@@ -298,34 +246,12 @@ export interface MessageSchema {
     latest: string
     popular: string
     categories: string
-    articlesCount: string
   }
   cookieConsent: {
     message: string
     accept: string
     decline: string
     learnMore: string
-  }
-  analytics: {
-    heading: string
-    totalVisits: string
-    uniqueVisitors: string
-    pageViews: string
-    avgDuration: string
-    topPages: string
-    noData: string
-    seconds: string
-    viewAnalytics: string
-    analyticsTitle: string
-    analyticsDesc: string
-    date: string
-    visits: string
-    topReferrers: string
-    referrer: string
-    count: string
-    exportData: string
-    clearData: string
-    clearDataConfirm: string
   }
   notFound: {
     title: string

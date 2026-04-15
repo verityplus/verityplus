@@ -1,428 +1,343 @@
 import type { MessageSchema } from '../types'
 
 const zh: MessageSchema = {
-  nav: {
-    home: '首页',
-    about: '关于我们',
-    contact: '联系我们',
-    advertise: '广告投放',
+  "nav": {
+    "home": "首页"
   },
-  footer: {
-    description: 'VERITY+ 是一个数字媒体平台，为年轻一代提供信息和解决方案。',
-    company: '公司',
-    about: '关于我们',
-    contact: '联系我们',
-    advertise: '广告投放',
-    help: '帮助',
-    privacy: '隐私政策',
-    terms: '条款与条件',
-    copyright: '© {year} VERITY+。保留所有权利。',
-    instagram: 'Instagram',
-    tiktok: 'TikTok',
-    email: '邮箱',
-    social: '社交媒体',
+  "footer": {
+    "description": "VERITY+ 是一个数字媒体平台，为年轻一代提供信息和解决方案。",
+    "company": "公司",
+    "about": "关于我们",
+    "contact": "联系我们",
+    "advertise": "广告投放",
+    "help": "帮助",
+    "privacy": "隐私政策",
+    "terms": "条款与条件",
+    "copyright": "© {year} VERITY+。保留所有权利。",
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "email": "邮箱",
+    "social": "社交媒体"
   },
-  common: {
-    minRead: '分钟阅读',
-    readMore: '阅读更多',
-    seeAll: '查看全部',
-    seeMore: '查看更多',
-    send: '发送',
-    email: '邮箱',
-    previous: '上一页',
-    next: '下一页',
-    backToHome: '返回首页',
-    all: '全部',
-    subscribe: '订阅',
-    joinNow: '立即加入',
-    mostPopular: '最受欢迎',
-    popular: '热门阅读',
-    featured: '精选',
-    custom: '定制',
-    contactUs: '联系我们',
-    monthly: '/月',
-    latest: '最新',
-    articles: '文章',
-    categories: '分类',
-    search: '搜索',
-    noResults: '未找到结果',
-    noResultsDesc: '尝试不同的关键词或检查拼写。',
-    noArticles: '暂无文章',
-    noArticlesDesc: '尚未发布任何文章。',
-    noArticlesInCategory: '此分类下没有文章。',
-    loading: '加载中...',
-    readArticle: '阅读文章',
-    stop: '停止',
-    fontSizeIncrease: '增大字体',
-    fontSizeDecrease: '减小字体',
-    totalArticles: '文章总数',
-    articlesBy: '作者',
-    category: '分类',
-    categoryNotFound: '未找到分类',
-    authorNotFound: '未找到作者',
-    exploreArticles: '探索文章',
-    exploreArticlesDesc: '关于科技、商业和生活的最新见解。',
-    allArticles: '所有文章',
-    recommendedArticles: '推荐文章',
-    popularCategories: '热门分类',
-    clearSearch: '清除搜索',
-    searchResults: '搜索结果',
-    searchResultsFor: '显示以下内容的结果：',
-    searchPlaceholder: '搜索文章...',
-    searchPlaceholderExtended: '搜索更多文章...',
-    emailYour: '您的邮箱',
-    phone: '电话',
-    homeTitle: 'VERITY+ — 最新文章门户',
-    homeDesc: '关于科技、商业、生活和体育的最新文章。',
-    aboutTitle: '关于我们 — VERITY+',
-    aboutDesc: '了解 VERITY+ 背后的团队以及我们建设数字未来的使命。',
-    contactTitle: '联系我们 — VERITY+',
-    contactDesc: '联系 VERITY+ 团队获取问题、合作或更多信息。',
-    advertiseTitle: '广告与合作 — VERITY+',
-    advertiseDesc: '在 VERITY+ 平台上投放广告，提升品牌知名度。',
-    privacyTitle: '隐私政策 — VERITY+',
-    privacyDesc: 'VERITY+ 隐私政策 — 我们如何保护您的个人数据。',
-    termsTitle: '条款与条件 — VERITY+',
-    termsDesc: '使用 VERITY+ 平台的条款与条件。',
-    searchTitle: '搜索 — VERITY+',
-    searchTitleQuery: '搜索："{query}" — VERITY+',
-    searchDesc: 'VERITY+ 上关于"{query}"的搜索结果。',
-    authorTitle: '{name} — VERITY+',
-    authorDesc: '{name} 的文章',
-    categoryTitle: '{name} — VERITY+',
-    categoryDesc: '{name} 分类下的文章',
-    categoryDescFallback: '按分类浏览文章',
-    allArticlesTitle: '所有文章 — VERITY+',
-    allArticlesDesc: '来自 VERITY+ 的所有最新文章',
-    articleLoading: '正在加载文章... — VERITY+',
+  "common": {
+    "locale": "zh",
+    "skipToContent": "跳到主要内容",
+    "errorLoading": "加载数据出错",
+    "retry": "重试",
+    "minRead": "分钟阅读",
+    "readMore": "阅读更多",
+    "seeAll": "查看全部",
+    "seeMore": "查看更多",
+    "email": "邮箱",
+    "previous": "上一页",
+    "next": "下一页",
+    "all": "全部",
+    "mostPopular": "最受欢迎",
+    "contactUs": "联系我们",
+    "search": "搜索",
+    "noResults": "未找到结果",
+    "noArticles": "暂无文章",
+    "noArticlesDesc": "尚未发布任何文章。",
+    "noArticlesInCategory": "此分类下没有文章。",
+    "loading": "加载中...",
+    "readArticle": "阅读文章",
+    "stop": "停止",
+    "fontSizeIncrease": "增大字体",
+    "fontSizeDecrease": "减小字体",
+    "totalArticles": "文章总数",
+    "category": "分类",
+    "exploreArticles": "探索文章",
+    "exploreArticlesDesc": "关于科技、商业和生活的最新见解。",
+    "allArticles": "所有文章",
+    "popularCategories": "热门分类",
+    "clearSearch": "清除搜索",
+    "searchPlaceholder": "搜索文章...",
+    "phone": "电话",
+    "homeTitle": "VERITY+ — 最新文章门户",
+    "homeDesc": "关于科技、商业、生活和体育的最新文章。",
+    "aboutTitle": "关于我们 — VERITY+",
+    "aboutDesc": "了解 VERITY+ 背后的团队以及我们建设数字未来的使命。",
+    "contactTitle": "联系我们 — VERITY+",
+    "contactDesc": "联系 VERITY+ 团队获取问题、合作或更多信息。",
+    "advertiseTitle": "广告与合作 — VERITY+",
+    "advertiseDesc": "在 VERITY+ 平台上投放广告，提升品牌知名度。",
+    "privacyTitle": "隐私政策 — VERITY+",
+    "privacyDesc": "VERITY+ 隐私政策 — 我们如何保护您的个人数据。",
+    "termsTitle": "条款与条件 — VERITY+",
+    "termsDesc": "使用 VERITY+ 平台的条款与条件。",
+    "searchTitle": "搜索 — VERITY+",
+    "searchTitleQuery": "搜索：\"{query}\" — VERITY+",
+    "searchDesc": "VERITY+ 上关于\"{query}\"的搜索结果。",
+    "authorTitle": "{name} — VERITY+",
+    "authorDesc": "{name} 的文章",
+    "categoryTitle": "{name} — VERITY+",
+    "categoryDesc": "{name} 分类下的文章",
+    "categoryDescFallback": "按分类浏览文章",
+    "allArticlesTitle": "所有文章 — VERITY+",
+    "allArticlesDesc": "来自 VERITY+ 的所有最新文章",
+    "articleLoading": "正在加载文章... — VERITY+"
   },
-  home: {
-    latestArticles: '最新文章',
-    popularArticles: '热门阅读',
+  "home": {
+    "latestArticles": "最新文章",
+    "popularArticles": "热门阅读"
   },
-  about: {
-    whoWeAre: '我们是谁',
-    heading: '提供激励新一代的信息',
-    description:
-      'VERITY+ 是一个数字媒体平台，为年轻一代提供信息和解决方案。我们相信优质内容可以改变观点并赋能社区。',
-    ourStory: '我们的故事',
-    storyParagraph1:
-      'VERITY+ 源于对相关内容和易于获取的热情，诞生于对一个不仅具有信息性，还能为印尼年轻读者提供真正解决方案的媒体平台的需求。',
-    storyParagraph2:
-      '从第一天起，我们就致力于发布关于科技、商业、生活和体育的高质量文章。凭借专业的内容团队，我们不断成长为值得信赖的信息来源。',
-    established: '成立于 2026',
-    projectsCompleted: '总访问量',
-    yearsExperience: '独立访客',
-    monthlyReaders: '页面浏览量',
-    articlesPublished: '平均停留时间',
-    totalVisits: '总访问量',
-    uniqueVisitors: '独立访客',
-    pageViews: '页面浏览量',
-    avgTimeOnSite: '平均停留时间',
-    missionVision: '使命与愿景',
-    purpose: '我们的目标',
-    mission: '使命',
-    missionDesc: '提供准确、相关且有启发性的信息，赋能年轻一代做出更好的决策。',
-    vision: '愿景',
-    visionDesc: '成为领先的数字媒体平台，将知识与印尼社会的实际行动联系起来。',
-    coreValues: '我们的核心价值观',
-    whatWeBelieve: '我们的信念',
-    communityTitle: '社区',
-    communityDesc: '我们通过相关且有意义的内容建立一个活跃且互相支持的读者社区。',
-    creativityTitle: '创造力',
-    creativityDesc: '每个故事都以新鲜视角和创意方式呈现，吸引读者。',
-    innovationTitle: '创新',
-    innovationDesc: '我们不断适应最新趋势和现代技术，提供最佳阅读体验。',
-    qualityTitle: '品质',
-    qualityDesc: '高编辑标准是我们发布每篇文章的首要原则。',
-    quote: '"无限的创意，不妥协的成果。"',
-    teamAlt: 'VERITY+ 团队',
+  "about": {
+    "whoWeAre": "我们是谁",
+    "heading": "提供激励新一代的信息",
+    "description": "VERITY+ 是一个数字媒体平台，为年轻一代提供信息和解决方案。我们相信优质内容可以改变观点并赋能社区。",
+    "ourStory": "我们的故事",
+    "storyParagraph1": "VERITY+ 源于对相关内容和易于获取的热情，诞生于对一个不仅具有信息性，还能为印尼年轻读者提供真正解决方案的媒体平台的需求。",
+    "storyParagraph2": "从第一天起，我们就致力于发布关于科技、商业、生活和体育的高质量文章。凭借专业的内容团队，我们不断成长为值得信赖的信息来源。",
+    "established": "成立于 2026",
+    "missionVision": "使命与愿景",
+    "purpose": "我们的目标",
+    "mission": "使命",
+    "missionDesc": "提供准确、相关且有启发性的信息，赋能年轻一代做出更好的决策。",
+    "vision": "愿景",
+    "visionDesc": "成为领先的数字媒体平台，将知识与印尼社会的实际行动联系起来。",
+    "coreValues": "我们的核心价值观",
+    "whatWeBelieve": "我们的信念",
+    "communityTitle": "社区",
+    "communityDesc": "我们通过相关且有意义的内容建立一个活跃且互相支持的读者社区。",
+    "creativityTitle": "创造力",
+    "creativityDesc": "每个故事都以新鲜视角和创意方式呈现，吸引读者。",
+    "innovationTitle": "创新",
+    "innovationDesc": "我们不断适应最新趋势和现代技术，提供最佳阅读体验。",
+    "qualityTitle": "品质",
+    "qualityDesc": "高编辑标准是我们发布每篇文章的首要原则。",
+    "teamAlt": "VERITY+ 团队"
   },
-  contact: {
-    heading: '联系我们',
-    title: '让我们一起创造精彩',
-    description:
-      '有想法或问题？我们的团队随时帮助您实现数字愿景。发送消息给我们，我们将在24小时内回复。',
-    mainOffice: '总部',
-    address: '印度尼西亚雅加达南区科技街42号',
-    phone: '+62 21 1234 5678',
-    messageSent: '您的消息已发送（这只是一个演示）',
-    firstName: '名',
-    firstNamePlaceholder: '张',
-    lastName: '姓',
-    lastNamePlaceholder: '三',
-    message: '留言',
-    messagePlaceholder: '我们能帮您什么？',
-    sendMessage: '发送消息',
+  "contact": {
+    "heading": "联系我们",
+    "title": "让我们一起创造精彩",
+    "description": "有想法或问题？我们的团队随时帮助您实现数字愿景。发送消息给我们，我们将在24小时内回复。",
+    "mainOffice": "总部",
+    "address": "印度尼西亚雅加达南区科技街42号",
+    "phone": "+62 21 1234 5678"
   },
-  advertise: {
-    heading: '广告投放',
-    title: '与我们一起触达目标受众',
-    description: '在我们的平台上投放广告，每天触达数千名活跃访客，提升品牌知名度。',
-    mostPopularBadge: '最受欢迎',
-    plans: {
-      starter: {
-        name: '入门版',
-        subtitle: '适合中小企业或试用活动。',
-        cta: '选择方案',
+  "advertise": {
+    "heading": "广告投放",
+    "title": "与我们一起触达目标受众",
+    "description": "在我们的平台上投放广告，每天触达数千名活跃访客，提升品牌知名度。",
+    "plans": {
+      "starter": {
+        "name": "入门版",
+        "subtitle": "适合中小企业或试用活动。",
+        "cta": "选择方案"
       },
-      professional: {
-        name: '专业版',
-        subtitle: '最大化您的品牌曝光。',
-        cta: '立即开始',
+      "professional": {
+        "name": "专业版",
+        "subtitle": "最大化您的品牌曝光。",
+        "cta": "立即开始"
       },
-      custom: {
-        name: '定制版',
-        subtitle: '根据您的需求提供大规模解决方案。',
-        cta: '免费咨询',
-      },
+      "custom": {
+        "name": "定制版",
+        "subtitle": "根据您的需求提供大规模解决方案。",
+        "cta": "免费咨询"
+      }
     },
-    stats: {
-      monthlyViews: '月浏览量',
-      activeUsers: '活跃用户',
-      avgCTR: '平均点击率',
-    },
-    features: {
-      bannerSidebar3Days: '侧边栏横幅（3天）',
-      bannerSidebar9Days: '侧边栏横幅（9天）',
-      oneAdvertorialArticle: '1 篇软文',
-      threeAdvertorialArticles: '3 篇软文',
-      oneInstagramPost: '1 条 Instagram 帖子',
-      threeInstagramPosts: '3 条 Instagram 帖子',
-      oneTikTokPost: '1 条 TikTok 帖子',
-      threeTikTokPosts: '3 条 TikTok 帖子',
-      allProfessionalBenefits: '所有专业版权益',
-      promotionalVideo: '宣传视频',
-      customCampaign: '定制营销活动',
-      etCetera: '等等',
-    },
+    "features": {
+      "bannerSidebar3Days": "侧边栏横幅（3天）",
+      "bannerSidebar9Days": "侧边栏横幅（9天）",
+      "oneAdvertorialArticle": "1 篇软文",
+      "threeAdvertorialArticles": "3 篇软文",
+      "oneInstagramPost": "1 条 Instagram 帖子",
+      "threeInstagramPosts": "3 条 Instagram 帖子",
+      "oneTikTokPost": "1 条 TikTok 帖子",
+      "threeTikTokPosts": "3 条 TikTok 帖子",
+      "allProfessionalBenefits": "所有专业版权益",
+      "promotionalVideo": "宣传视频",
+      "customCampaign": "定制营销活动",
+      "etCetera": "等等"
+    }
   },
-  privacy: {
-    heading: '隐私政策',
-    lastUpdated: '最后更新：2026年4月6日',
-    intro:
-      '在 VERITY+，您的隐私至关重要。本政策解释了我们在您阅读文章或与我们的博客平台互动时如何收集、使用和保护您的个人信息。',
-    contactHeading: '对本政策有疑问？',
-    contactDesc: '如果您对我们如何使用您的数据有其他疑问，请随时联系我们。',
-    contactButton: '联系我们',
-    sections: {
-      infoCollected: {
-        title: '1. 我们收集的信息',
-        content: '我们收集以下类型的信息：',
-        items: [
-          '账户信息：注册时的姓名、电子邮件地址和个人资料详情。',
-          '阅读活动：您浏览的文章、阅读时间和内容偏好，以个性化您的体验。',
-          '技术数据：IP 地址、浏览器类型、设备信息和操作系统，用于网站优化和安全。',
-          'Cookie 与分析：通过 Cookie 和分析工具收集浏览行为、推荐来源和互动模式。',
-          '通信数据：您通过联系表单发送的消息或对文章的评论。',
-        ],
+  "privacy": {
+    "heading": "隐私政策",
+    "lastUpdated": "最后更新：2026年4月6日",
+    "intro": "在 VERITY+，您的隐私至关重要。本政策解释了我们在您阅读文章或与我们的博客平台互动时如何收集、使用和保护您的个人信息。",
+    "contactHeading": "对本政策有疑问？",
+    "contactDesc": "如果您对我们如何使用您的数据有其他疑问，请随时联系我们。",
+    "contactButton": "联系我们",
+    "sections": {
+      "infoCollected": {
+        "title": "1. 我们收集的信息",
+        "content": "我们收集以下类型的信息：",
+        "items": [
+          "账户信息：注册时的姓名、电子邮件地址和个人资料详情。",
+          "阅读活动：您浏览的文章、阅读时间和内容偏好，以个性化您的体验。",
+          "技术数据：IP 地址、浏览器类型、设备信息和操作系统，用于网站优化和安全。",
+          "Cookie 与分析：通过 Cookie 和分析工具收集浏览行为、推荐来源和互动模式。",
+          "通信数据：您通过联系表单发送的消息或对文章的评论。"
+        ]
       },
-      infoUsage: {
-        title: '2. 我们如何使用您的信息',
-        content: '您的信息帮助我们：',
-        items: [
-          '根据您的阅读兴趣提供个性化的文章推荐。',
-          '发送您已选择接收的相关内容更新。',
-          '改善网站性能、内容质量和用户体验。',
-          '展示相关广告并衡量广告活动效果。',
-          '检测和防止我们平台上的垃圾邮件、欺诈和滥用行为。',
-        ],
+      "infoUsage": {
+        "title": "2. 我们如何使用您的信息",
+        "content": "您的信息帮助我们：",
+        "items": [
+          "根据您的阅读兴趣提供个性化的文章推荐。",
+          "发送您已选择接收的相关内容更新。",
+          "改善网站性能、内容质量和用户体验。",
+          "展示相关广告并衡量广告活动效果。",
+          "检测和防止我们平台上的垃圾邮件、欺诈和滥用行为。"
+        ]
       },
-      cookies: {
-        title: '3. Cookie 与跟踪',
-        content: '我们使用 Cookie 和类似的跟踪技术来提升您的阅读体验：',
-        items: [
-          '必要 Cookie：会话管理和安全等核心网站功能所必需。',
-          '分析 Cookie：帮助我们了解哪些文章最受欢迎以及读者如何浏览网站。',
-          '广告 Cookie：我们和广告合作伙伴用于展示相关广告并跟踪活动效果。',
-          '偏好 Cookie：记住您的设置，如字体大小、主题和语言偏好。',
-        ],
+      "cookies": {
+        "title": "3. Cookie 与跟踪",
+        "content": "我们使用 Cookie 和类似的跟踪技术来提升您的阅读体验：",
+        "items": [
+          "必要 Cookie：会话管理和安全等核心网站功能所必需。",
+          "分析 Cookie：帮助我们了解哪些文章最受欢迎以及读者如何浏览网站。",
+          "广告 Cookie：我们和广告合作伙伴用于展示相关广告并跟踪活动效果。",
+          "偏好 Cookie：记住您的设置，如字体大小、主题和语言偏好。"
+        ]
       },
-      thirdParty: {
-        title: '4. 第三方服务',
-        content: '我们的博客平台与可信赖的第三方服务集成。这些服务有自己的隐私政策：',
-        items: [
-          '分析提供商：Google Analytics 等工具帮助我们衡量网站流量和读者参与度。',
-          '广告合作伙伴：广告网络可能会收集数据以在我们的平台上投放定向广告。',
-          '社交媒体：嵌入的社交媒体内容（Instagram、TikTok）可能会跟踪您的互动。',
-          '电子邮件服务提供商：合作伙伴处理您的电子邮件地址以管理账户。',
-        ],
+      "thirdParty": {
+        "title": "4. 第三方服务",
+        "content": "我们的博客平台与可信赖的第三方服务集成。这些服务有自己的隐私政策：",
+        "items": [
+          "分析提供商：Google Analytics 等工具帮助我们衡量网站流量和读者参与度。",
+          "广告合作伙伴：广告网络可能会收集数据以在我们的平台上投放定向广告。",
+          "社交媒体：嵌入的社交媒体内容（Instagram、TikTok）可能会跟踪您的互动。",
+          "电子邮件服务提供商：合作伙伴处理您的电子邮件地址以管理账户。"
+        ]
       },
-      dataRetention: {
-        title: '5. 数据保留',
-        content:
-          '我们仅在必要时保留您的个人数据。分析数据在 14 个月后匿名化。账户数据将在请求后或 24 个月不活动后删除。',
+      "dataRetention": {
+        "title": "5. 数据保留",
+        "content": "我们仅在必要时保留您的个人数据。分析数据在 14 个月后匿名化。账户数据将在请求后或 24 个月不活动后删除。"
       },
-      yourRights: {
-        title: '6. 您的权利',
-        content: '您对您的个人数据拥有以下权利：',
-        items: [
-          '访问：请求获取我们持有的关于您的所有个人数据的副本。',
-          '更正：更新或更正您账户中的不准确信息。',
-          '删除：请求删除您的账户和相关个人数据。',
-          'Cookie 控制：通过我们的 Cookie 同意横幅管理您的 Cookie 偏好。',
-        ],
+      "yourRights": {
+        "title": "6. 您的权利",
+        "content": "您对您的个人数据拥有以下权利：",
+        "items": [
+          "访问：请求获取我们持有的关于您的所有个人数据的副本。",
+          "更正：更新或更正您账户中的不准确信息。",
+          "删除：请求删除您的账户和相关个人数据。",
+          "Cookie 控制：通过我们的 Cookie 同意横幅管理您的 Cookie 偏好。"
+        ]
       },
-      childrenPrivacy: {
-        title: '7. 儿童隐私',
-        content:
-          'VERITY+ 不适用于 13 岁以下的儿童。我们不会故意收集儿童的个人信息。如果我们意识到我们无意中收集了 13 岁以下儿童的数据，我们将迅速采取措施删除。',
+      "childrenPrivacy": {
+        "title": "7. 儿童隐私",
+        "content": "VERITY+ 不适用于 13 岁以下的儿童。我们不会故意收集儿童的个人信息。如果我们意识到我们无意中收集了 13 岁以下儿童的数据，我们将迅速采取措施删除。"
       },
-      policyChanges: {
-        title: '8. 本政策的变更',
-        content:
-          '我们可能会不时更新本隐私政策，以反映我们实践、技术或法律要求的变化。本页面顶部的更新日期将指示最后一次更改的时间。我们建议您定期查阅本政策。',
-      },
-    },
+      "policyChanges": {
+        "title": "8. 本政策的变更",
+        "content": "我们可能会不时更新本隐私政策，以反映我们实践、技术或法律要求的变化。本页面顶部的更新日期将指示最后一次更改的时间。我们建议您定期查阅本政策。"
+      }
+    }
   },
-  terms: {
-    heading: '条款与条件',
-    lastUpdated: '最后更新：2026年4月6日',
-    intro:
-      '本条款与条件管辖您对 VERITY+ 博客平台的访问和使用。通过阅读、评论或与我们的内容互动，即表示您同意受这些条款的约束。请仔细阅读。',
-    tocHeading: '目录',
-    contactHeading: '对这些条款有疑问？',
-    contactDesc: '如果您需要澄清或对任何部分有疑虑，我们的团队乐意为您提供帮助。',
-    contactButton: '联系我们',
-    sections: {
-      acceptance: {
-        title: '1. 接受条款',
-        content:
-          '通过访问、浏览或使用 VERITY+ 博客平台，您确认已阅读、理解并同意受本条款与条件的约束。如果您不同意本条款的任何部分，请立即停止使用本平台。',
+  "terms": {
+    "heading": "条款与条件",
+    "lastUpdated": "最后更新：2026年4月6日",
+    "intro": "本条款与条件管辖您对 VERITY+ 博客平台的访问和使用。通过阅读、评论或与我们的内容互动，即表示您同意受这些条款的约束。请仔细阅读。",
+    "tocHeading": "目录",
+    "contactHeading": "对这些条款有疑问？",
+    "contactDesc": "如果您需要澄清或对任何部分有疑虑，我们的团队乐意为您提供帮助。",
+    "contactButton": "联系我们",
+    "sections": {
+      "acceptance": {
+        "title": "1. 接受条款",
+        "content": "通过访问、浏览或使用 VERITY+ 博客平台，您确认已阅读、理解并同意受本条款与条件的约束。如果您不同意本条款的任何部分，请立即停止使用本平台。"
       },
-      contentUse: {
-        title: '2. 内容使用与许可',
-        content: 'VERITY+ 上的所有文章、图片、图形和媒体仅供个人非商业使用。您可以：',
-        items: [
-          '阅读、分享和收藏文章以供个人参考。',
-          '在明确标注出处并链接回原文的情况下，引用简短摘录（最多 150 字）。',
-          '在社交媒体平台上分享文章链接并附上评论。',
-        ],
+      "contentUse": {
+        "title": "2. 内容使用与许可",
+        "content": "VERITY+ 上的所有文章、图片、图形和媒体仅供个人非商业使用。您可以：",
+        "items": [
+          "阅读、分享和收藏文章以供个人参考。",
+          "在明确标注出处并链接回原文的情况下，引用简短摘录（最多 150 字）。",
+          "在社交媒体平台上分享文章链接并附上评论。"
+        ]
       },
-      userAccounts: {
-        title: '3. 用户账户与注册',
-        content: '某些功能（如评论和书签）可能需要账户注册。您需对以下事项负责：',
-        items: [
-          '在注册时提供准确和最新的信息。',
-          '保持登录凭证的机密性。',
-          '您账户下发生的所有活动。',
-          '在发现任何未经授权访问账户时立即通知我们。',
-        ],
+      "userAccounts": {
+        "title": "3. 用户账户与注册",
+        "content": "某些功能（如评论和书签）可能需要账户注册。您需对以下事项负责：",
+        "items": [
+          "在注册时提供准确和最新的信息。",
+          "保持登录凭证的机密性。",
+          "您账户下发生的所有活动。",
+          "在发现任何未经授权访问账户时立即通知我们。"
+        ]
       },
-      commenting: {
-        title: '4. 评论与社区准则',
-        content: '我们鼓励有建设性的讨论。通过发表评论，您同意不：',
-        items: [
-          '发布垃圾邮件、广告或推广内容。',
-          '使用冒犯性、歧视性或骚扰性语言。',
-          '故意分享虚假或误导性信息。',
-          '冒充其他个人或实体。',
-          '包含指向恶意或不适当网站的链接。',
-        ],
+      "commenting": {
+        "title": "4. 评论与社区准则",
+        "content": "我们鼓励有建设性的讨论。通过发表评论，您同意不：",
+        "items": [
+          "发布垃圾邮件、广告或推广内容。",
+          "使用冒犯性、歧视性或骚扰性语言。",
+          "故意分享虚假或误导性信息。",
+          "冒充其他个人或实体。",
+          "包含指向恶意或不适当网站的链接。"
+        ]
       },
-      advertising: {
-        title: '5. 广告与赞助内容',
-        content:
-          'VERITY+ 可能在平台上展示广告、赞助文章或联盟链接。赞助内容会明确标注。我们与可信赖的广告商合作，为读者保持平台免费。点击广告或联盟链接可能会为 VERITY+ 带来佣金，不会给您带来额外费用。',
+      "advertising": {
+        "title": "5. 广告与赞助内容",
+        "content": "VERITY+ 可能在平台上展示广告、赞助文章或联盟链接。赞助内容会明确标注。我们与可信赖的广告商合作，为读者保持平台免费。点击广告或联盟链接可能会为 VERITY+ 带来佣金，不会给您带来额外费用。"
       },
-      externalLinks: {
-        title: '6. 外部链接与第三方内容',
-        content:
-          '我们的文章可能包含指向外部网站或第三方内容的链接。我们不控制或认可这些外部网站，也不对其内容、隐私实践或使用条款负责。我们建议您查阅您访问的任何第三方网站的条款和政策。',
+      "externalLinks": {
+        "title": "6. 外部链接与第三方内容",
+        "content": "我们的文章可能包含指向外部网站或第三方内容的链接。我们不控制或认可这些外部网站，也不对其内容、隐私实践或使用条款负责。我们建议您查阅您访问的任何第三方网站的条款和政策。"
       },
-      copyright: {
-        title: '7. 版权与知识产权',
-        content: 'VERITY+ 上发布的所有内容均受版权法保护。未经授权的复制或分发被禁止：',
-        items: [
-          '未经明确书面许可，不得全文转载文章。',
-          '图片、图形和多媒体是 VERITY+ 或其各自许可方的财产。',
-          'VERITY+ 名称、徽标和品牌是注册商标。',
-          '违规行为可能导致账户终止和法律行动。',
-        ],
+      "copyright": {
+        "title": "7. 版权与知识产权",
+        "content": "VERITY+ 上发布的所有内容均受版权法保护。未经授权的复制或分发被禁止：",
+        "items": [
+          "未经明确书面许可，不得全文转载文章。",
+          "图片、图形和多媒体是 VERITY+ 或其各自许可方的财产。",
+          "VERITY+ 名称、徽标和品牌是注册商标。",
+          "违规行为可能导致账户终止和法律行动。"
+        ]
       },
-      limitationLiability: {
-        title: '8. 责任限制',
-        content:
-          'VERITY+ 提供的内容"按原样"仅供信息参考。我们不保证任何文章的准确性、完整性或时效性。对于因使用本平台、依赖我们的内容或无法访问我们的服务而造成的任何损害，我们概不负责。',
+      "limitationLiability": {
+        "title": "8. 责任限制",
+        "content": "VERITY+ 提供的内容\"按原样\"仅供信息参考。我们不保证任何文章的准确性、完整性或时效性。对于因使用本平台、依赖我们的内容或无法访问我们的服务而造成的任何损害，我们概不负责。"
       },
-      changes: {
-        title: '9. 条款变更',
-        content:
-          '我们可能会定期更新本条款与条件，以反映我们平台、法律要求或行业标准的变化。本页面顶部的"最后更新"日期将相应修改。在变更后继续使用 VERITY+ 即构成对新条款的接受。',
-      },
-    },
+      "changes": {
+        "title": "9. 条款变更",
+        "content": "我们可能会定期更新本条款与条件，以反映我们平台、法律要求或行业标准的变化。本页面顶部的\"最后更新\"日期将相应修改。在变更后继续使用 VERITY+ 即构成对新条款的接受。"
+      }
+    }
   },
-  search: {
-    heading: '搜索结果',
-    showingResults: '显示以下内容的结果：',
-    noResults: '未找到文章。',
-    noResultsDesc: '尝试不同的关键词或检查拼写。',
-    enterQuery: '输入搜索查询以查找文章。',
+  "search": {
+    "heading": "搜索结果",
+    "showingResults": "显示以下内容的结果：",
+    "noResults": "未找到文章。",
+    "noResultsDesc": "尝试不同的关键词或检查拼写。",
+    "enterQuery": "输入搜索查询以查找文章。"
   },
-  article: {
-    minutesRead: '分钟阅读',
-    readMore: '阅读更多',
-    recommended: '推荐文章',
-    articlesBy: '作者',
-    authorSponsor: '作者赞助',
-    categorySponsor: '分类赞助',
-    exclusivePromo: '独家促销',
-    mainPromo: '主要促销',
+  "article": {
+    "minutesRead": "分钟阅读",
+    "recommended": "推荐文章",
+    "articlesBy": "作者",
+    "mainPromo": "主要促销"
   },
-  ads: {
-    defaultLabel: '广告位',
-    header: '头部广告',
-    middle: '中部广告',
-    footer: '底部广告',
-    sidebar: '侧边栏广告',
-    authorSponsor: '作者赞助',
-    categorySponsor: '分类赞助',
-    exclusivePromo: '独家促销',
-    sidePromo: '侧面促销',
-    mainPromo: '主要促销',
-    sponsor: '赞助',
+  "ads": {
+    "defaultLabel": "广告位",
+    "header": "头部广告",
+    "middle": "中部广告",
+    "footer": "底部广告",
+    "authorSponsor": "作者赞助",
+    "categorySponsor": "分类赞助",
+    "exclusivePromo": "独家促销",
+    "sidePromo": "侧面促销",
+    "sponsor": "赞助"
   },
-  topbar: {
-    browse: '浏览',
-    featured: '精选',
-    latest: '最新',
-    popular: '热门',
-    categories: '分类',
-    articlesCount: '{count} 篇文章',
+  "topbar": {
+    "browse": "浏览",
+    "featured": "精选",
+    "latest": "最新",
+    "popular": "热门",
+    "categories": "分类"
   },
-  cookieConsent: {
-    message:
-      '我们使用 Cookie 来分析网站流量并改善您的体验。通过接受，您帮助我们了解访问者如何与我们的网站互动。',
-    accept: '接受',
-    decline: '拒绝',
-    learnMore: '了解更多',
+  "cookieConsent": {
+    "message": "我们使用 Cookie 来分析网站流量并改善您的体验。通过接受，您帮助我们了解访问者如何与我们的网站互动。",
+    "accept": "接受",
+    "decline": "拒绝",
+    "learnMore": "了解更多"
   },
-  analytics: {
-    heading: '分析',
-    totalVisits: '总访问量',
-    uniqueVisitors: '独立访客',
-    pageViews: '页面浏览量',
-    avgDuration: '平均停留时间',
-    topPages: '热门页面',
-    noData: '暂无分析数据',
-    seconds: '秒',
-    viewAnalytics: '查看分析',
-    analyticsTitle: '分析仪表板',
-    analyticsDesc: '访客洞察与页面表现。',
-    date: '日期',
-    visits: '访问量',
-    topReferrers: '热门来源',
-    referrer: '来源',
-    count: '数量',
-    exportData: '导出数据',
-    clearData: '清除数据',
-    clearDataConfirm: '确定要清除所有分析数据吗？',
-  },
-  notFound: {
-    title: '404 - 页面未找到',
-    message: '糟糕！您查找的页面不存在或已被移动。',
-    backHome: '返回首页',
-  },
+  "notFound": {
+    "title": "404 - 页面未找到",
+    "message": "糟糕！您查找的页面不存在或已被移动。",
+    "backHome": "返回首页"
+  }
 }
 
 export default zh
