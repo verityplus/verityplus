@@ -112,7 +112,7 @@ export const AIDraftModal = defineComponent({
                 value={form.value.topic}
                 onInput={(e) => (form.value.topic = (e.target as HTMLInputElement).value)}
                 placeholder="Ex: The Future of Quantum Computing in Healthcare"
-                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-sm h-[46px]"
                 autofocus
               />
             </div>
@@ -125,6 +125,7 @@ export const AIDraftModal = defineComponent({
                 modelValue={form.value.tone}
                 options={tones.map(t => ({ value: t, label: t }))}
                 onUpdate:modelValue={(val) => (form.value.tone = val as string)}
+                class="h-[46px]"
               />
             </div>
 
@@ -137,7 +138,7 @@ export const AIDraftModal = defineComponent({
                 value={form.value.audience}
                 onInput={(e) => (form.value.audience = (e.target as HTMLInputElement).value)}
                 placeholder="Ex: Tech Professionals"
-                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-sm h-[46px]"
               />
             </div>
 
@@ -150,7 +151,7 @@ export const AIDraftModal = defineComponent({
                 value={form.value.goals}
                 onInput={(e) => (form.value.goals = (e.target as HTMLInputElement).value)}
                 placeholder="Ex: Educational, SEO"
-                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-sm h-[46px]"
               />
             </div>
 
@@ -163,7 +164,7 @@ export const AIDraftModal = defineComponent({
                 value={form.value.keywords}
                 onInput={(e) => (form.value.keywords = (e.target as HTMLInputElement).value)}
                 placeholder="Ex: quantum, ai ethics"
-                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-sm h-[46px]"
               />
             </div>
 
@@ -176,7 +177,7 @@ export const AIDraftModal = defineComponent({
                 onInput={(e) => (form.value.explanation = (e.target as HTMLTextAreaElement).value)}
                 placeholder="Ex: Provide additional context or a short explanation for the AI to follow..."
                 rows={3}
-                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs resize-none"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-sm resize-none"
               ></textarea>
             </div>
           </div>

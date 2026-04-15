@@ -25,6 +25,10 @@ export const BaseSelect = defineComponent({
       type: Boolean,
       default: false,
     },
+    class: {
+      type: String,
+      default: '',
+    },
     error: {
       type: Boolean,
       default: false,
@@ -64,6 +68,7 @@ export const BaseSelect = defineComponent({
             props.disabled ? 'bg-slate-50 opacity-60 cursor-not-allowed' : 'bg-slate-50/50 hover:bg-white',
             isOpen.value ? 'bg-white border-primary shadow-[0_0_0_4px_rgba(var(--primary-rgb),0.1)]' : 'border-slate-100',
             props.error ? 'border-red-200' : 'focus-within:border-primary/40',
+            props.class,
           ]}
         >
           <span class={[
