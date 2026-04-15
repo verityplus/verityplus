@@ -29,5 +29,16 @@ export function useLocaleRoute() {
     return { params, ...(to as { params?: RouteParams }) }
   }
 
-  return { push, resolve, locale }
+  function replace(to: RouteLocationRaw) {
+    if (typeof to === 'string') {
+      return router.replace(`/${locale.value}${to}`)
+    }
+    const params: RouteParams = {
+      locale: locale.value,
+      ...(to as { params?: RouteParams }).params,
+    }
+    return router.replace({ params, ...(to as { params?: RouteParams }) })
+  }
+
+  return { push, resolve, replace, locale }
 }

@@ -2,6 +2,7 @@ import { defineComponent, ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
+import { useLocaleRoute } from '@/composables/useLocaleRoute'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { ArticleService } from '@/features/article/services/article.service'
@@ -23,16 +24,24 @@ export default defineComponent({
     const store = useArticleStore()
     const { t } = useI18n()
     const { getLocalizedField } = useLocalizedField()
+    const { replace } = useLocaleRoute()
 
     const author = ref<Author | null>(null)
     const authorArticles = ref<Article[]>([])
+    const isLoading = ref(true)
 
     watch(
       () => route.params.slug,
       async (slug) => {
         if (slug) {
+          isLoading.value = true
           author.value = (await ArticleService.getAuthor(slug as string)) || null
+          if (!author.value) {
+            replace({ name: 'not-found-localized' })
+            return
+          }
           authorArticles.value = store.findArticlesByAuthor(author.value?.id || '')
+          isLoading.value = false
         }
       },
       { immediate: true },
@@ -55,18 +64,8 @@ export default defineComponent({
     })
 
     return () => {
-      if (!author.value) {
-        return (
-          <div class="min-h-screen flex items-center justify-center bg-background">
-            <div class="text-center">
-              <i class="bi bi-person-x text-6xl text-text-muted mb-4 block"></i>
-              <h2 class="text-2xl font-bold text-text-primary">{t('common.authorNotFound')}</h2>
-              <router-link to="/" class="btn-primary mt-6">
-                {t('common.backToHome')}
-              </router-link>
-            </div>
-          </div>
-        )
+      if (isLoading.value || !author.value) {
+        return <div class="bg-background min-h-screen"></div>
       }
 
       return (

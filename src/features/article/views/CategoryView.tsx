@@ -2,6 +2,7 @@ import { defineComponent, ref, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
+import { useLocaleRoute } from '@/composables/useLocaleRoute'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { ArticleService } from '@/features/article/services/article.service'
@@ -20,9 +21,11 @@ export default defineComponent({
     const store = useArticleStore()
     const { t } = useI18n()
     const { getLocalizedField } = useLocalizedField()
+    const { replace } = useLocaleRoute()
 
     const category = ref<Category | null>(null)
     const categoryArticles = ref<Article[]>([])
+    const isLoading = ref(true)
 
     const currentPage = computed(() => {
       const page = parseInt(route.query.page as string, 10)
@@ -46,8 +49,14 @@ export default defineComponent({
       () => route.params.slug,
       async (slug) => {
         if (slug) {
+          isLoading.value = true
           category.value = (await ArticleService.getCategory(slug as string)) || null
+          if (!category.value) {
+            replace({ name: 'not-found-localized' })
+            return
+          }
           categoryArticles.value = store.findArticlesByCategoryId(category.value?.id || '')
+          isLoading.value = false
         }
       },
       { immediate: true },
@@ -70,18 +79,8 @@ export default defineComponent({
     })
 
     return () => {
-      if (!category.value) {
-        return (
-          <div class="min-h-screen flex items-center justify-center bg-background">
-            <div class="text-center">
-              <i class="bi bi-folder-x text-6xl text-text-muted mb-4 block"></i>
-              <h2 class="text-2xl font-bold text-text-primary">{t('common.categoryNotFound')}</h2>
-              <router-link to="/" class="btn-primary mt-6 inline-block">
-                {t('common.backToHome')}
-              </router-link>
-            </div>
-          </div>
-        )
+      if (isLoading.value || !category.value) {
+        return <div class="bg-background min-h-screen"></div>
       }
 
       return (

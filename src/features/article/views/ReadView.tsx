@@ -2,6 +2,7 @@ import { defineComponent, ref, computed, onMounted, onUnmounted, watch } from 'v
 import { useRoute, RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
+import { useLocaleRoute } from '@/composables/useLocaleRoute'
 import { marked } from 'marked'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
@@ -27,8 +28,10 @@ export default defineComponent({
     const store = useArticleStore()
     const { t, locale } = useI18n()
     const { getLocalizedField } = useLocalizedField()
+    const { replace } = useLocaleRoute()
 
     const article = ref<Article | null>(null)
+    const isLoading = ref(true)
     const fontSize = ref(18)
     const readingProgress = ref(0)
     const isSpeaking = ref(false)
@@ -38,18 +41,23 @@ export default defineComponent({
       () => route.params.slug,
       async (slug) => {
         if (slug) {
+          isLoading.value = true
           const found = await store.findById(slug as string)
           article.value = found || null
-          if (article.value) {
-            const categoryId = article.value.category?.id
-            if (categoryId) {
-              const sameCategory = store.findArticlesByCategoryId(categoryId)
-              recommendedArticles.value = sameCategory
-                .filter((a) => a.id !== article.value!.id)
-                .slice(0, 3)
-            }
+          
+          if (!article.value) {
+            replace({ name: 'not-found-localized' })
+            return
           }
 
+          const categoryId = article.value.category?.id
+          if (categoryId) {
+            const sameCategory = store.findArticlesByCategoryId(categoryId)
+            recommendedArticles.value = sameCategory
+              .filter((a) => a.id !== article.value!.id)
+              .slice(0, 3)
+          }
+          isLoading.value = false
         }
       },
       { immediate: true },
@@ -163,7 +171,9 @@ export default defineComponent({
     })
 
     return () => {
-      if (!article.value) return null
+      if (isLoading.value || !article.value) {
+        return <div class="bg-background min-h-screen"></div> // Loading state
+      }
 
       return (
         <article class="bg-background min-h-screen">
