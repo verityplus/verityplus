@@ -327,4 +327,9 @@ export interface MessageSchema {
     clearData: string
     clearDataConfirm: string
   }
+  notFound: {
+    title: string
+    message: string
+    backHome: string
+  }
 }

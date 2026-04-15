@@ -87,6 +87,11 @@ const router = createRouter({
           name: 'all-articles',
           component: () => import('../features/article/views/AllArticlesView'),
         },
+        {
+          path: ':pathMatch(.*)*',
+          name: 'not-found-localized',
+          component: () => import('../features/pages/NotFoundView'),
+        },
       ],
     },
 

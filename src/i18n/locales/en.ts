@@ -432,6 +432,11 @@ const en: MessageSchema = {
     clearData: 'Clear Data',
     clearDataConfirm: 'Are you sure you want to clear all analytics data?',
   },
+  notFound: {
+    title: '404 - Page Not Found',
+    message: "Oops! The page you're looking for doesn't exist or has been moved.",
+    backHome: 'Back to Home',
+  },
 }
 
 export default en

@@ -418,6 +418,11 @@ const zh: MessageSchema = {
     clearData: '清除数据',
     clearDataConfirm: '确定要清除所有分析数据吗？',
   },
+  notFound: {
+    title: '404 - 页面未找到',
+    message: '糟糕！您查找的页面不存在或已被移动。',
+    backHome: '返回首页',
+  },
 }
 
 export default zh

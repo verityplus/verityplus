@@ -434,6 +434,11 @@ const id: MessageSchema = {
     clearData: 'Hapus Data',
     clearDataConfirm: 'Apakah Anda yakin ingin menghapus semua data analitik?',
   },
+  notFound: {
+    title: '404 - Halaman Tidak Ditemukan',
+    message: 'Ups! Halaman yang Anda cari tidak ada atau telah dipindahkan.',
+    backHome: 'Kembali ke Beranda',
+  },
 }
 
 export default id
