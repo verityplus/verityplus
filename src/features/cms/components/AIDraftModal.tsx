@@ -71,29 +71,39 @@ export const AIDraftModal = defineComponent({
         }`}
       >
         <div
-          class={`bg-white/90 backdrop-blur-md rounded-[2.5rem] shadow-[0_32px_128px_rgba(0,0,0,0.3)] border border-white/20 max-w-2xl w-full overflow-hidden transform transition-all duration-500 ease-out-back ${
-            isVisible.value ? 'scale-100 translate-y-0' : 'scale-90 translate-y-12'
+          class={`bg-white/95 backdrop-blur-md rounded-[2rem] shadow-[0_32px_128px_rgba(0,0,0,0.3)] border border-white/20 max-w-2xl w-full overflow-hidden transform transition-all duration-500 ease-out-back relative ${
+            isVisible.value ? 'scale-100 translate-y-0' : 'scale-95 translate-y-8'
           }`}
         >
+          {/* Close Button */}
+          <button
+            onClick={handleCancel}
+            class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-slate-100/50 hover:bg-slate-200 text-slate-400 hover:text-slate-600 transition flex items-center justify-center border-none cursor-pointer"
+          >
+            <i class="bi bi-x-lg text-xs" />
+          </button>
+
           {/* Header */}
-          <div class="relative p-8 pb-0">
-            <div class="absolute top-0 right-0 p-8">
-               <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center animate-pulse">
-                  <i class="bi bi-robot text-primary text-2xl"></i>
+          <div class="relative p-6 pb-2">
+            <div class="flex items-center gap-3">
+               <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <i class="bi bi-robot text-primary text-xl"></i>
+               </div>
+               <div>
+                  <h2 class="text-2xl font-black text-slate-900 tracking-tight leading-none">
+                    AI Content <span class="text-primary italic">Architect</span>
+                  </h2>
+                  <p class="text-slate-400 text-[9px] font-black uppercase tracking-[0.2em] mt-1">
+                    Premium Drafting Engine
+                  </p>
                </div>
             </div>
-            <h2 class="text-3xl font-black text-slate-900 tracking-tight mb-1">
-              AI Content <span class="text-primary italic">Architect</span>
-            </h2>
-            <p class="text-slate-400 text-xs font-black uppercase tracking-[0.2em] mb-8">
-              Premium Article Drafting Engine
-            </p>
           </div>
 
           {/* Body */}
-          <div class="p-8 pt-0 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto max-h-[70vh] custom-scrollbar">
-            <div class="space-y-4 md:col-span-2">
-              <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block pl-1">
+          <div class="p-6 pt-4 grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto max-h-[70vh] custom-scrollbar">
+            <div class="space-y-2 md:col-span-2">
+              <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">
                 Primary Topic / Headline Focus
               </label>
               <input
@@ -101,19 +111,19 @@ export const AIDraftModal = defineComponent({
                 value={form.value.topic}
                 onInput={(e) => (form.value.topic = (e.target as HTMLInputElement).value)}
                 placeholder="Ex: The Future of Quantum Computing in Healthcare"
-                class="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-slate-900 font-bold focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none text-sm"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs"
                 autofocus
               />
             </div>
 
-            <div class="space-y-4">
-              <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block pl-1">
+            <div class="space-y-2">
+              <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">
                 Editorial Tone
               </label>
               <select
                 value={form.value.tone}
                 onChange={(e) => (form.value.tone = (e.target as HTMLSelectElement).value)}
-                class="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-slate-900 font-bold focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none text-sm appearance-none cursor-pointer"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs appearance-none cursor-pointer"
               >
                 {tones.map(t => (
                   <option key={t} value={t}>{t}</option>
@@ -121,72 +131,72 @@ export const AIDraftModal = defineComponent({
               </select>
             </div>
 
-            <div class="space-y-4">
-              <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block pl-1">
+            <div class="space-y-2">
+              <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">
                 Target Audience
               </label>
               <input
                 type="text"
                 value={form.value.audience}
                 onInput={(e) => (form.value.audience = (e.target as HTMLInputElement).value)}
-                placeholder="Ex: Tech Professionals, Medical Experts"
-                class="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-slate-900 font-bold focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none text-sm"
+                placeholder="Ex: Tech Professionals"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs"
               />
             </div>
 
-            <div class="space-y-4">
-              <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block pl-1">
+            <div class="space-y-2">
+              <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">
                 Article Goals
               </label>
               <input
                 type="text"
                 value={form.value.goals}
                 onInput={(e) => (form.value.goals = (e.target as HTMLInputElement).value)}
-                placeholder="Ex: Educational, SEO-driven, Lead Generation"
-                class="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-slate-900 font-bold focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none text-sm"
+                placeholder="Ex: Educational, SEO"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs"
               />
             </div>
 
-            <div class="space-y-4">
-              <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block pl-1">
+            <div class="space-y-2">
+              <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">
                 Keywords to Target
               </label>
               <input
                 type="text"
                 value={form.value.keywords}
                 onInput={(e) => (form.value.keywords = (e.target as HTMLInputElement).value)}
-                placeholder="Ex: quantum, healthcare, ai ethics"
-                class="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-slate-900 font-bold focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none text-sm"
+                placeholder="Ex: quantum, ai ethics"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs"
               />
             </div>
 
-            <div class="space-y-4 md:col-span-2">
-              <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block pl-1">
-                Key Points / Skeleton (One per line)
+            <div class="space-y-2 md:col-span-2">
+              <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">
+                Key Points / Skeleton
               </label>
               <textarea
                 value={form.value.keyPoints}
                 onInput={(e) => (form.value.keyPoints = (e.target as HTMLTextAreaElement).value)}
-                placeholder="- Introduction to Quantum Tech&#10;- Current Challenges in Medicine&#10;- Solutions provided by AI integration"
-                rows={4}
-                class="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-slate-900 font-bold focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none text-sm resize-none"
+                placeholder="- Introduction&#10;- Challenges&#10;- Solutions"
+                rows={3}
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs resize-none"
               ></textarea>
             </div>
           </div>
 
           {/* Footer */}
-          <div class="p-8 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+          <div class="p-6 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
             <button
               onClick={handleCancel}
-              class="px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all"
+              class="px-4 py-2 rounded-lg text-xs font-black uppercase tracking-widest text-slate-400 hover:text-slate-600 transition-all"
             >
-              Discard Request
+              Cancel
             </button>
             <BaseButton
               onClick={handleConfirm}
               disabled={!form.value.topic.trim()}
               variant="primary"
-              class="px-8 py-4 rounded-2xl shadow-[0_8px_24px_rgba(var(--color-primary-rgb),0.3)] !text-[10px] uppercase tracking-[0.2em] font-black"
+              class="px-6 py-3 rounded-xl shadow-lg shadow-primary/20 !text-[9px] uppercase tracking-[0.2em] font-black"
             >
               Initialize Generation
             </BaseButton>
