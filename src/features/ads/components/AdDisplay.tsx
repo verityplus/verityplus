@@ -2,7 +2,7 @@ import { defineComponent, type PropType, onMounted, nextTick, ref, computed } fr
 import { useI18n } from 'vue-i18n'
 import type { AdSize } from '@/shared/types'
 import { useSettingsStore } from '@/features/cms/store/settings.store'
-import { loadAdSenseScript } from '../services/script.service'
+import { useAdSenseHead } from '../composables/useAdSenseHead'
 
 /**
  * Feature Component: AdDisplay
@@ -34,6 +34,10 @@ export const AdDisplay = defineComponent({
     const settingsStore = useSettingsStore()
 
     const pubId = computed(() => settingsStore.settings.adsense_pub_id)
+    
+    // Inject AdSense script to head
+    useAdSenseHead(pubId)
+
     const slotId = computed(() => {
       if (props.slot) return props.slot
       
@@ -63,7 +67,6 @@ export const AdDisplay = defineComponent({
 
     onMounted(async () => {
       if (pubId.value && pubId.value !== 'ca-pub-XXXXXXXXXXXXXXXX' && slotId.value) {
-        loadAdSenseScript()
         await nextTick()
         try {
           const adsbygoogle = (window as unknown as { adsbygoogle?: unknown[] }).adsbygoogle

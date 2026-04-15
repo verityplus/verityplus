@@ -1,5 +1,6 @@
 import { defineComponent, computed, ref, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useClickOutside } from '@/composables/useClickOutside'
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/i18n'
 import type { Locale } from '@/i18n/types'
 
@@ -49,18 +50,8 @@ export const LanguageSwitcher = defineComponent({
       isOpen.value = false
     }
 
-    function handleClickOutside(e: MouseEvent) {
-      if (dropdownRef.value && !dropdownRef.value.contains(e.target as Node)) {
-        isOpen.value = false
-      }
-    }
-
-    onMounted(() => {
-      document.addEventListener('mousedown', handleClickOutside)
-    })
-
-    onUnmounted(() => {
-      document.removeEventListener('mousedown', handleClickOutside)
+    useClickOutside(dropdownRef, () => {
+      isOpen.value = false
     })
 
     return () => (

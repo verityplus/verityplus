@@ -1,5 +1,6 @@
 import { defineComponent, ref, onMounted, onUnmounted, Teleport } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useClickOutside } from '@/composables/useClickOutside'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { AD_SLOTS } from '@/features/ads/services/ad.service'
@@ -18,8 +19,8 @@ export const BrowseTopBar = defineComponent({
     const { t, te } = useI18n()
     const { getLocalizedField } = useLocalizedField()
     const isOpen = ref(false)
-    const megamenuRef = ref<HTMLElement | null>(null)
     const triggerRef = ref<HTMLElement | null>(null)
+    const panelRef = ref<HTMLElement | null>(null)
     const menuLeft = ref(0)
     const menuTop = ref(0)
     const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024)
@@ -43,12 +44,9 @@ export const BrowseTopBar = defineComponent({
       isOpen.value = false
     }
 
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement
-      if (!target.closest('[data-article-topbar]') && !target.closest('[data-megamenu-panel]')) {
-        closeMegamenu()
-      }
-    }
+    useClickOutside([triggerRef, panelRef], () => {
+      closeMegamenu()
+    })
 
     const handleResize = () => {
       windowWidth.value = window.innerWidth
@@ -64,13 +62,11 @@ export const BrowseTopBar = defineComponent({
     }
 
     onMounted(() => {
-      document.addEventListener('click', handleClickOutside)
       window.addEventListener('scroll', handleScroll, { passive: true })
       window.addEventListener('resize', handleResize, { passive: true })
     })
 
     onUnmounted(() => {
-      document.removeEventListener('click', handleClickOutside)
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('resize', handleResize)
     })
@@ -79,7 +75,7 @@ export const BrowseTopBar = defineComponent({
       'flex items-start gap-3 p-3 rounded-lg hover:bg-surface-muted transition cursor-pointer group'
 
     return () => (
-      <div data-article-topbar class="w-full border-t border-border" ref={megamenuRef}>
+      <div class="w-full border-t border-border">
         <div class="container-page">
           <div class="flex items-center gap-2 h-12">
             <div class="relative">
@@ -104,7 +100,7 @@ export const BrowseTopBar = defineComponent({
               <Teleport to="body">
                 {isOpen.value && (
                   <div
-                    data-megamenu-panel
+                    ref={panelRef}
                     class="fixed inset-x-0 top-28 md:inset-x-auto md:top-auto w-full md:w-[min(90vw,960px)] border border-border rounded-none md:rounded-xl shadow-elevated z-9999 overflow-hidden max-h-[calc(100vh-6rem)] md:max-h-80 bg-surface/80 backdrop-blur-md"
                     style={
                       windowWidth.value >= 768

@@ -19,6 +19,15 @@ export default defineComponent({
 
     const activeSection = ref<string>('acceptance')
     const sectionsContainerRef = ref<HTMLElement | null>(null)
+    const sectionRefs = new Map<string, HTMLElement>()
+
+    const setSectionRef = (key: string) => (el: any) => {
+      if (el) {
+        sectionRefs.set(key, el)
+      } else {
+        sectionRefs.delete(key)
+      }
+    }
 
     interface TocItem {
       key: string
@@ -54,15 +63,12 @@ export default defineComponent({
     })
 
     const handleScroll = () => {
-      if (!sectionsContainerRef.value) return
-      const container = sectionsContainerRef.value
-      const headings = container.querySelectorAll('[data-section-id]')
       let current = activeSection.value
 
-      headings.forEach((heading) => {
-        const rect = heading.getBoundingClientRect()
+      sectionRefs.forEach((el, key) => {
+        const rect = el.getBoundingClientRect()
         if (rect.top <= 120) {
-          current = heading.getAttribute('data-section-id') || current
+          current = key
         }
       })
 
@@ -70,7 +76,7 @@ export default defineComponent({
     }
 
     const scrollToSection = (key: string) => {
-      const el = document.getElementById(`section-${key}`)
+      const el = sectionRefs.get(key)
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
@@ -125,8 +131,8 @@ export default defineComponent({
               <div class="bg-surface rounded-2xl border border-border p-8 sm:p-10 space-y-10">
                 {sections.value.map((section) => (
                   <div
-                    id={`section-${section.key}`}
-                    data-section-id={section.key}
+                    key={section.key}
+                    ref={setSectionRef(section.key)}
                     class="scroll-mt-24"
                   >
                     <h2 class="text-xl font-bold text-text-primary mb-4 pb-3 border-b border-border/40">

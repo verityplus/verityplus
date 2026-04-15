@@ -35,6 +35,7 @@ export default defineComponent({
     const fontSize = ref(18)
     const readingProgress = ref(0)
     const isSpeaking = ref(false)
+    const markdownRef = ref<HTMLElement | null>(null)
     const recommendedArticles = ref<Article[]>([])
 
     watch(
@@ -142,7 +143,7 @@ export default defineComponent({
         return
       }
 
-      const rawText = document.getElementById('markdown-content')?.innerText
+      const rawText = markdownRef.value?.innerText
       if (!rawText || !article.value) return
 
       const utterance = new SpeechSynthesisUtterance(
@@ -307,7 +308,7 @@ export default defineComponent({
 
               <div class="max-w-3xl mx-auto relative">
                 <div
-                  id="markdown-content"
+                  ref={markdownRef}
                   class="markdown-body prose prose-blue max-w-none text-text-secondary transition-all duration-200"
                   style={{ fontSize: `${fontSize.value}px` }}
                   v-html={outputHtml.value}
