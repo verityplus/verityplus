@@ -27,7 +27,7 @@ export const AIService = {
     topic: string
     tone?: string
     audience?: string
-    keyPoints?: string
+    explanation?: string
     goals?: string
     keywords?: string
   }) {

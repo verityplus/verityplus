@@ -8,7 +8,7 @@ export interface AIDraftOptions {
   audience: string
   goals: string
   keywords: string
-  keyPoints: string
+  explanation: string
 }
 
 export const AIDraftModal = defineComponent({
@@ -31,7 +31,7 @@ export const AIDraftModal = defineComponent({
       audience: '',
       goals: '',
       keywords: '',
-      keyPoints: '',
+      explanation: '',
     })
 
     const tones = [
@@ -169,12 +169,12 @@ export const AIDraftModal = defineComponent({
 
             <div class="space-y-2 md:col-span-2">
               <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest block pl-1">
-                Key Points / Skeleton
+                Short Explanation
               </label>
               <textarea
-                value={form.value.keyPoints}
-                onInput={(e) => (form.value.keyPoints = (e.target as HTMLTextAreaElement).value)}
-                placeholder="- Introduction&#10;- Challenges&#10;- Solutions"
+                value={form.value.explanation}
+                onInput={(e) => (form.value.explanation = (e.target as HTMLTextAreaElement).value)}
+                placeholder="Ex: Provide additional context or a short explanation for the AI to follow..."
                 rows={3}
                 class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-900 font-bold focus:bg-white focus:border-primary/20 transition-all outline-none text-xs resize-none"
               ></textarea>
