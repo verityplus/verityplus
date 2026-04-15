@@ -23,9 +23,16 @@ export const AIService = {
     return data
   },
 
-  async draft(topic: string) {
+  async draft(options: {
+    topic: string
+    tone?: string
+    audience?: string
+    keyPoints?: string
+    goals?: string
+    keywords?: string
+  }) {
     const { data, error } = await apiClient.POST('/api/v1/ai/draft', {
-      body: { topic },
+      body: options,
     })
 
     if (error) throw error

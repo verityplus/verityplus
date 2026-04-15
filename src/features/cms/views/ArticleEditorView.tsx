@@ -13,6 +13,7 @@ import { appAlert, appPrompt } from '@/utils/dialog'
 import { StorageService } from '@/shared/services/storage.service'
 import { resolveAssetUrl } from '@/shared/utils/assets'
 import { AIService } from '@/shared/services/ai.service'
+import { appAIDraftPrompt } from '../utils/ai-draft-dialog'
 
 /**
  * CMS View: ArticleEditorView
@@ -171,12 +172,12 @@ export default defineComponent({
     })
 
     const handleDraft = async () => {
-      const topic = await appPrompt('Enter a topic for the AI to draft an article about:', '', 'AI Content Architect')
-      if (!topic) return
+      const options = await appAIDraftPrompt()
+      if (!options) return
 
       isAILoading.value = true
       try {
-        const result = await AIService.draft(topic)
+        const result = await AIService.draft(options)
         form.value.titleId = result.title
         form.value.contentId = result.content
         form.value.excerptId = result.excerpt
