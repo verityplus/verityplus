@@ -460,9 +460,9 @@ export interface paths {
                                 coverImageCaptionZh?: string | null;
                                 categoryId: string;
                                 authorId: string;
-                                tagsId?: string | null;
-                                tagsEn?: string | null;
-                                tagsZh?: string | null;
+                                tagsId?: string[];
+                                tagsEn?: string[];
+                                tagsZh?: string[];
                                 /** @description ISO-8601 date string */
                                 publishedAt: string | null;
                                 status: string;
@@ -534,9 +534,9 @@ export interface paths {
                         coverImageCaptionZh?: string;
                         categoryId: string;
                         authorId: string;
-                        tagsId?: string;
-                        tagsEn?: string;
-                        tagsZh?: string;
+                        tagsId?: string[];
+                        tagsEn?: string[];
+                        tagsZh?: string[];
                         publishedAt?: string | null;
                         /**
                          * @default draft
@@ -571,9 +571,9 @@ export interface paths {
                             coverImageCaptionZh?: string | null;
                             categoryId: string;
                             authorId: string;
-                            tagsId?: string | null;
-                            tagsEn?: string | null;
-                            tagsZh?: string | null;
+                            tagsId?: string[];
+                            tagsEn?: string[];
+                            tagsZh?: string[];
                             /** @description ISO-8601 date string */
                             publishedAt: string | null;
                             status: string;
@@ -674,9 +674,9 @@ export interface paths {
                             coverImageCaptionZh?: string | null;
                             categoryId: string;
                             authorId: string;
-                            tagsId?: string | null;
-                            tagsEn?: string | null;
-                            tagsZh?: string | null;
+                            tagsId?: string[];
+                            tagsEn?: string[];
+                            tagsZh?: string[];
                             /** @description ISO-8601 date string */
                             publishedAt: string | null;
                             status: string;
@@ -747,9 +747,9 @@ export interface paths {
                         coverImageCaptionZh?: string;
                         categoryId?: string;
                         authorId?: string;
-                        tagsId?: string;
-                        tagsEn?: string;
-                        tagsZh?: string;
+                        tagsId?: string[];
+                        tagsEn?: string[];
+                        tagsZh?: string[];
                         publishedAt?: string | null;
                         /**
                          * @default draft
@@ -784,9 +784,9 @@ export interface paths {
                             coverImageCaptionZh?: string | null;
                             categoryId: string;
                             authorId: string;
-                            tagsId?: string | null;
-                            tagsEn?: string | null;
-                            tagsZh?: string | null;
+                            tagsId?: string[];
+                            tagsEn?: string[];
+                            tagsZh?: string[];
                             /** @description ISO-8601 date string */
                             publishedAt: string | null;
                             status: string;
@@ -1870,6 +1870,11 @@ export interface paths {
                 content: {
                     "application/json": {
                         topic: string;
+                        tone?: string;
+                        audience?: string;
+                        explanation?: string;
+                        goals?: string;
+                        keywords?: string;
                     };
                 };
             };

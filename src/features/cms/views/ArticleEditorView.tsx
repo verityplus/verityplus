@@ -104,13 +104,13 @@ export default defineComponent({
       if (isEdit.value) {
         const found = await articleStore.findById(route.params.id as string)
         if (found) {
-          const processed = JSON.parse(JSON.stringify(found))
-
-          processed.tagsId = found.tagsId ? JSON.parse(found.tagsId) : []
-          processed.tagsEn = found.tagsEn ? JSON.parse(found.tagsEn) : []
-          processed.tagsZh = found.tagsZh ? JSON.parse(found.tagsZh) : []
-          processed.slug = found.slug || ''
-          form.value = processed
+          form.value = {
+            ...found,
+            tagsId: found.tagsId || [],
+            tagsEn: found.tagsEn || [],
+            tagsZh: found.tagsZh || [],
+            slug: found.slug || '',
+          }
         }
       }
     }
@@ -298,6 +298,9 @@ export default defineComponent({
         contentId: form.value.contentId,
         contentEn: form.value.contentEn,
         contentZh: form.value.contentZh,
+        excerptId: form.value.excerptId,
+        excerptEn: form.value.excerptEn,
+        excerptZh: form.value.excerptZh,
         coverImage: form.value.coverImage as string,
         coverImageCaptionId: form.value.coverImageCaptionId as string,
         coverImageCaptionEn: form.value.coverImageCaptionEn as string,
@@ -306,9 +309,9 @@ export default defineComponent({
         categoryId: form.value.category!.id,
         authorId: form.value.author!.id,
         status: form.value.status,
-        tagsId: JSON.stringify(form.value.tagsId),
-        tagsEn: JSON.stringify(form.value.tagsEn),
-        tagsZh: JSON.stringify(form.value.tagsZh),
+        tagsId: form.value.tagsId,
+        tagsEn: form.value.tagsEn,
+        tagsZh: form.value.tagsZh,
         slug: form.value.slug || undefined,
       }
 
