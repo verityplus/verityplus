@@ -7,6 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
   <title>VERITY+</title>
+  <script type="text/javascript">
+    // SPA redirect handler for GitHub Pages
+    (function (l) {
+      if (l.search[1] === 'p') {
+        const params = new URLSearchParams(l.search);
+        const p = params.get('p');
+        const q = params.get('q');
+        if (p) {
+          window.history.replaceState(null, null, p + (q ? '?' + q : '') + l.hash);
+        }
+      }
+    }(window.location))
+  </script>
   <!--unhead:placeholder-->
 </head>
 
