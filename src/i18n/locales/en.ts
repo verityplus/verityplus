@@ -32,7 +32,11 @@ const en: MessageSchema = {
     "previous": "Previous",
     "next": "Next",
     "all": "All",
+    "popular": "Popular",
     "mostPopular": "MOST POPULAR",
+    "latest": "Latest",
+    "articles": "Articles",
+    "categories": "Categories",
     "contactUs": "Contact Us",
     "search": "Search",
     "noResults": "No results found",
@@ -307,13 +311,15 @@ const en: MessageSchema = {
     "minutesRead": "min read",
     "recommended": "Recommended Articles",
     "articlesBy": "Articles By",
-    "mainPromo": "Main Promo"
+    "mainPromo": "Main Promo",
+    "readMore": "Read More"
   },
   "ads": {
     "defaultLabel": "Ad Space",
     "header": "Header Ad",
     "middle": "Middle Ad",
     "footer": "Footer Ad",
+    "sidebar": "Sidebar Ad",
     "authorSponsor": "Author Sponsor",
     "categorySponsor": "Category Sponsor",
     "exclusivePromo": "Exclusive Promo",

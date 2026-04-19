@@ -50,6 +50,13 @@ export const BaseButton = defineComponent({
       default: undefined,
     },
     /**
+     * Standard button disabled attribute.
+     */
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Allows custom tailwind classes.
      */
     class: {
@@ -86,7 +93,7 @@ export const BaseButton = defineComponent({
       }
 
       return (
-        <button onClick={props.onClick} class={classes} type={props.type} disabled={props.loading} {...attrs}>
+        <button onClick={props.onClick} class={classes} type={props.type} disabled={props.disabled || props.loading} {...attrs}>
           {props.loading ? <i class="bi bi-arrow-repeat animate-spin mr-3"></i> : null}
           {slots.default?.()}
         </button>

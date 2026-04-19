@@ -32,7 +32,11 @@ const zh: MessageSchema = {
     "previous": "上一页",
     "next": "下一页",
     "all": "全部",
+    "popular": "热门",
     "mostPopular": "最受欢迎",
+    "latest": "最新",
+    "articles": "文章",
+    "categories": "分类",
     "contactUs": "联系我们",
     "search": "搜索",
     "noResults": "未找到结果",
@@ -307,13 +311,15 @@ const zh: MessageSchema = {
     "minutesRead": "分钟阅读",
     "recommended": "推荐文章",
     "articlesBy": "作者",
-    "mainPromo": "主要促销"
+    "mainPromo": "主要促销",
+    "readMore": "阅读更多"
   },
   "ads": {
     "defaultLabel": "广告位",
     "header": "头部广告",
     "middle": "中部广告",
     "footer": "底部广告",
+    "sidebar": "侧边栏广告",
     "authorSponsor": "作者赞助",
     "categorySponsor": "分类赞助",
     "exclusivePromo": "独家促销",

@@ -73,6 +73,14 @@ export interface MessageSchema {
     termsTitle: string
     termsDesc: string
     searchTitle: string
+    searchTitleQuery: string
+    searchDesc: string
+    mostPopular: string
+    authorTitle: string
+    authorDesc: string
+    categoryTitle: string
+    categoryDesc: string
+    allArticlesTitle: string
     articleLoading: string
   }
   home: {
@@ -228,6 +236,7 @@ export interface MessageSchema {
     readMore: string
     recommended: string
     articlesBy: string
+    mainPromo: string
   }
   ads: {
     defaultLabel: string
@@ -238,6 +247,7 @@ export interface MessageSchema {
     authorSponsor: string
     categorySponsor: string
     sidePromo: string
+    exclusivePromo: string
     sponsor: string
   }
   topbar: {

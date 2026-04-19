@@ -106,11 +106,15 @@ export default defineComponent({
         if (found) {
           form.value = {
             ...found,
+            coverImage: found.coverImage || '/universal-placeholder.png',
             tagsId: found.tagsId || [],
             tagsEn: found.tagsEn || [],
             tagsZh: found.tagsZh || [],
             slug: found.slug || '',
-          }
+            excerptId: found.excerptId || undefined,
+            excerptEn: found.excerptEn || undefined,
+            excerptZh: found.excerptZh || undefined,
+          } as EditorForm
         }
       }
     }
