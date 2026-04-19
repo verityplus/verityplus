@@ -16,8 +16,8 @@ export const useSettingsStore = defineStore('settings', () => {
   async function fetchSettings() {
     isLoading.value = true
     try {
-      const { data } = await apiClient.GET('/api/v1/settings')
-      settings.value = (data as SiteSettings) || {}
+      const { data } = await apiClient.GET('/api/v1/settings/', {})
+      settings.value = (data as unknown as SiteSettings) || {}
     } catch (error) {
       console.error('Failed to fetch settings:', error)
     } finally {
@@ -28,7 +28,7 @@ export const useSettingsStore = defineStore('settings', () => {
   async function updateSettings(updates: Record<string, string>) {
     isLoading.value = true
     try {
-      await apiClient.PUT('/api/v1/settings', {
+      await apiClient.PUT('/api/v1/settings/', {
         body: updates
       })
       await fetchSettings()
