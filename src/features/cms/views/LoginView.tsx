@@ -46,7 +46,8 @@ export default defineComponent({
               <input
                 id="username"
                 type="text"
-                v-model={username.value}
+                value={username.value}
+                onInput={(e) => username.value = (e.target as HTMLInputElement).value}
                 class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="Enter your username"
                 required
@@ -60,7 +61,8 @@ export default defineComponent({
               <input
                 id="password"
                 type="password"
-                v-model={password.value}
+                value={password.value}
+                onInput={(e) => password.value = (e.target as HTMLInputElement).value}
                 class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="Enter your password"
                 required

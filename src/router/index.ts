@@ -213,6 +213,9 @@ router.beforeEach((to, _from, next) => {
 
   if (to.path.startsWith('/cms') && to.name !== 'cms-login') {
     const authStore = useAuthStore()
+    if (!authStore.isInitialized) {
+      await authStore.checkSession()
+    }
     if (!authStore.isAuthenticated) {
       return next('/cms/login')
     }

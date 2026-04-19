@@ -79,7 +79,7 @@ export default defineComponent({
         let tags: string[] = []
         try {
           const tagsRaw = getLocalizedField(article.value, 'tags')
-          tags = tagsRaw ? JSON.parse(tagsRaw) : []
+          tags = Array.isArray(tagsRaw) ? tagsRaw as string[] : []
         } catch { /* ignore */ }
 
         return [
@@ -320,7 +320,7 @@ export default defineComponent({
                     {(() => {
                       try {
                         const tagsRaw = getLocalizedField(article.value, 'tags')
-                        const tags = tagsRaw ? JSON.parse(tagsRaw) : []
+                        const tags = Array.isArray(tagsRaw) ? tagsRaw as string[] : []
                         return Array.isArray(tags)
                           ? tags.map((tag: string) => (
                               <span

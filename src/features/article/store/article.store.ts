@@ -13,7 +13,7 @@ const GRID_PER_PAGE = 8
  */
 export const useArticleStore = defineStore('articles', () => {
   const cmsPage = ref(1)
-  const cmsLimit = ref(10)
+  const cmsLimit = ref(100)
   const cmsSearch = ref('')
 
   const {
