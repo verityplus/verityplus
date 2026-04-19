@@ -201,7 +201,7 @@ const router = createRouter({
  * Universal Navigation Guard
  * Syncs i18n locale from route param, handles CMS auth, redirects invalid locales.
  */
-router.beforeEach((to, _from, next) => {
+router.beforeEach(async (to, _from, next) => {
   if (to.params.locale && typeof to.params.locale === 'string') {
     const locale = to.params.locale as Locale
     if (SUPPORTED_LOCALES.includes(locale)) {
