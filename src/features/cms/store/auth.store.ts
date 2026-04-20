@@ -15,7 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const checkSession = async () => {
     try {
-      const { data, error } = await apiClient.GET('/api/v1/auth/me')
+      const { data, error } = await apiClient.GET('/api/v1/auth/me', {})
       if (data) {
         currentUser.value = data as unknown as CMSUser
         isAuthenticated.value = true
@@ -53,7 +53,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const logout = async () => {
     try {
-      await apiClient.POST('/api/v1/auth/logout')
+      await apiClient.POST('/api/v1/auth/logout', {})
     } catch (e) {
       console.error('Logout error:', e)
     } finally {

@@ -65,7 +65,7 @@ export const ArticleService = {
   },
 
   async getAllCategories(): Promise<Category[]> {
-    const { data, error } = await apiClient.GET('/api/v1/categories/')
+    const { data, error } = await apiClient.GET('/api/v1/categories/', {})
     if (error) {
       console.error('Error fetching categories:', error)
       return []
@@ -74,7 +74,7 @@ export const ArticleService = {
   },
 
   async getAllAuthors(): Promise<Author[]> {
-    const { data, error } = await apiClient.GET('/api/v1/authors/')
+    const { data, error } = await apiClient.GET('/api/v1/authors/', {})
     if (error) {
       console.error('Error fetching authors:', error)
       return []

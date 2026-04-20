@@ -28,17 +28,17 @@ export type AppRecord<K extends string, T> = {
 
 
 
-export type CreateArticleInput = paths['/api/v1/articles/']['post']['requestBody']['content']['application/json']
-export type UpdateArticleInput = paths['/api/v1/articles/{id}']['put']['requestBody']['content']['application/json'] & {
+export type CreateArticleInput = NonNullable<paths['/api/v1/articles/']['post']['requestBody']>['content']['application/json']
+export type UpdateArticleInput = NonNullable<paths['/api/v1/articles/{id}']['put']['requestBody']>['content']['application/json'] & {
   id: string
 }
 
-export type CreateCategoryInput = paths['/api/v1/categories/']['post']['requestBody']['content']['application/json']
+export type CreateCategoryInput = NonNullable<paths['/api/v1/categories/']['post']['requestBody']>['content']['application/json']
 export type UpdateCategoryInput = CreateCategoryInput & {
   id: string
 }
 
-export type CreateAuthorInput = paths['/api/v1/authors/']['post']['requestBody']['content']['application/json']
+export type CreateAuthorInput = NonNullable<paths['/api/v1/authors/']['post']['requestBody']>['content']['application/json']
 export type UpdateAuthorInput = CreateAuthorInput & {
   id: string
 }

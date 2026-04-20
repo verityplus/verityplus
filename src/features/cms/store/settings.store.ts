@@ -41,7 +41,7 @@ export const useSettingsStore = defineStore('settings', () => {
   async function fetchPublicSettings() {
     isLoading.value = true
     try {
-      const { data } = await apiClient.GET('/api/v1/settings/')
+      const { data } = await apiClient.GET('/api/v1/settings/', {})
       settings.value = (data as unknown as SiteSettings) || {}
     } catch (error) {
       console.error('Failed to fetch public settings:', error)

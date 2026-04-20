@@ -17,7 +17,7 @@ export const useCMSStore = defineStore('cms', () => {
   } = useQuery({
     queryKey: ['cms_users'],
     queryFn: async () => {
-      const { data } = await apiClient.GET('/api/v1/auth/users')
+      const { data } = await apiClient.GET('/api/v1/auth/users', {})
       return (data as CMSUser[]) || []
     },
     initialData: [],

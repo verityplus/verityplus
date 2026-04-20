@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/api/api/v1/auth/login": {
+    "/api/v1/auth/login": {
         parameters: {
             query?: never;
             header?: never;
@@ -80,7 +80,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/auth/users": {
+    "/api/v1/auth/users": {
         parameters: {
             query?: never;
             header?: never;
@@ -192,7 +192,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/auth/users/{id}": {
+    "/api/v1/auth/users/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -314,7 +314,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/auth/me": {
+    "/api/v1/auth/me": {
         parameters: {
             query?: never;
             header?: never;
@@ -380,7 +380,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/auth/logout": {
+    "/api/v1/auth/logout": {
         parameters: {
             query?: never;
             header?: never;
@@ -430,7 +430,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/articles": {
+    "/api/v1/articles/": {
         parameters: {
             query?: never;
             header?: never;
@@ -637,7 +637,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/articles/{id}": {
+    "/api/v1/articles/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -894,7 +894,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/categories": {
+    "/api/v1/categories/": {
         parameters: {
             query?: never;
             header?: never;
@@ -982,7 +982,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/categories/{id}": {
+    "/api/v1/categories/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1145,7 +1145,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/authors": {
+    "/api/v1/authors/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1242,7 +1242,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/authors/{id}": {
+    "/api/v1/authors/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1414,7 +1414,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/storage/upload": {
+    "/api/v1/storage/upload": {
         parameters: {
             query?: never;
             header?: never;
@@ -1470,7 +1470,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/settings": {
+    "/api/v1/settings/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1547,7 +1547,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/settings/all": {
+    "/api/v1/settings/all": {
         parameters: {
             query?: never;
             header?: never;
@@ -1597,7 +1597,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/settings/raw": {
+    "/api/v1/settings/raw": {
         parameters: {
             query?: never;
             header?: never;
@@ -1648,7 +1648,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/ai/translate": {
+    "/api/v1/ai/translate": {
         parameters: {
             query?: never;
             header?: never;
@@ -1693,7 +1693,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/ai/excerpt": {
+    "/api/v1/ai/excerpt": {
         parameters: {
             query?: never;
             header?: never;
@@ -1736,7 +1736,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/ai/draft": {
+    "/api/v1/ai/draft": {
         parameters: {
             query?: never;
             header?: never;
@@ -1787,7 +1787,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/api/v1/ai/slug": {
+    "/api/v1/ai/slug": {
         parameters: {
             query?: never;
             header?: never;

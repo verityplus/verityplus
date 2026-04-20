@@ -144,7 +144,7 @@ export default defineComponent({
                         </span>
                       </td>
                       <td class="px-6 py-5 text-slate-400 text-xs uppercase tracking-tighter">
-                        {article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : '—'}
+                        {article.publishedAt ? new Date(article.publishedAt as string).toLocaleDateString() : '—'}
                       </td>
                       <td class="px-6 py-5 text-right">
                         <div class="flex items-center justify-end gap-2 translate-x-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition duration-300">
