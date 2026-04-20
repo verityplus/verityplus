@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/api/v1/auth/login": {
+    "/api/api/v1/auth/login": {
         parameters: {
             query?: never;
             header?: never;
@@ -13,7 +13,6 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description User login */
         post: {
             parameters: {
                 query?: never;
@@ -21,7 +20,7 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         username: string;
@@ -30,7 +29,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description Login successful */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -47,7 +46,20 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Missing credentials */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description Invalid credentials */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -68,14 +80,13 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/users": {
+    "/api/api/v1/auth/users": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get all users */
         get: {
             parameters: {
                 query?: never;
@@ -85,7 +96,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Get all users */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -99,7 +110,7 @@ export interface paths {
                         }[];
                     };
                 };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -115,7 +126,6 @@ export interface paths {
             };
         };
         put?: never;
-        /** @description Create new user */
         post: {
             parameters: {
                 query?: never;
@@ -123,7 +133,7 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         username: string;
@@ -134,7 +144,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description User created */
                 201: {
                     headers: {
                         [name: string]: unknown;
@@ -148,7 +158,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Bad request */
                 400: {
                     headers: {
                         [name: string]: unknown;
@@ -161,7 +171,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -182,7 +192,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/users/{id}": {
+    "/api/api/v1/auth/users/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -190,7 +200,6 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        /** @description Update user */
         put: {
             parameters: {
                 query?: never;
@@ -200,7 +209,7 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         username?: string;
@@ -211,7 +220,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description User updated */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -225,20 +234,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -251,7 +247,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description User not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -267,7 +263,6 @@ export interface paths {
             };
         };
         post?: never;
-        /** @description Delete user */
         delete: {
             parameters: {
                 query?: never;
@@ -279,16 +274,14 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description User deleted */
                 204: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content: {
-                        "application/json": null;
-                    };
+                    content?: never;
                 };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -301,7 +294,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description User not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -321,14 +314,13 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/me": {
+    "/api/api/v1/auth/me": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get current user profile */
         get: {
             parameters: {
                 query?: never;
@@ -338,7 +330,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Current user profile */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -352,8 +344,21 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+                /** @description User not found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -375,7 +380,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/auth/logout": {
+    "/api/api/v1/auth/logout": {
         parameters: {
             query?: never;
             header?: never;
@@ -384,7 +389,6 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description Logout user */
         post: {
             parameters: {
                 query?: never;
@@ -394,7 +398,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Logged out */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -402,6 +406,19 @@ export interface paths {
                     content: {
                         "application/json": {
                             message: string;
+                        };
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
                         };
                     };
                 };
@@ -413,14 +430,13 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/articles/": {
+    "/api/api/v1/articles": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get all articles */
         get: {
             parameters: {
                 query?: {
@@ -429,6 +445,7 @@ export interface paths {
                     categoryId?: string;
                     authorId?: string;
                     search?: string;
+                    status?: "draft" | "published" | "archived" | "featured";
                 };
                 header?: never;
                 path?: never;
@@ -436,7 +453,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Get all articles */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -464,7 +481,7 @@ export interface paths {
                                 tagsEn?: string[];
                                 tagsZh?: string[];
                                 /** @description ISO-8601 date string */
-                                publishedAt: string | null;
+                                publishedAt: string | unknown;
                                 status: string;
                                 slug?: string | null;
                                 category?: {
@@ -486,26 +503,14 @@ export interface paths {
                                 };
                             }[];
                             total: number;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
+                            page: number;
+                            totalPages: number;
                         };
                     };
                 };
             };
         };
         put?: never;
-        /** @description Create a new article */
         post: {
             parameters: {
                 query?: never;
@@ -513,7 +518,7 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         titleId: string;
@@ -548,7 +553,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description Article created */
                 201: {
                     headers: {
                         [name: string]: unknown;
@@ -575,7 +580,7 @@ export interface paths {
                             tagsEn?: string[];
                             tagsZh?: string[];
                             /** @description ISO-8601 date string */
-                            publishedAt: string | null;
+                            publishedAt: string | unknown;
                             status: string;
                             slug?: string | null;
                             category?: {
@@ -598,7 +603,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
@@ -611,7 +616,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -632,14 +637,13 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/articles/{id}": {
+    "/api/api/v1/articles/{id}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get article by ID */
         get: {
             parameters: {
                 query?: never;
@@ -651,7 +655,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Get article by ID or slug */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -678,7 +682,7 @@ export interface paths {
                             tagsEn?: string[];
                             tagsZh?: string[];
                             /** @description ISO-8601 date string */
-                            publishedAt: string | null;
+                            publishedAt: string | unknown;
                             status: string;
                             slug?: string | null;
                             category?: {
@@ -701,7 +705,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Article not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -716,7 +720,6 @@ export interface paths {
                 };
             };
         };
-        /** @description Update article */
         put: {
             parameters: {
                 query?: never;
@@ -726,7 +729,7 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         titleId?: string;
@@ -761,7 +764,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description Article updated */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -788,7 +791,7 @@ export interface paths {
                             tagsEn?: string[];
                             tagsZh?: string[];
                             /** @description ISO-8601 date string */
-                            publishedAt: string | null;
+                            publishedAt: string | unknown;
                             status: string;
                             slug?: string | null;
                             category?: {
@@ -811,20 +814,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -837,7 +827,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Article not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -853,7 +843,6 @@ export interface paths {
             };
         };
         post?: never;
-        /** @description Delete article */
         delete: {
             parameters: {
                 query?: never;
@@ -865,16 +854,14 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Article deleted */
                 204: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content: {
-                        "application/json": null;
-                    };
+                    content?: never;
                 };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -887,7 +874,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Article not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -907,14 +894,13 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/categories/": {
+    "/api/api/v1/categories": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get all categories */
         get: {
             parameters: {
                 query?: never;
@@ -924,7 +910,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Get all categories */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -939,19 +925,6 @@ export interface paths {
                         }[];
                     };
                 };
-                /** @description Default Response */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
             };
         };
         put?: never;
@@ -962,7 +935,7 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         nameId: string;
@@ -973,7 +946,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description Category created */
                 201: {
                     headers: {
                         [name: string]: unknown;
@@ -988,20 +961,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -1022,7 +982,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/categories/{id}": {
+    "/api/api/v1/categories/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1040,7 +1000,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Get category by ID or slug */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1055,7 +1015,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Category not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -1079,7 +1039,7 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         nameId?: string;
@@ -1090,7 +1050,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description Category updated */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1105,20 +1065,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -1131,7 +1078,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Category not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -1158,16 +1105,14 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Category deleted */
                 204: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content: {
-                        "application/json": null;
-                    };
+                    content?: never;
                 };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -1180,8 +1125,8 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                404: {
+                /** @description Category has associated articles */
+                409: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -1200,14 +1145,13 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/authors/": {
+    "/api/api/v1/authors": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get all authors */
         get: {
             parameters: {
                 query?: never;
@@ -1217,7 +1161,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Get all authors */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1235,19 +1179,6 @@ export interface paths {
                         }[];
                     };
                 };
-                /** @description Default Response */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
             };
         };
         put?: never;
@@ -1258,7 +1189,7 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         name: string;
@@ -1272,7 +1203,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description Author created */
                 201: {
                     headers: {
                         [name: string]: unknown;
@@ -1290,20 +1221,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -1324,7 +1242,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/authors/{id}": {
+    "/api/api/v1/authors/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1342,7 +1260,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Get author by ID or slug */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1360,7 +1278,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Author not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -1384,7 +1302,7 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         name?: string;
@@ -1398,7 +1316,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description Author updated */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1416,20 +1334,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -1442,7 +1347,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Author not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -1469,16 +1374,14 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Author deleted */
                 204: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content: {
-                        "application/json": null;
-                    };
+                    content?: never;
                 };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -1491,8 +1394,8 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                404: {
+                /** @description Author has associated articles */
+                409: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -1511,7 +1414,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/storage/upload": {
+    "/api/api/v1/storage/upload": {
         parameters: {
             query?: never;
             header?: never;
@@ -1520,7 +1423,6 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description Upload a file */
         post: {
             parameters: {
                 query?: never;
@@ -1528,9 +1430,15 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody?: never;
+            requestBody?: {
+                content: {
+                    "multipart/form-data": {
+                        file?: unknown;
+                    };
+                };
+            };
             responses: {
-                /** @description Default Response */
+                /** @description Upload file */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1538,11 +1446,10 @@ export interface paths {
                     content: {
                         "application/json": {
                             url: string;
-                            filename: string;
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Upload failed */
                 400: {
                     headers: {
                         [name: string]: unknown;
@@ -1555,19 +1462,6 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
             };
         };
         delete?: never;
@@ -1576,14 +1470,13 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/settings/": {
+    "/api/api/v1/settings": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get all public settings */
         get: {
             parameters: {
                 query?: never;
@@ -1593,7 +1486,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description Public site settings (sensitive keys excluded) */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1606,7 +1499,6 @@ export interface paths {
                 };
             };
         };
-        /** @description Update multiple settings */
         put: {
             parameters: {
                 query?: never;
@@ -1614,7 +1506,7 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         [key: string]: string;
@@ -1622,7 +1514,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description Updated settings (full map) */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1633,7 +1525,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -1655,14 +1547,13 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/settings/raw": {
+    "/api/api/v1/settings/all": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get raw settings list */
         get: {
             parameters: {
                 query?: never;
@@ -1672,7 +1563,57 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Default Response */
+                /** @description All settings including sensitive values (admin only) */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                            details?: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/api/v1/settings/raw": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Raw settings list (admin only) */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1684,7 +1625,7 @@ export interface paths {
                         }[];
                     };
                 };
-                /** @description Default Response */
+                /** @description Unauthorized */
                 401: {
                     headers: {
                         [name: string]: unknown;
@@ -1707,7 +1648,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/ai/translate": {
+    "/api/api/v1/ai/translate": {
         parameters: {
             query?: never;
             header?: never;
@@ -1716,7 +1657,6 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description Translate text to a target language */
         post: {
             parameters: {
                 query?: never;
@@ -1724,7 +1664,7 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         text: string;
@@ -1734,7 +1674,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description Translate */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1745,32 +1685,6 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
             };
         };
         delete?: never;
@@ -1779,7 +1693,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/ai/excerpt": {
+    "/api/api/v1/ai/excerpt": {
         parameters: {
             query?: never;
             header?: never;
@@ -1788,7 +1702,6 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description Generate an excerpt from content */
         post: {
             parameters: {
                 query?: never;
@@ -1796,7 +1709,7 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         content: string;
@@ -1804,7 +1717,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description Excerpt */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1815,32 +1728,6 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
             };
         };
         delete?: never;
@@ -1849,7 +1736,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/ai/draft": {
+    "/api/api/v1/ai/draft": {
         parameters: {
             query?: never;
             header?: never;
@@ -1858,7 +1745,6 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description Auto-generate a full article draft from a topic */
         post: {
             parameters: {
                 query?: never;
@@ -1866,7 +1752,7 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         topic: string;
@@ -1879,7 +1765,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description Draft */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1893,32 +1779,6 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
             };
         };
         delete?: never;
@@ -1927,7 +1787,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/ai/slug": {
+    "/api/api/v1/ai/slug": {
         parameters: {
             query?: never;
             header?: never;
@@ -1936,7 +1796,6 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description Auto-generate a clean SEO slug from a title */
         post: {
             parameters: {
                 query?: never;
@@ -1944,7 +1803,7 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         title: string;
@@ -1952,7 +1811,7 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Default Response */
+                /** @description Slug */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -1963,138 +1822,8 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Default Response */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            error: string;
-                            message: string;
-                            details?: unknown;
-                        };
-                    };
-                };
             };
         };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/robots.txt": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/sitemap.xml": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/health": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Health check */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            status: string;
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
         delete?: never;
         options?: never;
         head?: never;
