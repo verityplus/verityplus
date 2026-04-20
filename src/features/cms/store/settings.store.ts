@@ -23,8 +23,9 @@ export const useSettingsStore = defineStore('settings', () => {
   async function fetchSettings() {
     isLoading.value = true
     try {
-      // /all returns every setting including sensitive AI keys (requires auth)
-      const { data } = await apiClient.GET('/api/v1/settings/all' as any)
+      // /all returns every setting including sensitive AI keys (requires auth).
+      // The path is not yet in the generated OpenAPI types; cast as any until types are regenerated.
+      const { data } = await (apiClient.GET as any)('/api/v1/settings/all', { credentials: 'include' })
       settings.value = (data as unknown as SiteSettings) || {}
     } catch (error) {
       console.error('Failed to fetch settings:', error)
