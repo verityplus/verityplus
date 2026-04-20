@@ -12,7 +12,7 @@ import type {
 
 /**
  * CMSContentStore: Dedicated store for CMS content mutations.
- * Integrated with GraphQL mutations and Vue Query invalidation.
+ * Uses ArticleService (REST) with Vue Query cache invalidation.
  */
 export const useCMSContentStore = defineStore('cms-content', () => {
   const queryClient = useQueryClient()

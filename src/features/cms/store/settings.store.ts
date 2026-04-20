@@ -6,6 +6,9 @@ interface SiteSettings {
   adsense_pub_id?: string
   adsense_account_id?: string
   ga_measurement_id?: string
+  openai_api_key?: string
+  openai_base_url?: string
+  openai_model?: string
   [key: string]: string | undefined
 }
 
@@ -13,10 +16,15 @@ export const useSettingsStore = defineStore('settings', () => {
   const settings = ref<SiteSettings>({})
   const isLoading = ref(false)
 
+  /**
+   * Fetches full settings (including sensitive keys like openai_api_key).
+   * Calls the authenticated /all endpoint — should only be used in CMS context.
+   */
   async function fetchSettings() {
     isLoading.value = true
     try {
-      const { data } = await apiClient.GET('/api/v1/settings/', {})
+      // /all returns every setting including sensitive AI keys (requires auth)
+      const { data } = await apiClient.GET('/api/v1/settings/all' as any)
       settings.value = (data as unknown as SiteSettings) || {}
     } catch (error) {
       console.error('Failed to fetch settings:', error)
@@ -25,12 +33,27 @@ export const useSettingsStore = defineStore('settings', () => {
     }
   }
 
+  /**
+   * Fetches only public-safe settings (no AI API keys).
+   * Safe to call without authentication (e.g. analytics IDs).
+   */
+  async function fetchPublicSettings() {
+    isLoading.value = true
+    try {
+      const { data } = await apiClient.GET('/api/v1/settings/')
+      settings.value = (data as unknown as SiteSettings) || {}
+    } catch (error) {
+      console.error('Failed to fetch public settings:', error)
+    } finally {
+      isLoading.value = false
+    }
+  }
+
   async function updateSettings(updates: Record<string, string>) {
     isLoading.value = true
     try {
-      await apiClient.PUT('/api/v1/settings/', {
-        body: updates
-      })
+      await apiClient.PUT('/api/v1/settings/', { body: updates })
+      // Re-fetch full settings after update
       await fetchSettings()
     } catch (error) {
       console.error('Failed to update settings:', error)
@@ -44,6 +67,7 @@ export const useSettingsStore = defineStore('settings', () => {
     settings,
     isLoading,
     fetchSettings,
-    updateSettings
+    fetchPublicSettings,
+    updateSettings,
   }
 })
