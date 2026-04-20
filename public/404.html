@@ -5,11 +5,14 @@
   <title>VERITY+</title>
   <script type="text/javascript">
     // This script takes the current url and converts the path and query
-    // string into just a query string, then redirects to index.html.
+    // string into just a query string, then redirects to the base index.html.
+    // Accounts for the /verityplus/ base path used on GitHub Pages.
     var l = window.location;
+    var segmentCount = 1; // number of path segments in the base URL (e.g. /verityplus/ = 1)
+    var base = l.pathname.split('/').slice(0, 1 + segmentCount).join('/');
     l.replace(
       l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      '/?p=' + encodeURIComponent(l.pathname) +
+      base + '/?p=' + encodeURIComponent('/' + l.pathname.split('/').slice(1 + segmentCount).join('/')) +
       (l.search ? '&q=' + encodeURIComponent(l.search.slice(1)) : '') +
       l.hash
     );
