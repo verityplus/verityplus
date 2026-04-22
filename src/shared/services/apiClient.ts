@@ -1,7 +1,7 @@
 import createClient from 'openapi-fetch'
 import type { paths } from '../types/openapi'
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || ''
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://maybqqegwibhwyfdhtae.supabase.co/functions/v1/api'
 export const API_BASE_ORIGIN = new URL(API_BASE_URL).origin
 
 // Create the type-safe client
