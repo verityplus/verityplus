@@ -57,9 +57,13 @@ export const useAuthStore = defineStore('auth', () => {
     } catch (e) {
       console.error('Logout error:', e)
     } finally {
-      isAuthenticated.value = false
-      currentUser.value = null
+      invalidateSession()
     }
+  }
+
+  const invalidateSession = () => {
+    isAuthenticated.value = false
+    currentUser.value = null
   }
 
   return {
@@ -69,5 +73,6 @@ export const useAuthStore = defineStore('auth', () => {
     checkSession,
     login,
     logout,
+    invalidateSession,
   }
 })

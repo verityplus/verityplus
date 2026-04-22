@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid'
 import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
 import { useCMSContentStore } from '@/features/cms/store/cms-content.store'
+import { useAuthStore } from '@/features/cms/store/auth.store'
 import { MarkdownEditor } from '@/features/cms/components/MarkdownEditor'
 import type { ArticleStatus, Category, Author } from '@/shared/types'
 import { ARTICLE_STATUS_LABELS } from '@/shared/types'
@@ -27,6 +28,7 @@ export default defineComponent({
     const router = useRouter()
     const articleStore = useArticleStore()
     const cmsContentStore = useCMSContentStore()
+    const authStore = useAuthStore()
 
     const isEdit = computed(() => route.params.id !== undefined)
     const tagInput = ref('')
@@ -338,6 +340,7 @@ export default defineComponent({
         if (detail.includes('Unauthorized')) {
           detail = 'Your session has expired or you are not authorized to perform this action. Please log in again in a new tab, then return here to try saving again.'
           title = 'Session Expired'
+          authStore.invalidateSession()
         }
 
         await appAlert(`Failed to save article.\n\nDetail: ${detail}`, title)
