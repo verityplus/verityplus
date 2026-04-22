@@ -24,8 +24,8 @@ export const useSettingsStore = defineStore('settings', () => {
     isLoading.value = true
     try {
       // /all returns every setting including sensitive AI keys (requires auth).
-      // The path is not yet in the generated OpenAPI types; cast as any until types are regenerated.
-      const { data } = await (apiClient.GET as any)('/api/v1/settings/all', { credentials: 'include' })
+      // The path is not yet in the generated OpenAPI types; escape via unknown until types are regenerated.
+      const { data } = await (apiClient.GET as unknown as (path: string, opts: object) => Promise<{ data: unknown }>)('/api/v1/settings/all', { credentials: 'include' })
       settings.value = (data as unknown as SiteSettings) || {}
     } catch (error) {
       console.error('Failed to fetch settings:', error)
@@ -41,7 +41,7 @@ export const useSettingsStore = defineStore('settings', () => {
   async function fetchPublicSettings() {
     isLoading.value = true
     try {
-      const { data } = await apiClient.GET('/api/v1/settings/', {})
+      const { data } = await apiClient.GET('/api/v1/settings', {})
       settings.value = (data as unknown as SiteSettings) || {}
     } catch (error) {
       console.error('Failed to fetch public settings:', error)
@@ -53,7 +53,7 @@ export const useSettingsStore = defineStore('settings', () => {
   async function updateSettings(updates: Record<string, string>) {
     isLoading.value = true
     try {
-      await apiClient.PUT('/api/v1/settings/', { body: updates })
+      await apiClient.PUT('/api/v1/settings', { body: updates })
       // Re-fetch full settings after update
       await fetchSettings()
     } catch (error) {

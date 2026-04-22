@@ -8,7 +8,7 @@ export function useCategories() {
   const listQuery = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
-      const { data, error } = await apiClient.GET('/api/v1/categories/', {})
+      const { data, error } = await apiClient.GET('/api/v1/categories', {})
       if (error) throw error
       return data
     }
@@ -16,7 +16,7 @@ export function useCategories() {
 
   const createMutation = useMutation({
     mutationFn: async (input: CreateCategoryInput) => {
-      const { data, error } = await apiClient.POST('/api/v1/categories/', {
+      const { data, error } = await apiClient.POST('/api/v1/categories', {
         body: input
       })
       if (error) throw error

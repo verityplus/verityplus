@@ -1,4 +1,4 @@
-import { defineComponent, computed, ref, onMounted, onUnmounted } from 'vue'
+import { defineComponent, computed, ref, onMounted, onUnmounted, type ComponentPublicInstance } from 'vue'
 import { useHead } from '@/composables/useHead'
 import { useI18n } from 'vue-i18n'
 import { useLocaleRoute } from '@/composables/useLocaleRoute'
@@ -21,9 +21,9 @@ export default defineComponent({
     const sectionsContainerRef = ref<HTMLElement | null>(null)
     const sectionRefs = new Map<string, HTMLElement>()
 
-    const setSectionRef = (key: string) => (el: any) => {
+    const setSectionRef = (key: string) => (el: Element | ComponentPublicInstance | null) => {
       if (el) {
-        sectionRefs.set(key, el)
+        sectionRefs.set(key, el as HTMLElement)
       } else {
         sectionRefs.delete(key)
       }

@@ -430,7 +430,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/articles/": {
+    "/api/v1/articles": {
         parameters: {
             query?: never;
             header?: never;
@@ -894,7 +894,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/categories/": {
+    "/api/v1/categories": {
         parameters: {
             query?: never;
             header?: never;
@@ -1145,7 +1145,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/authors/": {
+    "/api/v1/authors": {
         parameters: {
             query?: never;
             header?: never;
@@ -1470,7 +1470,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/settings/": {
+    "/api/v1/settings": {
         parameters: {
             query?: never;
             header?: never;

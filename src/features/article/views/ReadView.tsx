@@ -347,7 +347,7 @@ export default defineComponent({
                     {t('article.recommended')}
                   </h2>
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {recommendedArticles.value.map((recArticle) => (
+                    {recommendedArticles.value.map((recArticle: Article) => (
                       <ArticleCard key={recArticle.id} article={recArticle} />
                     ))}
                   </div>

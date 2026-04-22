@@ -1,4 +1,4 @@
-import { defineComponent, computed, ref, onMounted, onUnmounted } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useClickOutside } from '@/composables/useClickOutside'
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/i18n'

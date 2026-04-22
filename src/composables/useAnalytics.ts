@@ -1,4 +1,4 @@
-import { watch, ref, computed } from 'vue'
+import { watch, computed } from 'vue'
 import { useHead } from '@unhead/vue'
 import { useSettingsStore } from '@/features/cms/store/settings.store'
 
