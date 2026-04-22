@@ -13,15 +13,15 @@ import { resolve } from 'path'
 const filePath = resolve('src/shared/types/openapi.ts')
 let content = readFileSync(filePath, 'utf8')
 
-// 1. Replace double prefix
+// 1. Replace double prefix (no longer needed after backend fix, but kept for safety if someone reverts)
 content = content.replaceAll('"/api/api/v1/', '"/api/v1/')
 
-// 2. Add trailing slashes to collection paths (non-parameterized)
-content = content
-  .replaceAll('"/api/v1/articles":', '"/api/v1/articles/":', )
-  .replaceAll('"/api/v1/categories":', '"/api/v1/categories/":', )
-  .replaceAll('"/api/v1/authors":', '"/api/v1/authors/":', )
-  .replaceAll('"/api/v1/settings":', '"/api/v1/settings/":', )
+// 2. Add trailing slashes (no longer needed as we standardized on no-trailing-slashes)
+// content = content
+//   .replaceAll('"/api/v1/articles":', '"/api/v1/articles/":', )
+//   .replaceAll('"/api/v1/categories":', '"/api/v1/categories/":', )
+//   .replaceAll('"/api/v1/authors":', '"/api/v1/authors/":', )
+//   .replaceAll('"/api/v1/settings":', '"/api/v1/settings/":', )
 
 writeFileSync(filePath, content, 'utf8')
 console.log('✅ openapi.ts paths fixed successfully.')
