@@ -12,7 +12,7 @@
     "lint": "run-s lint:*",
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
-    "generate-types": "openapi-typescript https://maybqqegwibhwyfdhtae.supabase.co/functions/v1/api/api/v1/docs/json --output src/shared/types/openapi.ts && node scripts/fix-openapi-paths.mjs",
+    "generate-types": "openapi-typescript https://maybqqegwibhwyfdhtae.supabase.co/functions/v1/api/v1/docs/json --output src/shared/types/openapi.ts && node scripts/fix-openapi-paths.mjs",
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {

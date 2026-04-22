@@ -480,8 +480,11 @@ export interface paths {
                                 tagsId?: string[];
                                 tagsEn?: string[];
                                 tagsZh?: string[];
-                                /** @description ISO-8601 date string */
-                                publishedAt: string | unknown;
+                                /**
+                                 * Format: date-time
+                                 * @description ISO-8601 date-time string
+                                 */
+                                publishedAt: string | null;
                                 status: string;
                                 slug?: string | null;
                                 category?: {
@@ -579,8 +582,11 @@ export interface paths {
                             tagsId?: string[];
                             tagsEn?: string[];
                             tagsZh?: string[];
-                            /** @description ISO-8601 date string */
-                            publishedAt: string | unknown;
+                            /**
+                             * Format: date-time
+                             * @description ISO-8601 date-time string
+                             */
+                            publishedAt: string | null;
                             status: string;
                             slug?: string | null;
                             category?: {
@@ -681,8 +687,11 @@ export interface paths {
                             tagsId?: string[];
                             tagsEn?: string[];
                             tagsZh?: string[];
-                            /** @description ISO-8601 date string */
-                            publishedAt: string | unknown;
+                            /**
+                             * Format: date-time
+                             * @description ISO-8601 date-time string
+                             */
+                            publishedAt: string | null;
                             status: string;
                             slug?: string | null;
                             category?: {
@@ -790,8 +799,11 @@ export interface paths {
                             tagsId?: string[];
                             tagsEn?: string[];
                             tagsZh?: string[];
-                            /** @description ISO-8601 date string */
-                            publishedAt: string | unknown;
+                            /**
+                             * Format: date-time
+                             * @description ISO-8601 date-time string
+                             */
+                            publishedAt: string | null;
                             status: string;
                             slug?: string | null;
                             category?: {
@@ -1775,7 +1787,7 @@ export interface paths {
                             title: string;
                             content: string;
                             excerpt: string;
-                            tags: string;
+                            tags: string[];
                         };
                     };
                 };
