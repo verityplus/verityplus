@@ -186,7 +186,7 @@ export default defineComponent({
         form.value.titleId = result.title
         form.value.contentId = result.content
         form.value.excerptId = result.excerpt
-        form.value.tagsId = result.tags.split(',').map(t => t.trim())
+        form.value.tagsId = result.tags.map((t: string) => t.trim())
         currentStep.value = 0
       } catch (err: unknown) {
         const message = err instanceof Error ? err.message : String(err)
