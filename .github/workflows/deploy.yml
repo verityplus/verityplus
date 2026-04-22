@@ -41,8 +41,6 @@ jobs:
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
-      - name: Include public folder in dist 📂
-        run: cp -r public dist/public
 
       - name: Add .nojekyll 📄
         # Prevents GitHub Pages from ignoring files/folders starting with underscore (_assets, etc.)

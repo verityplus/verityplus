@@ -33,7 +33,7 @@ export const AppLogo = defineComponent({
       >
         <img
           class={['h-6 hidden sm:block', props.inverted ? '' : 'invert']}
-          src="/verityplus-noborder.png"
+          src={`${import.meta.env.BASE_URL}verityplus-noborder.png`}
           alt="VERITY+ Logo"
         />
         <img
@@ -41,7 +41,7 @@ export const AppLogo = defineComponent({
             'h-6 aspect-square object-contain block sm:hidden',
             props.inverted ? '' : 'invert',
           ]}
-          src="/verityplus-small-noborder.png"
+          src={`${import.meta.env.BASE_URL}verityplus-small-noborder.png`}
           alt="VERITY+"
         />
       </div>

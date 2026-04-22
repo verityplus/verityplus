@@ -5,9 +5,9 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/i18n'
 import type { Locale } from '@/i18n/types'
 
 const LOCALE_FLAGS: Record<Locale, string> = {
-  id: '/bahasa-indonesia.png',
-  en: '/english.png',
-  zh: '/chinese.png',
+  id: `${import.meta.env.BASE_URL}bahasa-indonesia.png`,
+  en: `${import.meta.env.BASE_URL}english.png`,
+  zh: `${import.meta.env.BASE_URL}chinese.png`,
 }
 
 const LOCALE_LABELS: Record<Locale, string> = {

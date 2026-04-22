@@ -22,7 +22,7 @@ const settingsStore = useSettingsStore()
 const authStore = useAuthStore()
 
 // Initialize settings and check auth
-settingsStore.fetchSettings()
+settingsStore.fetchPublicSettings()
 authStore.checkSession()
 
 app.mount('#app')

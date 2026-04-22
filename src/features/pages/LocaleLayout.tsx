@@ -20,7 +20,7 @@ export default defineComponent({
     onMounted(async () => {
       // Load settings for analytics
       if (Object.keys(settingsStore.settings).length === 0) {
-        await settingsStore.fetchSettings()
+        await settingsStore.fetchPublicSettings()
       }
 
       // Check existing consent
