@@ -11,9 +11,10 @@ export function resolveAssetUrl(path: string | null | undefined): string {
     return path;
   }
   
-  // If it's a relative path starting with /uploads, prepend origin
+  // If it's a relative path starting with /uploads, prepend Supabase Storage public URL
   if (path.startsWith('/uploads/')) {
-    return `${API_BASE_ORIGIN}${path}`;
+    const filename = path.replace('/uploads/', '');
+    return `${API_BASE_ORIGIN}/storage/v1/object/public/uploads/${filename}`;
   }
   
   return path;
