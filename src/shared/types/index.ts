@@ -5,7 +5,9 @@ export type Author = paths['/api/v1/authors']['get']['responses']['200']['conten
 export type Category = paths['/api/v1/categories']['get']['responses']['200']['content']['application/json'][number]
 export type CMSUser = paths['/api/v1/auth/users']['get']['responses']['200']['content']['application/json'][number] & {
   password?: string
+  role: string
 }
+
 
 export type ArticleStatus = 'draft' | 'published' | 'archived' | 'featured'
 
