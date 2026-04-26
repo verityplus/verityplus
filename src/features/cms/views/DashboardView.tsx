@@ -31,7 +31,7 @@ export default defineComponent({
         color: 'bg-primary',
       },
       {
-        name: 'Active Characters',
+        name: 'Active Authors',
         value: articleStore.authors.length,
         icon: 'bi bi-person-badge',
         color: 'bg-emerald-500',

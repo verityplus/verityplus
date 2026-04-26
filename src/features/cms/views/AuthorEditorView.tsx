@@ -12,11 +12,11 @@ import { resolveAssetUrl } from '@/shared/utils/assets'
 import { AIService } from '@/shared/services/ai.service'
 
 /**
- * CMS View: CharacterEditorView
- * Detailed form to manage identities and personas.
+ * CMS View: AuthorEditorView
+ * Detailed form to manage authors and personas.
  */
 export default defineComponent({
-  name: 'CharacterEditorView',
+  name: 'AuthorEditorView',
   setup() {
     const route = useRoute()
     const router = useRouter()
@@ -43,7 +43,7 @@ export default defineComponent({
     })
 
     const form = ref<Author>({
-      id: `char-${Date.now()}`,
+      id: undefined as unknown as string,
       name: '',
       avatar: '/profile-placeholder.png',
       bioId: '',
@@ -122,10 +122,10 @@ export default defineComponent({
         } else {
           await cmsContentStore.addAuthor(submissionData)
         }
-        router.push('/cms/characters')
+        router.push('/cms/authors')
       } catch (err: unknown) {
         const detail = err instanceof Error ? err.message : 'Check your network connection and retry.'
-        await appAlert(`Failed to save character.\n\nDetail: ${detail}`, 'Save Error')
+        await appAlert(`Failed to save author.\n\nDetail: ${detail}`, 'Save Error')
       }
     }
 
@@ -145,7 +145,7 @@ export default defineComponent({
             variant="primary"
             class="shadow-lg shadow-primary/20 px-10 py-3.5 uppercase font-black tracking-widest text-xs"
           >
-            Save Character
+            Save Author
           </BaseButton>
         </header>
 
@@ -290,7 +290,7 @@ export default defineComponent({
                   key={currentStep.value}
                 >
                   <label class="text-[10px] items-center flex justify-between font-black text-slate-400 uppercase tracking-widest">
-                    <span>Character Biography / Backstory</span>
+                    <span>Author Biography / Backstory</span>
                     <span class="text-primary bg-primary/10 px-2 py-0.5 rounded-full">
                       {activeLangSuffix.value}
                     </span>
@@ -306,7 +306,7 @@ export default defineComponent({
                       if (currentStep.value === 0) handleAutoTranslate()
                     }}
                     disabled={isFieldReadOnly.value}
-                    placeholder={`Tell the character's story in ${steps[currentStep.value]}...`}
+                    placeholder={`Tell the author's story in ${steps[currentStep.value]}...`}
                     class={[
                       "w-full text-sm font-medium p-3 rounded-xl outline-none transition min-h-[120px] resize-none",
                       isFieldReadOnly.value ? "bg-slate-50 text-slate-400 cursor-not-allowed" : "bg-slate-50 border-transparent focus:bg-white focus:border-primary/20 text-slate-700"
@@ -321,7 +321,7 @@ export default defineComponent({
             <div class="relative z-10 space-y-6">
               <i class="bi bi-person-badge text-6xl opacity-30 drop-shadow-xl" />
               <h3 class="text-3xl font-black leading-tight border-b border-white/20 pb-4">
-                Character Backstory Guidelines
+                Author Backstory Guidelines
               </h3>
               <p class="text-indigo-100/70 text-sm leading-relaxed">
                 VERITY+ authors are part of a larger narrative. Ensure the biography is engaging and

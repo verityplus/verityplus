@@ -27,7 +27,7 @@ export const CMSSidebar = defineComponent({
     const navItems: NavItem[] = [
       { name: 'Dashboard', path: '/cms', icon: 'bi bi-speedometer2', exact: true },
       { name: 'Articles', path: '/cms/articles', icon: 'bi bi-journal-text' },
-      { name: 'Characters', path: '/cms/characters', icon: 'bi bi-people' },
+      { name: 'Authors', path: '/cms/authors', icon: 'bi bi-people' },
       { name: 'Categories', path: '/cms/categories', icon: 'bi bi-tags' },
       { name: 'Users', path: '/cms/users', icon: 'bi bi-person-gear' },
       { name: 'Settings', path: '/cms/settings', icon: 'bi bi-gear-fill' },

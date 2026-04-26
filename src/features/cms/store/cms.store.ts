@@ -34,10 +34,10 @@ export const useCMSStore = defineStore('cms', () => {
   }
 
   const updateUser = async (user: CMSUser) => {
-    const { id, username, email } = user
+    const { id, username, email, role } = user
     await apiClient.PUT('/api/v1/auth/users/{id}', {
       params: { path: { id } },
-      body: { username, email }
+      body: { username, email, role }
     })
     queryClient.invalidateQueries({ queryKey: ['cms_users'] })
   }

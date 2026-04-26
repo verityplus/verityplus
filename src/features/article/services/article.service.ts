@@ -25,7 +25,7 @@ export const ArticleService = {
       authorId?: string
       status?: Article['status']
     } = {},
-  ): Promise<{ items: Article[]; total: number }> {
+  ): Promise<{ items: Article[]; total: number; page: number; totalPages: number }> {
     const { data, error } = await apiClient.GET('/api/v1/articles', {
       params: {
         query: {

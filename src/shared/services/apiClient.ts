@@ -3,7 +3,9 @@ import type { paths } from '../types/openapi'
 
 // VITE_API_URL should be the base function URL, e.g., https://xxx.supabase.co/functions/v1/api
 // The apiClient will append /api/v1/... to this base URL.
-export const API_BASE_URL = import.meta.env.VITE_API_URL.replace(/\/$/, '')
+const rawUrl = import.meta.env.VITE_API_URL
+if (!rawUrl) throw new Error('VITE_API_URL is not defined. Check your .env file.')
+export const API_BASE_URL = rawUrl.replace(/\/$/, '')
 export const API_BASE_ORIGIN = new URL(API_BASE_URL).origin
 
 // Create the type-safe client
