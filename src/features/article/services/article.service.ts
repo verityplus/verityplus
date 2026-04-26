@@ -23,6 +23,7 @@ export const ArticleService = {
       limit?: number
       categoryId?: string
       authorId?: string
+      status?: Article['status']
     } = {},
   ): Promise<{ items: Article[]; total: number }> {
     const { data, error } = await apiClient.GET('/api/v1/articles', {
@@ -33,6 +34,7 @@ export const ArticleService = {
           limit: args.limit?.toString(),
           categoryId: args.categoryId,
           authorId: args.authorId,
+          status: args.status,
         },
       },
     })

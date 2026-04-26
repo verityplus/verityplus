@@ -42,6 +42,7 @@ export interface paths {
                                 username: string;
                                 /** Format: email */
                                 email: string;
+                                role: string;
                             };
                         };
                     };
@@ -107,6 +108,7 @@ export interface paths {
                             username: string;
                             /** Format: email */
                             email: string;
+                            role: string;
                         }[];
                     };
                 };
@@ -341,6 +343,7 @@ export interface paths {
                             username: string;
                             /** Format: email */
                             email: string;
+                            role: string;
                         };
                     };
                 };
