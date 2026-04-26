@@ -35,10 +35,6 @@ export interface MessageSchema {
     next: string
     all: string
     contactUs: string
-    popular: string
-    latest: string
-    articles: string
-    categories: string
     search: string
     noResults: string
     noArticles: string
@@ -80,7 +76,9 @@ export interface MessageSchema {
     authorDesc: string
     categoryTitle: string
     categoryDesc: string
+    categoryDescFallback: string
     allArticlesTitle: string
+    allArticlesDesc: string
     articleLoading: string
   }
   home: {
@@ -233,7 +231,6 @@ export interface MessageSchema {
   }
   article: {
     minutesRead: string
-    readMore: string
     recommended: string
     articlesBy: string
     mainPromo: string
@@ -243,7 +240,6 @@ export interface MessageSchema {
     header: string
     middle: string
     footer: string
-    sidebar: string
     authorSponsor: string
     categorySponsor: string
     sidePromo: string

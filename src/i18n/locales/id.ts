@@ -32,11 +32,7 @@ const id: MessageSchema = {
     "previous": "Sebelumnya",
     "next": "Selanjutnya",
     "all": "Semua",
-    "popular": "Populer",
     "mostPopular": "TERPOPULER",
-    "latest": "Terbaru",
-    "articles": "Artikel",
-    "categories": "Kategori",
     "contactUs": "Hubungi Kami",
     "search": "Cari",
     "noResults": "Tidak ada hasil ditemukan",
@@ -311,15 +307,13 @@ const id: MessageSchema = {
     "minutesRead": "menit baca",
     "recommended": "Artikel Rekomendasi",
     "articlesBy": "Artikel Oleh",
-    "mainPromo": "Promo Utama",
-    "readMore": "Baca Selengkapnya"
+    "mainPromo": "Promo Utama"
   },
   "ads": {
     "defaultLabel": "Ruang Iklan",
     "header": "Iklan Header",
     "middle": "Iklan Tengah",
     "footer": "Iklan Penutup",
-    "sidebar": "Iklan Sidebar",
     "authorSponsor": "Sponsor Penulis",
     "categorySponsor": "Sponsor Kategori",
     "exclusivePromo": "Promo Eksklusif",
