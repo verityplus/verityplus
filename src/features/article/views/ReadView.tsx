@@ -63,7 +63,7 @@ export default defineComponent({
           trackEvent('view_item', {
             item_id: article.value.id,
             item_name: getLocalizedField(article.value, 'title'),
-            item_category: article.value.category?.name,
+            item_category: article.value.category ? getLocalizedField(article.value.category, 'name') : undefined,
             author: article.value.author?.name
           })
           
@@ -178,7 +178,7 @@ export default defineComponent({
       readingProgress.value = progress
 
       // Track 90% scroll as "article_finished"
-      if (progress > 90 && !article.value?.trackedFinished) {
+      if (progress > 90 && !(article.value as any)?.trackedFinished) {
         if (article.value) {
           ;(article.value as Article & { trackedFinished?: boolean }).trackedFinished = true
           trackEvent('article_finished', {

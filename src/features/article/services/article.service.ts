@@ -8,6 +8,7 @@ import type {
   UpdateCategoryInput,
   CreateAuthorInput,
   UpdateAuthorInput,
+  ArticleStatus,
 } from '@/shared/types'
 import { apiClient } from '@/shared/services/apiClient'
 
@@ -23,7 +24,7 @@ export const ArticleService = {
       limit?: number
       categoryId?: string
       authorId?: string
-      status?: Article['status']
+      status?: ArticleStatus
     } = {},
   ): Promise<{ items: Article[]; total: number; page: number; totalPages: number }> {
     const { data, error } = await apiClient.GET('/api/v1/articles', {
@@ -34,7 +35,7 @@ export const ArticleService = {
           limit: args.limit?.toString(),
           categoryId: args.categoryId,
           authorId: args.authorId,
-          status: args.status,
+          status: args.status as any,
         },
       },
     })

@@ -23,6 +23,7 @@ export default defineComponent({
       username: '',
       email: '',
       password: '',
+      role: 'editor',
     })
 
     const loadData = () => {

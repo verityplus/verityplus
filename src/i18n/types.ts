@@ -76,9 +76,7 @@ export interface MessageSchema {
     authorDesc: string
     categoryTitle: string
     categoryDesc: string
-    categoryDescFallback: string
     allArticlesTitle: string
-    allArticlesDesc: string
     articleLoading: string
   }
   home: {
