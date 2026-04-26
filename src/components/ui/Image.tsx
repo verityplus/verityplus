@@ -29,7 +29,7 @@ export const BaseImage = defineComponent({
 
     return () => (
       <img
-        src={error.value || !props.src ? actualPlaceholder : resolveAssetUrl(props.src)}
+        src={error.value || !props.src ? resolveAssetUrl(actualPlaceholder) : resolveAssetUrl(props.src)}
         alt={props.alt}
         class={props.class}
         onError={handleError}

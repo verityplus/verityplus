@@ -16,6 +16,15 @@ export function resolveAssetUrl(path: string | null | undefined): string {
     const filename = path.replace('/uploads/', '');
     return `${API_BASE_ORIGIN}/storage/v1/object/public/uploads/${filename}`;
   }
+
+  // If it's an absolute path within the app (starts with /), prepend BASE_URL
+  if (path.startsWith('/')) {
+    const baseUrl = import.meta.env.BASE_URL;
+    // Remove leading slash from path and trailing slash from baseUrl if present to avoid double slashes,
+    // though Vite BASE_URL usually ends with / and we usually pass /path.
+    const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+    return `${normalizedBase}${path.substring(1)}`;
+  }
   
   return path;
 }

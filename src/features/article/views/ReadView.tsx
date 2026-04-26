@@ -16,6 +16,7 @@ import { formatDate } from '@/utils/date'
 import type { Article } from '@/shared/types'
 import { StructuredData } from '@/components/seo/StructuredData'
 import { calculateReadTime } from '@/utils/readTime'
+import { resolveAssetUrl } from '@/shared/utils/assets'
 
 
 /**
@@ -132,7 +133,7 @@ export default defineComponent({
           name: 'VERITY+',
           logo: {
             '@type': 'ImageObject',
-            url: window.location.origin + '/logo.png',
+            url: window.location.origin + resolveAssetUrl('/verityplus-noborder.png'),
           },
         },
       }

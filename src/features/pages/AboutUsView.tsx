@@ -1,6 +1,7 @@
 import { defineComponent, computed } from 'vue'
 import { useHead } from '@/composables/useHead'
 import { useI18n } from 'vue-i18n'
+import { resolveAssetUrl } from '@/shared/utils/assets'
 
 export default defineComponent({
   name: 'AboutUsView',
@@ -72,7 +73,7 @@ export default defineComponent({
               <div class="relative">
                 <div class="aspect-[4/3] overflow-hidden rounded-2xl shadow-elevated">
                   <img
-                    src="/about-us-team.png"
+                    src={resolveAssetUrl('/about-us-team.png')}
                     alt={t('about.teamAlt')}
                     class="w-full h-full object-cover"
                   />
