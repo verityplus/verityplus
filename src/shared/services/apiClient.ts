@@ -6,7 +6,14 @@ import type { paths } from '../types/openapi'
 const rawUrl = import.meta.env.VITE_API_URL
 if (!rawUrl) throw new Error('VITE_API_URL is not defined. Check your .env file.')
 export const API_BASE_URL = rawUrl.replace(/\/$/, '')
-export const API_BASE_ORIGIN = new URL(API_BASE_URL).origin
+const originUrl = new URL(API_BASE_URL)
+
+// If we are on HTTPS, try to use HTTPS for API to avoid mixed content
+if (typeof window !== 'undefined' && window.location.protocol === 'https:' && originUrl.protocol === 'http:') {
+  originUrl.protocol = 'https:'
+}
+
+export const API_BASE_ORIGIN = originUrl.origin
 
 // Create the type-safe client
 const client = createClient<paths>({
