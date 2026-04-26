@@ -5,7 +5,6 @@ import { ArticleService } from '../services/article.service'
 import type { Article, Category, Author } from '@/shared/types'
 
 const LATEST_PER_PAGE = 4
-const GRID_PER_PAGE = 8
 
 /**
  * ArticleStore: Centralized State Management for Read Operations
@@ -54,7 +53,6 @@ export const useArticleStore = defineStore('articles', () => {
   const isLoading = computed(() => articlesLoading.value)
 
   const latestPage = ref(1)
-  const gridPage = ref(1)
 
   const featured = computed(() => articles.value.filter((a) => a.status === 'featured'))
 
@@ -70,15 +68,6 @@ export const useArticleStore = defineStore('articles', () => {
   )
 
   const popular = computed(() => articles.value.filter((a) => a.status === 'popular'))
-
-  const paginatedGridArticles = computed(() => {
-    const start = (gridPage.value - 1) * GRID_PER_PAGE
-    return nonFeaturedArticles.value.slice(start, start + GRID_PER_PAGE)
-  })
-
-  const gridTotalPages = computed(() => Math.ceil(nonFeaturedArticles.value.length / GRID_PER_PAGE))
-
-  const gridArticles = computed(() => nonFeaturedArticles.value.slice(0, GRID_PER_PAGE))
 
   const findById = async (id: string): Promise<Article | undefined> => {
     return ArticleService.getArticleById(id)
@@ -112,17 +101,8 @@ export const useArticleStore = defineStore('articles', () => {
     if (latestPage.value > 1) latestPage.value--
   }
 
-  const gridNextPage = () => {
-    if (gridPage.value < gridTotalPages.value) gridPage.value++
-  }
-
-  const gridPrevPage = () => {
-    if (gridPage.value > 1) gridPage.value--
-  }
-
   const resetPagination = () => {
     latestPage.value = 1
-    gridPage.value = 1
   }
 
   return {
@@ -139,12 +119,6 @@ export const useArticleStore = defineStore('articles', () => {
     latestNextPage,
     latestPrevPage,
     popular,
-    gridArticles,
-    paginatedGridArticles,
-    gridPage,
-    gridTotalPages,
-    gridNextPage,
-    gridPrevPage,
     resetPagination,
     findById,
     search,

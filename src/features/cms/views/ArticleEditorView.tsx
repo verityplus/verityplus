@@ -122,7 +122,7 @@ export default defineComponent({
     }
 
     watchEffect(() => {
-      loadData()
+      loadData().catch((err) => console.error('Failed to load article:', err))
     })
 
 
@@ -133,9 +133,6 @@ export default defineComponent({
       return 'Id'
     })
 
-    const isFieldReadOnly = computed(() => {
-      return false
-    })
 
     const getCurrentTags = () => {
       const suffix = activeLangSuffix.value as 'Id' | 'En' | 'Zh'
@@ -453,16 +450,23 @@ export default defineComponent({
                         const key = `title${activeLangSuffix.value}` as keyof EditorForm
                         ;(form.value[key] as string) = val
                       }}
-                      onBlur={() => {
+                      onFocus={(e) => {
+                        ;(e.target as any)._prevValue = (e.target as HTMLInputElement).value
+                      }}
+                      onBlur={(e) => {
                         markTouched(`title${activeLangSuffix.value}`)
-                        if (currentStep.value === 0) triggerAutoTranslateAtOnce()
+                        const val = (e.target as HTMLInputElement).value
+                        const prev = (e.target as any)._prevValue
+                        if (currentStep.value === 0 && val !== prev) {
+                          triggerAutoTranslateAtOnce()
+                        }
                       }}
                       type="text"
-                      disabled={isFieldReadOnly.value}
+                      disabled={false}
                       placeholder={`Enter headline in ${steps[currentStep.value]}...`}
                       class={[
                         'w-full text-3xl sm:text-4xl rounded-xl border border-transparent focus:border-slate-100 focus:bg-slate-50/20 p-2 outline-none font-black transition',
-                        isFieldReadOnly.value ? 'bg-slate-50/40 text-slate-400 cursor-not-allowed' : 'text-slate-900',
+                         'text-slate-900',
                         (showErrors.value || touched.value[`title${activeLangSuffix.value}`]) &&
                         errors.value[`title${activeLangSuffix.value}`]
                           ? 'text-red-600 placeholder-red-200'
@@ -491,7 +495,16 @@ export default defineComponent({
                     onUpdate:modelValue={(val) => {
                       ;(form.value[`content${activeLangSuffix.value}` as keyof EditorForm] as string) = val
                     }}
-                    disabled={isFieldReadOnly.value}
+                    onFocus={(e: any) => {
+                       e._prevValue = form.value[`content${activeLangSuffix.value}` as keyof EditorForm] as string
+                    }}
+                    onBlur={(e: any) => {
+                       const val = form.value[`content${activeLangSuffix.value}` as keyof EditorForm] as string
+                       const prev = e._prevValue
+                       if (currentStep.value === 0 && val !== prev) {
+                          triggerAutoTranslateAtOnce()
+                       }
+                    }}
                   />
                 </div>
 
@@ -519,11 +532,10 @@ export default defineComponent({
                     onBlur={() => {
                         if (currentStep.value === 0) triggerAutoTranslateAtOnce()
                     }}
-                    disabled={isFieldReadOnly.value}
                     placeholder="Brief summary used for previews..."
                     class={[
                       "w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-bold outline-none min-h-[80px] resize-none transition",
-                      isFieldReadOnly.value ? "bg-slate-50 text-slate-400 cursor-not-allowed" : "bg-slate-50/50 text-slate-700"
+                         "bg-slate-50/50 text-slate-700"
                     ]}
                   />
                 </div>
@@ -538,7 +550,7 @@ export default defineComponent({
                   <div class="flex gap-2">
                     <input
                       value={tagInput.value}
-                      disabled={isFieldReadOnly.value}
+                      disabled={false}
                       onInput={(e) => {
                         tagInput.value = (e.target as HTMLInputElement).value
                       }}
@@ -552,10 +564,10 @@ export default defineComponent({
                         }
                       }}
                       type="text"
-                      placeholder={isFieldReadOnly.value ? "Switch to Manual Mode to edit" : `Add tag for ${steps[currentStep.value]}...`}
+                       placeholder={`Add tag for ${steps[currentStep.value]}...`}
                       class={[
                         "flex-1 px-3 py-2 rounded-xl border border-slate-200 text-xs font-bold outline-none transition",
-                        isFieldReadOnly.value ? "bg-slate-50 text-slate-400 cursor-not-allowed" : "bg-slate-50/50 text-slate-700"
+                        "bg-slate-50/50 text-slate-700"
                       ]}
                     />
                     <button

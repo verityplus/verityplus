@@ -41,7 +41,7 @@ export const ArticleService = {
 
     if (error || !data) {
       console.error('Error fetching articles:', error)
-      return { items: [], total: 0 }
+      return { items: [], total: 0, page: 1, totalPages: 0 }
     }
     
     return data

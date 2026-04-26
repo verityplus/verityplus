@@ -15,8 +15,10 @@ export const MarkdownEditor = defineComponent({
   props: {
     modelValue: { type: String, default: '' },
     disabled: { type: Boolean, default: false },
+    onBlur: { type: Function, default: () => {} },
+    onFocus: { type: Function, default: () => {} },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'blur', 'focus'],
   setup(props, { emit }) {
     const activeTab = ref<'visual' | 'raw'>('visual')
 
@@ -47,7 +49,14 @@ export const MarkdownEditor = defineComponent({
           emit('update:modelValue', storage.markdown.getMarkdown())
         }
       },
-
+      onBlur: ({ event }) => {
+        emit('blur', event)
+        props.onBlur(event)
+      },
+      onFocus: ({ event }) => {
+        emit('focus', event)
+        props.onFocus(event)
+      },
     })
 
     watch(
@@ -261,6 +270,14 @@ export const MarkdownEditor = defineComponent({
               <textarea
                 value={props.modelValue}
                 onInput={(e) => emit('update:modelValue', (e.target as HTMLTextAreaElement).value)}
+                onBlur={(e) => {
+                  emit('blur', e)
+                  props.onBlur(e)
+                }}
+                onFocus={(e) => {
+                  emit('focus', e)
+                  props.onFocus(e)
+                }}
                 disabled={props.disabled}
                 placeholder="Write raw markdown here..."
                 class="w-full h-full min-h-[400px] bg-transparent font-mono text-sm leading-relaxed outline-none resize-none border-none"
