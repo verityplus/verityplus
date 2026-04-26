@@ -6,7 +6,6 @@ import { useArticleStore } from '@/features/article/store/article.store'
 import { ArticleCard } from '@/features/article/components/ArticleCard'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { AD_SLOTS } from '@/features/ads/services/ad.service'
-import type { Article } from '@/shared/types'
 
 const ARTICLES_PER_PAGE = 9
 

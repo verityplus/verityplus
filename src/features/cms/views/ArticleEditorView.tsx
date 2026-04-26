@@ -451,12 +451,12 @@ export default defineComponent({
                         ;(form.value[key] as string) = val
                       }}
                       onFocus={(e) => {
-                        ;(e.target as any)._prevValue = (e.target as HTMLInputElement).value
+                        ;(e.target as HTMLInputElement & { _prevValue?: string })._prevValue = (e.target as HTMLInputElement).value
                       }}
                       onBlur={(e) => {
                         markTouched(`title${activeLangSuffix.value}`)
                         const val = (e.target as HTMLInputElement).value
-                        const prev = (e.target as any)._prevValue
+                        const prev = (e.target as HTMLInputElement & { _prevValue?: string })._prevValue
                         if (currentStep.value === 0 && val !== prev) {
                           triggerAutoTranslateAtOnce()
                         }
@@ -495,10 +495,10 @@ export default defineComponent({
                     onUpdate:modelValue={(val) => {
                       ;(form.value[`content${activeLangSuffix.value}` as keyof EditorForm] as string) = val
                     }}
-                    onFocus={(e: any) => {
+                    onFocus={(e: FocusEvent & { _prevValue?: string }) => {
                        e._prevValue = form.value[`content${activeLangSuffix.value}` as keyof EditorForm] as string
                     }}
-                    onBlur={(e: any) => {
+                    onBlur={(e: FocusEvent & { _prevValue?: string }) => {
                        const val = form.value[`content${activeLangSuffix.value}` as keyof EditorForm] as string
                        const prev = e._prevValue
                        if (currentStep.value === 0 && val !== prev) {
