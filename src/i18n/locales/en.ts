@@ -329,8 +329,8 @@ const en: MessageSchema = {
   "topbar": {
     "browse": "Browse",
     "featured": "Featured",
-    "latest": "Latest",
     "popular": "Popular",
+    "latest": "Latest",
     "categories": "Categories"
   },
   "cookieConsent": {

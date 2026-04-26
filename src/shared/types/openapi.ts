@@ -445,7 +445,7 @@ export interface paths {
                     categoryId?: string;
                     authorId?: string;
                     search?: string;
-                    status?: "draft" | "published" | "archived" | "featured";
+                    status?: "draft" | "published" | "archived" | "featured" | "popular";
                 };
                 header?: never;
                 path?: never;
@@ -550,7 +550,7 @@ export interface paths {
                          * @default draft
                          * @enum {string}
                          */
-                        status?: "draft" | "published" | "archived" | "featured";
+                        status?: "draft" | "published" | "archived" | "featured" | "popular";
                         slug?: string;
                     };
                 };
@@ -767,7 +767,7 @@ export interface paths {
                          * @default draft
                          * @enum {string}
                          */
-                        status?: "draft" | "published" | "archived" | "featured";
+                        status?: "draft" | "published" | "archived" | "featured" | "popular";
                         slug?: string;
                     };
                 };

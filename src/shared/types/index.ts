@@ -9,13 +9,14 @@ export type CMSUser = paths['/api/v1/auth/users']['get']['responses']['200']['co
 }
 
 
-export type ArticleStatus = 'draft' | 'published' | 'archived' | 'featured'
+export type ArticleStatus = 'draft' | 'published' | 'archived' | 'featured' | 'popular'
 
 export const ARTICLE_STATUS_LABELS: AppRecord<ArticleStatus, string> = {
   draft: 'Draft',
   published: 'Published',
   archived: 'Archived',
   featured: 'Featured',
+  popular: 'Popular',
 }
 
 export type AdSize = 'leaderboard' | 'banner' | 'sidebar' | 'inline'

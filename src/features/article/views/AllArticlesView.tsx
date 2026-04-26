@@ -23,9 +23,7 @@ export default defineComponent({
       return page > 0 ? page : 1
     })
 
-    const nonFeaturedArticles = computed(() =>
-      store.articles.filter((a: Article) => a.status !== 'featured'),
-    )
+    const nonFeaturedArticles = computed(() => store.nonFeaturedArticles)
 
     const totalPages = computed(() =>
       Math.max(1, Math.ceil(nonFeaturedArticles.value.length / ARTICLES_PER_PAGE)),

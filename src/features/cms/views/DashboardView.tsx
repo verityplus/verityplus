@@ -122,7 +122,9 @@ export default defineComponent({
                       class={[
                         article.status === 'featured'
                           ? 'bg-violet-100 text-violet-700'
-                          : article.status === 'draft'
+                          : article.status === 'popular'
+                            ? 'bg-orange-100 text-orange-700'
+                            : article.status === 'draft'
                             ? 'bg-slate-100 text-slate-600'
                             : article.status === 'archived'
                               ? 'bg-amber-100 text-amber-700'

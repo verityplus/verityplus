@@ -51,6 +51,7 @@ export default defineComponent({
       published: { bg: 'bg-emerald-100', text: 'text-emerald-600', icon: 'bi-broadcast' },
       archived: { bg: 'bg-amber-100', text: 'text-amber-600', icon: 'bi-archive' },
       featured: { bg: 'bg-violet-100', text: 'text-violet-600', icon: 'bi-star-fill' },
+      popular: { bg: 'bg-orange-100', text: 'text-orange-600', icon: 'bi-fire' },
     }
 
     return () => (

@@ -329,8 +329,8 @@ const zh: MessageSchema = {
   "topbar": {
     "browse": "浏览",
     "featured": "精选",
-    "latest": "最新",
     "popular": "热门",
+    "latest": "最新",
     "categories": "分类"
   },
   "cookieConsent": {

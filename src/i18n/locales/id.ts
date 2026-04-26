@@ -329,8 +329,8 @@ const id: MessageSchema = {
   "topbar": {
     "browse": "Jelajahi",
     "featured": "Unggulan",
-    "latest": "Terbaru",
     "popular": "Populer",
+    "latest": "Terbaru",
     "categories": "Kategori"
   },
   "cookieConsent": {

@@ -19,9 +19,7 @@ export const ArticleGrid = defineComponent({
     const { getLocalizedField } = useLocalizedField()
     const activeCategory = ref('all')
 
-    const nonFeaturedArticles = computed(() =>
-      store.articles.filter((a: Article) => a.status !== 'featured'),
-    )
+    const nonFeaturedArticles = computed(() => store.nonFeaturedArticles)
 
     const displayedArticles = computed(() => {
       return activeCategory.value === 'all'

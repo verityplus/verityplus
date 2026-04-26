@@ -58,7 +58,7 @@ export const useArticleStore = defineStore('articles', () => {
 
   const featured = computed(() => articles.value.filter((a) => a.status === 'featured'))
 
-  const nonFeaturedArticles = computed(() => articles.value.filter((a) => a.status !== 'featured'))
+  const nonFeaturedArticles = computed(() => articles.value.filter((a) => a.status !== 'featured' && a.status !== 'popular'))
 
   const latest = computed(() => {
     const start = (latestPage.value - 1) * LATEST_PER_PAGE
@@ -69,7 +69,7 @@ export const useArticleStore = defineStore('articles', () => {
     Math.ceil(nonFeaturedArticles.value.length / LATEST_PER_PAGE),
   )
 
-  const popular = computed(() => articles.value.filter((a) => a.status === 'featured').slice(0, 5))
+  const popular = computed(() => articles.value.filter((a) => a.status === 'popular'))
 
   const paginatedGridArticles = computed(() => {
     const start = (gridPage.value - 1) * GRID_PER_PAGE
