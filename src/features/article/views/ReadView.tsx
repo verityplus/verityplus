@@ -5,6 +5,7 @@ import { useHead } from '@/composables/useHead'
 import { useLocaleRoute } from '@/composables/useLocaleRoute'
 import { marked } from 'marked'
 import { useArticleStore } from '@/features/article/store/article.store'
+import { trackEvent } from '@/composables/useAnalytics'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { AD_SLOTS } from '@/features/ads/services/ad.service'
 import { BaseBadge } from '@/components/ui/Badge'
@@ -58,6 +59,14 @@ export default defineComponent({
               .filter((a) => a.id !== article.value!.id)
               .slice(0, 3)
           }
+          
+          trackEvent('view_item', {
+            item_id: article.value.id,
+            item_name: getLocalizedField(article.value, 'title'),
+            item_category: article.value.category?.name,
+            author: article.value.author?.name
+          })
+          
           isLoading.value = false
         }
       },
@@ -155,11 +164,29 @@ export default defineComponent({
       }
       window.speechSynthesis.speak(utterance)
       isSpeaking.value = true
+
+      trackEvent('use_tts', {
+        article_id: article.value.id,
+        article_title: getLocalizedField(article.value, 'title'),
+        language: utterance.lang
+      })
     }
 
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight
-      readingProgress.value = totalHeight ? (window.scrollY / totalHeight) * 100 : 0
+      const progress = totalHeight ? (window.scrollY / totalHeight) * 100 : 0
+      readingProgress.value = progress
+
+      // Track 90% scroll as "article_finished"
+      if (progress > 90 && !article.value?.trackedFinished) {
+        if (article.value) {
+          ;(article.value as Article & { trackedFinished?: boolean }).trackedFinished = true
+          trackEvent('article_finished', {
+            article_id: article.value.id,
+            article_title: getLocalizedField(article.value, 'title')
+          })
+        }
+      }
     }
 
     onMounted(() => {

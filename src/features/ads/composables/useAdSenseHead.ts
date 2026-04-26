@@ -4,7 +4,10 @@ import { computed, type ComputedRef } from 'vue'
 /**
  * Composable to manage AdSense script injection.
  */
-export function useAdSenseHead(pubId: ComputedRef<string | undefined>) {
+export function useAdSenseHead(
+  pubId: ComputedRef<string | undefined>,
+  autoAdsEnabled: ComputedRef<boolean> = computed(() => false)
+) {
   useHead({
     script: computed(() => {
       if (!pubId.value || pubId.value === 'ca-pub-XXXXXXXXXXXXXXXX') return []
@@ -13,12 +16,18 @@ export function useAdSenseHead(pubId: ComputedRef<string | undefined>) {
         {
           id: 'adsense-script',
           async: true,
-          src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+          src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubId.value}`,
           crossorigin: 'anonymous',
-          // Note: Adding the pubId to the src is often recommended for early initialization:
-          // src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubId.value}`
-          // But the current implementation prefers manual <ins> slots.
         },
+        autoAdsEnabled.value ? {
+          id: 'adsense-auto-ads',
+          innerHTML: `
+            (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "${pubId.value}",
+              enable_page_level_ads: true
+            });
+          `
+        } : {}
       ]
     }),
   })

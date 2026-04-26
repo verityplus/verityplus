@@ -2,7 +2,6 @@ import { defineComponent, type PropType, onMounted, nextTick, ref, computed } fr
 import { useI18n } from 'vue-i18n'
 import type { AdSize } from '@/shared/types'
 import { useSettingsStore } from '@/features/cms/store/settings.store'
-import { useAdSenseHead } from '../composables/useAdSenseHead'
 
 /**
  * Feature Component: AdDisplay
@@ -35,8 +34,7 @@ export const AdDisplay = defineComponent({
 
     const pubId = computed(() => settingsStore.settings.adsense_pub_id)
     
-    // Inject AdSense script to head
-    useAdSenseHead(pubId)
+    // Note: AdSense script is now managed centrally in LocaleLayout.tsx
 
     const slotId = computed(() => {
       if (props.slot) return props.slot

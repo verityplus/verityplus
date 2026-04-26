@@ -5,7 +5,7 @@ import { AppLogo } from '../ui/Logo'
 
 /**
  * Layout Component: Footer
- * Global site footer with navigation links and newsletter.
+ * Global site footer with navigation links.
  */
 export const AppFooter = defineComponent({
   name: 'AppFooter',

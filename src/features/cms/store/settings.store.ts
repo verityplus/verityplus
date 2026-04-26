@@ -6,6 +6,7 @@ interface SiteSettings {
   adsense_pub_id?: string
   adsense_account_id?: string
   ga_measurement_id?: string
+  adsense_auto_ads_enabled?: string // 'true' or 'false' stored as string in DB usually
   openai_api_key?: string
   openai_base_url?: string
   openai_model?: string

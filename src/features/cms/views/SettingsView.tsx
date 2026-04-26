@@ -18,6 +18,7 @@ export default defineComponent({
       adsense_pub_id: '',
       adsense_account_id: '',
       ga_measurement_id: '',
+      adsense_auto_ads_enabled: 'false',
       ads_slot_leaderboard: '',
       ads_slot_banner: '',
       ads_slot_sidebar: '',
@@ -33,6 +34,7 @@ export default defineComponent({
         adsense_pub_id: settingsStore.settings.adsense_pub_id || '',
         adsense_account_id: settingsStore.settings.adsense_account_id || '',
         ga_measurement_id: settingsStore.settings.ga_measurement_id || '',
+        adsense_auto_ads_enabled: settingsStore.settings.adsense_auto_ads_enabled || 'false',
         ads_slot_leaderboard: settingsStore.settings.ads_slot_leaderboard || '',
         ads_slot_banner: settingsStore.settings.ads_slot_banner || '',
         ads_slot_sidebar: settingsStore.settings.ads_slot_sidebar || '',
@@ -119,6 +121,31 @@ export default defineComponent({
                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm"
                 />
                 <p class="text-[10px] text-slate-400">Used for earnings reports.</p>
+              </div>
+
+              <div class="space-y-4 col-span-1 md:col-span-2 pt-4 border-t border-slate-50">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <label class="block text-xs font-black uppercase tracking-widest text-slate-900">
+                      Enable Auto Ads
+                    </label>
+                    <p class="text-[10px] text-slate-400 mt-1">Let Google automatically place ads across your site in the best locations.</p>
+                  </div>
+                  <button
+                    onClick={() => (form.value.adsense_auto_ads_enabled = form.value.adsense_auto_ads_enabled === 'true' ? 'false' : 'true')}
+                    class={[
+                      'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
+                      form.value.adsense_auto_ads_enabled === 'true' ? 'bg-primary' : 'bg-slate-200'
+                    ]}
+                  >
+                    <span
+                      class={[
+                        'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
+                        form.value.adsense_auto_ads_enabled === 'true' ? 'translate-x-5' : 'translate-x-0'
+                      ]}
+                    />
+                  </button>
+                </div>
               </div>
             </div>
 

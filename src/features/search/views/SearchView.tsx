@@ -3,6 +3,7 @@ import { useRoute, RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@/composables/useHead'
 import { useArticleStore } from '@/features/article/store/article.store'
+import { trackEvent } from '@/composables/useAnalytics'
 import { AdDisplay } from '@/features/ads/components/AdDisplay'
 import { AD_SLOTS } from '@/features/ads/services/ad.service'
 import { BaseBadge } from '@/components/ui/Badge'
@@ -38,6 +39,10 @@ export default defineComponent({
       error.value = null
       try {
         results.value = await store.search(query.value)
+        trackEvent('search', {
+          search_term: query.value,
+          results_count: results.value.length
+        })
       } catch (err) {
         console.error('Search failed:', err)
         error.value = t('common.errorLoading')

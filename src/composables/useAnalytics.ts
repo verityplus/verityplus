@@ -1,4 +1,5 @@
 import { watch, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useHead } from '@unhead/vue'
 import { useSettingsStore } from '@/features/cms/store/settings.store'
 
@@ -10,6 +11,7 @@ export type ConsentStatus = 'undecided' | 'accepted' | 'declined'
  */
 export function useAnalytics(consentStatus: { value: ConsentStatus }) {
   const settingsStore = useSettingsStore()
+  const router = useRouter()
   const measurementId = computed(() => settingsStore.settings.ga_measurement_id)
 
   useHead({
@@ -30,7 +32,10 @@ export function useAnalytics(consentStatus: { value: ConsentStatus }) {
               'wait_for_update': 500
             });
             gtag('js', new Date());
-            gtag('config', '${measurementId.value}', { 'anonymize_ip': true });
+            gtag('config', '${measurementId.value}', { 
+              'anonymize_ip': true,
+              'send_page_view': false 
+            });
           `,
         },
         {
@@ -61,4 +66,38 @@ export function useAnalytics(consentStatus: { value: ConsentStatus }) {
       }
     }
   )
+
+  // Watch for route changes to trigger page_view
+  watch(
+    () => router.currentRoute.value.fullPath,
+    (path) => {
+      if (!measurementId.value) return
+      
+      const win = window as unknown as { gtag?: (...args: unknown[]) => void }
+      if (typeof window !== 'undefined' && win.gtag) {
+        win.gtag('event', 'page_view', {
+          page_path: path,
+          page_location: window.location.href,
+          page_title: document.title,
+          send_to: measurementId.value
+        })
+      }
+    },
+    { immediate: true }
+  )
+}
+
+/**
+ * Global Event Tracker Utility
+ */
+export function trackEvent(name: string, params: Record<string, unknown> = {}) {
+  const win = window as unknown as { gtag?: (...args: unknown[]) => void }
+  if (typeof window !== 'undefined' && win.gtag) {
+    win.gtag('event', name, params)
+  } else {
+    // Fallback to console in development if gtag is missing
+    if (import.meta.env.DEV) {
+      console.log(`[Analytics] Track Event: ${name}`, params)
+    }
+  }
 }

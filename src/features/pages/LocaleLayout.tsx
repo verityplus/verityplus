@@ -4,7 +4,9 @@ import { AppHeader } from '@/components/layout/Header'
 import { AppFooter } from '@/components/layout/Footer'
 import { CookieConsent } from '@/components/shared/CookieConsent'
 import { useAnalytics, type ConsentStatus } from '@/composables/useAnalytics'
+import { useAdSenseHead } from '@/features/ads/composables/useAdSenseHead'
 import { useSettingsStore } from '@/features/cms/store/settings.store'
+import { computed } from 'vue'
 
 /**
  * Locale Layout Component
@@ -32,6 +34,11 @@ export default defineComponent({
 
     // Initialize Analytics (Consent Mode v2)
     useAnalytics(consentStatus)
+
+    // Initialize AdSense
+    const pubId = computed(() => settingsStore.settings.adsense_pub_id)
+    const autoAdsEnabled = computed(() => settingsStore.settings.adsense_auto_ads_enabled === 'true')
+    useAdSenseHead(pubId, autoAdsEnabled)
 
     return () => (
       <div
