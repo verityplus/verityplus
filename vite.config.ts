@@ -7,9 +7,28 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+// ─── Build-time HTTPS guard ───────────────────────────────────────────────────
+// Vite bakes VITE_API_URL into the bundle at compile time. If it is set to
+// http:// for a non-localhost host, all asset URLs (including Bootstrap Icons
+// font files) will embed that HTTP origin — causing Mixed Content errors on the
+// HTTPS-served GitHub Pages site.
+const apiUrl = process.env.VITE_API_URL || ''
+if (process.env.NODE_ENV === 'production' && apiUrl.startsWith('http://')) {
+  const host = new URL(apiUrl).hostname
+  const isLocal = host === 'localhost' || host === '127.0.0.1'
+  if (!isLocal) {
+    throw new Error(
+      `[vite.config] FATAL: VITE_API_URL starts with http:// for a non-localhost host ("${host}"). ` +
+        `This will embed insecure URLs into the production bundle and cause Mixed Content errors. ` +
+        `Fix the VITE_API_URL GitHub Secret to use https://.`,
+    )
+  }
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/verityplus/' : '/',
+  base: '/',
   plugins: [
     vue(),
     vueJsx(),
