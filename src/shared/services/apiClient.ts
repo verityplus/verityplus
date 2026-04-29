@@ -8,9 +8,12 @@ if (!rawUrl) throw new Error('VITE_API_URL is not defined. Check your .env file.
 export const API_BASE_URL = rawUrl.replace(/\/$/, '')
 const originUrl = new URL(API_BASE_URL)
 
-// If we are on HTTPS, try to use HTTPS for API to avoid mixed content
-if (typeof window !== 'undefined' && window.location.protocol === 'https:' && originUrl.protocol === 'http:') {
+// Enforce HTTPS in production: reject any plain http:// API URL unless it's localhost/127.0.0.1 (local dev)
+const isLocalDev = originUrl.hostname === 'localhost' || originUrl.hostname === '127.0.0.1'
+if (!isLocalDev && originUrl.protocol === 'http:') {
+  // Auto-upgrade to HTTPS so mixed-content errors don't occur
   originUrl.protocol = 'https:'
+  console.warn('[apiClient] VITE_API_URL was http:// — automatically upgraded to https:// for non-localhost.')
 }
 
 export const API_BASE_ORIGIN = originUrl.origin

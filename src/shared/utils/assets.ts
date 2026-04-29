@@ -24,9 +24,15 @@ export function resolveAssetUrl(path: string | null | undefined): string {
     resolved = `${normalizedBase}${path.substring(1)}`;
   }
   
-  // Mixed Content Prevention: If on HTTPS, ensure asset URL is also HTTPS
-  if (typeof window !== 'undefined' && window.location.protocol === 'https:' && resolved.startsWith('http:')) {
-    return resolved.replace('http:', 'https:');
+  // Mixed Content Prevention: Always use HTTPS for non-localhost asset URLs
+  if (resolved.startsWith('http:')) {
+    try {
+      const u = new URL(resolved);
+      const isLocal = u.hostname === 'localhost' || u.hostname === '127.0.0.1';
+      if (!isLocal) resolved = resolved.replace('http:', 'https:');
+    } catch {
+      // not a parseable URL, leave as-is
+    }
   }
 
   return resolved;
