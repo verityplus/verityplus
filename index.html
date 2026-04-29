@@ -1,34 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="icon" href="/favicon.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
-  <!-- Security: upgrade all subresource HTTP requests to HTTPS and block mixed content -->
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <title>VERITY+</title>
-  <script type="text/javascript">
-    // SPA redirect handler for GitHub Pages
-    (function (l) {
-      if (l.search[1] === 'p') {
-        const params = new URLSearchParams(l.search);
-        const p = params.get('p');
-        const q = params.get('q');
-        if (p) {
-          window.history.replaceState(null, null, p + (q ? '?' + q : '') + l.hash);
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Redirect GitHub Pages traffic to the canonical domain -->
+    <script type="text/javascript">
+      ;(function () {
+        if (window.location.hostname === 'verityplus.github.io') {
+          var path = window.location.pathname.replace(/^\/verityplus/, '') || '/'
+          window.location.replace(
+            'https://verityplus.space' + path + window.location.search + window.location.hash
+          )
         }
-      }
-    }(window.location))
-  </script>
-  <!--unhead:placeholder-->
-</head>
+      })()
+    </script>
+    <meta http-equiv="refresh" content="0; url=https://verityplus.space/" />
+    <link rel="canonical" href="https://www.verityplus.space/" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <!-- Security: upgrade all subresource HTTP requests to HTTPS and block mixed content -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <title>VERITY+</title>
+    <script type="text/javascript">
+      // SPA redirect handler for GitHub Pages
+      ;(function (l) {
+        if (l.search[1] === 'p') {
+          const params = new URLSearchParams(l.search)
+          const p = params.get('p')
+          const q = params.get('q')
+          if (p) {
+            window.history.replaceState(null, null, p + (q ? '?' + q : '') + l.hash)
+          }
+        }
+      })(window.location)
+    </script>
+    <!--unhead:placeholder-->
+  </head>
 
-<body>
-  <div id="app"></div>
-  <script type="module" src="/src/main.ts"></script>
-  <!--unhead:template-->
-</body>
-
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+    <!--unhead:template-->
+  </body>
 </html>
