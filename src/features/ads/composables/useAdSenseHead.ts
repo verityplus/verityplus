@@ -22,10 +22,13 @@ export function useAdSenseHead(
         autoAdsEnabled.value ? {
           id: 'adsense-auto-ads',
           innerHTML: `
-            (adsbygoogle = window.adsbygoogle || []).push({
-              google_ad_client: "${pubId.value}",
-              enable_page_level_ads: true
-            });
+            if (!window.__adsense_page_level_ads_enabled) {
+              (window.adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "${pubId.value}",
+                enable_page_level_ads: true
+              });
+              window.__adsense_page_level_ads_enabled = true;
+            }
           `
         } : {}
       ]
