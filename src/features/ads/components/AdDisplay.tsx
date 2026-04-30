@@ -104,7 +104,7 @@ export const AdDisplay = defineComponent({
       }
 
       return (
-        <div class={['overflow-hidden rounded-xl bg-transparent', props.class]}>
+        <div class={['w-full overflow-hidden rounded-xl bg-transparent', sizeClasses[props.size], props.class]}>
           <ins
             class="adsbygoogle"
             style={{ display: 'block', height: '100%' }}
