@@ -12,15 +12,15 @@ export function useAdSenseHead(
     script: computed(() => {
       if (!pubId.value || pubId.value === 'ca-pub-XXXXXXXXXXXXXXXX') return []
 
-      const src = autoAdsEnabled.value 
-        ? `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubId.value}`
-        : 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
-
       return [
+        {
+          id: 'adsense-init',
+          innerHTML: 'window.adsbygoogle = window.adsbygoogle || [];',
+        },
         {
           id: 'adsense-script',
           async: true,
-          src,
+          src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubId.value}`,
           crossorigin: 'anonymous',
         }
       ]

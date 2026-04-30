@@ -72,11 +72,10 @@ export const AdDisplay = defineComponent({
 
         const pushAd = () => {
           try {
-            const adsbygoogle = (window as unknown as { adsbygoogle?: unknown[] }).adsbygoogle
-            if (adsbygoogle) {
-              adsbygoogle.push({})
-              adLoaded.value = true
-            }
+            // Standard AdSense pattern: initialize array if missing and push
+            const adsbygoogle = ((window as any).adsbygoogle = (window as any).adsbygoogle || [])
+            adsbygoogle.push({})
+            adLoaded.value = true
           } catch (e: any) {
             // Suppress the error if it's about slot size, as it just means the container is too small
             if (e && e.message && e.message.includes('No slot size for availableWidth')) {
@@ -133,6 +132,9 @@ export const AdDisplay = defineComponent({
     })
 
     return () => {
+      // Don't render anything until settings are fetched to avoid flicker/placeholders
+      if (!settingsStore.hasFetched) return null
+
       // In development or if IDs are missing, show a placeholder
       const isMissingConfig = !pubId.value || pubId.value === 'ca-pub-XXXXXXXXXXXXXXXX' || !slotId.value
 

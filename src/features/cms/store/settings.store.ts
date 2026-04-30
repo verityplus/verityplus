@@ -16,6 +16,7 @@ interface SiteSettings {
 export const useSettingsStore = defineStore('settings', () => {
   const settings = ref<SiteSettings>({})
   const isLoading = ref(false)
+  const hasFetched = ref(false)
 
   /**
    * Fetches full settings (including sensitive keys like openai_api_key).
@@ -28,6 +29,7 @@ export const useSettingsStore = defineStore('settings', () => {
       // The path is not yet in the generated OpenAPI types; escape via unknown until types are regenerated.
       const { data } = await (apiClient.GET as unknown as (path: string, opts: object) => Promise<{ data: unknown }>)('/api/v1/settings/all', { credentials: 'include' })
       settings.value = (data as unknown as SiteSettings) || {}
+      hasFetched.value = true
     } catch (error) {
       console.error('Failed to fetch settings:', error)
     } finally {
@@ -44,6 +46,7 @@ export const useSettingsStore = defineStore('settings', () => {
     try {
       const { data } = await apiClient.GET('/api/v1/settings', {})
       settings.value = (data as unknown as SiteSettings) || {}
+      hasFetched.value = true
     } catch (error) {
       console.error('Failed to fetch public settings:', error)
     } finally {
@@ -68,6 +71,7 @@ export const useSettingsStore = defineStore('settings', () => {
   return {
     settings,
     isLoading,
+    hasFetched,
     fetchSettings,
     fetchPublicSettings,
     updateSettings,
