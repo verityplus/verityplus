@@ -8,7 +8,11 @@ export default defineComponent({
   setup() {
     const settingsStore = useSettingsStore()
     const isSaving = ref(false)
+    const isEditing = ref(false)
     const successMessage = ref('')
+
+    const inputClasses = 'w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm disabled:opacity-50 disabled:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-500'
+    const inputClassesSmall = 'w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-primary outline-none transition font-mono text-xs disabled:opacity-50 disabled:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-500'
 
     useHead({
       title: 'Site Settings — CMS VERITY+',
@@ -45,12 +49,31 @@ export default defineComponent({
       }
     })
 
+    const handleCancel = () => {
+      form.value = {
+        adsense_pub_id: settingsStore.settings.adsense_pub_id || '',
+        adsense_account_id: settingsStore.settings.adsense_account_id || '',
+        ga_measurement_id: settingsStore.settings.ga_measurement_id || '',
+        adsense_auto_ads_enabled: settingsStore.settings.adsense_auto_ads_enabled || 'false',
+        ads_slot_leaderboard: settingsStore.settings.ads_slot_leaderboard || '',
+        ads_slot_banner: settingsStore.settings.ads_slot_banner || '',
+        ads_slot_sidebar: settingsStore.settings.ads_slot_sidebar || '',
+        ads_slot_inline: settingsStore.settings.ads_slot_inline || '',
+        openai_api_key: settingsStore.settings.openai_api_key || '',
+        openai_base_url: settingsStore.settings.openai_base_url || '',
+        openai_model: settingsStore.settings.openai_model || '',
+      }
+      isEditing.value = false
+      successMessage.value = ''
+    }
+
     const handleSave = async () => {
       isSaving.value = true
       successMessage.value = ''
       try {
         await settingsStore.updateSettings(form.value)
         successMessage.value = 'Settings updated successfully!'
+        isEditing.value = false
         setTimeout(() => {
           successMessage.value = ''
         }, 3000)
@@ -90,7 +113,8 @@ export default defineComponent({
                   v-model={form.value.ga_measurement_id}
                   type="text"
                   placeholder="G-XXXXXXXXXX"
-                  class="w-full max-w-md px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm"
+                  disabled={!isEditing.value}
+                  class={['max-w-md', inputClasses]}
                 />
                 <p class="text-[10px] text-slate-400">This ID will be used to inject the Google Analytics Global Site Tag (gtag.js) on all public pages.</p>
               </div>
@@ -105,7 +129,8 @@ export default defineComponent({
                   v-model={form.value.adsense_pub_id}
                   type="text"
                   placeholder="ca-pub-XXXXXXXXXXXXXXXX"
-                  class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm"
+                  disabled={!isEditing.value}
+                  class={inputClasses}
                 />
                 <p class="text-[10px] text-slate-400">Used for script injection.</p>
               </div>
@@ -118,7 +143,8 @@ export default defineComponent({
                   v-model={form.value.adsense_account_id}
                   type="text"
                   placeholder="pub-123456789"
-                  class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm"
+                  disabled={!isEditing.value}
+                  class={inputClasses}
                 />
                 <p class="text-[10px] text-slate-400">Used for earnings reports.</p>
               </div>
@@ -132,10 +158,16 @@ export default defineComponent({
                     <p class="text-[10px] text-slate-400 mt-1">Let Google automatically place ads across your site in the best locations.</p>
                   </div>
                   <button
-                    onClick={() => (form.value.adsense_auto_ads_enabled = form.value.adsense_auto_ads_enabled === 'true' ? 'false' : 'true')}
+                    onClick={() => {
+                      if (isEditing.value) {
+                        form.value.adsense_auto_ads_enabled = form.value.adsense_auto_ads_enabled === 'true' ? 'false' : 'true'
+                      }
+                    }}
+                    disabled={!isEditing.value}
                     class={[
                       'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
-                      form.value.adsense_auto_ads_enabled === 'true' ? 'bg-primary' : 'bg-slate-200'
+                      form.value.adsense_auto_ads_enabled === 'true' ? 'bg-primary' : 'bg-slate-200',
+                      !isEditing.value && 'opacity-50 cursor-not-allowed'
                     ]}
                   >
                     <span
@@ -163,7 +195,8 @@ export default defineComponent({
                     v-model={form.value.ads_slot_leaderboard}
                     type="text"
                     placeholder="XXXXXXXXXX"
-                    class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-primary outline-none transition font-mono text-xs"
+                    disabled={!isEditing.value}
+                    class={inputClassesSmall}
                   />
                 </div>
                 <div class="space-y-2">
@@ -174,7 +207,8 @@ export default defineComponent({
                     v-model={form.value.ads_slot_banner}
                     type="text"
                     placeholder="XXXXXXXXXX"
-                    class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-primary outline-none transition font-mono text-xs"
+                    disabled={!isEditing.value}
+                    class={inputClassesSmall}
                   />
                 </div>
                 <div class="space-y-2">
@@ -185,7 +219,8 @@ export default defineComponent({
                     v-model={form.value.ads_slot_sidebar}
                     type="text"
                     placeholder="XXXXXXXXXX"
-                    class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-primary outline-none transition font-mono text-xs"
+                    disabled={!isEditing.value}
+                    class={inputClassesSmall}
                   />
                 </div>
                 <div class="space-y-2">
@@ -196,7 +231,8 @@ export default defineComponent({
                     v-model={form.value.ads_slot_inline}
                     type="text"
                     placeholder="XXXXXXXXXX"
-                    class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-primary outline-none transition font-mono text-xs"
+                    disabled={!isEditing.value}
+                    class={inputClassesSmall}
                   />
                 </div>
               </div>
@@ -220,7 +256,8 @@ export default defineComponent({
                   v-model={form.value.openai_api_key}
                   type="password"
                   placeholder="sk-..."
-                  class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm"
+                  disabled={!isEditing.value}
+                  class={inputClasses}
                 />
                 <p class="text-[10px] text-slate-400">Your OpenAI-compatible API key. Stored securely in the database.</p>
               </div>
@@ -233,7 +270,8 @@ export default defineComponent({
                   v-model={form.value.openai_base_url}
                   type="text"
                   placeholder="https://api.openai.com/v1"
-                  class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm"
+                  disabled={!isEditing.value}
+                  class={inputClasses}
                 />
                 <p class="text-[10px] text-slate-400">Custom base URL for DeepSeek, OpenRouter, etc.</p>
               </div>
@@ -246,7 +284,8 @@ export default defineComponent({
                   v-model={form.value.openai_model}
                   type="text"
                   placeholder="gpt-4o"
-                  class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition font-mono text-sm"
+                  disabled={!isEditing.value}
+                  class={inputClasses}
                 />
                 <p class="text-[10px] text-slate-400">e.g. gpt-4o, gpt-3.5-turbo, deepseek-chat.</p>
               </div>
@@ -262,14 +301,33 @@ export default defineComponent({
                 </span>
               )}
             </div>
-            <BaseButton
-              onClick={handleSave}
-              loading={isSaving.value}
-              variant="primary"
-              class="px-8 py-3 uppercase font-black tracking-widest text-xs"
-            >
-              Save Configuration
-            </BaseButton>
+            {isEditing.value ? (
+              <div class="flex items-center gap-3">
+                <button
+                  onClick={handleCancel}
+                  class="px-6 py-3 uppercase font-black tracking-widest text-xs text-slate-500 hover:text-slate-800 transition disabled:opacity-50"
+                  disabled={isSaving.value}
+                >
+                  Cancel
+                </button>
+                <BaseButton
+                  onClick={handleSave}
+                  loading={isSaving.value}
+                  variant="primary"
+                  class="px-8 py-3 uppercase font-black tracking-widest text-xs"
+                >
+                  Save Configuration
+                </BaseButton>
+              </div>
+            ) : (
+              <BaseButton
+                onClick={() => (isEditing.value = true)}
+                variant="primary"
+                class="px-8 py-3 uppercase font-black tracking-widest text-xs"
+              >
+                Edit Settings
+              </BaseButton>
+            )}
           </footer>
         </div>
 
