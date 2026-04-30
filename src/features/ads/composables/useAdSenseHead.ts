@@ -12,25 +12,17 @@ export function useAdSenseHead(
     script: computed(() => {
       if (!pubId.value || pubId.value === 'ca-pub-XXXXXXXXXXXXXXXX') return []
 
+      const src = autoAdsEnabled.value 
+        ? `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubId.value}`
+        : 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+
       return [
         {
           id: 'adsense-script',
           async: true,
-          src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubId.value}`,
+          src,
           crossorigin: 'anonymous',
-        },
-        autoAdsEnabled.value ? {
-          id: 'adsense-auto-ads',
-          innerHTML: `
-            if (!window.__adsense_page_level_ads_enabled) {
-              (window.adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "${pubId.value}",
-                enable_page_level_ads: true
-              });
-              window.__adsense_page_level_ads_enabled = true;
-            }
-          `
-        } : {}
+        }
       ]
     }),
   })
