@@ -1,4 +1,4 @@
-import { defineComponent, type PropType, onMounted, nextTick, ref, computed } from 'vue'
+import { defineComponent, type PropType, onMounted, nextTick, ref, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { AdSize } from '@/shared/types'
 import { useSettingsStore } from '@/features/cms/store/settings.store'
@@ -50,10 +50,10 @@ export const AdDisplay = defineComponent({
     })
 
     const sizeClasses: Record<AdSize, string> = {
-      leaderboard: 'h-24',
-      banner: 'h-32',
-      sidebar: 'h-64',
-      inline: 'h-40',
+      leaderboard: 'min-h-[96px]',
+      banner: 'min-h-[128px]',
+      sidebar: 'min-h-[256px]',
+      inline: 'min-h-[160px]',
     }
 
     const adFormat: Record<AdSize, string> = {
@@ -63,7 +63,8 @@ export const AdDisplay = defineComponent({
       inline: 'auto',
     }
 
-    onMounted(async () => {
+    const initAd = async () => {
+      if (adLoaded.value) return
       if (pubId.value && pubId.value !== 'ca-pub-XXXXXXXXXXXXXXXX' && slotId.value) {
         await nextTick()
         try {
@@ -73,10 +74,17 @@ export const AdDisplay = defineComponent({
             adLoaded.value = true
           }
         } catch (e) {
-
           console.error('AdSense error:', e)
         }
       }
+    }
+
+    onMounted(() => {
+      initAd()
+    })
+
+    watch([pubId, slotId], () => {
+      initAd()
     })
 
     return () => {
@@ -104,10 +112,11 @@ export const AdDisplay = defineComponent({
       }
 
       return (
-        <div class={['w-full overflow-hidden rounded-xl bg-transparent', sizeClasses[props.size], props.class]}>
+        <div class={['w-full overflow-hidden rounded-xl bg-transparent flex justify-center', sizeClasses[props.size], props.class]}>
           <ins
+            key={slotId.value}
             class="adsbygoogle"
-            style={{ display: 'block', height: '100%' }}
+            style={{ display: 'block', width: '100%' }}
             data-ad-client={pubId.value}
             data-ad-slot={slotId.value}
             data-ad-format={adFormat[props.size]}
