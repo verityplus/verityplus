@@ -1,4 +1,4 @@
-import { defineComponent, type PropType, onMounted, nextTick, ref, computed, watch } from 'vue'
+import { defineComponent, type PropType, onMounted, onUnmounted, nextTick, ref, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { AdSize } from '@/shared/types'
 import { useSettingsStore } from '@/features/cms/store/settings.store'
@@ -30,6 +30,8 @@ export const AdDisplay = defineComponent({
   setup(props) {
     const { t } = useI18n()
     const adLoaded = ref(false)
+    const adContainer = ref<HTMLElement | null>(null)
+    let resizeObserver: ResizeObserver | null = null
     const settingsStore = useSettingsStore()
 
     const pubId = computed(() => settingsStore.settings.adsense_pub_id)
@@ -67,20 +69,63 @@ export const AdDisplay = defineComponent({
       if (adLoaded.value) return
       if (pubId.value && pubId.value !== 'ca-pub-XXXXXXXXXXXXXXXX' && slotId.value) {
         await nextTick()
-        try {
-          const adsbygoogle = (window as unknown as { adsbygoogle?: unknown[] }).adsbygoogle
-          if (adsbygoogle) {
-            adsbygoogle.push({})
-            adLoaded.value = true
+
+        const pushAd = () => {
+          try {
+            const adsbygoogle = (window as unknown as { adsbygoogle?: unknown[] }).adsbygoogle
+            if (adsbygoogle) {
+              adsbygoogle.push({})
+              adLoaded.value = true
+            }
+          } catch (e: any) {
+            // Suppress the error if it's about slot size, as it just means the container is too small
+            if (e && e.message && e.message.includes('No slot size for availableWidth')) {
+              console.warn(`AdSense: Waiting for container to be wider. (${e.message})`)
+            } else {
+              console.error('AdSense error:', e)
+            }
           }
-        } catch (e) {
-          console.error('AdSense error:', e)
+        }
+
+        if (adContainer.value) {
+          const checkAndPush = () => {
+            if (adLoaded.value || !adContainer.value) return
+            const width = adContainer.value.clientWidth
+            // AdSense minimum width for responsive is typically ~200px, but vertical can be narrower
+            const minWidth = adFormat[props.size] === 'vertical' ? 120 : 200
+            
+            if (width >= minWidth) {
+              pushAd()
+              if (resizeObserver) {
+                resizeObserver.disconnect()
+                resizeObserver = null
+              }
+            }
+          }
+
+          checkAndPush()
+
+          if (!adLoaded.value && !resizeObserver) {
+            resizeObserver = new ResizeObserver(() => {
+              checkAndPush()
+            })
+            resizeObserver.observe(adContainer.value)
+          }
+        } else {
+          pushAd()
         }
       }
     }
 
     onMounted(() => {
       initAd()
+    })
+
+    onUnmounted(() => {
+      if (resizeObserver) {
+        resizeObserver.disconnect()
+        resizeObserver = null
+      }
     })
 
     watch([pubId, slotId], () => {
@@ -112,7 +157,7 @@ export const AdDisplay = defineComponent({
       }
 
       return (
-        <div class={['w-full overflow-hidden rounded-xl bg-transparent flex justify-center', sizeClasses[props.size], props.class]}>
+        <div ref={adContainer} class={['w-full overflow-hidden rounded-xl bg-transparent flex justify-center', sizeClasses[props.size], props.class]}>
           <ins
             key={slotId.value}
             class="adsbygoogle"
