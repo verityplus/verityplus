@@ -161,7 +161,12 @@ export const AdDisplay = defineComponent({
           <ins
             key={slotId.value}
             class="adsbygoogle"
-            style={{ display: 'block', width: '100%' }}
+            style={{ 
+              display: 'block', 
+              width: '100%',
+              minWidth: adFormat[props.size] === 'vertical' ? '120px' : '250px',
+              minHeight: props.size === 'leaderboard' ? '96px' : props.size === 'banner' ? '128px' : props.size === 'sidebar' ? '256px' : '160px'
+            }}
             data-ad-client={pubId.value}
             data-ad-slot={slotId.value}
             data-ad-format={adFormat[props.size]}
