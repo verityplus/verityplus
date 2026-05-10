@@ -12,7 +12,7 @@
 export function formatDate(
   dateStr: string | undefined | null,
   locale: string = 'en-US',
-  useRelative: boolean = false
+  useRelative: boolean = false,
 ): string {
   if (!dateStr) return ''
 
@@ -46,6 +46,7 @@ export function formatDate(
           relativeString = rtf.format(-diffInDays, 'day')
         }
 
+        console.log(relativeString)
         return relativeString.charAt(0).toUpperCase() + relativeString.slice(1)
       }
     }
@@ -53,7 +54,7 @@ export function formatDate(
     return new Intl.DateTimeFormat(locale, {
       day: 'numeric',
       month: 'long',
-      year: 'numeric'
+      year: 'numeric',
     }).format(date)
   } catch {
     return dateStr
