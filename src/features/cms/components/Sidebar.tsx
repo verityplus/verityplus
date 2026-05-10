@@ -34,8 +34,8 @@ export const CMSSidebar = defineComponent({
     ]
 
     const externalLinks: NavItem[] = [
-      { name: 'Analytics', path: '#', icon: 'bi bi-graph-up', title: 'Google Analytics' },
-      { name: 'AdSense', path: '#', icon: 'bi bi-cash-stack', title: 'Google AdSense' },
+      { name: 'Analytics', path: 'https://analytics.google.com/analytics/web/#/a390697884p532203733/', icon: 'bi bi-graph-up', title: 'Google Analytics' },
+      { name: 'AdSense', path: 'https://adsense.google.com/adsense/u/0/pub-3651499664341710/', icon: 'bi bi-cash-stack', title: 'Google AdSense' },
     ]
 
     const isActive = (path: string, exact: boolean = false) => {
