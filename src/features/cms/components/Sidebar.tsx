@@ -1,6 +1,8 @@
-import { defineComponent, type PropType } from 'vue'
+import { defineComponent, type PropType, computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { AppLogo } from '@/components/ui/Logo'
+import { useAuthStore } from '../store/auth.store'
+
 
 /**
  * CMS Sidebar: Primary navigation for the administrative area.
@@ -24,14 +26,23 @@ export const CMSSidebar = defineComponent({
       title?: string
     }
 
-    const navItems: NavItem[] = [
-      { name: 'Dashboard', path: '/cms', icon: 'bi bi-speedometer2', exact: true },
-      { name: 'Articles', path: '/cms/articles', icon: 'bi bi-journal-text' },
-      { name: 'Authors', path: '/cms/authors', icon: 'bi bi-people' },
-      { name: 'Categories', path: '/cms/categories', icon: 'bi bi-tags' },
-      { name: 'Users', path: '/cms/users', icon: 'bi bi-person-gear' },
-      { name: 'Settings', path: '/cms/settings', icon: 'bi bi-gear-fill' },
-    ]
+    const authStore = useAuthStore()
+
+    const navItems = computed<NavItem[]>(() => {
+      const items: NavItem[] = [
+        { name: 'Dashboard', path: '/cms', icon: 'bi bi-speedometer2', exact: true },
+        { name: 'Articles', path: '/cms/articles', icon: 'bi bi-journal-text' },
+        { name: 'Authors', path: '/cms/authors', icon: 'bi bi-people' },
+        { name: 'Categories', path: '/cms/categories', icon: 'bi bi-tags' },
+      ]
+
+      if (authStore.currentUser?.role === 'admin') {
+        items.push({ name: 'Users', path: '/cms/users', icon: 'bi bi-person-gear' })
+        items.push({ name: 'Settings', path: '/cms/settings', icon: 'bi bi-gear-fill' })
+      }
+
+      return items
+    })
 
     const externalLinks: NavItem[] = [
       { name: 'Analytics', path: 'https://analytics.google.com/analytics/web/#/a390697884p532203733/', icon: 'bi bi-graph-up', title: 'Google Analytics' },
@@ -105,7 +116,7 @@ export const CMSSidebar = defineComponent({
         </div>
 
         <nav class={['flex-1 space-y-1 overflow-y-auto custom-scrollbar', props.collapsed ? 'p-2' : 'p-4']}>
-          {navItems.map((item) => renderLink(item))}
+          {navItems.value.map((item) => renderLink(item))}
 
           <div class={['my-4 border-t border-slate-800/50', props.collapsed ? 'mx-2' : 'mx-4']} />
           {!props.collapsed && (

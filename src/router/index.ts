@@ -219,6 +219,10 @@ router.beforeEach(async (to, _from, next) => {
     if (!authStore.isAuthenticated) {
       return next('/cms/login')
     }
+
+    if ((to.path.startsWith('/cms/users') || to.path.startsWith('/cms/settings')) && authStore.currentUser?.role !== 'admin') {
+      return next('/cms')
+    }
   }
 
   next()

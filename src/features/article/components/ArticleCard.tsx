@@ -4,6 +4,9 @@ import type { Article } from '@/shared/types'
 import { BaseBadge } from '@/components/ui/Badge'
 import { useLocalizedField } from '@/composables/useLocalizedField'
 import { BaseImage } from '@/components/ui/Image'
+import { formatDate } from '@/utils/date'
+import { useI18n } from 'vue-i18n'
+
 
 
 /**
@@ -38,6 +41,7 @@ export const ArticleCard = defineComponent({
   setup(props) {
     const isHorizontal = props.layout === 'horizontal'
     const { getLocalizedField } = useLocalizedField()
+    const { locale } = useI18n()
 
     return () => (
       <article class={['group card h-full relative', props.class]}>
@@ -108,20 +112,14 @@ export const ArticleCard = defineComponent({
               {getLocalizedField(props.article, 'excerpt')}
             </p>
 
-            <div class="mt-auto flex justify-end items-center pt-4">
-              {!isHorizontal && (
-                <div class="absolute top-3 left-3">
-                  <RouterLink
-                    to={props.article.category ? { name: 'category', params: { slug: props.article.category.slug || props.article.category.id } } : '#'}
-                    class="pointer-events-auto no-underline"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <BaseBadge>
-                      {props.article.category ? getLocalizedField(props.article.category, 'name') : ''}
-                    </BaseBadge>
-                  </RouterLink>
+            <div class="mt-auto pt-4 flex justify-between items-center w-full border-t border-border/30">
+              {props.article.publishedAt ? (
+                <div class="text-xs font-medium text-text-muted/80 tracking-wide flex items-center">
+                  <i class="bi bi-calendar3 mr-2 opacity-70"></i>
+                  {formatDate(props.article.publishedAt, locale.value as string)}
                 </div>
-
+              ) : (
+                <div></div>
               )}
             </div>
           </div>

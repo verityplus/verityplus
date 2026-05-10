@@ -22,15 +22,15 @@ export default defineComponent({
       return page > 0 ? page : 1
     })
 
-    const nonFeaturedArticles = computed(() => store.nonFeaturedArticles)
+    const articlesList = computed(() => store.articles)
 
     const totalPages = computed(() =>
-      Math.max(1, Math.ceil(nonFeaturedArticles.value.length / ARTICLES_PER_PAGE)),
+      Math.max(1, Math.ceil(articlesList.value.length / ARTICLES_PER_PAGE)),
     )
 
     const paginatedArticles = computed(() => {
       const start = (currentPage.value - 1) * ARTICLES_PER_PAGE
-      return nonFeaturedArticles.value.slice(start, start + ARTICLES_PER_PAGE)
+      return articlesList.value.slice(start, start + ARTICLES_PER_PAGE)
     })
 
     const navigateToPage = (page: number) => {
