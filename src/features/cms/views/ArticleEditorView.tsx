@@ -664,25 +664,63 @@ export default defineComponent({
                   {isUploading.value ? 'Synchronizing with Secure Storage...' : 'Click Image to Upload'}
                 </p>
 
-                <div class="pt-4 border-t border-slate-50 space-y-3">
-                  <label class="text-[10px] items-center flex justify-between font-bold text-slate-500 uppercase tracking-widest">
-                    <span>Image Caption</span>
-                    <span class="text-primary">{activeLangSuffix.value}</span>
+                <div class="pt-4 border-t border-slate-50 space-y-4">
+                  <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                    Image Caption
                   </label>
-                  <input
-                    value={
-                      form.value[
-                        `coverImageCaption${activeLangSuffix.value}` as keyof EditorForm
-                      ] as string
-                    }
-                    onInput={(e) => {
-                      const key = `coverImageCaption${activeLangSuffix.value}` as keyof EditorForm
-                      ;(form.value[key] as string) = (e.target as HTMLInputElement).value
-                    }}
-                    type="text"
-                    placeholder="Caption for cover image..."
-                    class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs font-bold text-slate-700 outline-none"
-                  />
+                  
+                  <div class="space-y-3">
+                    {/* ID */}
+                    <div class="space-y-1">
+                      <div class="flex justify-between items-center px-1">
+                        <span class="text-[9px] font-black text-slate-400 uppercase tracking-tighter">Indonesian</span>
+                        <span class="text-[9px] font-black text-primary/50 uppercase tracking-tighter">ID</span>
+                      </div>
+                      <input
+                        value={form.value.coverImageCaptionId}
+                        onInput={(e) => {
+                          form.value.coverImageCaptionId = (e.target as HTMLInputElement).value
+                        }}
+                        type="text"
+                        placeholder="Caption (ID)..."
+                        class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs font-bold text-slate-700 outline-none focus:bg-white transition"
+                      />
+                    </div>
+
+                    {/* EN */}
+                    <div class="space-y-1">
+                      <div class="flex justify-between items-center px-1">
+                        <span class="text-[9px] font-black text-slate-400 uppercase tracking-tighter">English</span>
+                        <span class="text-[9px] font-black text-primary/50 uppercase tracking-tighter">EN</span>
+                      </div>
+                      <input
+                        value={form.value.coverImageCaptionEn}
+                        onInput={(e) => {
+                          form.value.coverImageCaptionEn = (e.target as HTMLInputElement).value
+                        }}
+                        type="text"
+                        placeholder="Caption (EN)..."
+                        class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs font-bold text-slate-700 outline-none focus:bg-white transition"
+                      />
+                    </div>
+
+                    {/* ZH */}
+                    <div class="space-y-1">
+                      <div class="flex justify-between items-center px-1">
+                        <span class="text-[9px] font-black text-slate-400 uppercase tracking-tighter">Chinese</span>
+                        <span class="text-[9px] font-black text-primary/50 uppercase tracking-tighter">ZH</span>
+                      </div>
+                      <input
+                        value={form.value.coverImageCaptionZh}
+                        onInput={(e) => {
+                          form.value.coverImageCaptionZh = (e.target as HTMLInputElement).value
+                        }}
+                        type="text"
+                        placeholder="Caption (ZH)..."
+                        class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs font-bold text-slate-700 outline-none focus:bg-white transition"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
