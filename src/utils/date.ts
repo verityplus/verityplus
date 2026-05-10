@@ -46,9 +46,6 @@ export function formatDate(
           relativeString = rtf.format(-diffInDays, 'day')
         }
 
-        relativeString = relativeString.slice(0)
-        relativeString = relativeString.slice(-1)
-
         return relativeString.charAt(0).toUpperCase() + relativeString.slice(1)
       }
     }
