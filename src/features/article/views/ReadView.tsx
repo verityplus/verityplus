@@ -308,7 +308,7 @@ export default defineComponent({
                         <p class="text-text-primary font-bold leading-none mb-1 group-hover/author:text-primary transition-colors">
                           {article.value.author.name}
                         </p>
-                        <p class="text-text-muted text-sm">{formatDate(article.value.publishedAt as string, locale.value)}</p>
+                        <p class="text-text-muted text-sm">{formatDate(article.value.publishedAt as string, locale.value, true)}</p>
 
                       </div>
                     </RouterLink>

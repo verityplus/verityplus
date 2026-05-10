@@ -116,7 +116,7 @@ export const ArticleCard = defineComponent({
               {props.article.publishedAt ? (
                 <div class="text-xs font-medium text-text-muted/80 tracking-wide flex items-center">
                   <i class="bi bi-calendar3 mr-2 opacity-70"></i>
-                  {formatDate(props.article.publishedAt, locale.value as string)}
+                  {formatDate(props.article.publishedAt, locale.value as string, true)}
                 </div>
               ) : (
                 <div></div>
