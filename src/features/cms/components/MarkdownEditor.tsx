@@ -84,7 +84,7 @@ export const MarkdownEditor = defineComponent({
       const file = (e.target as HTMLInputElement).files?.[0]
       if (file) {
         try {
-          const url = await StorageService.upload(file)
+          const url = await StorageService.upload(file, 'article')
           editor.value?.chain().focus().setImage({ src: resolveAssetUrl(url) }).run()
           showImageDialog.value = false
         } catch (err: unknown) {

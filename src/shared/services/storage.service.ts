@@ -6,9 +6,10 @@ export const StorageService = {
    * @param file The file object from input change event
    * @returns The final public URL of the uploaded file
    */
-  async upload(file: File): Promise<string> {
+  async upload(file: File, type: 'article' | 'author' = 'article'): Promise<string> {
     const formData = new FormData()
     formData.append('file', file)
+    formData.append('type', type)
 
     // We send multipart/form-data.
     const { data, error } = await apiClient.POST('/api/v1/storage/upload', {

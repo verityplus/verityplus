@@ -165,7 +165,7 @@ export default defineComponent({
                   if (file) {
                     isUploading.value = true
                     try {
-                      const url = await StorageService.upload(file)
+                      const url = await StorageService.upload(file, 'author')
                       form.value.avatar = url
                     } catch (err: unknown) {
                       console.error('Avatar upload failed:', err)

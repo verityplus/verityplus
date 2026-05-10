@@ -630,7 +630,7 @@ export default defineComponent({
                       if (file) {
                         isUploading.value = true
                         try {
-                          const url = await StorageService.upload(file)
+                          const url = await StorageService.upload(file, 'article')
                           form.value.coverImage = url
                         } catch (err: unknown) {
                           console.error('Upload failed:', err)
