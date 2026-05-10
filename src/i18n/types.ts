@@ -55,7 +55,6 @@ export interface MessageSchema {
     popularCategories: string
     clearSearch: string
     searchPlaceholder: string
-    phone: string
     homeTitle: string
     homeDesc: string
     aboutTitle: string
@@ -114,8 +113,6 @@ export interface MessageSchema {
     title: string
     description: string
     mainOffice: string
-    address: string
-    phone: string
   }
   advertise: {
     heading: string

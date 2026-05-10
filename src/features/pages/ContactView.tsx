@@ -24,7 +24,7 @@ export default defineComponent({
       {
         icon: 'bi bi-geo-alt-fill',
         label: t('contact.mainOffice'),
-        value: t('contact.address'),
+        value: 'Pontianak, Kalimantan Barat, Indonesia',
         href: null,
       },
       {
@@ -32,12 +32,6 @@ export default defineComponent({
         label: t('common.email'),
         value: 'contact@verityplus.space',
         href: 'mailto:contact@verityplus.space',
-      },
-      {
-        icon: 'bi bi-telephone-fill',
-        label: t('common.phone'),
-        value: t('contact.phone'),
-        href: 'tel:+622112345678',
       },
     ])
 
