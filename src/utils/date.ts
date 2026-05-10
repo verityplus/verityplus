@@ -28,18 +28,25 @@ export function formatDate(
       // Only use relative time if it's within the last 7 days and not in the future
       if (diffInMs >= 0 && diffInDays <= 7) {
         const rtf = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' })
+        let relativeString = ''
 
         if (diffInDays === 0) {
           const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60))
-          if (diffInHours > 0) return rtf.format(-diffInHours, 'hour')
-
-          const diffInMinutes = Math.floor(diffInMs / (1000 * 60))
-          if (diffInMinutes > 0) return rtf.format(-diffInMinutes, 'minute')
-
-          return rtf.format(0, 'second')
+          if (diffInHours > 0) {
+            relativeString = rtf.format(-diffInHours, 'hour')
+          } else {
+            const diffInMinutes = Math.floor(diffInMs / (1000 * 60))
+            if (diffInMinutes > 0) {
+              relativeString = rtf.format(-diffInMinutes, 'minute')
+            } else {
+              relativeString = rtf.format(0, 'second')
+            }
+          }
+        } else {
+          relativeString = rtf.format(-diffInDays, 'day')
         }
 
-        return rtf.format(-diffInDays, 'day')
+        return relativeString.charAt(0).toUpperCase() + relativeString.slice(1)
       }
     }
 
